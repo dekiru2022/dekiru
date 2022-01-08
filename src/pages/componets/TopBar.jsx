@@ -8,6 +8,11 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Content from './QUES/Content';
+import QuestionList from './QUES/QuestionList';
+import Mypage from './USERS/Mypage';
+import { Link  as LinkRouter } from 'react-router-dom';
+import QuestionPage from './QUES/QuestionPage'
+import QuestionUser from './QUES/QuestionUser'
 import QuestionSearch from './QUES/QuestionSearch';
 
 function TabPanel(props) {
