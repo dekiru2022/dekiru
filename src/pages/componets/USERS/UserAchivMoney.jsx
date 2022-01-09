@@ -65,14 +65,14 @@ export default function UserAchivMoney() {
   };
 
   const getCashFlowData = () => {
-    axios
-        .get('/api/categories')
-        .then(response => {
-            setCategories(response.data);
-        })
-        .catch(() => {
-            console.log('通信に失敗しました');
-        });
+    // axios
+    //     .get('/api/categories')
+    //     .then(response => {
+    //         setCategories(response.data);
+    //     })
+    //     .catch(() => {
+    //         console.log('通信に失敗しました');
+    //     });
   }
   return (
     <Paper sx={{ width: '50%' }}>
