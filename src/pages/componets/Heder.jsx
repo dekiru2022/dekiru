@@ -20,9 +20,11 @@ const Header = (props) => {
     props.setValue("setting")
   }
   return (
-    <AppBar position="static" style={{ backgroundColor: "#000000" }}>
+    <AppBar position="static" style={{ backgroundColor: "#FFF" }}>
       <Toolbar>
-        <img src="https://classmethod.jp/wp-content/themes/classmethod/img/common/logo_classmethod.svg" alt="クラスメソッド株式会社"
+        <img src={`${process.env.PUBLIC_URL}/dekiru_logo2.jpg`} alt="Logo"
+          width={150}
+          height={50}
           onClick={() => props.setValue("")}></img>
         <div style={{ flexGrow: 1 }}></div>
         <div>
