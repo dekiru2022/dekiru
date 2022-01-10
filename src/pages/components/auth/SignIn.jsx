@@ -102,7 +102,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" component={LinkRouter} to="/componets/SignUp">
+                  <Link href="#" variant="body2" component={LinkRouter} to="signUp">
                     {"アカウント作成"}
                   </Link>
                 </Grid>

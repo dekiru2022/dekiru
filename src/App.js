@@ -10,7 +10,7 @@ import Home from './pages/components/Home';
 import Copyright from './pages/components/Copyright';
 import BasicDetail from './pages/components/USERS/BasicDetail';
 import Confirm from './pages/components/QUES/CreateQuestion3';
-import QuestionList from './pages/components/QUES/QuestionList';
+import QuestionList from './pages/components/QUES/QuestionCard';
 import Mypage from './pages/components/USERS/Mypage';
 import QuestionPage from './pages/components/QUES/QuestionPage';
 import Skyway from './pages/components/skyway/Skyway';
@@ -23,7 +23,7 @@ function App() {
         <Switch>
           {/* 認証関係 */}
           <Route exact path="/" component={Signin} />
-          <Route exact path="/componets/SignUp" component={SignUp} />
+          <Route exact path="/signUp" component={SignUp} />
 
           {/* ヘッダーナビゲーション関係 */}
           <Route exact path="/settings" component={Settings} />

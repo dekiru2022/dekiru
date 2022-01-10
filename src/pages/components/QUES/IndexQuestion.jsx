@@ -5,10 +5,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { TextField } from '@material-ui/core';
-import QuestionList from './QuestionList';
+import QuestionCard from './QuestionCard';
 
 
-export default function QuestionSearch() {
+export default function IndexQuestion() {
     // const initialState = {
     //     questionss: [
     //         {
@@ -207,7 +207,7 @@ export default function QuestionSearch() {
                             return (
                                 <tr key={questions.id}>
                                     <td>
-                                        <QuestionList question ={questions} />
+                                        <QuestionCard question ={questions} />
                                     </td>
                                 </tr>
                             );
@@ -216,7 +216,7 @@ export default function QuestionSearch() {
                     //         return (
                     //             <tr key={questions.id}>
                     //                 <td>
-                    //                     <QuestionList Category_id ={questions.category}  Title = {questions.title} Question={questions.question} />
+                    //                     <QuestionCard Category_id ={questions.category}  Title = {questions.title} Question={questions.question} />
                     //                 </td>
                     //             </tr>
                     //          );

@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function QuestionList(props) {
+export default function QuestionCard(props) {
   const { question } = props;
   const [expanded, setExpanded] = useState(false);
 

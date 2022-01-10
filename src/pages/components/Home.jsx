@@ -8,12 +8,11 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Content from './QUES/Content';
-import QuestionList from './QUES/QuestionList';
-import Mypage from './USERS/Mypage';
+import IndexQuestion from './QUES/IndexQuestion';
+
 import { Link  as LinkRouter } from 'react-router-dom';
 import QuestionPage from './QUES/QuestionPage'
 import QuestionUser from './QUES/QuestionUser'
-import QuestionSearch from './QUES/QuestionSearch';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,14 +79,14 @@ export default function Home() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-
+        {/* 質問 */}
         <TabPanel value={value} index={0} dir={theme.direction} >
           <Content />
         </TabPanel>
 
+        {/* 質問一覧 */}
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <QuestionSearch />
-          {/* <QuestionList />  */}
+          <IndexQuestion />
         </TabPanel>
         
       </SwipeableViews>
