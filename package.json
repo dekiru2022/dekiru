@@ -21,6 +21,8 @@
     "react-hook-form": "^7.17.4",
     "react-router-dom": "^5.3.0",
     "react-swipeable-views": "^0.14.0",
+    "recharts": "^2.1.8",
+    "skyway-js": "^4.4.3",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
