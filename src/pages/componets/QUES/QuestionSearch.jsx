@@ -81,51 +81,51 @@ export default function QuestionSearch() {
     //       });
     }
 
-    // const filteredTask = useMemo(() => {
-    //     // let tmpTasks = tasks;
+    const filteredTask = useMemo(() => {
+        // let tmpTasks = tasks;
 
-    //     // // 入力した文字は小文字にする
-    //     // const filterTitle = filterQuery.title && filterQuery.title.toLowerCase();
-    //     // const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
+        // 入力した文字は小文字にする
+        const filterTitle = filterQuery.title && filterQuery.title.toLowerCase();
+        const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
 
-    //     // // 絞り込み検索
-    //     // tmpQuestions = tmpQuestions.filter(row => {
+        // 絞り込み検索
+        // tmpQuestions = tmpQuestions.filter(row => {
 
-    //     //     // タイトルで絞り込み
-    //     //     if (
-    //     //         filterQuery.title &&
-    //     //         String(row.title).toLowerCase().indexOf(filterTitle) === -1
-    //     //     ) {
-    //     //         return false;
-    //     //     }
-    //     //     // 質問内容で絞り込み
-    //     //     if (
-    //     //         filterQuery.question &&
-    //     //         String(row.question).toLowerCase().indexOf(filterQuestion) === -1
-    //     //     ) {
-    //     //         return false;
-    //     //     }
-    //     //     // カテゴリーで絞り込み
-    //     //     if (
-    //     //         filterQuery.category_id &&
-    //     //         row.category !== parseInt(filterQuery.category_id)
-    //     //     ) {
-    //     //         return false;
-    //     //     }
-    //     //     return row;
-    //     });
+        //     // タイトルで絞り込み
+        //     if (
+        //         filterQuery.title &&
+        //         String(row.title).toLowerCase().indexOf(filterTitle) === -1
+        //     ) {
+        //         return false;
+        //     }
+        //     // 質問内容で絞り込み
+        //     if (
+        //         filterQuery.question &&
+        //         String(row.question).toLowerCase().indexOf(filterQuestion) === -1
+        //     ) {
+        //         return false;
+        //     }
+        //     // カテゴリーで絞り込み
+        //     if (
+        //         filterQuery.category_id &&
+        //         row.category !== parseInt(filterQuery.category_id)
+        //     ) {
+        //         return false;
+        //     }
+        //     return row;
+        // });
 
-    //     // ソート
-    //     if (sort.key) {
-    //         tmpQuestions = tmpQuestions.sort((a, b) => {
-    //             a = a[sort.key];
-    //             b = b[sort.key];
-    //             return (a === b ? 0 : a > b ? 1 : -1) * sort.order;
-    //         });
-    //     }
+        // ソート
+        // if (sort.key) {
+        //     tmpQuestions = tmpQuestions.sort((a, b) => {
+        //         a = a[sort.key];
+        //         b = b[sort.key];
+        //         return (a === b ? 0 : a > b ? 1 : -1) * sort.order;
+        //     });
+        // }
 
-    //     return tmpQuestions;
-    // }, [filterQuery, sort, questions]);
+        // return tmpQuestions;
+    }, [filterQuery, sort, questions]);
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;

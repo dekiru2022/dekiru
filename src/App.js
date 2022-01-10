@@ -1,13 +1,21 @@
-import TopBar from './componets/TopBar'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import SignUp from './pages/componets/SignUp';
+import Signin from './pages/componets/login';
+import Top from './Top';
 
 function App() {
   return (
-    <TopBar />
+    <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Signin} />
+          <Route exact path="/componets/SignUp" component={SignUp} />
+          <Route exact path="/Top" component={Top} />
+        </Switch>
+      </BrowserRouter>
   );
 }
 
 export default (App);
-
 
 
 // import React, { useState, useEffect } from 'react';
