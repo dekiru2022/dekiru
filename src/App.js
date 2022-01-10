@@ -1,17 +1,48 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Header from './pages/componets/header/Header';
+import Notifications from './pages/componets/header/Notifications';
+import Settings from './pages/componets/header/Settings';
 import SignUp from './pages/componets/SignUp';
-import Signin from './pages/componets/login';
-import Top from './Top';
+import Signin from './pages/componets/SignIn';
+import { Grid } from '@material-ui/core';
+import TopBar from './pages/componets/TopBar';
+import Copyright from './pages/componets/Copyright';
+import BasicDetail from './pages/componets/USERS/BasicDetail';
+import Confirm from './pages/componets/QUES/CreateQuestion3';
+import QuestionList from './pages/componets/QUES/QuestionList';
+import Mypage from './pages/componets/USERS/Mypage';
+import QuestionPage from './pages/componets/QUES/QuestionPage';
+import Skyway from './pages/componets/skyway/Skyway';
+import BasicDetailsEdit from './pages/componets/USERS/BasicDetailsEdit';
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
         <Switch>
+          {/* 認証関係 */}
           <Route exact path="/" component={Signin} />
           <Route exact path="/componets/SignUp" component={SignUp} />
-          <Route exact path="/Top" component={Top} />
+
+          {/* ヘッダーナビゲーション関係 */}
+          <Route exact path="/settings" component={Settings} />
+          <Route exact path="/notifications" component={Notifications} />
+
+          <Route exact path="/Top" component={TopBar} />
+          <Route exact path="/myPage" component={Mypage} />
+          <Route exact path="/componets/TopBar/QuettionPage" component={QuestionPage} />
+          <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
+          <Route exact path="/componets/TopBar/Mypage" component={Mypage} />
+          <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
+          <Route exact path="/componets/TopBar/Question/Detail/Confirm" component={Confirm} />
+          <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />
+
+          <Route exact path='/skyway' component={Skyway} />
         </Switch>
+        <Copyright sx={{ mt: 5 }} />
       </BrowserRouter>
+
   );
 }
 
