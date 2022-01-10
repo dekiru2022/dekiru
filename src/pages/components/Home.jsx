@@ -48,7 +48,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TopBar() {
+export default function Home() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {

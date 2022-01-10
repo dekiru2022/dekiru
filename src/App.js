@@ -1,20 +1,20 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Header from './pages/componets/header/Header';
-import Notifications from './pages/componets/header/Notifications';
-import Settings from './pages/componets/header/Settings';
-import SignUp from './pages/componets/SignUp';
-import Signin from './pages/componets/SignIn';
+import Header from './pages/components/header/Header';
+import Notifications from './pages/components/header/Notifications';
+import Settings from './pages/components/header/Settings';
+import SignUp from './pages/components/auth/SignUp';
+import Signin from './pages/components/auth/SignIn';
 import { Grid } from '@material-ui/core';
-import TopBar from './pages/componets/TopBar';
-import Copyright from './pages/componets/Copyright';
-import BasicDetail from './pages/componets/USERS/BasicDetail';
-import Confirm from './pages/componets/QUES/CreateQuestion3';
-import QuestionList from './pages/componets/QUES/QuestionList';
-import Mypage from './pages/componets/USERS/Mypage';
-import QuestionPage from './pages/componets/QUES/QuestionPage';
-import Skyway from './pages/componets/skyway/Skyway';
-import BasicDetailsEdit from './pages/componets/USERS/BasicDetailsEdit';
+import Home from './pages/components/Home';
+import Copyright from './pages/components/Copyright';
+import BasicDetail from './pages/components/USERS/BasicDetail';
+import Confirm from './pages/components/QUES/CreateQuestion3';
+import QuestionList from './pages/components/QUES/QuestionList';
+import Mypage from './pages/components/USERS/Mypage';
+import QuestionPage from './pages/components/QUES/QuestionPage';
+import Skyway from './pages/components/skyway/Skyway';
+import BasicDetailsEdit from './pages/components/USERS/BasicDetailsEdit';
 
 function App() {
   return (
@@ -28,12 +28,12 @@ function App() {
           {/* ヘッダーナビゲーション関係 */}
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/notifications" component={Notifications} />
-
-          <Route exact path="/Top" component={TopBar} />
           <Route exact path="/myPage" component={Mypage} />
+
+          {/* 質問投稿関係 */}
+          <Route exact path="/home" component={Home} />
           <Route exact path="/componets/TopBar/QuettionPage" component={QuestionPage} />
           <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
-          <Route exact path="/componets/TopBar/Mypage" component={Mypage} />
           <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
           <Route exact path="/componets/TopBar/Question/Detail/Confirm" component={Confirm} />
           <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />

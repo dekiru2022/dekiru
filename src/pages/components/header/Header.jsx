@@ -16,7 +16,7 @@ const Header = () => {
         <Container maxWidth="xl">
           <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
             <Box sx={{width: '200px'}}>
-              <Button color="primary" component={Link} to="/main" ><img width="200" src={logo2} alt="DEKIRU"></img></Button>
+              <Button color="primary" component={Link} to="/home" ><img width="200" src={logo2} alt="DEKIRU"></img></Button>
             </Box>
             <Box>
               <Button color="primary" component={Link} to="/notifications" ><NotificationsIcon /></Button>
