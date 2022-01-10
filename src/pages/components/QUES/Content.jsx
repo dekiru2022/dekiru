@@ -22,7 +22,8 @@ function Content() {
   ];
   const [activeStep, setActiveStep] = useState(0);
   //フォームの入力値を管理する
-  const [formData, setFormData] = useState({ category_id: '', category:'', title:'', content:''});
+  // const [formData, setFormData] = useState({ category_id: '', category:'', title:'', content:''});
+  const [formData, setFormData] = useState({ category_id: 2, category:'', title:'', content:''});
   const [categoriesArray, setCategoriesArray] = useState(categories);
 
     

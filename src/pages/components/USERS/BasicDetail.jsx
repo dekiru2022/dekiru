@@ -12,10 +12,13 @@ import Link from '@mui/material/Link';
 import BasicDetailsEdit from './BasicDetailsEdit';
 import { Link as LinkRouter } from 'react-router-dom';
 
+// テスト用データ
+import { user as TestUser } from '../../../database/current_user_data';
+
 export default function BasicDetail() {
     //星の設定部分
     const [userValue, setValue] = React.useState(2.5);
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(TestUser);
     const id = 1;
 
     //ユーザ情報を取得しステートuserにセットする
@@ -32,6 +35,7 @@ export default function BasicDetail() {
     }
     useEffect(() => {
         getUserData(id);
+        console.log(user)
       },[])
 
     return (
@@ -52,6 +56,7 @@ export default function BasicDetail() {
                     ハンドルネーム：
                     <label id="outlined-basic" variant="outlined" value="name" >
                         {user.name}
+                        {console.log(user)}
                     </label>
                 </Grid>
                 <Grid item xs={12}>

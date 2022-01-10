@@ -7,6 +7,10 @@ import Select from '@mui/material/Select';
 import { TextField } from '@material-ui/core';
 import QuestionCard from './QuestionCard';
 
+// テスト用データ
+import { questions as TestQuestions } from '../../../database/questions_table';
+import { categories as TestCategories } from '../../../database/categories_table';
+
 
 export default function IndexQuestion() {
     // const initialState = {
@@ -64,7 +68,10 @@ export default function IndexQuestion() {
     //       .get('/api/questions')
     //       .then(response => {
     //           setQuestions(response.data);
-    //           console.log(response.data);
+
+                //テスト用データ代入
+                setQuestions(TestQuestions);
+                console.log(TestQuestions);
     //       })
     //       .catch(() => {
     //           console.log('通信に失敗しました');
@@ -75,6 +82,9 @@ export default function IndexQuestion() {
     //       .get('/api/categories')
     //       .then(response => {
     //           setCategories(response.data);
+
+                //テスト用データの代入
+                setCategories(TestCategories);
     //       })
     //       .catch(() => {
     //           console.log('通信に失敗しました');
