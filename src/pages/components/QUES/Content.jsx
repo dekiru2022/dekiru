@@ -11,6 +11,8 @@ import CreateQuestion3 from "./CreateQuestion3";
 //import { KEYS, setItem, getItem, removeItem } from "./LocalStorage";
 import { Link  as LinkRouter } from 'react-router-dom';
 
+import { categories } from '../../../database/categories_table';
+
 
 function Content() {
   const steps = [
@@ -21,12 +23,13 @@ function Content() {
   const [activeStep, setActiveStep] = useState(0);
   //フォームの入力値を管理する
   const [formData, setFormData] = useState({ category_id: '', category:'', title:'', content:''});
-  const [categoriesArray, setCategoriesArray] = useState(['']);
+  const [categoriesArray, setCategoriesArray] = useState(categories);
 
     
     useEffect(() => {
       getCategoryData();
       showUserData(1);
+      console.log(categoriesArray);
     },[]);
     
     //DBからカテゴリ一覧を取得
