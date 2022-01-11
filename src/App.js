@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Header from './pages/components/header/Header';
-import Notifications from './pages/components/header/Notifications';
+import Notice from './pages/components/USERS/Notice';
 import Settings from './pages/components/header/Settings';
 import SignUp from './pages/components/auth/SignUp';
 import Signin from './pages/components/auth/SignIn';
@@ -27,7 +27,7 @@ function App() {
 
           {/* ヘッダーナビゲーション関係 */}
           <Route exact path="/settings" component={Settings} />
-          <Route exact path="/notifications" component={Notifications} />
+          <Route exact path="/notifications" component={Notice} />
           <Route exact path="/myPage" component={Mypage} />
 
           {/* 質問投稿関係 */}
