@@ -2,10 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { TextField } from '@material-ui/core';
 import QuestionCard from './QuestionCard';
+import SearchIcon from '@mui/icons-material/Search';
 
 // テスト用データ
 import { questions as TestQuestions } from '../../../database/questions_table';
@@ -154,32 +156,20 @@ export default function IndexQuestion() {
         }
     };
     return (
-        <div className="wrap">
-            <div className="filter-box">
-                <FormControl sx={{ m: 1, minWidth: 240 }}>
-                    <InputLabel htmlFor="outlined-adornment-amount">検索ワード</InputLabel>
+        <Box sx={{display: 'flex', justifyContent: 'center' }}>
+            <Box>
+                    <FormControl sx={{ m: 1, minWidth: 300 }}>
+                        <InputLabel htmlFor="outlined-adornment-amount"><SearchIcon /></InputLabel>
 
-                    <OutlinedInput
-                        id="outlined-adornment-amount"
-                        placeholder="質問内容"
-                        value={filterQuery.title || ''}
-                        onChange={handleFilter}
-                        name="title"
-                    />
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 240 }}>
-                    <InputLabel htmlFor="outlined-adornment-amount">検索ワード</InputLabel>
-
-                    <OutlinedInput
-                        id="outlined-adornment"
-                        placeholder="質問内容"
-                        value={filterQuery.question || ''}
-                        onChange={handleFilter}
-                        name="question"
-                    />
-                </FormControl>
-                <div className="input-group">
-                    <FormControl variant="filled" sx={{ m: 1, minWidth: 240 }}>
+                        <OutlinedInput
+                            id="outlined-adornment-amount"
+                            placeholder="検索ワード"
+                            value={filterQuery.title || ''}
+                            onChange={handleFilter}
+                            name="title"
+                        />
+                    </FormControl>
+                    <FormControl variant="filled" sx={{ m: 1, minWidth: 300 }}>
                         <InputLabel id="demo-simple-select-filled-label">カテゴリー選択</InputLabel>
                         <Select
                             name="category_id"
@@ -200,26 +190,12 @@ export default function IndexQuestion() {
                             }
                         </Select>
                     </FormControl>
-                </div>
-            </div>
 
-            <table>
-                {/* <thead>
-                    <tr>
-                        <th onClick={() => handleSort('id')}>ID</th>
-                        <th>タイトル</th>
-                        <th onClick={() => handleSort('category')}>カテゴリー</th>
-                    </tr>
-                </thead> */}
-                <tbody>
+                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     {
                         questions.map((questions) => {
                             return (
-                                <tr key={questions.id}>
-                                    <td>
-                                        <QuestionCard question ={questions} />
-                                    </td>
-                                </tr>
+                                <QuestionCard question ={questions} key={questions.id} />
                             );
                         })
                     //     filteredQuestion.map((questions) => {
@@ -231,10 +207,9 @@ export default function IndexQuestion() {
                     //             </tr>
                     //          );
                     //      })
-                     }
-                </tbody>
-            </table>
-
-        </div>
+                    }
+                </Box>
+            </Box>
+        </Box>
     );
 }
