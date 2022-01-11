@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core'
+import Box from '@mui/material/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,7 +13,7 @@ function CreateQuestion3(props) {
   const { formData, inputChange } = props;
 
     return (
-        <Grid container>
+        <Box>
             <TableContainer component={Paper}>
                 <Table aria-label="Customer Input Data">
                     <TableHead>
@@ -43,7 +43,7 @@ function CreateQuestion3(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Box>
     )
 }
 

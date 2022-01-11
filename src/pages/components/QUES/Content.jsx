@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core';
+import Box from '@mui/material/Box';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -119,8 +120,8 @@ function Content() {
 
     return (
         <Grid container>
-            <Grid sm={2}/>
-            <Grid lg={8} sm={8} spacing={10}>
+            <Grid item sm={2}/>
+            <Grid item xs={8}>
                 <Stepper activeStep={activeStep} alternativeLabel>
                     {steps.map((label) => (
                         <Step key={label}>
@@ -129,7 +130,7 @@ function Content() {
                     ))}
                 </Stepper>
 
-                <Typography >{getStepContent(activeStep)}</Typography>
+                <Box>{getStepContent(activeStep)}</Box>
 
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                     戻る
@@ -139,8 +140,8 @@ function Content() {
                 ?<Button variant="contained" color="primary" onClick={createQuestion} >送信</Button>
                 : <Button variant="contained" color="primary" onClick={handleNext} >次へ</Button>
                 }
-
             </Grid>
+            <Grid item sm={2}/>
         </Grid>
     )
 }
