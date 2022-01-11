@@ -11,7 +11,7 @@ import Content from './QUES/Content';
 import IndexQuestion from './QUES/IndexQuestion';
 
 import { Link  as LinkRouter } from 'react-router-dom';
-import QuestionPage from './QUES/QuestionPage'
+import QuestionPage from './QUES/ShowQuestion'
 import QuestionUser from './QUES/QuestionUser'
 
 function TabPanel(props) {

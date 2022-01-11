@@ -37,7 +37,7 @@ export default function QuestionCard(props) {
   };
 
   return (
-    <Card sx={{ m: 1, minWidth: 300, maxWidth: 345 }}>
+    <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
           R
@@ -62,23 +62,25 @@ export default function QuestionCard(props) {
       </CardContent>
 
       <CardActions disableSpacing>
+        <Button variant='contained' component={LinkRouter} to="/showQuestion" >DEKIRU</Button>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <Button size="small" component={LinkRouter} to="/componets/TopBar/QuettionPage" >DEKIRU</Button>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
+
+
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>
             Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
@@ -94,7 +96,7 @@ export default function QuestionCard(props) {
             saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
           </Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

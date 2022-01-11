@@ -12,7 +12,7 @@ import BasicDetail from './pages/components/USERS/BasicDetail';
 import Confirm from './pages/components/QUES/CreateQuestion3';
 import QuestionList from './pages/components/QUES/QuestionCard';
 import Mypage from './pages/components/USERS/Mypage';
-import QuestionPage from './pages/components/QUES/QuestionPage';
+import ShowQuestion from './pages/components/QUES/ShowQuestion';
 import Skyway from './pages/components/skyway/Skyway';
 import BasicDetailsEdit from './pages/components/USERS/BasicDetailsEdit';
 
@@ -32,7 +32,7 @@ function App() {
 
           {/* 質問投稿関係 */}
           <Route exact path="/home" component={Home} />
-          <Route exact path="/componets/TopBar/QuettionPage" component={QuestionPage} />
+          <Route exact path="/showQuestion" component={ShowQuestion} />
           <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
           <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
           <Route exact path="/componets/TopBar/Question/Detail/Confirm" component={Confirm} />
