@@ -48,7 +48,7 @@ function QuestionPage(props) {
             <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                 <Box>
 
-                <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
+                <Card sx={{ my: 4, minWidth: 300, maxWidth: 600 }}>
                     <CardHeader
                         avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                         R

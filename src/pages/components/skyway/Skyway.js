@@ -198,7 +198,7 @@ function Skyway(){
         </Box>
 
         {/* 操作バー */}
-        <Box sx={{ width: '100%', position: 'absolute', bottom: 0, right: 0, 'backgroundColor': 'rgba(255,255,255,0.96)' }}>
+        <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0, 'backgroundColor': 'rgba(255,255,255,1)' }}>
           <Stack justifyContent="center" direction="row" spacing={4}>
               <Box>
                 <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>

@@ -9,7 +9,7 @@ const Chat = (props) => {
   
   return (
     <div>
-      <Box sx={{width: '25%', 'backgroundColor': 'rgba(255,255,255,0.96)', height: '100vh', position: 'absolute', top: 0, right: 0, zIndex: 'modal', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+      <Box sx={{width: '25%', 'backgroundColor': 'rgba(255,255,255,0.96)', height: '100vh', position: 'fixed', top: 0, right: 0, zIndex: 'modal', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
         <Box sx={{'white-space': 'pre-wrap', 'word-wrap': 'break-word', 'font-size': '0.8rem', padding: '8px'}}>
           {messages}
         </Box>
@@ -22,7 +22,7 @@ const Chat = (props) => {
             rows={3}
             variant="outlined"
             name="name"
-            inputProps={{style: {fontSize: 10}}}
+            inputProps={{style: {fontSize: 12}}}
             InputLabelProps={{style: {fontSize: 12}}}
             />
             <Box>
