@@ -75,7 +75,6 @@ export default function Mypage() {
           <Tab label="基本情報" {...a11yProps(0)} />
           <Tab label="実績" {...a11yProps(1)} />
           <Tab label="アンケート結果確認" {...a11yProps(2)} />
-          <Tab label="test" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -86,9 +85,6 @@ export default function Mypage() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <UserSkill />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <BasicDetailsEdit user={user} />
       </TabPanel>
     </Box>
   );
