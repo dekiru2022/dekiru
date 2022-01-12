@@ -11,7 +11,12 @@ import logo2 from '../../images/DEKIRU-logo2.jpg'
 import { HighlightTwoTone } from '@material-ui/icons';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 
-const Header = () => {
+
+
+
+
+const Header = ({ signOut, user }) => {
+  
   return (
     <AppBar position="static" style={{ backgroundColor: "#fff" }}>
       <Toolbar>
@@ -24,7 +29,7 @@ const Header = () => {
               <Button color="primary" component={Link} to="/notifications" ><NotificationsIcon /></Button>
               <Button color="primary" component={Link} to="/myPage" ><PersonIcon /></Button>
               <Button color="primary" component={Link} to="/settings" ><SettingsIcon /></Button>
-              <AmplifySignOut color="primary"></AmplifySignOut>
+              <AmplifySignOut button-text="Custom Text"></AmplifySignOut>
             </Box>
           </Box>
         {/* </Container> */}
@@ -32,4 +37,4 @@ const Header = () => {
     </AppBar>
   );
 };
-export default Header;
+export default withAuthenticator(Header);
