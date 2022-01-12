@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import logo2 from '../../images/DEKIRU-logo2.jpg'
 import { HighlightTwoTone } from '@material-ui/icons';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 const Header = () => {
   return (
@@ -23,6 +24,7 @@ const Header = () => {
               <Button color="primary" component={Link} to="/notifications" ><NotificationsIcon /></Button>
               <Button color="primary" component={Link} to="/myPage" ><PersonIcon /></Button>
               <Button color="primary" component={Link} to="/settings" ><SettingsIcon /></Button>
+              <AmplifySignOut color="primary"></AmplifySignOut>
             </Box>
           </Box>
         {/* </Container> */}

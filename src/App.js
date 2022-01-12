@@ -14,6 +14,8 @@ import Mypage from './pages/components/USERS/Mypage';
 import ShowQuestion from './pages/components/QUES/ShowQuestion';
 import Skyway from './pages/components/skyway/Skyway';
 import BasicDetailsEdit from './pages/components/USERS/BasicDetailsEdit';
+import './App.css';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 function App() {
   return (
@@ -21,8 +23,9 @@ function App() {
       <Header />
         <Switch>
           {/* 認証関係 */}
-          <Route exact path="/" component={Signin} />
-          <Route exact path="/signUp" component={SignUp} />
+          {/* 削除予定 */}
+          {/* <Route exact path="/" component={Signin} />
+          <Route exact path="/signUp" component={SignUp} /> */}
 
           {/* ヘッダーナビゲーション関係 */}
           <Route exact path="/settings" component={Settings} />
@@ -30,7 +33,7 @@ function App() {
           <Route exact path="/myPage" component={Mypage} />
 
           {/* 質問投稿関係 */}
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/showQuestion" component={ShowQuestion} />
           <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
           <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
@@ -45,7 +48,7 @@ function App() {
   );
 }
 
-export default (App);
+export default withAuthenticator(App);
 
 
 // import React, { useState, useEffect } from 'react';
