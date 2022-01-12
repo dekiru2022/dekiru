@@ -8,23 +8,24 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import logo2 from '../../images/DEKIRU-logo2.jpg'
+import { HighlightTwoTone } from '@material-ui/icons';
 
 const Header = () => {
   return (
     <AppBar position="static" style={{ backgroundColor: "#fff" }}>
       <Toolbar>
-        <Container maxWidth="xl">
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-            <Box sx={{width: '200px'}}>
-              <Button color="primary" component={Link} to="/home" ><img width="200" src={logo2} alt="DEKIRU"></img></Button>
+        {/* <Container maxWidth="xl"> */}
+          <Box sx={{display: 'flex', justifyContent: 'stretch', alignItems: 'center', width: '100%'}}>
+            <Box sx={{width: '15%' , minWidth: '100px' }}>
+              <Button color="primary" component={Link} to="/home" ><img width="100%" src={logo2} alt="DEKIRU"></img></Button>
             </Box>
-            <Box>
+            <Box sx={{width: '100%', display: 'flex', justifyContent: 'flex-end'}} m={1}>
               <Button color="primary" component={Link} to="/notifications" ><NotificationsIcon /></Button>
               <Button color="primary" component={Link} to="/myPage" ><PersonIcon /></Button>
               <Button color="primary" component={Link} to="/settings" ><SettingsIcon /></Button>
             </Box>
           </Box>
-        </Container>
+        {/* </Container> */}
       </Toolbar>
     </AppBar>
   );

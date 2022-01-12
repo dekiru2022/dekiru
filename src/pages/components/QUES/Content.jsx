@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
-import Box from '@mui/material/Box';
+import { Grid } from '@material-ui/core'
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -11,7 +10,9 @@ import CreateQuestion2 from "./CreateQuestion2";
 import CreateQuestion3 from "./CreateQuestion3";
 //import { KEYS, setItem, getItem, removeItem } from "./LocalStorage";
 import { Link  as LinkRouter } from 'react-router-dom';
+import Box from '@mui/material/Box';
 
+//TEST
 import { categories } from '../../../database/categories_table';
 
 
@@ -24,7 +25,7 @@ function Content() {
   const [activeStep, setActiveStep] = useState(0);
   //フォームの入力値を管理する
   // const [formData, setFormData] = useState({ category_id: '', category:'', title:'', content:''});
-  const [formData, setFormData] = useState({ category_id: 2, category:'', title:'', content:''});
+  const [formData, setFormData] = useState({ category_id: 1, category:'', title:'', content:''});
   const [categoriesArray, setCategoriesArray] = useState(categories);
 
     
@@ -121,7 +122,7 @@ function Content() {
     return (
         <Grid container>
             <Grid item sm={2}/>
-            <Grid item xs={8}>
+            <Grid item xs={12} lg={8} spacing={10} sx={{ justifyContent: 'center'}}>
                 <Stepper activeStep={activeStep} alternativeLabel>
                     {steps.map((label) => (
                         <Step key={label}>
@@ -130,8 +131,9 @@ function Content() {
                     ))}
                 </Stepper>
 
-                <Box>{getStepContent(activeStep)}</Box>
+                <Typography sx={{ width: '100%'}}>{getStepContent(activeStep)}</Typography>
 
+            <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}} m={3}>
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                     戻る
                 </Button>
@@ -140,8 +142,9 @@ function Content() {
                 ?<Button variant="contained" color="primary" onClick={createQuestion} >送信</Button>
                 : <Button variant="contained" color="primary" onClick={handleNext} >次へ</Button>
                 }
+            </Box>
+
             </Grid>
-            <Grid item sm={2}/>
         </Grid>
     )
 }

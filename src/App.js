@@ -5,7 +5,6 @@ import Notice from './pages/components/USERS/Notice';
 import Settings from './pages/components/header/Settings';
 import SignUp from './pages/components/auth/SignUp';
 import Signin from './pages/components/auth/SignIn';
-import { Grid } from '@material-ui/core';
 import Home from './pages/components/Home';
 import Copyright from './pages/components/Copyright';
 import BasicDetail from './pages/components/USERS/BasicDetail';
@@ -40,7 +39,7 @@ function App() {
 
           <Route exact path='/skyway' component={Skyway} />
         </Switch>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 5, width: '100%' }} />
       </BrowserRouter>
 
   );
