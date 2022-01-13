@@ -12,9 +12,6 @@ import { HighlightTwoTone } from '@material-ui/icons';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 
 
-
-
-
 const Header = ({ signOut, user }) => {
   
   return (
@@ -37,4 +34,4 @@ const Header = ({ signOut, user }) => {
     </AppBar>
   );
 };
-export default withAuthenticator(Header);
+export default Header;
