@@ -1,66 +1,151 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect} from "react";
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut,AmplifySignIn } from '@aws-amplify/ui-react';
+import {AuthState, onAuthUIStateChange} from "@aws-amplify/ui-components";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from './pages/components/header/Header';
+import Notice from './pages/components/USERS/Notice';
+import Settings from './pages/components/header/Settings';
+import Home from './pages/components/Home';
+import Copyright from './pages/components/Copyright';
+import BasicDetail from './pages/components/USERS/BasicDetail';
+import Confirm from './pages/components/QUES/CreateQuestion3';
+import QuestionList from './pages/components/QUES/QuestionCard';
+import Mypage from './pages/components/USERS/Mypage';
+import ShowQuestion from './pages/components/QUES/ShowQuestion';
+import Skyway from './pages/components/skyway/Skyway';
+import BasicDetailsEdit from './pages/components/USERS/BasicDetailsEdit';
 import './App.css';
-import { API } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listNotes } from './graphql/queries';
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
 
-const initialFormState = { name: '', description: '' }
-
+Amplify.configure(awsconfig);
+ 
 function App() {
-  const [notes, setNotes] = useState([]);
-  const [formData, setFormData] = useState(initialFormState);
+  const [authState, setAuthState] = React.useState();
+  const [user, setUser] = React.useState();
 
   useEffect(() => {
-    fetchNotes();
+      onAuthUIStateChange((nextAuthState, authData) => {
+          setAuthState(nextAuthState);
+          setUser(authData);
+      });
   }, []);
+  
+  return authState === AuthState.SignedIn && user ? (
+    <BrowserRouter>
+    <Header />
+      <Switch>
+        {/* 認証関係 */}
+        {/* 削除予定 */}
+        {/* <Route exact path="/" component={Signin} />
+        <Route exact path="/signUp" component={SignUp} /> */}
 
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
-    setNotes(apiData.data.listNotes.items);
-  }
+        {/* ヘッダーナビゲーション関係 */}
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/notifications" component={Notice} />
+        <Route exact path="/myPage" component={Mypage} />
 
-  async function createNote() {
-    if (!formData.name || !formData.description) return;
-    await API.graphql({ query: createNoteMutation, variables: { input: formData } });
-    setNotes([ ...notes, formData ]);
-    setFormData(initialFormState);
-  }
+        {/* 質問投稿関係 */}
+        <Route exact path="/" component={Home} />
+        <Route exact path="/showQuestion" component={ShowQuestion} />
+        <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
+        <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
+        <Route exact path="/componets/TopBar/Question/Detail/Confirm" component={Confirm} />
+        <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />
 
-  async function deleteNote({ id }) {
-    const newNotesArray = notes.filter(note => note.id !== id);
-    setNotes(newNotesArray);
-    await API.graphql({ query: deleteNoteMutation, variables: { input: { id } }});
-  }
+        <Route exact path='/skyway' component={Skyway} />
+      </Switch>
+      <Copyright sx={{ mt: 5, width: '100%' }} />
+    </BrowserRouter>
+  ) : (
 
-  return (
-    <div className="App">
-      <h1>My Notes App</h1>
-      <input
-        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-        placeholder="Note name"
-        value={formData.name}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
-        placeholder="Note description"
-        value={formData.description}
-      />
-      <button onClick={createNote}>Create Note</button>
-      <div style={{marginBottom: 30}}>
-        {
-          notes.map(note => (
-            <div key={note.id || note.name}>
-              <h2>{note.name}</h2>
-              <p>{note.description}</p>
-              <button onClick={() => deleteNote(note)}>Delete note</button>
-            </div>
-          ))
-        }
-      </div>
-      <AmplifySignOut />
-    </div>
+    <AmplifyAuthenticator >
+      {/* ログイン画面変更 */}
+      {/* <AmplifySignIn slot="sign-in" hideSignUp={true} /> */}
+    </AmplifyAuthenticator>
+
   );
 }
+export default (App);
 
-export default withAuthenticator(App);
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import './App.css';
+// import { API } from 'aws-amplify';
+// import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+// import { listNotes } from './graphql/queries';
+// import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
+
+// const initialFormState = { name: '', description: '' }
+
+// function App() {
+//   const [notes, setNotes] = useState([]);
+//   const [formData, setFormData] = useState(initialFormState);
+
+//   useEffect(() => {
+//     fetchNotes();
+//   }, []);
+
+//   async function fetchNotes() {
+//     const apiData = await API.graphql({ query: listNotes });
+//     setNotes(apiData.data.listNotes.items);
+//   }
+
+//   async function createNote() {
+//     if (!formData.name || !formData.description) return;
+//     await API.graphql({ query: createNoteMutation, variables: { input: formData } });
+//     setNotes([ ...notes, formData ]);
+//     setFormData(initialFormState);
+//   }
+
+//   async function deleteNote({ id }) {
+//     const newNotesArray = notes.filter(note => note.id !== id);
+//     setNotes(newNotesArray);
+//     await API.graphql({ query: deleteNoteMutation, variables: { input: { id } }});
+//   }
+
+//   return (
+//     <div className="App">
+//       <h1>My Notes App</h1>
+//       <input
+//         onChange={e => setFormData({ ...formData, 'name': e.target.value})}
+//         placeholder="Note name"
+//         value={formData.name}
+//       />
+//       <input
+//         onChange={e => setFormData({ ...formData, 'description': e.target.value})}
+//         placeholder="Note description"
+//         value={formData.description}
+//       />
+//       <button onClick={createNote}>Create Note</button>
+//       <div style={{marginBottom: 30}}>
+//         {
+//           notes.map(note => (
+//             <div key={note.id || note.name}>
+//               <h2>{note.name}</h2>
+//               <p>{note.description}</p>
+//               <button onClick={() => deleteNote(note)}>Delete note</button>
+//             </div>
+//           ))
+//         }
+//       </div>
+//       <AmplifySignOut />
+//     </div>
+//   );
+// }
+
+// export default withAuthenticator(App);
+
+
+
+
+
+
