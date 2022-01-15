@@ -60,6 +60,30 @@ export default function BasicDetail() {
                     </label>
                 </Grid>
                 <Grid item xs={12}>
+                    登録資格：
+                    <label id="outlined-basic" variant="outlined" value="name" >
+                        介護福祉士,看護師,保育士
+                        {/* {user.name}
+                        {console.log(user)} */}
+                    </label>
+                </Grid>
+                <Grid item xs={12}>
+                    カテゴリー：
+                    <label id="outlined-basic" variant="outlined" value="name" >
+                        児童,高齢者,障がい者
+                        {/* {user.name}
+                        {console.log(user)} */}
+                    </label>
+                </Grid>
+                <Grid item xs={12}>
+                    経験年数：
+                    <label id="outlined-basic" variant="outlined" value="name" >
+                        10年
+                        {/* {user.name}
+                        {console.log(user)} */}
+                    </label>
+                </Grid>
+                <Grid item xs={12}>
                     <label id="outlined-basic" variant="outlined" value="userValue" >
                         評価：
                     </label>
