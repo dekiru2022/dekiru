@@ -19,6 +19,9 @@ import ChatIcon from '@mui/icons-material/Chat';
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 
+//TEST
+import Timer from '../../images/Timer.png';
+
 function Skyway(){
   const peer = new Peer({key: '95ba327e-64d1-4c05-8f9f-ad00ac893e07'});
   const [roomData, setRoomData] = useState({room: null, messages: ''});
@@ -222,10 +225,11 @@ function Skyway(){
                 <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
               </Box>
               <Stack justifyContent="center">
-                {isConnected
+                {/* {isConnected
                 ?<Button size="small" color="secondary" variant="contained" onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
                 :<Button size="small" color="primary" variant="contained" onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
-                }
+                } */}
+                <img src={ Timer } alt="TimerImage" width={'36px'} heigth={'36px'} />
               </Stack>
             </Stack>
         </Box>

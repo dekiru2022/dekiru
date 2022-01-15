@@ -9,8 +9,8 @@ function CreateQuestion1(props) {
     const { formData, inputChange, categoriesArray } = props;
 
     return (
-        <Box>
-            <InputLabel id="demo-simple-select-label">カテゴリ</InputLabel>
+        <Box xs={12} sx={{ display: 'flex', justifyContent: 'center'}}>
+            <InputLabel id="demo-simple-select-label" sx={{ width: '60%' }}>カテゴリ</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
