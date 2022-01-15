@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import BasicDetail from './BasicDetail';
 import UserAchievement from './UserAchievement';
-import UserSkill from './UserSkill';
+import SurveyResult from '../header/SurveyResult';
 import BasicDetailsEdit from './BasicDetailsEdit';
 
 function TabPanel(props) {
@@ -84,7 +84,7 @@ export default function Mypage() {
         <UserAchievement />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <UserSkill />
+        <SurveyResult />
       </TabPanel>
     </Box>
   );

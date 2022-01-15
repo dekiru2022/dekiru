@@ -140,7 +140,7 @@ function Content() {
 
                 {activeStep === steps.length - 1
                 ?<Button variant="contained" color="primary" onClick={createQuestion} >送信</Button>
-                : <Button variant="contained" color="primary" onClick={handleNext} >次へ</Button>
+                : <Button xs={{width: '100'}} variant="contained" color="primary" onClick={handleNext} >相談する</Button>
                 }
             </Box>
 

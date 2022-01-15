@@ -97,7 +97,7 @@ function Setting(){
 <Paper elevation={3}>
   <Grid container spacing={3} >
     <Grid item xs={5}>
-      <Typography variant='h4'>ビデオチャット</Typography>
+      <Typography variant='h6'>ビデオチャット</Typography>
     </Grid>
     <Grid item xs={7}>
       <Typography>背景のぼかし<Switch {...label} /></Typography>
@@ -110,7 +110,7 @@ function Setting(){
 <Paper elevation={3}>
   <Grid container spacing={3} >
     <Grid item xs={5}>
-      <Typography variant='h4'>ブロック</Typography>
+      <Typography variant='h6'>ブロック</Typography>
     </Grid>
     <Grid item xs={7}>
       <Typography>ブロックしたユーザー<Button variant="outlined">確認する</Button></Typography>
@@ -120,7 +120,7 @@ function Setting(){
 <Paper elevation={3}>
   <Grid container spacing={3} >
     <Grid item xs={5}>
-      <Typography variant='h4'>退会</Typography>
+      <Typography variant='h6'>退会</Typography>
     </Grid>
     <Grid item xs={7}>
       <Typography>あなたのアカウントを削除します。この操作は取り消しできません。</Typography>
@@ -134,7 +134,7 @@ function Setting(){
   <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>本人確認</Typography>
+          <Typography variant='h6'>本人確認</Typography>
         </Grid>
         <Grid item xs={7}>
           <Typography>本人確認を行うことで、〇〇が可能になります（要検討）</Typography>
@@ -149,18 +149,20 @@ function Setting(){
   <Paper elevation={3}>
     <Grid container spacing={3} >
       <Grid item xs={5}>
-        <Typography variant='h4'>新規資格登録</Typography>
+        <Typography variant='h6'>新規資格登録</Typography>
       </Grid>
       <Grid item xs={7}>
+        <Box>
         <Typography>新規に資格を登録する際は、「登録する」ボタンを押してください。</Typography>
         <Button variant="outlined">登録する</Button>
+        </Box>
       </Grid>
     </Grid>
   </Paper>
   <Paper elevation={3}>
     <Grid container spacing={3} >
       <Grid item xs={5}>
-        <Typography variant='h4'>資格編集</Typography>
+        <Typography variant='h6'>資格編集</Typography>
       </Grid>
       <Grid item xs={7}>
         <Typography>登録済みの資格の確認・編集・削除を行います</Typography>
@@ -174,7 +176,7 @@ function Setting(){
   <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>プッシュ通知設定</Typography>
+          <Typography variant='h6'>プッシュ通知設定</Typography>
         </Grid>
         <Grid item xs={7}>
           <Typography>プッシュ通知のON/OFF<Switch {...label} /></Typography>
@@ -184,7 +186,7 @@ function Setting(){
     <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>メール通知設定</Typography>
+          <Typography variant='h6'>メール通知設定</Typography>
         </Grid>
         <Grid item xs={7}>
         <Typography>メール通知のON/OFF<Switch {...label} /></Typography>
@@ -197,7 +199,7 @@ function Setting(){
   <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>カード情報</Typography>
+          <Typography variant='h6'>カード情報</Typography>
         </Grid>
         <Grid item xs={7}>
           <Typography>クレジットカードの登録・削除を行います</Typography>
@@ -208,7 +210,7 @@ function Setting(){
     <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>pay口座</Typography>
+          <Typography variant='h6'>pay口座</Typography>
         </Grid>
         <Grid item xs={7}>
           <Typography>pay口座の登録・削除を行います</Typography>
@@ -219,7 +221,7 @@ function Setting(){
     <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>チケット</Typography>
+          <Typography variant='h6'>チケット</Typography>
         </Grid>
         <Grid item xs={7}>
         <Typography>チケット</Typography>
@@ -230,7 +232,7 @@ function Setting(){
     <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>ポイント</Typography>
+          <Typography variant='h6'>ポイント</Typography>
         </Grid>
         <Grid item xs={7}>
         <Typography>ポイント</Typography>
@@ -241,7 +243,7 @@ function Setting(){
     <Paper elevation={3}>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Typography variant='h4'>料金単価設定</Typography>
+          <Typography variant='h6'>料金単価設定</Typography>
         </Grid>
         <Grid item xs={7}>
         <Typography>10分あたりの値段を設定できます。</Typography>

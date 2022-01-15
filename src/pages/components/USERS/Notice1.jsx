@@ -20,7 +20,9 @@ export default function Notice1() {
   return (
    <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        2022-01-11 DEKIRUが開設しました。
+        2022-01-11 DEKIRUが開設しました。 <br/>卒制企画書完成
+      </Button><Button variant="outlined" onClick={handleClickOpen}>
+        2022-01-11 DEKIRUが開設しました。 <br/>まだまだ課題が沢山あります。
       </Button>
       <Dialog
         open={open}
