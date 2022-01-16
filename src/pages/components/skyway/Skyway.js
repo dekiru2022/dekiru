@@ -8,6 +8,7 @@ import Paper from '@mui/material/Paper';
 import Video from './components/video';
 import Chat from './components/chat';
 import Timer from './components/timer';
+import MenuBar from './components/menuBar';
 
 import CallIcon from '@mui/icons-material/Call';
 import CallEndIcon from '@mui/icons-material/CallEnd';
@@ -215,36 +216,20 @@ function Skyway(props){
         </Box>
 
         {/* 操作バー */}
-        <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0, 'backgroundColor': 'rgba(255,255,255,1)' }}>
-          <Stack justifyContent="center" direction="row" spacing={4}>
-              <Box>
-                <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
-                  {userAudio
-                  ? <Stack alignItems="center"><MicIcon />ミュート</Stack>
-                  : <Stack alignItems="center"><MicOffIcon />ミュート解除</Stack>
-                  }
-                </Button>
-                <Button color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
-                  {userVideo
-                  ? <Stack alignItems="center"><VideocamIcon />カメラオフ</Stack>
-                  : <Stack alignItems="center"><VideocamOffIcon />カメラオン</Stack>
-                  }
-                </Button>
-                <Button color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
-                  {userDisplay
-                  ? <Stack alignItems="center"><ScreenShareIcon />共有終了</Stack>
-                  : <Stack alignItems="center"><StopScreenShareIcon/>画面共有</Stack>
-                  }
-                </Button>
-                <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
-              </Box>
-              <Stack justifyContent="center">
-                {isConnected
-                ?<Button size="small" color="secondary" variant="contained" onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
-                :<Button size="small" color="primary" variant="contained" onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
-                }
-              </Stack>
-            </Stack>
+        <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
+          <MenuBar
+            userAudio={userAudio}
+            setUserAudio={(boolean)=>setUserAudio(boolean)}
+            userVideo={userVideo}
+            setUserVideo={(boolean)=>setUserVideo(boolean)}
+            userDisplay={userDisplay}
+            setUserDisplay={(boolean)=>setUserDisplay(boolean)}
+            isChat={isChat}
+            setIsChat={(boolean)=>setIsChat(boolean)}
+            isConnected={isConnected}
+            onStart={()=>onStart()}
+            onClose={()=>onClose()}
+            />
         </Box>
 
         {/* 自分の映像 */}
