@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 
 import Video from './components/video';
 import Chat from './components/chat';
+import Timer from './components/timer';
 
 import CallIcon from '@mui/icons-material/Call';
 import CallEndIcon from '@mui/icons-material/CallEnd';
@@ -20,9 +21,18 @@ import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 
 //TEST
-import Timer from '../../images/Timer.png';
+import TimerImage from '../../images/Timer.png';
 
-function Skyway(){
+
+function Skyway(props){
+  // propsからurlの値を取得
+  const meetingTime = props.match.params.time;
+  const roomId = props.match.params.room;
+
+  const expiryTimestamp = new Date();
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
+
+
   const peer = new Peer({key: '95ba327e-64d1-4c05-8f9f-ad00ac893e07'});
   const [roomData, setRoomData] = useState({room: null, messages: ''});
   const [localStream, setLocalStream] = useState('');
@@ -33,12 +43,11 @@ function Skyway(){
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
+  
+  useEffect(() => {
+    onStart();
+  }, []);
 
-  
-  //ユニークなルームIDを生成（今は定数）
-  const roomId = 1;
-  
-  //useEffect実行時、自身のカメラ映像取得
   useEffect(() => {
     changeStream();
   }, [userVideo, userAudio, userDisplay]);
@@ -76,7 +85,7 @@ function Skyway(){
     }
   }
   
-  //入室ボタンの処理
+  //開始処理
   const onStart = () => {
     if(peer){
       if (!peer.open) {
@@ -96,7 +105,7 @@ function Skyway(){
     }
   }
 
-  //退室ボタンの処理
+  //終了処理
   const onClose = () => {
     roomData.room.close();
     setIsConnected(false);
@@ -200,6 +209,11 @@ function Skyway(){
           <Chat messages={roomData.messages} />
         </Box>
 
+        {/* タイマー */}
+        <Box sx={{position: 'absolute', top: 0, right: 0}} >
+          <Timer expiryTimestamp={expiryTimestamp} onClose={() => onClose()} />
+        </Box>
+
         {/* 操作バー */}
         <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0, 'backgroundColor': 'rgba(255,255,255,1)' }}>
           <Stack justifyContent="center" direction="row" spacing={4}>
@@ -225,11 +239,10 @@ function Skyway(){
                 <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
               </Box>
               <Stack justifyContent="center">
-                {/* {isConnected
+                {isConnected
                 ?<Button size="small" color="secondary" variant="contained" onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
                 :<Button size="small" color="primary" variant="contained" onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
-                } */}
-                <img src={ Timer } alt="TimerImage" width={'36px'} heigth={'36px'} />
+                }
               </Stack>
             </Stack>
         </Box>
