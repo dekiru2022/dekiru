@@ -15,7 +15,7 @@ import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 
 const MenuBar = (props) => {
-  const {userAudio,setUserAudio,userVideo,setUserVideo,userDisplay,setUserDisplay,isChat,setIsChat,isConnected,onStart,onClose} = props;
+  const {roomData,userAudio,setUserAudio,userVideo,setUserVideo,userDisplay,setUserDisplay,isChat,setIsChat,isConnected,onStart,onClose} = props;
   
   return (
     <Box sx={{ width: '100%', 'backgroundColor': 'rgba(255,255,255,1)' }}>

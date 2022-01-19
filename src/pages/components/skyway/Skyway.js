@@ -1,25 +1,11 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect } from "react";
-import { TextField, Button } from '@material-ui/core';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
 
 import Video from './components/video';
 import Chat from './components/chat';
 import Timer from './components/timer';
 import MenuBar from './components/menuBar';
-
-import CallIcon from '@mui/icons-material/Call';
-import CallEndIcon from '@mui/icons-material/CallEnd';
-import SendIcon from '@mui/icons-material/Send';
-import MicIcon from '@mui/icons-material/Mic';
-import MicOffIcon from '@mui/icons-material/MicOff';
-import VideocamIcon from '@mui/icons-material/Videocam';
-import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-import ChatIcon from '@mui/icons-material/Chat';
-import ScreenShareIcon from '@mui/icons-material/ScreenShare';
-import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 
 //TEST
 import TimerImage from '../../images/Timer.png';
@@ -45,9 +31,9 @@ function Skyway(props){
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
   
-  useEffect(() => {
-    onStart();
-  }, []);
+  // useEffect(() => {
+  //   onStart();
+  // }, []);
 
   useEffect(() => {
     changeStream();
@@ -110,6 +96,7 @@ function Skyway(props){
   const onClose = () => {
     roomData.room.close();
     setIsConnected(false);
+    console.log('onClose');
   }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
@@ -218,6 +205,7 @@ function Skyway(props){
         {/* 操作バー */}
         <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
           <MenuBar
+            roomData={roomData}
             userAudio={userAudio}
             setUserAudio={(boolean)=>setUserAudio(boolean)}
             userVideo={userVideo}
