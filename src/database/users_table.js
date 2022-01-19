@@ -9,7 +9,7 @@ export const users = [
     user_name: 'Sugar0ne',
     password: '12345678',
     email: 'ittetsu51@eis.hokudai.ac.jp',
-    address: 'フィリピン群マニラ町',
+    address: '浦河郡浦河町',
     sex: 1, //1: men, 2: women
     authority: 1,
     created_at: '2022-01-01 00:00:01',
@@ -20,12 +20,12 @@ export const users = [
     name: '外村柊平',
     first_name: '外村',
     last_name: '柊平',
-    ages: 21,
+    ages: 28,
     birthday: '1999-02-01',
     user_name: 'wakaaa',
     password: '12345678',
     email: 'shuhei@gmail.com',
-    address: 'ミューヨーク群スタバ町',
+    address: '北海道札幌市oo区',
     sex: 1, //1: men, 2: women
     authority: 1,
     created_at: '2022-01-01 00:00:01',

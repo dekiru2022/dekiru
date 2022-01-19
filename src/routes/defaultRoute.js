@@ -8,6 +8,7 @@ import Header from '../pages/components/header/Header';
 import Notice from '../pages/components/USERS/Notice';
 import Settings from '../pages/components/header/Settings';
 import Home from '../pages/components/Home';
+import IndexResolver from "../pages/components/QUES/IndexResolver";
 import Copyright from '../pages/components/Copyright';
 import BasicDetail from '../pages/components/USERS/BasicDetail';
 import Confirm from '../pages/components/QUES/CreateQuestion3';
@@ -47,6 +48,7 @@ function DefaultRoute() {
         {/* 質問投稿関係 */}
         <Route exact path="/" component={Home} />
         <Route exact path="/showQuestion" component={ShowQuestion} />
+        <Route exact path="/indexResolver" component={IndexResolver} />
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         <Route exact path="/componets/TopBar/Question/Detail/Confirm" component={Confirm} />
