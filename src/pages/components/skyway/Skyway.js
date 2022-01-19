@@ -31,13 +31,18 @@ function Skyway(props){
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
   
-  // useEffect(() => {
-  //   onStart();
-  // }, []);
-
   useEffect(() => {
     changeStream();
   }, [userVideo, userAudio, userDisplay]);
+  
+  // useEffect(()=>{
+  //   (async() => {
+  //     const newPeer = await new Peer({key: '95ba327e-64d1-4c05-8f9f-ad00ac893e07'});
+  //   })
+  //   onStart();
+    
+  // },[]);
+
 
   //画面共有と自分の映像の取得・切り替え
   const changeStream = () => {
@@ -70,11 +75,13 @@ function Skyway(props){
         return;
       });
     }
+    console.log('changeStream()')
   }
   
   //開始処理
-  const onStart = () => {
+  const onStart = async() => {
     if(peer){
+      console.log('onStart()');
       if (!peer.open) {
         return;
       }
@@ -88,7 +95,7 @@ function Skyway(props){
       setRoomData(data);
       setEventListener(room);
       setIsConnected(true);
-
+      
     }
   }
 
@@ -96,7 +103,6 @@ function Skyway(props){
   const onClose = () => {
     roomData.room.close();
     setIsConnected(false);
-    console.log('onClose');
   }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
@@ -105,6 +111,10 @@ function Skyway(props){
     let data = Object.assign({}, roomData);
     setRoomData(data);
   }
+
+  // if(roomData.room){
+  //   roomData.room.on("stream", console.log('roomData changed');)
+  // }
 
   //ルームの各イベントに対して処理を追加
   const setEventListener = (room) => {
@@ -199,7 +209,7 @@ function Skyway(props){
 
         {/* タイマー */}
         <Box sx={{position: 'absolute', top: 0, right: 0}} >
-          <Timer expiryTimestamp={expiryTimestamp} onClose={() => onClose()} />
+          <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
         </Box>
 
         {/* 操作バー */}

@@ -4,14 +4,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 const Timer = (props) => {
-  const {expiryTimestamp, onClose} = props;
+  const {expiryTimestamp, roomData, onClose} = props;
   const {
     seconds,
     minutes,
     hours,
     isRunning,
     restart,
-  } = useTimer({ expiryTimestamp, onExpire: null });
+  } = useTimer({ expiryTimestamp, onExpire: ()=> {
+    onClose();
+  }});
 
   return (
     <div>
