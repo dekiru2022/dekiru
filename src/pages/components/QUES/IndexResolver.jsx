@@ -54,16 +54,23 @@ export default function IndexResolver() {
               {
                   users.map((user) => {
                   return (
-                      <Card key={user.id} sx={{ m: 1, minWidth: 330, maxWidth: 600 }}>
-                        <CardHeader
-                          avatar={<Avatar sx={{ bgcolor: blueGrey[500] }} aria-label="recipe">
-                            R
-                          </Avatar>}
-                          action={<IconButton aria-label="settings">
-                            <MoreVertIcon />
-                          </IconButton>}
-                          title={user.name}
-                          subheader={user.ages + '歳'} />
+                      <Card key={user.id} sx={{ m: 1, minWidth: 330, maxWidth: 500 }}>
+                          <CardContent>
+                            <Typography variant="h6">
+                              {user.name} 
+                            </Typography>
+                            <Typography variant="body2">
+                              {'　　　　　　　　　　　　　　　　　　' + user.ages + '歳'}
+                            </Typography>
+                            <Typography color="text.secondary">
+                              {'保有資格：' + user.certification}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {'職務経験：' + user.workyear + '年'}
+                              <br />
+                              {'解決時間：' + user.questionResultTime　+ '分'}
+                            </Typography>
+                          </CardContent>
 
                         <CardActions disableSpacing>
                           {/* 会議時間と自身のidはDBから取ってくる */}
@@ -84,3 +91,4 @@ export default function IndexResolver() {
         </Box>
     );
 }
+

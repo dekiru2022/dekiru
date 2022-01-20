@@ -10,6 +10,10 @@ export const users = [
     password: '12345678',
     email: 'ittetsu51@eis.hokudai.ac.jp',
     address: '浦河郡浦河町',
+    certification: '看護師免許',
+    workyear: 1,
+    questionResultTime: 5,
+    rank:'4.0',
     sex: 1, //1: men, 2: women
     authority: 1,
     created_at: '2022-01-01 00:00:01',
@@ -26,6 +30,10 @@ export const users = [
     password: '12345678',
     email: 'shuhei@gmail.com',
     address: '北海道札幌市oo区',
+    certification: '看護師免許',
+    workyear: 5,
+    questionResultTime: 8,
+    rank:'3.2',
     sex: 1, //1: men, 2: women
     authority: 1,
     created_at: '2022-01-01 00:00:01',
