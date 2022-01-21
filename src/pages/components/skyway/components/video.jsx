@@ -12,7 +12,7 @@ const Video = (props) => {
     }
   }, [video]);
 
-  return <video width="100%" ref={videoRef} playsInline autoPlay muted></video>;
+  return <video width="100%" ref={videoRef} playsInline autoPlay></video>;
 };
 
 export default Video;

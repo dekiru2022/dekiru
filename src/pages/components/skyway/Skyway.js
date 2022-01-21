@@ -1,28 +1,25 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect } from "react";
-import { TextField, Button } from '@material-ui/core';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
 
 import Video from './components/video';
 import Chat from './components/chat';
-
-import CallIcon from '@mui/icons-material/Call';
-import CallEndIcon from '@mui/icons-material/CallEnd';
-import SendIcon from '@mui/icons-material/Send';
-import MicIcon from '@mui/icons-material/Mic';
-import MicOffIcon from '@mui/icons-material/MicOff';
-import VideocamIcon from '@mui/icons-material/Videocam';
-import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-import ChatIcon from '@mui/icons-material/Chat';
-import ScreenShareIcon from '@mui/icons-material/ScreenShare';
-import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
+import Timer from './components/timer';
+import MenuBar from './components/menuBar';
 
 //TEST
-import Timer from '../../images/Timer.png';
+import TimerImage from '../../images/Timer.png';
 
-function Skyway(){
+
+function Skyway(props){
+  // propsからurlの値を取得
+  const meetingTime = props.match.params.time;
+  const roomId = props.match.params.room;
+
+  const expiryTimestamp = new Date();
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
+
+
   const peer = new Peer({key: '95ba327e-64d1-4c05-8f9f-ad00ac893e07'});
   const [roomData, setRoomData] = useState({room: null, messages: ''});
   const [localStream, setLocalStream] = useState('');
@@ -33,15 +30,19 @@ function Skyway(){
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
-
   
-  //ユニークなルームIDを生成（今は定数）
-  const roomId = 1;
-  
-  //useEffect実行時、自身のカメラ映像取得
   useEffect(() => {
     changeStream();
   }, [userVideo, userAudio, userDisplay]);
+  
+  // useEffect(()=>{
+  //   (async() => {
+  //     const newPeer = await new Peer({key: '95ba327e-64d1-4c05-8f9f-ad00ac893e07'});
+  //   })
+  //   onStart();
+    
+  // },[]);
+
 
   //画面共有と自分の映像の取得・切り替え
   const changeStream = () => {
@@ -74,11 +75,13 @@ function Skyway(){
         return;
       });
     }
+    console.log('changeStream()')
   }
   
-  //入室ボタンの処理
-  const onStart = () => {
+  //開始処理
+  const onStart = async() => {
     if(peer){
+      console.log('onStart()');
       if (!peer.open) {
         return;
       }
@@ -92,11 +95,11 @@ function Skyway(){
       setRoomData(data);
       setEventListener(room);
       setIsConnected(true);
-
+      
     }
   }
 
-  //退室ボタンの処理
+  //終了処理
   const onClose = () => {
     roomData.room.close();
     setIsConnected(false);
@@ -108,6 +111,10 @@ function Skyway(){
     let data = Object.assign({}, roomData);
     setRoomData(data);
   }
+
+  // if(roomData.room){
+  //   roomData.room.on("stream", console.log('roomData changed');)
+  // }
 
   //ルームの各イベントに対して処理を追加
   const setEventListener = (room) => {
@@ -200,38 +207,27 @@ function Skyway(){
           <Chat messages={roomData.messages} />
         </Box>
 
+        {/* タイマー */}
+        <Box sx={{position: 'absolute', top: 0, right: 0}} >
+          <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
+        </Box>
+
         {/* 操作バー */}
-        <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0, 'backgroundColor': 'rgba(255,255,255,1)' }}>
-          <Stack justifyContent="center" direction="row" spacing={4}>
-              <Box>
-                <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
-                  {userAudio
-                  ? <Stack alignItems="center"><MicIcon />ミュート</Stack>
-                  : <Stack alignItems="center"><MicOffIcon />ミュート解除</Stack>
-                  }
-                </Button>
-                <Button color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
-                  {userVideo
-                  ? <Stack alignItems="center"><VideocamIcon />カメラオフ</Stack>
-                  : <Stack alignItems="center"><VideocamOffIcon />カメラオン</Stack>
-                  }
-                </Button>
-                <Button color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
-                  {userDisplay
-                  ? <Stack alignItems="center"><ScreenShareIcon />共有終了</Stack>
-                  : <Stack alignItems="center"><StopScreenShareIcon/>画面共有</Stack>
-                  }
-                </Button>
-                <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
-              </Box>
-              <Stack justifyContent="center">
-                {/* {isConnected
-                ?<Button size="small" color="secondary" variant="contained" onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
-                :<Button size="small" color="primary" variant="contained" onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
-                } */}
-                <img src={ Timer } alt="TimerImage" width={'36px'} heigth={'36px'} />
-              </Stack>
-            </Stack>
+        <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
+          <MenuBar
+            roomData={roomData}
+            userAudio={userAudio}
+            setUserAudio={(boolean)=>setUserAudio(boolean)}
+            userVideo={userVideo}
+            setUserVideo={(boolean)=>setUserVideo(boolean)}
+            userDisplay={userDisplay}
+            setUserDisplay={(boolean)=>setUserDisplay(boolean)}
+            isChat={isChat}
+            setIsChat={(boolean)=>setIsChat(boolean)}
+            isConnected={isConnected}
+            onStart={()=>onStart()}
+            onClose={()=>onClose()}
+            />
         </Box>
 
         {/* 自分の映像 */}
