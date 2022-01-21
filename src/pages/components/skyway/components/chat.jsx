@@ -10,10 +10,10 @@ const Chat = (props) => {
   return (
     <div>
       <Box sx={{width: '25%', 'backgroundColor': 'rgba(255,255,255,0.96)', height: '100vh', position: 'fixed', top: 0, right: 0, zIndex: 'modal', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-        <Box sx={{'white-space': 'pre-wrap', 'word-wrap': 'break-word', 'font-size': '0.8rem', padding: '8px'}}>
+        <Box sx={{'whiteSpace': 'pre-wrap', 'wordWrap': 'break-word', 'fontSize': '0.8rem', padding: '8px'}}>
           {messages}
         </Box>
-        <Box sx={{ display: 'flex', 'font-size': '0.7rem'}}>
+        <Box sx={{ display: 'flex', 'fontSize': '0.7rem'}}>
             <TextField
             id="message-form"
             label="メッセージを入力"

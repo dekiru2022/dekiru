@@ -100,7 +100,7 @@ function QuestionPage(props) {
                             ))}
                         </Select>
                     </Box>
-                    <Button size='large' variant='contained' color="success" component={LinkRouter} to="/skyway" >解決開始！</Button>
+                    <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${user.id}`} target="_blank" >解決開始！</Button>
                     </Box>
                 </Box>
             </Box>
