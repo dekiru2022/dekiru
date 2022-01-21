@@ -17,7 +17,7 @@ function CreateQuestion2(props) {
                 fullWidth
                 margin="normal"
                 // value={formData.title}
-                value={formData.title="通院が必要かどうか"}
+                value={formData.title="薬の飲み合わせについての相談"}
                 // placeholder="【至急】〇〇〇..."
                 // onChange={inputChange}
                 disabled="disabled"
@@ -46,7 +46,7 @@ function CreateQuestion2(props) {
                     //             - 何でどこまで調べて何がわかったか（自分でやった事）&#13;
                     //             - あなたの考え（自分としてはどうするべきと判断しているのか）&#13;
                     //             ※ご自由に記載ください"
-                    value={formData.content="動けるけど膝が痛い、腰が痛いといった体調不調であるが、通院が必要な状態なのか聞きたい"}
+                    value={formData.content="風邪薬をガン治療中の母に飲ませても大丈夫でしょうか？"}
                 />
             </Tooltip>
         </Box>

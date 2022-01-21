@@ -19,7 +19,7 @@ function CreateQuestion3(props) {
                     <TableHead>
                         <TableRow>
                             <TableCell>項目</TableCell>
-                            <TableCell>入力内容</TableCell>
+                            <TableCell align="right">入力内容</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -28,8 +28,8 @@ function CreateQuestion3(props) {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell>カテゴリー</TableCell>
-                            <TableCell>
-                                {formData.category}
+                            <TableCell align="right">
+                                {formData.category="高齢者"}
                             </TableCell>
                         </TableRow>
                         <TableRow>
