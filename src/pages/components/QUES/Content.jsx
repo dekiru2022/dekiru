@@ -32,7 +32,6 @@ function Content() {
     useEffect(() => {
       getCategoryData();
       showUserData(1);
-      console.log(categoriesArray);
     },[]);
     
     //DBからカテゴリ一覧を取得
@@ -65,7 +64,6 @@ function Content() {
     formData[key] = value;
     if(key == 'category_id'){
       formData.category = categoriesArray[value-1].category;
-      console.log('ok');
     }
     let data = Object.assign({}, formData);
     setFormData(data);
@@ -89,6 +87,7 @@ function Content() {
       }
 
       const handleNext = () => {
+        console.log(activeStep)
         if(activeStep == 0){
           if(formData.category_id){
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -139,8 +138,8 @@ function Content() {
                 </Button>
 
                 {activeStep === steps.length - 1
-                ?<Button variant="contained" color="primary" onClick={createQuestion} >送信</Button>
-                : <Button xs={{width: '100'}} variant="contained" color="primary" onClick={handleNext} >相談する</Button>
+                ?<Button variant="contained" color="primary" onClick={createQuestion} component={LinkRouter} to="/indexResolver">送信</Button>
+                : <Button xs={{width: '100'}} variant="contained" color="primary" onClick={handleNext}>相談する</Button>
                 }
             </Box>
 
