@@ -10,7 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import { green, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -41,9 +41,16 @@ export default function QuestionCard(props) {
     <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
       <CardHeader
         avatar={
-        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-          R
-        </Avatar>}
+          question.user_id == 1
+            ?
+            <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
+              {question.user_char_name}
+            </Avatar>
+            :
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+              {question.user_char_name}
+            </Avatar>
+        }
         action={<IconButton aria-label="settings">
           <MoreVertIcon />
         </IconButton>}

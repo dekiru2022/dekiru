@@ -2,6 +2,7 @@ export const questions = [
   {
     id: 1,
     user_id: 1,
+    user_char_name: '佐',
     category_id: 1,
     title: '薬の飲み合わせについての相談',
     content: '風邪薬をガン治療中の母に飲ませても大丈夫でしょうか？',
@@ -12,6 +13,7 @@ export const questions = [
   {
     id: 2,
     user_id: 2,
+    user_char_name: '外',
     category_id: 1,
     title: 'テレビのリモコンの使い方がわかりません',
     content: 'リモコンの使い方を教えてください',
