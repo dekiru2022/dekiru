@@ -16,11 +16,9 @@ function CreateQuestion2(props) {
                 label="タイトル"
                 fullWidth
                 margin="normal"
-                // value={formData.title}
-                value={formData.title="薬の飲み合わせについての相談"}
-                // placeholder="【至急】〇〇〇..."
-                // onChange={inputChange}
-                disabled="disabled"
+                value={formData.title}
+                placeholder="【至急】〇〇〇..."
+                onChange={inputChange}
             />
             {/* TODO/音声認識ソフトを追加 */}
             <Tooltip
@@ -36,17 +34,15 @@ function CreateQuestion2(props) {
                     rows={8}
                     multiline
                     variant="outlined"
-                    // value={formData.content}
-                    // onChange={inputChange}
-                    disabled="disabled"
-                    // placeholder="
-                    //             - 聞きたいこと（質問の概要）&#13;
-                    //             - 目的（それを聞いてあなたは何がしたいのか）&#13;
-                    //             - 状況（あなたが今どのような状況で、なぜ悩んでいるのか）&#13;
-                    //             - 何でどこまで調べて何がわかったか（自分でやった事）&#13;
-                    //             - あなたの考え（自分としてはどうするべきと判断しているのか）&#13;
-                    //             ※ご自由に記載ください"
-                    value={formData.content="風邪薬をガン治療中の母に飲ませても大丈夫でしょうか？"}
+                    value={formData.content}
+                    onChange={inputChange}
+                    placeholder="
+                                - 聞きたいこと（質問の概要）&#13;
+                                - 目的（それを聞いてあなたは何がしたいのか）&#13;
+                                - 状況（あなたが今どのような状況で、なぜ悩んでいるのか）&#13;
+                                - 何でどこまで調べて何がわかったか（自分でやった事）&#13;
+                                - あなたの考え（自分としてはどうするべきと判断しているのか）&#13;
+                                ※ご自由に記載ください"
                 />
             </Tooltip>
         </Box>
