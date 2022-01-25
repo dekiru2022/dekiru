@@ -15,7 +15,7 @@ function CreateQuestion1(props) {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="カテゴリー"
-                // onChange={inputChange}
+                onChange={inputChange}
                 name="category_id"
                 defaultValue={formData.category_id}
             >
