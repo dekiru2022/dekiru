@@ -36,7 +36,7 @@ function QuestionPage(props) {
     const [question, setQuestion] = useState(TestQuestions[0]);
     const [user, setUser] = useState(TestUsers[0]);
     const [time, setTime] = useState(10);
-    const meetingTimeArray = [5, 10, 15, 20, 25, 30, 40, 50, 60]
+    const meetingTimeArray = [10, 20, 30, 40, 50, 60]
 
     const inputChange = (e) => {
         const value = e.target.value;

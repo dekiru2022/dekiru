@@ -40,7 +40,8 @@ export default function QuestionCard(props) {
   return (
     <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+        avatar={
+        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
           R
         </Avatar>}
         action={<IconButton aria-label="settings">
@@ -63,7 +64,7 @@ export default function QuestionCard(props) {
       </CardContent>
 
       <CardActions disableSpacing>
-        <Button variant='contained' component={LinkRouter} to="/showQuestion" >DEKIRU</Button>
+        <Button variant='contained' component={LinkRouter} to="/showQuestion" >できます！</Button>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>

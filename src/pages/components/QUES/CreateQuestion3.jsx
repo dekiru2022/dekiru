@@ -28,9 +28,7 @@ function CreateQuestion3(props) {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell>カテゴリー</TableCell>
-                            <TableCell align="right">
-                                {formData.category="高齢者"}
-                            </TableCell>
+                            <TableCell align="right">{formData.category}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>タイトル</TableCell>

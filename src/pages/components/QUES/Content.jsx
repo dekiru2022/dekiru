@@ -91,10 +91,16 @@ function Content() {
         if(activeStep == 0){
           if(formData.category_id){
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            //TEST
+            formData.category_id = 1;
+            formData.category = "高齢者";
           }
         }else if(activeStep == 1){
           if(formData.title && formData.content){
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            //TEST
+            formData.title = "薬の飲み合わせについての相談";
+            formData.content = "風邪薬をガン治療中の母に飲ませても大丈夫でしょうか？";
           }
         }
       };
