@@ -26,7 +26,7 @@ const Header = ({ signOut, user }) => {
               <Button color="primary" component={Link} to="/notifications" ><NotificationsIcon /></Button>
               <Button color="primary" component={Link} to="/myPage" ><PersonIcon /></Button>
               <Button color="primary" component={Link} to="/settings" ><SettingsIcon /></Button>
-              <AmplifySignOut button-text="Custom Text"></AmplifySignOut>
+              <AmplifySignOut buttonText="ログアウト"></AmplifySignOut>
             </Box>
           </Box>
         {/* </Container> */}
