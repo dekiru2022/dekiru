@@ -35,12 +35,12 @@ function App() {
 <AmplifyAuthenticator>
       <AmplifySignIn
         slot="sign-in"
-        headerText="サインイン画面"
-        submitButtonText="サインイン"
+        headerText="ログイン画面"
+        submitButtonText="ログイン"
         formFields={[
           {
             type: "username",
-            label: "サインインID *",
+            label: "ログインID *",
             placeholder: "ユーザ名を入力",
             required: true,
           },
