@@ -19,7 +19,6 @@ export default function AnsUser() {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
 

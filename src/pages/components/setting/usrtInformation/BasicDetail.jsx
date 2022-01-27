@@ -13,7 +13,7 @@ import BasicDetailsEdit from './BasicDetailsEdit';
 import { Link as LinkRouter } from 'react-router-dom';
 
 // テスト用データ
-import { user as TestUser } from '../../../database/current_user_data';
+import { user as TestUser } from '../../../../database/current_user_data';
 
 export default function BasicDetail() {
     //星の設定部分

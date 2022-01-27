@@ -27,8 +27,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
 // テスト用データ
-import { questions as TestQuestions } from '../../../database/questions_table';
-import { users as TestUsers } from '../../../database/users_table';
+import { questions as TestQuestions } from '../../../../database/questions_table';
+import { users as TestUsers } from '../../../../database/users_table';
 
 
 function QuestionPage(props) {

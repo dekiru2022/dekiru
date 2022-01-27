@@ -6,12 +6,12 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { TextField } from '@material-ui/core';
-import QuestionCard from './QuestionCard';
+import QuestionCard from '../QuestionCard';
 import SearchIcon from '@mui/icons-material/Search';
 
 // テスト用データ
-import { questions as TestQuestions } from '../../../database/questions_table';
-import { categories as TestCategories } from '../../../database/categories_table';
+import { questions as TestQuestions } from '../../../../database/questions_table';
+import { categories as TestCategories } from '../../../../database/categories_table';
 
 
 export default function IndexQuestion() {

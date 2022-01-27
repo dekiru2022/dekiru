@@ -5,17 +5,17 @@ import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut,AmplifySignIn } fro
 import {AuthState, onAuthUIStateChange} from "@aws-amplify/ui-components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../pages/components/header/Header';
-import Notice from '../pages/components/USERS/Notice';
+import Notice from '../pages/components/setting/Notice';
 import Settings from '../pages/components/header/Settings';
 import Home from '../pages/components/Home';
-import IndexResolver from "../pages/components/QUES/IndexResolver";
-import Copyright from '../pages/components/Copyright';
-import BasicDetail from '../pages/components/USERS/BasicDetail';
-import Confirm from '../pages/components/QUES/CreateQuestion3';
-import QuestionList from '../pages/components/QUES/QuestionCard';
-import Mypage from '../pages/components/USERS/Mypage';
-import ShowQuestion from '../pages/components/QUES/ShowQuestion';
-import BasicDetailsEdit from '../pages/components/USERS/BasicDetailsEdit';
+import IndexResolver from "../pages/components/question/questionList/IndexResolver";
+import Copyright from '../pages/components/footer/Copyright';
+import BasicDetail from '../pages/components/setting/usrtInformation/BasicDetail';
+import Confirm from '../pages/components/question/postQuestion/CreateQuestion3';
+import QuestionList from '../pages/components/question/QuestionCard';
+import Mypage from '../pages/components/setting/Mypage';
+import ShowQuestion from '../pages/components/question/questionList/ShowQuestion';
+import BasicDetailsEdit from '../pages/components/setting/usrtInformation/BasicDetailsEdit';
 import '../App.css';
 
 Amplify.configure(awsconfig);

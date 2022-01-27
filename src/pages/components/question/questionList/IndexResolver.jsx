@@ -18,8 +18,8 @@ import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 // テスト用データ
-import { questions as TestQuestions } from '../../../database/questions_table';
-import { users as TestUsers } from '../../../database/users_table';
+import { questions as TestQuestions } from '../../../../database/questions_table';
+import { users as TestUsers } from '../../../../database/users_table';
 
 
 export default function IndexResolver() {
