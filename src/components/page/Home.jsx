@@ -5,14 +5,9 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Content from './question/Content';
 import IndexQuestion from './question/questionList/IndexQuestion';
-
-import { Link  as LinkRouter } from 'react-router-dom';
-import QuestionPage from './question/questionList/ShowQuestion'
-import QuestionUser from './question/QuestionUser'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

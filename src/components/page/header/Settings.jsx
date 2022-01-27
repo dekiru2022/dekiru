@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider'
 import Container from '@mui/material/Container'
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import BackImg from '../../images/DEKIRU-logo1.jpg';
+import BackImg from '../../../pages/images/DEKIRU-logo1.jpg';
 import FormControl from '@mui/material/FormControl';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';

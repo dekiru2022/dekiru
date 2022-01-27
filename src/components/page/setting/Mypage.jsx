@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import BasicDetail from './usrtInformation/BasicDetail';
 import UserAchievement from './UserAchievement';
 import SurveyResult from '../header/SurveyResult';
-import BasicDetailsEdit from './usrtInformation/BasicDetailsEdit';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

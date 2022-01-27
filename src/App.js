@@ -6,7 +6,7 @@ import {AuthState, onAuthUIStateChange} from "@aws-amplify/ui-components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import DefaultRoute from './routes/defaultRoute';
-import Skyway from './pages/components/skyway/Skyway';
+import Skyway from './components/page/skyway/Skyway';
 
 Amplify.configure(awsconfig);
  

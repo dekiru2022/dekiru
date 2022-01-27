@@ -7,10 +7,6 @@ import Chat from './components/chat';
 import Timer from './components/timer';
 import MenuBar from './components/menuBar';
 
-//TEST
-import TimerImage from '../../images/Timer.png';
-
-
 function Skyway(props){
   // propsからurlの値を取得
   const meetingTime = props.match.params.time;

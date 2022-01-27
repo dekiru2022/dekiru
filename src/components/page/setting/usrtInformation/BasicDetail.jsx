@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import BasicDetailsEdit from './BasicDetailsEdit';
 import { Link as LinkRouter } from 'react-router-dom';
 
 // テスト用データ
