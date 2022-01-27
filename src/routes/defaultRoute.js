@@ -16,7 +16,7 @@ import QuestionList from '../components/page/question/QuestionCard';
 import Mypage from '../components/page/setting/Mypage';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
 import BasicDetailsEdit from '../components/page/setting/usrtInformation/BasicDetailsEdit';
-import '../App.css';
+import '../styles/App.css';
 
 Amplify.configure(awsconfig);
 

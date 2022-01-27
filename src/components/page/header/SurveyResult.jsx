@@ -7,7 +7,7 @@ import Box from "@mui/material/Box"
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Rating from '@mui/material/Rating';
-import Icon from '../../../pages/images/DEKIRU-logo1.jpg'
+import Icon from '../../../images/DEKIRU-logo1.jpg'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
