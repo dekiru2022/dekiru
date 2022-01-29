@@ -11,11 +11,6 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
 
-
-    
-
-
-
 function BasicDetailsEdit() {
     //const [user, setFormData] = useState(props); // valueをstateで管理
     //const {user, setValue} = props;

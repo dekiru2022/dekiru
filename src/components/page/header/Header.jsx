@@ -7,8 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
-import logo2 from '../../images/DEKIRU-logo2.jpg'
-import { HighlightTwoTone } from '@material-ui/icons';
+import logo2 from '../../../images/DEKIRU-logo2.jpg'
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 
 
