@@ -4,10 +4,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import BasicDetail from './usrtInformation/BasicDetail';
+import BasicDetail from './userInformation/BasicDetail';
 import UserAchievement from './UserAchievement';
 import SurveyResult from '../header/SurveyResult';
-import BasicDetailsEdit from './usrtInformation/BasicDetailsEdit';
+import BasicDetailsEdit from './userInformation/BasicDetailsEdit';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

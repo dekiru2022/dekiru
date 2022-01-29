@@ -10,12 +10,11 @@ import Settings from '../pages/components/header/Settings';
 import Home from '../pages/components/Home';
 import IndexResolver from "../pages/components/question/questionList/IndexResolver";
 import Copyright from '../pages/components/footer/Copyright';
-import BasicDetail from '../pages/components/setting/usrtInformation/BasicDetail';
-import Confirm from '../pages/components/question/postQuestion/CreateQuestion3';
+import BasicDetail from '../pages/components/setting/userInformation/BasicDetail';
 import QuestionList from '../pages/components/question/QuestionCard';
 import Mypage from '../pages/components/setting/Mypage';
 import ShowQuestion from '../pages/components/question/questionList/ShowQuestion';
-import BasicDetailsEdit from '../pages/components/setting/usrtInformation/BasicDetailsEdit';
+import BasicDetailsEdit from '../pages/components/setting/userInformation/BasicDetailsEdit';
 import '../App.css';
 
 Amplify.configure(awsconfig);
@@ -51,7 +50,6 @@ function DefaultRoute() {
         <Route exact path="/indexResolver" component={IndexResolver} />
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
-        <Route exact path="/componets/TopBar/Question/Detail/Confirm" component={Confirm} />
         <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />
       </Switch>
       <Copyright sx={{ mt: 5, width: '100%' }} />
