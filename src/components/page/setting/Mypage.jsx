@@ -7,10 +7,7 @@ import Box from '@mui/material/Box';
 import BasicDetail from './userInformation/BasicDetail';
 import UserAchievement from './UserAchievement';
 import SurveyResult from '../header/SurveyResult';
-<<<<<<< HEAD:src/pages/components/setting/Mypage.jsx
-import BasicDetailsEdit from './userInformation/BasicDetailsEdit';
-=======
->>>>>>> dekiru/develop-fix:src/components/page/setting/Mypage.jsx
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

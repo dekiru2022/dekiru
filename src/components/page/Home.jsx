@@ -9,12 +9,6 @@ import Box from '@mui/material/Box';
 import PostQuestion from './question/PostQuestion';
 import IndexQuestion from './question/questionList/IndexQuestion';
 
-<<<<<<< HEAD:src/pages/components/Home.jsx
-import { Link  as LinkRouter } from 'react-router-dom';
-import QuestionPage from './question/questionList/ShowQuestion'
-
-=======
->>>>>>> dekiru/develop-fix:src/components/page/Home.jsx
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
