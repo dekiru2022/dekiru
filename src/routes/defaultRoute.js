@@ -1,23 +1,10 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut,AmplifySignIn } from '@aws-amplify/ui-react';
-import {AuthState, onAuthUIStateChange} from "@aws-amplify/ui-components";
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut, AmplifySignIn } from '@aws-amplify/ui-react';
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-<<<<<<< HEAD
-import Header from '../pages/components/header/Header';
-import Notice from '../pages/components/setting/Notice';
-import Settings from '../pages/components/header/Settings';
-import Home from '../pages/components/Home';
-import IndexResolver from "../pages/components/question/questionList/IndexResolver";
-import Copyright from '../pages/components/footer/Copyright';
-import BasicDetail from '../pages/components/setting/userInformation/BasicDetail';
-import QuestionList from '../pages/components/question/QuestionCard';
-import Mypage from '../pages/components/setting/Mypage';
-import ShowQuestion from '../pages/components/question/questionList/ShowQuestion';
-import BasicDetailsEdit from '../pages/components/setting/userInformation/BasicDetailsEdit';
-import '../App.css';
-=======
+
 import Header from '../components/page/header/Header';
 import Notice from '../components/page/setting/Notice';
 import Settings from '../components/page/header/Settings';
@@ -31,7 +18,7 @@ import Mypage from '../components/page/setting/Mypage';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
 import BasicDetailsEdit from '../components/page/setting/usrtInformation/BasicDetailsEdit';
 import '../styles/App.css';
->>>>>>> dekiru/develop-fix
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 Amplify.configure(awsconfig);
 
@@ -40,20 +27,19 @@ function DefaultRoute() {
   const [user, setUser] = React.useState();
 
   useEffect(() => {
-      onAuthUIStateChange((nextAuthState, authData) => {
-          setAuthState(nextAuthState);
-          setUser(authData);
-      });
+    onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
   }, []);
-  
-  return authState === AuthState.SignedIn && user ? (
+
+  return(
     <BrowserRouter>
-    <Header />
+      {/* ヘッダー */}
+      <Header />
+
+      {/* ルーティング */}
       <Switch>
-        {/* 認証関係 */}
-        {/* 削除予定 */}
-        {/* <Route exact path="/" component={Signin} />
-        <Route exact path="/signUp" component={SignUp} /> */}
 
         {/* ヘッダーナビゲーション関係 */}
         <Route exact path="/settings" component={Settings} />
@@ -67,16 +53,13 @@ function DefaultRoute() {
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />
+
       </Switch>
+
+      {/* フッター */}
       <Copyright sx={{ mt: 5, width: '100%' }} />
+
     </BrowserRouter>
-  ) : (
-
-    <AmplifyAuthenticator >
-      {/* ログイン画面変更 */}
-      {/* <AmplifySignIn slot="sign-in" hideSignUp={true} /> */}
-    </AmplifyAuthenticator>
-
-  );
+  )
 }
 export default DefaultRoute;
