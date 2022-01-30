@@ -5,8 +5,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import BasicDetail from './userInformation/BasicDetail';
-import UserAchievement from './UserAchievement';
-import SurveyResult from '../header/SurveyResult';
+import NDA from './NDA';
+import Notice from './Notice';
 
 
 function TabPanel(props) {
@@ -42,22 +42,13 @@ function a11yProps(index) {
   };
 }
 
-export default function Mypage() {
+export default function Setting() {
   const [value, setValue] = React.useState(0);
   const [user, setUser] = useState([]);
   const id = 1;
 
   //一覧情報を取得しステートquestionsにセットする
   const getUserData = (id) => {
-    // axios
-    // .get('/api/users/' + id)
-    //     .then(response => {
-    //         setUser(response.data);
-    //         console.log(response.data);
-    //     })
-    //     .catch(() => {
-    //         console.log('通信に失敗しました');
-    //     });
   }
 
   useEffect(() => {
@@ -72,19 +63,19 @@ export default function Mypage() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="基本情報" {...a11yProps(0)} />
-          <Tab label="実績" {...a11yProps(1)} />
-          <Tab label="アンケート結果確認" {...a11yProps(2)} />
+          <Tab label="マイページ" {...a11yProps(0)} />
+          <Tab label="お知らせ" {...a11yProps(1)} />
+          <Tab label="秘密保持契約" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <BasicDetail />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <UserAchievement />
+        <Notice />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <SurveyResult />
+        <NDA />
       </TabPanel>
     </Box>
   );

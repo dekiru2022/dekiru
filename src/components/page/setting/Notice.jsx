@@ -4,11 +4,25 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import Notice1 from './Notice1';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div
@@ -41,30 +55,36 @@ function a11yProps(index) {
 }
 
 export default function Notice() {
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="個人のお知らせ" {...a11yProps(0)} />
-          <Tab label="全体のお知らせ" {...a11yProps(1)} />
-          <Tab label="不具合" {...a11yProps(2)} />
-        </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <Notice1 />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Notice1 />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Notice1 />
-      </TabPanel>
+      <div>
+      <Button variant="outlined" >
+        2022-01-11 DEKIRUが開設しました。 <br />卒制企画書完成
+      </Button><Button variant="outlined" >
+        2022-01-11 DEKIRUが開設しました。 <br />まだまだ課題が沢山あります。
+      </Button>
+      <Dialog
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"2022-01-11 DEKIRUが開設しました。"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            本日からDEKIRUを私用することができます。
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus>
+            閉じる
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
     </Box>
   );
 }

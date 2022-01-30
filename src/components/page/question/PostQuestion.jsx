@@ -76,7 +76,6 @@ function PostQuestion() {
               label="カテゴリー"
               onChange={inputChange}
               name="category_id"
-              defaultValue={formData.category_id}
               style={{ fontSize: '21px' }}
             >
               {categoriesArray.map((categoryArray, index) => (

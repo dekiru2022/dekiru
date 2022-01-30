@@ -7,18 +7,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Header from '../components/page/header/Header';
 import Notice from '../components/page/setting/Notice';
-import Settings from '../components/page/header/Settings';
 import Home from '../components/page/Home';
 import IndexResolver from "../components/page/question/questionList/IndexResolver";
 import Copyright from '../components/page/footer/Copyright';
-import BasicDetail from '../components/page/setting/usrtInformation/BasicDetail';
-import Confirm from '../components/page/question/postQuestion/CreateQuestion3';
+import BasicDetail from '../components/page/setting/userInformation/BasicDetail';
 import QuestionList from '../components/page/question/QuestionCard';
-import Mypage from '../components/page/setting/Mypage';
+import Setting from '../components/page/setting/Setting';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
-import BasicDetailsEdit from '../components/page/setting/usrtInformation/BasicDetailsEdit';
+import BasicDetailsEdit from '../components/page/setting/userInformation/BasicDetailsEdit';
 import '../styles/App.css';
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 Amplify.configure(awsconfig);
 
@@ -42,9 +39,8 @@ function DefaultRoute() {
       <Switch>
 
         {/* ヘッダーナビゲーション関係 */}
-        <Route exact path="/settings" component={Settings} />
         <Route exact path="/notifications" component={Notice} />
-        <Route exact path="/myPage" component={Mypage} />
+        <Route exact path="/setting" component={Setting} />
 
         {/* 質問投稿関係 */}
         <Route exact path="/" component={Home} />

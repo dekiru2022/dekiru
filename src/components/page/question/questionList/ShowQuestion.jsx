@@ -1,27 +1,29 @@
+//
+//  ファイル名
+//  作成者
+//  作成日時
+//
+//  質問詳細
+//
+
+
 import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { green, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import { Link as LinkRouter } from 'react-router-dom';
 import { Grid } from '@material-ui/core'
-import { useForm, Controller } from "react-hook-form";
-import TextField from "@material-ui/core/TextField";
-import Tooltip from '@material-ui/core/Tooltip';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -113,40 +115,6 @@ function QuestionPage(props) {
                     </Box>
                 </Box>
             </Box>
-
-            {/* <TextField
-                    label="タイトル"
-                    fullWidth
-                    margin="normal"
-                    value={title}
-                    
-                />
-                <Tooltip
-                    title="自由に記入することができます"
-                    placement="top-start"
-                    arrow
-                >
-                    <TextField
-                        label="詳細"
-                        fullWidth
-                        margin="normal"
-                        rows={8}
-                        multiline
-                        variant="outlined"
-                        value={detail}
-                    />
-                </Tooltip>
-                
-                    
-                    <Grid container spacing={3} alignItems="center" justify="center" margin="5px">
-                        <Button
-                        color="secondary"
-                            variant="contained"
-                            style={{ margin: "5px", fontSize: "20px", padding: "0" }}
-                        >
-                            解答DEKIRU
-                        </Button>
-                    </Grid> */}
         </Grid>
 
     )

@@ -1,13 +1,16 @@
+//
+//  ファイル名
+//  作成者
+//  作成日時
+//
+//  解決希望者一覧
+//
+
+
 import React, { useState, useEffect, useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import { blueGrey,yellow } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { yellow } from '@mui/material/colors';
 import { Link as LinkRouter } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
