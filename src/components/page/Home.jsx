@@ -1,90 +1,22 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import PostQuestion from './question/PostQuestion';
-import IndexQuestion from './question/questionList/IndexQuestion';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 4 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-//　文字チェックを行なっている。
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
+import { Grid } from '@material-ui/core'
+import HomeTop from '../../images/HOME-Top.png'
+import { StyleButton, BackButton } from '../ui/styleButton';
 
 export default function Home() {
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
-
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 1 }}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="質問" {...a11yProps(0)} />
-          <Tab label="質問一覧" {...a11yProps(1)} />
-
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        {/* 質問 */}
-        <TabPanel value={value} index={0} dir={theme.direction} >
-          <PostQuestion />
-        </TabPanel>
-
-        {/* 質問一覧 */}
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <IndexQuestion />
-        </TabPanel>
-        
-      </SwipeableViews>
-    </Box>
+    <>
+      <p style={{ position: 'relative', width: '100%', height: '500px', overflow: 'hidden' }}>
+        <img width="100%" src={HomeTop} alt="Top" style={{ position: 'relative', top: '-330px' }} ></img>
+      </p>
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item>
+          <StyleButton title="相談する" to="/postQuestion" />
+        </Grid>
+        <Grid item>
+          <StyleButton title="解決する" to="/indexQuestion" />
+        </Grid>
+      </Grid>
+    </>
   );
 }

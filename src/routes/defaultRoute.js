@@ -15,6 +15,8 @@ import QuestionList from '../components/page/question/QuestionCard';
 import Setting from '../components/page/setting/Setting';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
 import BasicDetailsEdit from '../components/page/setting/userInformation/BasicDetailsEdit';
+import PostQuestion from '../components/page/question/PostQuestion';
+import IndexQuestion from '../components/page/question/questionList/IndexQuestion';
 import '../styles/App.css';
 
 Amplify.configure(awsconfig);
@@ -43,9 +45,11 @@ function DefaultRoute() {
         <Route exact path="/setting" component={Setting} />
 
         {/* 質問投稿関係 */}
+        <Route exact path="/postQuestion" component={PostQuestion} />
         <Route exact path="/" component={Home} />
         <Route exact path="/showQuestion" component={ShowQuestion} />
         <Route exact path="/indexResolver" component={IndexResolver} />
+        <Route exact path="/indexQuestion" component={IndexQuestion} />
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />

@@ -7,6 +7,7 @@
 //  質問者の内容や質問詳細を簡易的に表示する
 //
 
+
 import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
