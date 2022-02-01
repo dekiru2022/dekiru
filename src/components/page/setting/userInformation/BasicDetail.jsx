@@ -22,20 +22,11 @@ export default function BasicDetail() {
 
     //ユーザ情報を取得しステートuserにセットする
     const getUserData = (id) => {
-        // axios
-        //     .get('/api/users/' + id)
-        //     .then(response => {
-        //         setUser(response.data);
-        //         console.log(response.data);
-        //     })
-        //     .catch(() => {
-        //         console.log('通信に失敗しました');
-        //     });
     }
     useEffect(() => {
         getUserData(id);
         console.log(user)
-      },[])
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 20 }}>
@@ -47,8 +38,7 @@ export default function BasicDetail() {
                 </Grid>
 
                 <Grid item xs={1}>
-                <Button size="small" color="primary" component={LinkRouter} to="/componets/TopBar/BasicDetailsEdit" >編集</Button>
-               
+                    <Button size="small" color="primary" component={LinkRouter} to="/componets/TopBar/BasicDetailsEdit" >編集</Button>
 
                 </Grid>
                 <Grid item xs={12}>
@@ -98,47 +88,47 @@ export default function BasicDetail() {
                     </Link>
                 </Grid>
 
-                <Grid item xs={12}> 
+                <Grid item xs={12}>
                     名前：
                     <label id="name" variant="outlined" value="name" >
                         {user.first_name + " " + user.last_name}
-                    </label>                  
+                    </label>
                 </Grid>
-                <Grid item xs={12}> 
+                <Grid item xs={12}>
                     生年月日：
                     <label id="birthday" variant="outlined" value="birthday" >
                         {user.birthday}
-                    </label>                  
+                    </label>
                 </Grid>
-                <Grid item xs={12}> 
+                <Grid item xs={12}>
                     性別：
                     <label id="sex" variant="outlined" value="sex" >
                         {user.sex}
-                    </label>                    
+                    </label>
                 </Grid>
                 <Grid item xs={12}>
                     年齢：
                     <label id="ages" variant="outlined" value="ages" >
                         {user.ages}
-                    </label>                     
+                    </label>
                 </Grid>
                 <Grid item xs={8}>
                     メールアドレス：
                     <label id="email" variant="outlined" value="email" >
                         {user.email}
-                    </label>   
+                    </label>
                 </Grid>
                 <Grid item xs={8}>
                     住所：
                     <label id="address" variant="outlined" value="address" >
                         {user.address}
-                    </label>   
+                    </label>
                 </Grid>
                 <Grid item xs={8}>
                     登録日：
                     <label id="created_at" variant="outlined" value="created_at" >
                         {user.created_at}
-                    </label>  
+                    </label>
                 </Grid>
                 <Grid item xs={1}>
                     <Button size="large">編集</Button>
