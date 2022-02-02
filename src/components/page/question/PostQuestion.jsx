@@ -21,18 +21,29 @@ import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField
 // TEST 削除予定
 import { categories } from '../../../database/categories_table';
 
+import { API } from 'aws-amplify';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { createNoteTest as createNoteTestMutation, deleteNoteTest as deleteNoteTestMutation } from '../../../graphql/mutations';
 
 // 質問投稿機能　main
 function PostQuestion() {
 
   // フォームの入力値格納
-  const [formData, setFormData] = useState({ category_id: 1, category: '', title: '', content: '' });
+  // const [formData, setFormData] = useState({ category_id: 1, category: '', title: '', content: '' });
   // リストボックスの値格納
   const [categoriesArray, setCategoriesArray] = useState(categories);
+  const [notes, setNotes] = useState([]);
+
+// test
+
+const initialFormState = { title: '', content: '' }
+const [formData, setFormData] = useState(initialFormState);
+
 
   // コンポーネント再描画のたびに初期化
   useEffect(() => {
     getCategoryData();
+    
   }, []);
 
   //DBからカテゴリ一覧を取得
@@ -40,21 +51,29 @@ function PostQuestion() {
   }
 
   //入力がされたら(都度)入力値を変更するためのfunction
-  const inputChange = (e) => {
-    const key = e.target.name;
-    const value = e.target.value;
-    formData[key] = value;
-    // formData.category = categoriesArray[value - 1].category;
-    let data = Object.assign({}, formData);
-    setFormData(data);
+  // const inputChange = (e) => {
+  //   const key = e.target.title;
+  //   const value = e.target.value;
+  //   formData[key] = value;
+  //   // formData.category = categoriesArray[value - 1].category;
+  //   let data = Object.assign({}, formData);
+  //   setFormData(data);
+  // }
+
+  async function createNoteTest() {
+    if (!formData.title || !formData.content) return;
+    await API.graphql({ query: createNoteTestMutation, variables: { input: formData } });
+    setNotes([ ...notes, formData ]);
+    setFormData(initialFormState);
+    console.log(formData);
   }
 
   //入力値を投げる
-  const createQuestion = async () => {
-    if (formData == '') {
-      return;
-    }
-  }
+  // const createQuestion = async () => {
+  //   if (formData == '') {
+  //     return;
+  //   }
+  // }
 
   // 画面描画
   return (
@@ -69,13 +88,13 @@ function PostQuestion() {
         {/* カテゴリー選択 */}
         <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
           <FormControl fullWidth>
-            <InputLabel style={{ fontSize: '21px' }} id="demo-multiple-name-label" >カテゴリー</InputLabel>
+            <InputLabel style={{ fontSize: '21px' }} id="demo-multiple-title-label" >カテゴリー</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="カテゴリー"
-              onChange={inputChange}
-              name="category_id"
+              //onChange={inputChange}
+              title="category_id"
               style={{ fontSize: '21px' }}
             >
               {categoriesArray.map((categoryArray, index) => (
@@ -88,10 +107,12 @@ function PostQuestion() {
         {/* タイトル入力 */}
         <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
           <StyleTextField
-            label="タイトル"
-            value={formData.title}
-            placeholder="【至急】〇〇〇..."
-            onChange={inputChange}
+          label="タイトル"
+          //  // value={formData.title}
+          //   placeholder="【至急】〇〇〇..."
+          //   onChange={inputChange}
+          onChange={e => setFormData({ ...formData, 'title': e.target.value})}
+          value={formData.title}
           />
         </Grid>
 
@@ -103,12 +124,14 @@ function PostQuestion() {
             arrow
           >
             <StyleMultilineTextField
-              name="content"
-              label="相談内容"
-              rows={8}
-              variant="outlined"
+              // title="content"
+               label="相談内容"
+              // rows={8}
+              // variant="outlined"
+              // // value={formData.content}
+              // onChange={inputChange}
+              onChange={e => setFormData({ ...formData, 'content': e.target.value})}
               value={formData.content}
-              onChange={inputChange}
               placeholder="
             - 聞きたいこと（質問の概要）&#13;
             - 目的（それを聞いてあなたは何がしたいのか）&#13;
@@ -128,12 +151,11 @@ function PostQuestion() {
           <BackButton to="" />
         </Grid>
         <Grid item>
-          <StyleButton title="相談する" to="/indexResolver" />
+          <StyleButton title="相談する" onClick={createNoteTest} to="/indexResolver" />
         </Grid>
       </Grid>
     </>
   )
 }
 export default PostQuestion
-
 

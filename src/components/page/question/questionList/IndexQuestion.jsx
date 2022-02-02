@@ -25,6 +25,11 @@ import { questions as TestQuestions } from '../../../../database/questions_table
 import { categories as TestCategories } from '../../../../database/categories_table';
 
 
+import { API } from 'aws-amplify';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { listNoteTests } from '../../../../graphql/queries';
+import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
+
 export default function IndexQuestion() {
 
     // カテゴリー
@@ -36,11 +41,26 @@ export default function IndexQuestion() {
     // DBからとってきた質問
     const [questions, setQuestions] = useState([]);
 
+
+    const initialFormState = { name: '', description: '' }  
+    const [notes, setNotes] = useState([]);
+    const [formData, setFormData] = useState(initialFormState);
+
     // 再描画のたびに実行
     useEffect(() => {
         getQuestionsData();
         getCategoriesData();
+        fetchNotes();
     }, [])
+
+
+　　// 表示
+    async function fetchNotes() {
+        const apiData = await API.graphql({ query: listNoteTests });
+        setNotes(apiData.data.listNoteTests.items);
+        console.log();
+      }
+
 
     // 一覧情報を取得しステートquestionsにセットする
     const getQuestionsData = () => {
@@ -114,6 +134,19 @@ export default function IndexQuestion() {
                     );
                 })
             }
+
+            
+    
+        {
+          notes.map(note => (
+            <div key={note.id || note.name}>
+              <h2>{note.title}</h2>
+              <p>{note.content}</p>
+            </div>
+          ))
+        }
+      
         </Grid>
+        
     );
 }
