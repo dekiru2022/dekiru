@@ -29,6 +29,7 @@ import { API } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { listNoteTests } from '../../../../graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
+import { QuestionCardResolver } from '../QuestionCardResolver';
 
 export default function IndexQuestion() {
 
@@ -126,10 +127,10 @@ export default function IndexQuestion() {
 
             {/* 質問一覧　カードを表示 */}
             {
-                questions.map((questions) => {
+                questions.map((question) => {
                     return (
                         <Grid item xs={5} style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                            <QuestionCard question={questions} key={questions.id} />
+                            <QuestionCardResolver question={question}/>
                         </Grid>
                     );
                 })

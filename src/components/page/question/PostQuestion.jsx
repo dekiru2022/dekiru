@@ -7,6 +7,7 @@
 
 // インポート一覧
 import React, { useState, useEffect } from 'react';
+import { API } from 'aws-amplify';
 // Material UI インポート
 import { Grid } from '@material-ui/core'
 import InputLabel from '@mui/material/InputLabel';
@@ -17,63 +18,44 @@ import Tooltip from '@material-ui/core/Tooltip';
 // 共通部品　インポート
 import { StyleButton, BackButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
+// Graphql インポート
+import { createNoteTest as createNoteTestMutation, deleteNoteTest as deleteNoteTestMutation } from '../../../graphql/mutations';
 
 // TEST 削除予定
 import { categories } from '../../../database/categories_table';
 
-import { API } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { createNoteTest as createNoteTestMutation, deleteNoteTest as deleteNoteTestMutation } from '../../../graphql/mutations';
 
 // 質問投稿機能　main
 function PostQuestion() {
 
   // フォームの入力値格納
-  // const [formData, setFormData] = useState({ category_id: 1, category: '', title: '', content: '' });
   // リストボックスの値格納
   const [categoriesArray, setCategoriesArray] = useState(categories);
   const [notes, setNotes] = useState([]);
 
-// test
-
-const initialFormState = { title: '', content: '' }
-const [formData, setFormData] = useState(initialFormState);
+  // test
+  const initialFormState = { title: '', content: '' }
+  const [formData, setFormData] = useState(initialFormState);
 
 
   // コンポーネント再描画のたびに初期化
   useEffect(() => {
     getCategoryData();
-    
+
   }, []);
 
-  //DBからカテゴリ一覧を取得
+  // DBからカテゴリ一覧を取得
   const getCategoryData = () => {
   }
 
-  //入力がされたら(都度)入力値を変更するためのfunction
-  // const inputChange = (e) => {
-  //   const key = e.target.title;
-  //   const value = e.target.value;
-  //   formData[key] = value;
-  //   // formData.category = categoriesArray[value - 1].category;
-  //   let data = Object.assign({}, formData);
-  //   setFormData(data);
-  // }
-
+  // データ送信
   async function createNoteTest() {
     if (!formData.title || !formData.content) return;
     await API.graphql({ query: createNoteTestMutation, variables: { input: formData } });
-    setNotes([ ...notes, formData ]);
+    setNotes([...notes, formData]);
     setFormData(initialFormState);
     console.log(formData);
   }
-
-  //入力値を投げる
-  // const createQuestion = async () => {
-  //   if (formData == '') {
-  //     return;
-  //   }
-  // }
 
   // 画面描画
   return (
@@ -82,7 +64,7 @@ const [formData, setFormData] = useState(initialFormState);
 
         {/* タイトル */}
         <Grid item style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-          <div style={{fontSize: '36px'}}>相談入力</div>
+          <div style={{ fontSize: '36px' }}>相談入力</div>
         </Grid>
 
         {/* カテゴリー選択 */}
@@ -93,7 +75,6 @@ const [formData, setFormData] = useState(initialFormState);
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="カテゴリー"
-              //onChange={inputChange}
               title="category_id"
               style={{ fontSize: '21px' }}
             >
@@ -107,12 +88,10 @@ const [formData, setFormData] = useState(initialFormState);
         {/* タイトル入力 */}
         <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
           <StyleTextField
-          label="タイトル"
-          //  // value={formData.title}
-          //   placeholder="【至急】〇〇〇..."
-          //   onChange={inputChange}
-          onChange={e => setFormData({ ...formData, 'title': e.target.value})}
-          value={formData.title}
+            label="タイトル"
+            placeholder="【至急】〇〇〇..."
+            onChange={e => setFormData({ ...formData, 'title': e.target.value })}
+            value={formData.title}
           />
         </Grid>
 
@@ -124,13 +103,8 @@ const [formData, setFormData] = useState(initialFormState);
             arrow
           >
             <StyleMultilineTextField
-              // title="content"
-               label="相談内容"
-              // rows={8}
-              // variant="outlined"
-              // // value={formData.content}
-              // onChange={inputChange}
-              onChange={e => setFormData({ ...formData, 'content': e.target.value})}
+              label="相談内容"
+              onChange={e => setFormData({ ...formData, 'content': e.target.value })}
               value={formData.content}
               placeholder="
             - 聞きたいこと（質問の概要）&#13;
@@ -142,7 +116,6 @@ const [formData, setFormData] = useState(initialFormState);
             />
           </Tooltip>
         </Grid>
-
       </Grid>
 
       {/* ボタン */}

@@ -21,25 +21,26 @@ import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 
 // メイン画面（カード）
-export default function QuestionCard(props) {
+export const QuestionCardResolver = (props) => {
   // 変数宣言
-  const { question } = props;
+  const {question} = props
 
   return (
     <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
       {/* ヘッダー（カード内） */}
       <CardHeader
         avatar={
-            <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
-              {question.user_char_name}
-            </Avatar>
+          <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
+            {question.user_char_name}
+          </Avatar>
         }
         // 相談タイトル
         title={question.title}
         // 相談作成時間
-        subheader={question.created_at} />
-      
-      {/* 相談内容 */}
+        subheader={question.created_at}
+      />
+
+      {/* 相談内容（カード内） */}
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {question.content}
