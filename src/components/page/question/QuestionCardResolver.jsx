@@ -26,7 +26,7 @@ export const QuestionCardResolver = (props) => {
   const {question} = props
 
   return (
-    <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
+    <Card sx={{ m: 1, minWidth: 300, maxWidth: 600, width:'auto', height: 'auto' }}>
       {/* ヘッダー（カード内） */}
       <CardHeader
         avatar={

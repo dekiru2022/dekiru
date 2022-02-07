@@ -17,6 +17,7 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SearchIcon from '@mui/icons-material/Search';
+import GridList from '@material-ui/core/GridList';
 // 質問カード　インポート
 import QuestionCard from '../QuestionCard';
 
@@ -43,7 +44,7 @@ export default function IndexQuestion() {
     const [questions, setQuestions] = useState([]);
 
 
-    const initialFormState = { name: '', description: '' }  
+    const initialFormState = { name: '', description: '' }
     const [notes, setNotes] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
 
@@ -55,12 +56,11 @@ export default function IndexQuestion() {
     }, [])
 
 
-　　// 表示
+    // 表示
     async function fetchNotes() {
         const apiData = await API.graphql({ query: listNoteTests });
         setNotes(apiData.data.listNoteTests.items);
-        console.log();
-      }
+    }
 
 
     // 一覧情報を取得しステートquestionsにセットする
@@ -101,53 +101,64 @@ export default function IndexQuestion() {
             })
         }
     };
+
+    // メイン
     return (
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
-            {/* カテゴリ選択 */}
-            <Grid item xs={4} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                <p style={{ fontSize: '2rem' }}>新着相談</p>
-            </Grid>
-            <Grid item xs={6} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                <FormControl fullWidth>
-                    <InputLabel style={{ fontSize: '21px' }} id="demo-multiple-name-label" >カテゴリー</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="カテゴリー"
-                        onChange={handleFilter}
-                        name="category_id"
-                        style={{ fontSize: '21px' }}
-                    >
-                        {categories.map((category, index) => (
-                            <MenuItem style={{ fontSize: '18px' }} value={category.id} key={index}>{category.category}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+        <>
+            <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                {/* カテゴリ選択 */}
+                <Grid item xs={4} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <p style={{ fontSize: '2rem' }}>新着相談</p>
+                </Grid>
+                <Grid item xs={6} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <FormControl fullWidth>
+                        <InputLabel style={{ fontSize: '21px' }} id="demo-multiple-name-label" >カテゴリー</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="カテゴリー"
+                            onChange={handleFilter}
+                            name="category_id"
+                            style={{ fontSize: '21px' }}
+                        >
+                            {categories.map((category, index) => (
+                                <MenuItem style={{ fontSize: '18px' }} value={category.id} key={index}>{category.category}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
             </Grid>
 
             {/* 質問一覧　カードを表示 */}
-            {
-                questions.map((question) => {
-                    return (
-                        <Grid item xs={5} style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                            <QuestionCardResolver question={question}/>
-                        </Grid>
-                    );
-                })
-            }
+            <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }} >
+                {
+                    questions.map((question, i) => {
+                        return (
+                            <>
+                                <Grid item xs={6}>
+                                    <QuestionCardResolver question={question} />
+                                </Grid>
+                                {(() => {
+                                    if ((questions.length - 1 === i) && ((questions.length % 2) === 1)) {
+                                        return (
+                                            <Grid item xs={6}></Grid>
+                                        )
+                                    }
+                                })()}
+                            </>
+                        )
+                    })
+                }
+            </Grid>
 
-            
-    
-        {
-          notes.map(note => (
-            <div key={note.id || note.name}>
-              <h2>{note.title}</h2>
-              <p>{note.content}</p>
-            </div>
-          ))
-        }
-      
-        </Grid>
-        
+            {
+                notes.map(note => (
+                    <div key={note.id || note.name}>
+                        <h2>{note.title}</h2>
+                        <p>{note.content}</p>
+                    </div>
+                ))
+            }
+        </>
     );
 }
