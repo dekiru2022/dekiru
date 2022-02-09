@@ -43,3 +43,369 @@ export const deleteNoteTest = /* GraphQL */ `
     }
   }
 `;
+export const createUserId = /* GraphQL */ `
+  mutation CreateUserId(
+    $input: CreateUserIdInput!
+    $condition: ModelUserIdConditionInput
+  ) {
+    createUserId(input: $input, condition: $condition) {
+      userId
+      firstName
+      lastName
+      birthday
+      handleName
+      mail
+      experience
+      licenseFlag
+      identificationFlag
+      bankFlag
+      created
+      updated
+      deleted_date
+      status
+      point
+      transferPoint
+      GMOuserID
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUserId = /* GraphQL */ `
+  mutation UpdateUserId(
+    $input: UpdateUserIdInput!
+    $condition: ModelUserIdConditionInput
+  ) {
+    updateUserId(input: $input, condition: $condition) {
+      userId
+      firstName
+      lastName
+      birthday
+      handleName
+      mail
+      experience
+      licenseFlag
+      identificationFlag
+      bankFlag
+      created
+      updated
+      deleted_date
+      status
+      point
+      transferPoint
+      GMOuserID
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUserId = /* GraphQL */ `
+  mutation DeleteUserId(
+    $input: DeleteUserIdInput!
+    $condition: ModelUserIdConditionInput
+  ) {
+    deleteUserId(input: $input, condition: $condition) {
+      userId
+      firstName
+      lastName
+      birthday
+      handleName
+      mail
+      experience
+      licenseFlag
+      identificationFlag
+      bankFlag
+      created
+      updated
+      deleted_date
+      status
+      point
+      transferPoint
+      GMOuserID
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createQuestions = /* GraphQL */ `
+  mutation CreateQuestions(
+    $input: CreateQuestionsInput!
+    $condition: ModelQuestionsConditionInput
+  ) {
+    createQuestions(input: $input, condition: $condition) {
+      questionId
+      userId
+      categoryId
+      title
+      content
+      status
+      createdAt
+      updatedAt
+      deleteFlg
+      id
+    }
+  }
+`;
+export const updateQuestions = /* GraphQL */ `
+  mutation UpdateQuestions(
+    $input: UpdateQuestionsInput!
+    $condition: ModelQuestionsConditionInput
+  ) {
+    updateQuestions(input: $input, condition: $condition) {
+      questionId
+      userId
+      categoryId
+      title
+      content
+      status
+      createdAt
+      updatedAt
+      deleteFlg
+      id
+    }
+  }
+`;
+export const deleteQuestions = /* GraphQL */ `
+  mutation DeleteQuestions(
+    $input: DeleteQuestionsInput!
+    $condition: ModelQuestionsConditionInput
+  ) {
+    deleteQuestions(input: $input, condition: $condition) {
+      questionId
+      userId
+      categoryId
+      title
+      content
+      status
+      createdAt
+      updatedAt
+      deleteFlg
+      id
+    }
+  }
+`;
+export const createCashFlow = /* GraphQL */ `
+  mutation CreateCashFlow(
+    $input: CreateCashFlowInput!
+    $condition: ModelCashFlowConditionInput
+  ) {
+    createCashFlow(input: $input, condition: $condition) {
+      cashFlowId
+      questionId
+      purchaserId
+      sellerId
+      purchaserCash
+      sellerCash
+      earnings
+      created
+      updated
+      deleted
+      deleteFlg
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCashFlow = /* GraphQL */ `
+  mutation UpdateCashFlow(
+    $input: UpdateCashFlowInput!
+    $condition: ModelCashFlowConditionInput
+  ) {
+    updateCashFlow(input: $input, condition: $condition) {
+      cashFlowId
+      questionId
+      purchaserId
+      sellerId
+      purchaserCash
+      sellerCash
+      earnings
+      created
+      updated
+      deleted
+      deleteFlg
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCashFlow = /* GraphQL */ `
+  mutation DeleteCashFlow(
+    $input: DeleteCashFlowInput!
+    $condition: ModelCashFlowConditionInput
+  ) {
+    deleteCashFlow(input: $input, condition: $condition) {
+      cashFlowId
+      questionId
+      purchaserId
+      sellerId
+      purchaserCash
+      sellerCash
+      earnings
+      created
+      updated
+      deleted
+      deleteFlg
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createQuestionQuestionnaire = /* GraphQL */ `
+  mutation CreateQuestionQuestionnaire(
+    $input: CreateQuestionQuestionnaireInput!
+    $condition: ModelQuestionQuestionnaireConditionInput
+  ) {
+    createQuestionQuestionnaire(input: $input, condition: $condition) {
+      questionQuestionnaireId
+      userId
+      questionId
+      cashFlowId
+      publicQuestionValue
+      privateQuestionValue1
+      privateQuestionValue2
+      privateQuestionValue3
+      privateQuestionValue4
+      created
+      updated
+      deleted
+      deleteFlg
+      questonComment
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateQuestionQuestionnaire = /* GraphQL */ `
+  mutation UpdateQuestionQuestionnaire(
+    $input: UpdateQuestionQuestionnaireInput!
+    $condition: ModelQuestionQuestionnaireConditionInput
+  ) {
+    updateQuestionQuestionnaire(input: $input, condition: $condition) {
+      questionQuestionnaireId
+      userId
+      questionId
+      cashFlowId
+      publicQuestionValue
+      privateQuestionValue1
+      privateQuestionValue2
+      privateQuestionValue3
+      privateQuestionValue4
+      created
+      updated
+      deleted
+      deleteFlg
+      questonComment
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteQuestionQuestionnaire = /* GraphQL */ `
+  mutation DeleteQuestionQuestionnaire(
+    $input: DeleteQuestionQuestionnaireInput!
+    $condition: ModelQuestionQuestionnaireConditionInput
+  ) {
+    deleteQuestionQuestionnaire(input: $input, condition: $condition) {
+      questionQuestionnaireId
+      userId
+      questionId
+      cashFlowId
+      publicQuestionValue
+      privateQuestionValue1
+      privateQuestionValue2
+      privateQuestionValue3
+      privateQuestionValue4
+      created
+      updated
+      deleted
+      deleteFlg
+      questonComment
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAnswerQuestionnaire = /* GraphQL */ `
+  mutation CreateAnswerQuestionnaire(
+    $input: CreateAnswerQuestionnaireInput!
+    $condition: ModelAnswerQuestionnaireConditionInput
+  ) {
+    createAnswerQuestionnaire(input: $input, condition: $condition) {
+      answerQuestionnaireId
+      userId
+      questionId
+      cashFlowId
+      privateAnswerValue1
+      privateAnswerValue2
+      privateAnswerValue3
+      declineFlg
+      created
+      updated
+      deleted
+      deleteFlg
+      answerComment
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAnswerQuestionnaire = /* GraphQL */ `
+  mutation UpdateAnswerQuestionnaire(
+    $input: UpdateAnswerQuestionnaireInput!
+    $condition: ModelAnswerQuestionnaireConditionInput
+  ) {
+    updateAnswerQuestionnaire(input: $input, condition: $condition) {
+      answerQuestionnaireId
+      userId
+      questionId
+      cashFlowId
+      privateAnswerValue1
+      privateAnswerValue2
+      privateAnswerValue3
+      declineFlg
+      created
+      updated
+      deleted
+      deleteFlg
+      answerComment
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAnswerQuestionnaire = /* GraphQL */ `
+  mutation DeleteAnswerQuestionnaire(
+    $input: DeleteAnswerQuestionnaireInput!
+    $condition: ModelAnswerQuestionnaireConditionInput
+  ) {
+    deleteAnswerQuestionnaire(input: $input, condition: $condition) {
+      answerQuestionnaireId
+      userId
+      questionId
+      cashFlowId
+      privateAnswerValue1
+      privateAnswerValue2
+      privateAnswerValue3
+      declineFlg
+      created
+      updated
+      deleted
+      deleteFlg
+      answerComment
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
