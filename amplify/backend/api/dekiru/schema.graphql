@@ -7,3 +7,86 @@ type NoteTest @model {
   title: String!
   content: String
 }
+
+type UserId @model {
+  userId: String!
+  firstName: String
+  lastName: String
+  birthday: String
+  handleName: String
+  mail:String!
+  experience:String
+  licenseFlag:Int
+  identificationFlag:Int
+  bankFlag:Int
+  created:String
+  updated:String
+  deleted_date:String
+  status:Int
+  point:Int
+  transferPoint:Int
+  GMOuserID:String
+
+}
+
+type Questions @model {
+  questionId: ID!
+  userId: String!
+  categoryId: Int!
+  title:String!
+  content:String!
+  status:Int!
+  createdAt:String!
+  updatedAt:String
+  deleteFlg:Int
+
+}
+
+type CashFlow @model {
+  cashFlowId: ID!
+  questionId: String
+  purchaserId:String
+  sellerId:String
+  purchaserCash:String
+  sellerCash:String
+  earnings:String
+  created:String
+  updated:String
+  deleted:String
+  deleteFlg:Int
+
+}
+
+type QuestionQuestionnaire @model {
+  questionQuestionnaireId: ID!
+  userId: String!
+  questionId:String!
+  cashFlowId:String
+  publicQuestionValue:Int
+  privateQuestionValue1:Int
+  privateQuestionValue2:Int
+  privateQuestionValue3:Int
+  privateQuestionValue4:Int
+  created:String
+  updated:String
+  deleted:String
+  deleteFlg:Int
+  questonComment:String
+
+}
+
+type AnswerQuestionnaire @model {
+  answerQuestionnaireId: ID!
+  userId: String!
+  questionId:String
+  cashFlowId:String
+  privateAnswerValue1:Int
+  privateAnswerValue2:Int
+  privateAnswerValue3:Int
+  declineFlg:Int
+  created:String
+  updated:String
+  deleted:String
+  deleteFlg:String
+  answerComment:String
+}
