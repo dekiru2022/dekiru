@@ -16,7 +16,7 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import Tooltip from '@material-ui/core/Tooltip';
 // 共通部品　インポート
-import { StyleButton, BackButton } from '../../ui/styleButton';
+import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createNoteTest as createNoteTestMutation, deleteNoteTest as deleteNoteTestMutation } from '../../../graphql/mutations';
@@ -121,7 +121,7 @@ function PostQuestion() {
       {/* ボタン */}
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item>
-          <BackButton to="" />
+          <BorderButton to="" />
         </Grid>
         <Grid item>
           <StyleButton title="相談する" onClick={createNoteTest} to="/indexResolver" />

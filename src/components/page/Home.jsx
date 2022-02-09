@@ -27,12 +27,12 @@ export default function Home() {
       </p>
 
       {/* ボタン */}
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid container spacing={8} justifyContent="center" alignItems="center">
         <Grid item>
-          <StyleButton title="相談する" to="/postQuestion" ></StyleButton>
+          <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
         </Grid>
         <Grid item>
-          <StyleButton title="解決する" to="/indexQuestion" />
+          <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
         </Grid>
       </Grid>
     </>

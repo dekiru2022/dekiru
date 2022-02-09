@@ -9,16 +9,13 @@
 
 //  インポート一覧
 import React, { useState, useEffect } from 'react';
-import { Link as LinkRouter } from 'react-router-dom';
+import { StyleButton } from '../../ui/styleButton';
 //  ui インポート
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import { green } from '@mui/material/colors';
-import Button from '@mui/material/Button';
 
 // メイン画面（カード）
 export const QuestionCardResolver = (props) => {
@@ -26,30 +23,28 @@ export const QuestionCardResolver = (props) => {
   const {question} = props
 
   return (
-    <Card sx={{ m: 1, minWidth: 300, maxWidth: 600, width:'auto', height: 'auto' }}>
+    <Card sx={{ m: 1, width:'40rem', height: '20rem', border: '0.1rem solid #26418D', position: 'relative' }}>
       {/* ヘッダー（カード内） */}
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
-            {question.user_char_name}
-          </Avatar>
-        }
         // 相談タイトル
         title={question.title}
+        titleTypographyProps={{variant: 'h5' }}
         // 相談作成時間
         subheader={question.created_at}
+        style={{ marginTop: '0.5%' }}
       />
 
       {/* 相談内容（カード内） */}
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="subtitle" color="text.secondary">
           {question.content}
         </Typography>
       </CardContent>
 
       {/* フッター（カード内） */}
-      <CardActions disableSpacing>
-        <Button variant='contained' component={LinkRouter} to="/showQuestion" >できます！</Button>
+      <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', left: '10px' }}>
+        {/* <Button variant='contained' component={LinkRouter} to="/showQuestion" >できます！</Button> */}
+        <StyleButton title="回答する" to="/showQuestion" />
       </CardActions>
     </Card>
   );

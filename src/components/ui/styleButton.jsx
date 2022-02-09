@@ -9,6 +9,11 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import { Link as LinkRouter } from 'react-router-dom';
+import '../../styles/Button.css'
+
+const setFontSize = (fontSize) =>{
+    return (fontSize) ? fontSize : '1.5rem'
+}
 
 /**
  * StyleButton
@@ -17,19 +22,19 @@ import { Link as LinkRouter } from 'react-router-dom';
  * @param {Any} onClick - ハンドラを指定
  * @returns StyleButon
  */
-export const StyleButton = ({ title, to, onClick }) => {
+export const StyleButton = ({ title, to, onClick, fontSize }) => {
     return (
         <Button
             style={{
                 // ボタン
                 width: 'auto',
                 height: 'auto',
-                backgroundColor: '#0093FD',
 
                 // テキスト
                 color: '#FFF',
-                fontSize: '1.5rem',
+                fontSize: setFontSize(fontSize) ,
             }}
+            className="style-button"
             variant="contained"
             component={LinkRouter}
             to={to}
@@ -46,17 +51,18 @@ export const StyleButton = ({ title, to, onClick }) => {
  * @param {String} to - クリック後に飛ぶルーティング用パス
  * @returns BackButon
  */
-export const BackButton = ({ to, onClick }) => {
+export const BorderButton = ({ to, onClick }) => {
     return (
         <Button
             style={{
                 // ボタン
                 width: 'auto',
                 height: 'auto',
-                backgroundColor: '#8AD3F2',
+                backgroundColor: '#FFF',
+                border: '0.1rem solid #26418D',
 
                 // テキスト
-                color: '#FFF',
+                color: '#26418D',
                 fontSize: '1.5rem',
             }}
             variant="contained"

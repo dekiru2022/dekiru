@@ -48,15 +48,15 @@ export default function QuestionCard(props) {
     <Card sx={{ m: 1, minWidth: 300, maxWidth: 600 }}>
       <CardHeader
         avatar={
-          // question.user_id == 1
-          //   ?
+          question.user_id == 1
+            ?
             <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
               {question.user_char_name}
             </Avatar>
-            // :
-            // <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            //   {question.user_char_name}
-            // </Avatar>
+            :
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+              {question.user_char_name}
+            </Avatar>
         }
         action={<IconButton aria-label="settings">
           <MoreVertIcon />
