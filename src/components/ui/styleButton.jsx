@@ -33,6 +33,7 @@ export const StyleButton = ({ title, to, onClick, fontSize }) => {
                 // テキスト
                 color: '#FFF',
                 fontSize: setFontSize(fontSize) ,
+                borderRadius: 20,
             }}
             className="style-button"
             variant="contained"
@@ -60,6 +61,7 @@ export const BorderButton = ({ to, onClick }) => {
                 height: 'auto',
                 backgroundColor: '#FFF',
                 border: '0.1rem solid #26418D',
+                borderRadius: 20,
 
                 // テキスト
                 color: '#26418D',

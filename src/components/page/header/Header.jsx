@@ -33,9 +33,9 @@ const Header = ({ signOut, user }) => {
               <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }} m={1}>
                 <div style={{ margin: '0.5% 1% 0.5% 1%' }} ><StyleButton title="ホーム" to="/" /></div>
                 <div style={{ margin: '0.5% 1% 0.5% 1%' }} ><StyleButton title="設定" to="/setting" /></div>
-                <AmplifySignOut buttonText="ログアウト"></AmplifySignOut>
+                {/* <AmplifySignOut buttonText="ログアウト"></AmplifySignOut> */}
                 {/* 認証機能をボタンで実装できれば・・・ */}
-                {/* <div style={{ margin: '0.5% 1% 0.5% 1%' }} ><StyleButton title="ログアウト" to="/" /></div> */}
+                <div style={{ margin: '0.5% 1% 0.5% 1%' }} ><StyleButton title="ログアウト" to="/" /></div>
               </Box>
             </Box>
           </Toolbar>
