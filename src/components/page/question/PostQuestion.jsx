@@ -19,6 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
+import { createQuestions as createQuestionsMutation} from '../../../graphql/mutations';
 import { createNoteTest as createNoteTestMutation, deleteNoteTest as deleteNoteTestMutation } from '../../../graphql/mutations';
 
 // TEST 削除予定
@@ -48,13 +49,25 @@ function PostQuestion() {
   const getCategoryData = () => {
   }
 
+ 
+
   // データ送信
-  async function createNoteTest() {
+  async function createQuestions() {
     if (!formData.title || !formData.content) return;
-    await API.graphql({ query: createNoteTestMutation, variables: { input: formData } });
+    formData.userId = "inputQuestionUserId";
+    formData.categoryId = 1;
+    formData.status = 1;
+    formData.createdAt = "2022-02-10 00:00:00";
+    formData.updatedAt = "2022-02-10 00:00:00";
+    formData.deleteFlg = 0;
+
+    console.log(formData);
+    await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
     setNotes([...notes, formData]);
     setFormData(initialFormState);
-    console.log(formData);
+ 
+    console.log(formData.userId);
+    // console.log(formData);
   }
 
   // 画面描画
@@ -77,9 +90,11 @@ function PostQuestion() {
               label="カテゴリー"
               title="category_id"
               style={{ fontSize: '21px' }}
+              onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+              value={formData.categoryId}
             >
               {categoriesArray.map((categoryArray, index) => (
-                <MenuItem style={{ fontSize: '18px' }} value={categoryArray.id} key={index}>{categoryArray.category}</MenuItem>
+                <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -124,11 +139,12 @@ function PostQuestion() {
           <BorderButton to="" />
         </Grid>
         <Grid item>
-          <StyleButton title="相談する" onClick={createNoteTest} to="/indexResolver" />
+          <StyleButton title="相談する" onClick={createQuestions} to="/indexResolver" />
         </Grid>
       </Grid>
     </>
   )
 }
 export default PostQuestion
+
 
