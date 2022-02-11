@@ -19,7 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
-import { createQuestions as createQuestionsMutation} from '../../../graphql/mutations';
+import { createQuestions as createQuestionsMutation } from '../../../graphql/mutations';
 import { onCreateQuestions } from '../../../graphql/subscriptions';
 
 // カテゴリー取得
@@ -40,32 +40,28 @@ function PostQuestion() {
   const initialFormState = { title: '', content: '' }
   const [formData, setFormData] = useState(initialFormState);
 
-
   // コンポーネント再描画のたびに初期化
   useEffect(() => {
     getCategoryData();
-
   }, []);
 
   // DBからカテゴリ一覧を取得
   const getCategoryData = () => {
   }
 
-
-
-   // 入力チェック
-   async function inputChecl() {
-    if (formData.title == "" || formData.content == "" | formData.categoryId == null){
+  // 入力チェック
+  async function inputChecl() {
+    if (formData.title == "" || formData.content == "" | formData.categoryId == null) {
       alert('全ての項目を入力してください');
-    }else  {
-      let result= window.confirm('相談を送信してもよろしいですか？');
+    } else {
+      let result = window.confirm('相談を送信してもよろしいですか？');
       // OKボタン押下時
-      if(result) {
+      if (result) {
         createQuestions();
-        window.location.href = '/indexResolver'; 
-      // キャンセルボタン押下時
+        window.location.href = '/indexResolver';
+        // キャンセルボタン押下時
       } else {
-       // 何も処理を行わない
+        // 何も処理を行わない
       }
     }
   }
@@ -86,10 +82,6 @@ function PostQuestion() {
     setFormData(initialFormState);
 
   }
-
-
-
-
 
   // 画面描画
   return (
@@ -160,7 +152,7 @@ function PostQuestion() {
           <BorderButton to="" />
         </Grid>
         <Grid item>
-          <StyleButton title="相談する" onClick={inputChecl}/>
+          <StyleButton title="相談する" onClick={inputChecl} />
 
         </Grid>
       </Grid>

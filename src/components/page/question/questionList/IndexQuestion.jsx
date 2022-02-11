@@ -28,10 +28,11 @@ import { categories as TestCategories } from '../../../../database/categories_ta
 import { listQuestions } from '../../../../graphql/queries';
 import { onCreateQuestions } from '../../../../graphql/subscriptions';
 
-import { API, graphqlOperation  } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
 import { QuestionCardResolver } from '../QuestionCardResolver';
+import { render } from '@testing-library/react';
 
 // test
 const initialFormState = { name: '', description: '' }
@@ -47,8 +48,8 @@ export default function IndexQuestion() {
     // ソート条件
     const [sort, setSort] = useState({});
     // DBからとってきた質問
-    const [Questions, setQuestions] = useState([]);
-    
+    const [questions, setQuestions] = useState([]);
+
     const [notes, setNotes] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
 
@@ -63,8 +64,23 @@ export default function IndexQuestion() {
     // 表示
     async function fetchListQuestion() {
         const apiData = await API.graphql({ query: listQuestions });
-        console.log(apiData);
         setQuestions(apiData.data.listQuestions.items);
+
+        // ------追加------
+        API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+            next: (eventData) => {
+                console.log(eventData.value.data.onCreateQuestions);
+                // setQuestions(eventData.value.data.onCreateQuestions);
+
+                const post = eventData.value.data.onCreateQuestions
+                const posts = [...questions.filter(id => {
+                    return ( id !== post.id )
+                }), post]
+                console.log(posts)
+                setQuestions({ posts })
+            }
+        })
+        // ----ここまで-----
     }
 
     // // // 表示
@@ -105,7 +121,7 @@ export default function IndexQuestion() {
     //     const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
     //     // return tmpQuestions;
     // }, [filterQuery, sort, listQuestions]);
-    
+
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;
@@ -154,14 +170,14 @@ export default function IndexQuestion() {
             {/* 質問一覧　カードを表示 */}
             <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }} >
                 {
-                    Questions.map((question, i) => {
+                    questions.map((question, i) => {
                         return (
                             <>
                                 <Grid item xs={6}>
                                     <QuestionCardResolver question={question} />
                                 </Grid>
                                 {(() => {
-                                    if ((Questions.length - 1 === i) && ((Questions.length % 2) === 1)) {
+                                    if ((questions.length - 1 === i) && ((questions.length % 2) === 1)) {
                                         return (
                                             <Grid item xs={6}></Grid>
                                         )
