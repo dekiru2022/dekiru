@@ -25,6 +25,8 @@ import { onCreateQuestions } from '../../../graphql/subscriptions';
 // カテゴリー取得
 import { categories } from '../../../database/categories_table';
 
+// test
+const initialFormState = { title: '', content: '' }
 
 // 質問投稿機能　main
 function PostQuestion() {
@@ -159,7 +161,6 @@ function PostQuestion() {
         </Grid>
         <Grid item>
           <StyleButton title="相談する" onClick={inputChecl}/>
-          {this.state.posts.map((post,idx) => {return <div key={idx}><div>title: {formData.title}</div><div>content:, {formData.content}</div></div>})}
 
         </Grid>
       </Grid>

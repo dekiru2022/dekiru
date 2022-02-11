@@ -33,6 +33,11 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
 import { QuestionCardResolver } from '../QuestionCardResolver';
 
+// test
+const initialFormState = { name: '', description: '' }
+
+
+
 export default function IndexQuestion() {
 
     // カテゴリー
@@ -43,10 +48,6 @@ export default function IndexQuestion() {
     const [sort, setSort] = useState({});
     // DBからとってきた質問
     const [Questions, setQuestions] = useState([]);
-
-
-    const initialFormState = { name: '', description: '' }
-
     
     const [notes, setNotes] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
@@ -59,31 +60,31 @@ export default function IndexQuestion() {
     }, [])
 
 
-    // // 表示
-    // async function fetchListQuestion() {
-    //     const apiData = await API.graphql({ query: listQuestions });
-    //     console.log(apiData);
-    //     setQuestions(apiData.data.listQuestions.items);
-    // }
-
-    // // 表示
+    // 表示
     async function fetchListQuestion() {
-        const apiData = await API.graphql(graphqlOperation(listQuestions));
+        const apiData = await API.graphql({ query: listQuestions });
         console.log(apiData);
-        this.setQuestions(apiData.data.listQuestions.items);
-
-
-        API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
-            next: (eventData) => {
-              console.log('eventData: ', eventData)
-              const post = eventData.value.data.onCreateQuestions
-              const posts = [...this.state.posts.filter(content => {
-                return (content.title !== post.title)
-              }), post]
-              this.setQuestions({ posts })
-            }
-          })
+        setQuestions(apiData.data.listQuestions.items);
     }
+
+    // // // 表示
+    // async function fetchListQuestion() {
+    //     const apiData = await API.graphql(graphqlOperation(listQuestions));
+    //     console.log(apiData);
+    //     this.setQuestions(apiData.data.listQuestions.items);
+
+
+    //     API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+    //         next: (eventData) => {
+    //           console.log('eventData: ', eventData)
+    //           const post = eventData.value.data.onCreateQuestions
+    //           const posts = [...this.state.posts.filter(content => {
+    //             return (content.title !== post.title)
+    //           }), post]
+    //           this.setQuestions({ posts })
+    //         }
+    //       })
+    // }
 
     // // 一覧情報を取得しステートquestionsにセットする
     // const getQuestionsData = () => {
@@ -176,3 +177,6 @@ export default function IndexQuestion() {
         </>
     );
 }
+
+
+
