@@ -92,7 +92,7 @@ export const listUserIds = /* GraphQL */ `
 export const getQuestions = /* GraphQL */ `
   query GetQuestions($id: ID!) {
     getQuestions(id: $id) {
-      questionId
+      id
       userId
       categoryId
       title
@@ -101,7 +101,6 @@ export const getQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
@@ -113,7 +112,7 @@ export const listQuestions = /* GraphQL */ `
   ) {
     listQuestions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        questionId
+        id
         userId
         categoryId
         title
@@ -122,7 +121,6 @@ export const listQuestions = /* GraphQL */ `
         createdAt
         updatedAt
         deleteFlg
-        id
       }
       nextToken
     }
@@ -178,7 +176,7 @@ export const listCashFlows = /* GraphQL */ `
 export const getQuestionQuestionnaire = /* GraphQL */ `
   query GetQuestionQuestionnaire($id: ID!) {
     getQuestionQuestionnaire(id: $id) {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -192,7 +190,6 @@ export const getQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -210,7 +207,7 @@ export const listQuestionQuestionnaires = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        questionQuestionnaireId
+        id
         userId
         questionId
         cashFlowId
@@ -224,7 +221,6 @@ export const listQuestionQuestionnaires = /* GraphQL */ `
         deleted
         deleteFlg
         questonComment
-        id
         createdAt
         updatedAt
       }
@@ -235,7 +231,7 @@ export const listQuestionQuestionnaires = /* GraphQL */ `
 export const getAnswerQuestionnaire = /* GraphQL */ `
   query GetAnswerQuestionnaire($id: ID!) {
     getAnswerQuestionnaire(id: $id) {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -248,7 +244,6 @@ export const getAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }
@@ -266,7 +261,7 @@ export const listAnswerQuestionnaires = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        answerQuestionnaireId
+        id
         userId
         questionId
         cashFlowId
@@ -279,7 +274,6 @@ export const listAnswerQuestionnaires = /* GraphQL */ `
         deleted
         deleteFlg
         answerComment
-        id
         createdAt
         updatedAt
       }

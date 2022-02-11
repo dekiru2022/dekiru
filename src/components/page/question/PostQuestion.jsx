@@ -20,7 +20,6 @@ import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createQuestions as createQuestionsMutation} from '../../../graphql/mutations';
-import { createNoteTest as createNoteTestMutation, deleteNoteTest as deleteNoteTestMutation } from '../../../graphql/mutations';
 
 // TEST 削除予定
 import { categories } from '../../../database/categories_table';
@@ -49,7 +48,7 @@ function PostQuestion() {
   const getCategoryData = () => {
   }
 
- 
+
 
   // データ送信
   async function createQuestions() {
@@ -90,8 +89,8 @@ function PostQuestion() {
               label="カテゴリー"
               title="category_id"
               style={{ fontSize: '21px' }}
-              onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
-              value={formData.categoryId}
+              // onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+              // value={formData.categoryId}
             >
               {categoriesArray.map((categoryArray, index) => (
                 <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>

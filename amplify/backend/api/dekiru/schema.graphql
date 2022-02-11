@@ -30,7 +30,7 @@ type UserId @model {
 }
 
 type Questions @model {
-  questionId: ID!
+  id: ID!
   userId: String!
   categoryId: Int!
   title:String!
@@ -58,7 +58,7 @@ type CashFlow @model {
 }
 
 type QuestionQuestionnaire @model {
-  questionQuestionnaireId: ID!
+  id: ID!
   userId: String!
   questionId:String!
   cashFlowId:String
@@ -76,7 +76,7 @@ type QuestionQuestionnaire @model {
 }
 
 type AnswerQuestionnaire @model {
-  answerQuestionnaireId: ID!
+  id: ID!
   userId: String!
   questionId:String
   cashFlowId:String

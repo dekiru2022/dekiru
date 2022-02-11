@@ -136,7 +136,7 @@ export const createQuestions = /* GraphQL */ `
     $condition: ModelQuestionsConditionInput
   ) {
     createQuestions(input: $input, condition: $condition) {
-      questionId
+      id
       userId
       categoryId
       title
@@ -145,7 +145,6 @@ export const createQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
@@ -155,7 +154,7 @@ export const updateQuestions = /* GraphQL */ `
     $condition: ModelQuestionsConditionInput
   ) {
     updateQuestions(input: $input, condition: $condition) {
-      questionId
+      id
       userId
       categoryId
       title
@@ -164,7 +163,6 @@ export const updateQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
@@ -174,7 +172,7 @@ export const deleteQuestions = /* GraphQL */ `
     $condition: ModelQuestionsConditionInput
   ) {
     deleteQuestions(input: $input, condition: $condition) {
-      questionId
+      id
       userId
       categoryId
       title
@@ -183,7 +181,6 @@ export const deleteQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
@@ -262,7 +259,7 @@ export const createQuestionQuestionnaire = /* GraphQL */ `
     $condition: ModelQuestionQuestionnaireConditionInput
   ) {
     createQuestionQuestionnaire(input: $input, condition: $condition) {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -276,7 +273,6 @@ export const createQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -288,7 +284,7 @@ export const updateQuestionQuestionnaire = /* GraphQL */ `
     $condition: ModelQuestionQuestionnaireConditionInput
   ) {
     updateQuestionQuestionnaire(input: $input, condition: $condition) {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -302,7 +298,6 @@ export const updateQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -314,7 +309,7 @@ export const deleteQuestionQuestionnaire = /* GraphQL */ `
     $condition: ModelQuestionQuestionnaireConditionInput
   ) {
     deleteQuestionQuestionnaire(input: $input, condition: $condition) {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -328,7 +323,6 @@ export const deleteQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -340,7 +334,7 @@ export const createAnswerQuestionnaire = /* GraphQL */ `
     $condition: ModelAnswerQuestionnaireConditionInput
   ) {
     createAnswerQuestionnaire(input: $input, condition: $condition) {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -353,7 +347,6 @@ export const createAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }
@@ -365,7 +358,7 @@ export const updateAnswerQuestionnaire = /* GraphQL */ `
     $condition: ModelAnswerQuestionnaireConditionInput
   ) {
     updateAnswerQuestionnaire(input: $input, condition: $condition) {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -378,7 +371,6 @@ export const updateAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }
@@ -390,7 +382,7 @@ export const deleteAnswerQuestionnaire = /* GraphQL */ `
     $condition: ModelAnswerQuestionnaireConditionInput
   ) {
     deleteAnswerQuestionnaire(input: $input, condition: $condition) {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -403,7 +395,6 @@ export const deleteAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }

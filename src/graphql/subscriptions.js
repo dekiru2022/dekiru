@@ -115,7 +115,7 @@ export const onDeleteUserId = /* GraphQL */ `
 export const onCreateQuestions = /* GraphQL */ `
   subscription OnCreateQuestions {
     onCreateQuestions {
-      questionId
+      id
       userId
       categoryId
       title
@@ -124,14 +124,13 @@ export const onCreateQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
 export const onUpdateQuestions = /* GraphQL */ `
   subscription OnUpdateQuestions {
     onUpdateQuestions {
-      questionId
+      id
       userId
       categoryId
       title
@@ -140,14 +139,13 @@ export const onUpdateQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
 export const onDeleteQuestions = /* GraphQL */ `
   subscription OnDeleteQuestions {
     onDeleteQuestions {
-      questionId
+      id
       userId
       categoryId
       title
@@ -156,7 +154,6 @@ export const onDeleteQuestions = /* GraphQL */ `
       createdAt
       updatedAt
       deleteFlg
-      id
     }
   }
 `;
@@ -223,7 +220,7 @@ export const onDeleteCashFlow = /* GraphQL */ `
 export const onCreateQuestionQuestionnaire = /* GraphQL */ `
   subscription OnCreateQuestionQuestionnaire {
     onCreateQuestionQuestionnaire {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -237,7 +234,6 @@ export const onCreateQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -246,7 +242,7 @@ export const onCreateQuestionQuestionnaire = /* GraphQL */ `
 export const onUpdateQuestionQuestionnaire = /* GraphQL */ `
   subscription OnUpdateQuestionQuestionnaire {
     onUpdateQuestionQuestionnaire {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -260,7 +256,6 @@ export const onUpdateQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -269,7 +264,7 @@ export const onUpdateQuestionQuestionnaire = /* GraphQL */ `
 export const onDeleteQuestionQuestionnaire = /* GraphQL */ `
   subscription OnDeleteQuestionQuestionnaire {
     onDeleteQuestionQuestionnaire {
-      questionQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -283,7 +278,6 @@ export const onDeleteQuestionQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       questonComment
-      id
       createdAt
       updatedAt
     }
@@ -292,7 +286,7 @@ export const onDeleteQuestionQuestionnaire = /* GraphQL */ `
 export const onCreateAnswerQuestionnaire = /* GraphQL */ `
   subscription OnCreateAnswerQuestionnaire {
     onCreateAnswerQuestionnaire {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -305,7 +299,6 @@ export const onCreateAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }
@@ -314,7 +307,7 @@ export const onCreateAnswerQuestionnaire = /* GraphQL */ `
 export const onUpdateAnswerQuestionnaire = /* GraphQL */ `
   subscription OnUpdateAnswerQuestionnaire {
     onUpdateAnswerQuestionnaire {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -327,7 +320,6 @@ export const onUpdateAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }
@@ -336,7 +328,7 @@ export const onUpdateAnswerQuestionnaire = /* GraphQL */ `
 export const onDeleteAnswerQuestionnaire = /* GraphQL */ `
   subscription OnDeleteAnswerQuestionnaire {
     onDeleteAnswerQuestionnaire {
-      answerQuestionnaireId
+      id
       userId
       questionId
       cashFlowId
@@ -349,7 +341,6 @@ export const onDeleteAnswerQuestionnaire = /* GraphQL */ `
       deleted
       deleteFlg
       answerComment
-      id
       createdAt
       updatedAt
     }
