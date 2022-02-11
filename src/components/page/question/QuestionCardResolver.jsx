@@ -16,13 +16,22 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
+// Graphql インポート
+import { listQuestions } from '../../../graphql/queries';
+
+import { API } from 'aws-amplify';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+
+
 
 // メイン画面（カード）
 export const QuestionCardResolver = (props) => {
+
   // 変数宣言
   const {question} = props
 
   return (
+    
     <Card sx={{ m: 1, width:'40rem', height: '20rem', border: '0.1rem solid #26418D', position: 'relative' }}>
       {/* ヘッダー（カード内） */}
       <CardHeader
@@ -30,7 +39,7 @@ export const QuestionCardResolver = (props) => {
         title={question.title}
         titleTypographyProps={{variant: 'h5' }}
         // 相談作成時間
-        subheader={question.created_at}
+        subheader={question.createdAt}
         style={{ marginTop: '0.5%' }}
       />
 

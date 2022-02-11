@@ -20,8 +20,7 @@ import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createQuestions as createQuestionsMutation} from '../../../graphql/mutations';
-
-// TEST 削除予定
+// カテゴリー取得
 import { categories } from '../../../database/categories_table';
 
 
@@ -50,11 +49,28 @@ function PostQuestion() {
 
 
 
+   // 入力チェック
+   async function inputChecl() {
+    if (formData.title == "" || formData.content == "" | formData.categoryId == null){
+      alert('全ての項目を入力してください');
+    }else  {
+      let result= window.confirm('相談を送信してもよろしいですか？');
+      // OKボタン押下時
+      if(result) {
+        createQuestions();
+        window.location.href = '/indexResolver'; 
+      // キャンセルボタン押下時
+      } else {
+       // 何も処理を行わない
+      }
+    }
+  }
+
   // データ送信
   async function createQuestions() {
     if (!formData.title || !formData.content) return;
     formData.userId = "inputQuestionUserId";
-    formData.categoryId = 1;
+    // formData.categoryId = 1;
     formData.status = 1;
     formData.createdAt = "2022-02-10 00:00:00";
     formData.updatedAt = "2022-02-10 00:00:00";
@@ -64,10 +80,12 @@ function PostQuestion() {
     await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
     setNotes([...notes, formData]);
     setFormData(initialFormState);
- 
-    console.log(formData.userId);
-    // console.log(formData);
+
   }
+
+
+
+
 
   // 画面描画
   return (
@@ -89,8 +107,8 @@ function PostQuestion() {
               label="カテゴリー"
               title="category_id"
               style={{ fontSize: '21px' }}
-              // onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
-              // value={formData.categoryId}
+              onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+              value={formData.categoryId}
             >
               {categoriesArray.map((categoryArray, index) => (
                 <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
@@ -138,7 +156,7 @@ function PostQuestion() {
           <BorderButton to="" />
         </Grid>
         <Grid item>
-          <StyleButton title="相談する" onClick={createQuestions} to="/indexResolver" />
+          <StyleButton title="相談する" onClick={inputChecl}/>
         </Grid>
       </Grid>
     </>

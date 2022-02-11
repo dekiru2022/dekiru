@@ -24,11 +24,11 @@ import QuestionCard from '../QuestionCard';
 // テスト用データ
 import { questions as TestQuestions } from '../../../../database/questions_table';
 import { categories as TestCategories } from '../../../../database/categories_table';
-
+// Graphql インポート
+import { listQuestions } from '../../../../graphql/queries';
 
 import { API } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listNoteTests } from '../../../../graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
 import { QuestionCardResolver } from '../QuestionCardResolver';
 
@@ -41,7 +41,7 @@ export default function IndexQuestion() {
     // ソート条件
     const [sort, setSort] = useState({});
     // DBからとってきた質問
-    const [questions, setQuestions] = useState([]);
+    const [listQuestions, setQuestions] = useState([]);
 
 
     const initialFormState = { name: '', description: '' }
@@ -50,30 +50,31 @@ export default function IndexQuestion() {
 
     // 再描画のたびに実行
     useEffect(() => {
-        getQuestionsData();
+       // getQuestionsData();
         getCategoriesData();
-        fetchNotes();
+        fetchListQuestion();
     }, [])
 
 
     // 表示
-    async function fetchNotes() {
-        const apiData = await API.graphql({ query: listNoteTests });
-        setNotes(apiData.data.listNoteTests.items);
+    async function fetchListQuestion() {
+        const apiData = await API.graphql({ query: listQuestions });
+        setQuestions(apiData.data.listQuestions.items);
+
     }
 
 
-    // 一覧情報を取得しステートquestionsにセットする
-    const getQuestionsData = () => {
+    // // 一覧情報を取得しステートquestionsにセットする
+    // const getQuestionsData = () => {
 
-        //テスト用データ代入
-        setQuestions(TestQuestions);
-        console.log(TestQuestions);
-    }
+    //     //データ代入
+    //     // setQuestions(listQuestions);
+    // }
+
+
     const getCategoriesData = () => {
-
-        //テスト用データの代入
-        setCategories(TestCategories);
+        //データの代入
+         setCategories(TestCategories);
     }
 
     const filteredTask = useMemo(() => {
@@ -83,7 +84,7 @@ export default function IndexQuestion() {
         const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
 
         // return tmpQuestions;
-    }, [filterQuery, sort, questions]);
+    }, [filterQuery, sort, listQuestions]);
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;
@@ -91,16 +92,16 @@ export default function IndexQuestion() {
     };
 
     // 選択したカラムをSortに入れる
-    const handleSort = column => {
-        if (sort.key === column) {
-            setSort({ ...sort, order: -sort.order });
-        } else {
-            setSort({
-                key: column,
-                order: 1
-            })
-        }
-    };
+    // const handleSort = column => {
+    //     if (sort.key === column) {
+    //         setSort({ ...sort, order: -sort.order });
+    //     } else {
+    //         setSort({
+    //             key: column,
+    //             order: 1
+    //         })
+    //     }
+    // };
 
     // メイン
     return (
@@ -122,7 +123,7 @@ export default function IndexQuestion() {
                             style={{ fontSize: '21px' }}
                         >
                             {categories.map((category, index) => (
-                                <MenuItem style={{ fontSize: '18px' }} value={category.id} key={index}>{category.category}</MenuItem>
+                                <MenuItem style={{ fontSize: '18px' }} value={category.categoryId} key={index}>{category.category}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -132,14 +133,14 @@ export default function IndexQuestion() {
             {/* 質問一覧　カードを表示 */}
             <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }} >
                 {
-                    questions.map((question, i) => {
+                    listQuestions.map((question, i) => {
                         return (
                             <>
                                 <Grid item xs={6}>
                                     <QuestionCardResolver question={question} />
                                 </Grid>
                                 {(() => {
-                                    if ((questions.length - 1 === i) && ((questions.length % 2) === 1)) {
+                                    if ((listQuestions.length - 1 === i) && ((listQuestions.length % 2) === 1)) {
                                         return (
                                             <Grid item xs={6}></Grid>
                                         )
