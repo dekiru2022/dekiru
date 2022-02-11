@@ -20,6 +20,8 @@ import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createQuestions as createQuestionsMutation} from '../../../graphql/mutations';
+import { onCreateQuestions } from '../../../graphql/subscriptions';
+
 // カテゴリー取得
 import { categories } from '../../../database/categories_table';
 
@@ -157,6 +159,8 @@ function PostQuestion() {
         </Grid>
         <Grid item>
           <StyleButton title="相談する" onClick={inputChecl}/>
+          {this.state.posts.map((post,idx) => {return <div key={idx}><div>title: {formData.title}</div><div>content:, {formData.content}</div></div>})}
+
         </Grid>
       </Grid>
     </>

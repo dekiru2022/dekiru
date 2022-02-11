@@ -26,8 +26,9 @@ import { questions as TestQuestions } from '../../../../database/questions_table
 import { categories as TestCategories } from '../../../../database/categories_table';
 // Graphql インポート
 import { listQuestions } from '../../../../graphql/queries';
+import { onCreateQuestions } from '../../../../graphql/subscriptions';
 
-import { API } from 'aws-amplify';
+import { API, graphqlOperation  } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
 import { QuestionCardResolver } from '../QuestionCardResolver';
@@ -41,28 +42,48 @@ export default function IndexQuestion() {
     // ソート条件
     const [sort, setSort] = useState({});
     // DBからとってきた質問
-    const [listQuestions, setQuestions] = useState([]);
+    const [Questions, setQuestions] = useState([]);
 
 
     const initialFormState = { name: '', description: '' }
+
+    
     const [notes, setNotes] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
 
     // 再描画のたびに実行
     useEffect(() => {
-       // getQuestionsData();
+        // getQuestionsData();
         getCategoriesData();
         fetchListQuestion();
     }, [])
 
 
-    // 表示
+    // // 表示
+    // async function fetchListQuestion() {
+    //     const apiData = await API.graphql({ query: listQuestions });
+    //     console.log(apiData);
+    //     setQuestions(apiData.data.listQuestions.items);
+    // }
+
+    // // 表示
     async function fetchListQuestion() {
-        const apiData = await API.graphql({ query: listQuestions });
-        setQuestions(apiData.data.listQuestions.items);
+        const apiData = await API.graphql(graphqlOperation(listQuestions));
+        console.log(apiData);
+        this.setQuestions(apiData.data.listQuestions.items);
 
+
+        API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+            next: (eventData) => {
+              console.log('eventData: ', eventData)
+              const post = eventData.value.data.onCreateQuestions
+              const posts = [...this.state.posts.filter(content => {
+                return (content.title !== post.title)
+              }), post]
+              this.setQuestions({ posts })
+            }
+          })
     }
-
 
     // // 一覧情報を取得しステートquestionsにセットする
     // const getQuestionsData = () => {
@@ -74,17 +95,16 @@ export default function IndexQuestion() {
 
     const getCategoriesData = () => {
         //データの代入
-         setCategories(TestCategories);
+        setCategories(TestCategories);
     }
 
-    const filteredTask = useMemo(() => {
-
-        // 入力した文字は小文字にする
-        const filterTitle = filterQuery.title && filterQuery.title.toLowerCase();
-        const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
-
-        // return tmpQuestions;
-    }, [filterQuery, sort, listQuestions]);
+    // const filteredTask = useMemo(() => {
+    //     // 入力した文字は小文字にする
+    //     const filterTitle = filterQuery.title && filterQuery.title.toLowerCase();
+    //     const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
+    //     // return tmpQuestions;
+    // }, [filterQuery, sort, listQuestions]);
+    
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;
@@ -133,14 +153,14 @@ export default function IndexQuestion() {
             {/* 質問一覧　カードを表示 */}
             <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }} >
                 {
-                    listQuestions.map((question, i) => {
+                    Questions.map((question, i) => {
                         return (
                             <>
                                 <Grid item xs={6}>
                                     <QuestionCardResolver question={question} />
                                 </Grid>
                                 {(() => {
-                                    if ((listQuestions.length - 1 === i) && ((listQuestions.length % 2) === 1)) {
+                                    if ((Questions.length - 1 === i) && ((Questions.length % 2) === 1)) {
                                         return (
                                             <Grid item xs={6}></Grid>
                                         )
@@ -152,14 +172,7 @@ export default function IndexQuestion() {
                 }
             </Grid>
 
-            {
-                notes.map(note => (
-                    <div key={note.id || note.name}>
-                        <h2>{note.title}</h2>
-                        <p>{note.content}</p>
-                    </div>
-                ))
-            }
+
         </>
     );
 }
