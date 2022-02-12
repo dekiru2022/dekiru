@@ -1,35 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Rating from '@mui/material/Rating';
+import { API } from 'aws-amplify';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Grid from '@mui/material/Grid';
+import { StyleButton } from '../../../ui/styleButton';
+import FormControl from '@mui/material/FormControl';
+import { StyleTextField, StyleMultilineTextField } from '../../../ui/styleTextField';
+import { updateUserId as updateUserIdMutation } from '../../../../graphql/mutations';
+import { onUpdateUserId } from '../../../../graphql/subscriptions';
 
 
 function BasicDetailsEdit() {
-    //const [user, setFormData] = useState(props); // valueをstateで管理
-    //const {user, setValue} = props;
+
     const id = 1;
-    //const user = props;
-    // const [user, setFormData] = useState({ user_name: props, first_name:"", last_name:"", birthday:""
-    //                                     ,sex:"" , ages:"", email:"", address:"" , id:""});
+
     const [user, setUser] = useState('');
+    const [formData, setFormData] = useState();
+    const [notes, setNotes] = useState([]);
 
     //ユーザ情報を取得しステートuserにセットする
     const getUserData = (id) => {
-        // axios
-        //     .get('/api/users/' + id)
-        //     .then(response => {
-        //         setUser(response.data);
-        //     })
-        //     .catch(() => {
-        //         console.log('通信に失敗しました');
-        //     });
+
     }
     useEffect(() => {
         getUserData(id);
@@ -39,67 +33,83 @@ function BasicDetailsEdit() {
     //入力値を投げる
     const EditBasicDetails = async (id) => {
         console.log(user);
-        // await axios
-        //     .put('/api/users/'+ id, user)
-        //     .then((res) => {
-        //         console.log(res.data);
-        //         setUser(res.data);
-        //       })
-        //     .catch(error => {
-        //       console.log(error);
-        //     });
+
     }
 
-    const inputChange = (e) => {
-        const key = e.target.name;
-        const value = e.target.value;
-        user[key] = value;
 
-        let data = Object.assign({}, user);
-        setUser(data);
+  // 入力チェック
+  async function inputCheck() {
+    if (formData.handleName == "" || formData.mail == "") {
+      alert('全ての項目を入力してください');
+    } else {
+      let result = window.confirm('相談を送信してもよろしいですか？');
+      // OKボタン押下時
+      if (result) {
+        createQuestions();
+        window.location.href = '/indexResolver';
+        // キャンセルボタン押下時
+      } else {
+        // 何も処理を行わない
+      }
     }
+  }
+
+  // データ送信
+  async function createQuestions() {
+    if (!formData.handleName || !formData.mail) return;
+    console.log(formData);
+    await API.graphql({ query: updateUserIdMutation, variables: { input: formData } });
+    setNotes([...notes, formData]);
+    setFormData();
+
+  }
+
 
     return (
-        <Box sx={{ flexGrow: 20 }}>
-            <Grid container spacing={2}>
-                <Grid item xs={8}>
-                    <Avatar alt="Remy Sharp"
-                        src="/static/images/avatar/1.jpg"
-                        sx={{ width: 56, height: 56 }} />
-                </Grid>
 
-                <Grid item xs={12}>
-                    <TextField name="user_name" label="ハンドルネーム" variant="outlined" defaultValue={user.user_name} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="first_name" label="名前(姓)" variant="outlined" defaultValue={user.first_name} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="last_name" label="名前(名)" variant="outlined" defaultValue={user.last_name} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="birthday" label="生年月日" variant="outlined" defaultValue={user.birthday} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="sex" label="性別" variant="outlined" defaultValue={user.sex} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="ages" label="年齢" variant="outlined" defaultValue={user.ages} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="email" label="メールアドレス" variant="outlined" defaultValue={user.email} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="address" label="住所" variant="outlined" defaultValue={user.address} onChange={inputChange} />
-                </Grid>
-                <Grid item xs={1}>
-                    <Button variant="contained" color="primary" onClick={() => { EditBasicDetails(user.id) }} >保存</Button>
-                </Grid>
-                <Grid item xs={8}>
-                </Grid>
-            </Grid>
-        </Box>
-    )
+        <Card sx={{ m: 5, width: 'auto', height: '30rem', border: '0.1rem solid #26418D', position: 'relative' }}>
+            <CardHeader
+                title="ユーザー情報"
+                titleTypographyProps={{ variant: 'h4' }}
+                style={{ marginTop: '0.5%' }}
+            />
+            <CardContent>
+                <Typography variant="h5">
+                    ユーザー名
+                </Typography>
+                <Typography variant="h5">
+                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                        <StyleTextField
+                            label="ユーザー名"
+                            onChange={e => setFormData({ ...formData, 'handleName': e.target.value })}
+                            // value={formData.handleName}
+                        />
+                    </Grid>
+                </Typography>
+            </CardContent>
+            <CardContent>
+                <Typography variant="h5">
+                    メールアドレス
+                </Typography>
+                <Typography variant="h5">
+                <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        label="メールアドレス"
+                        onChange={e => setFormData({ ...formData, 'mail': e.target.value })}
+                        // value={formData.mail}
+                    />
+                    </Grid>
+                </Typography>
+            </CardContent>
+            <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+                <StyleButton title="変更" to="/setting" onClick={inputCheck} />
+            </CardActions>
+        </Card>
+
+
+
+
+    );
 }
 
 export default BasicDetailsEdit

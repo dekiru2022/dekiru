@@ -88,7 +88,7 @@ export default function BasicDetail() {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '180px', right: '10px' }}>
-                        <StyleButton title="変更" to="/showQuestion" />
+                        <StyleButton title="変更" to="/BasicDetailsEdit" />
                     </CardActions>
                     <CardContent>
                         <Typography variant="h5">

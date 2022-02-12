@@ -52,7 +52,7 @@ function DefaultRoute() {
         <Route exact path="/indexQuestion" component={IndexQuestion} />
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
-        <Route exact path="/componets/TopBar/BasicDetailsEdit" component={BasicDetailsEdit} />
+        <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />
 
       </Switch>
 
