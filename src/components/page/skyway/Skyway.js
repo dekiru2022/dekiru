@@ -21,7 +21,7 @@ function Skyway(props){
   const [loading, setLoading] = useState(false);
   const [roomData, setRoomData] = useState({room: null, messages: ''});
   const [localStream, setLocalStream] = useState('');
-  const [remoteVideo, setRemoteVideo] = useState([]);
+  const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
   const [userAudio, setUserAudio] = useState(true); //false: ミュート
@@ -65,7 +65,6 @@ function Skyway(props){
   
   useEffect(() => {
     changeStream();
-    console.log('localStream', localStream);
   }, [userVideo, userAudio, userDisplay]);
 
   //画面共有と自分の映像の取得・切り替え
@@ -152,10 +151,10 @@ function Skyway(props){
 
     //stream: 相手の映像の情報
     room.on("stream", async (stream) => {
-      setRemoteVideo([
-        ...remoteVideo,
-        { stream: stream, peerId: stream.peerId },
-      ]);
+      setRemoteStream(stream);
+      //   ...remoteVideo,
+      //   { stream: stream, peerId: stream.peerId },
+      // ]);
     });
 
     //data: チャット受信
@@ -165,14 +164,10 @@ function Skyway(props){
     
     //peerLeave: 誰かがroomから退室したときに発火
     room.on("peerLeave", (peerId) => {
-      setRemoteVideo(
-        remoteVideo.filter((video) => {
-          if (video.peerId === peerId) {
-            video.stream.getTracks().forEach((track) => track.stop());
-          }
-          return video.peerId !== peerId;
-        })
-      );
+      setRemoteStream(()=>{
+        //remoteStream.getTracks().forEach((track) => track.stop());
+        return false;
+      });
       addMessages(`=== ${peerId} が退室しました ===`);
     });
 
@@ -180,12 +175,10 @@ function Skyway(props){
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
       addMessages('== ルームから退室しました ===');
-      setRemoteVideo(
-        remoteVideo.filter((video) => {
-          video.stream.getTracks().forEach((track) => track.stop());
-          return false;
-        })
-      );
+      setRemoteStream(()=>{
+        // remoteStream.getTracks().forEach((track) => track.stop());
+        return false;
+      });
       setIsConnected(false);
     });
 
@@ -202,12 +195,9 @@ function Skyway(props){
   }
   
   const castVideo = () => {
-    if(remoteVideo){
-      return remoteVideo.map((video) => {
-        if(video){
-          return <Video video={video} key={video.peerId} />;
-        }
-      });
+    console.log(remoteStream);
+    if(remoteStream){
+      return <Video stream={remoteStream} key={remoteStream.peerId} />
     }
   };
   
@@ -262,7 +252,7 @@ function Skyway(props){
         </Box>
       </Box>
       
-      {/* //ページが読み込まれるまではコチラが表示 */}
+      {/* //ページが読み込まれるまではローディングアイコンが表示 */}
       <Box sx={{display: (loading? 'none': 'block')}}>
         <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Spinner name="three-bounce" />
