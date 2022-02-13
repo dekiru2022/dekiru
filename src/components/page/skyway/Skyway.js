@@ -129,10 +129,6 @@ function Skyway(props){
     setRoomData(data);
   }
 
-  // if(roomData.room){
-  //   roomData.room.on("stream", console.log('roomData changed');)
-  // }
-
   //ルームの各イベントに対して処理を追加
   const setEventListener = (room) => {
     const sendTrigger = document.getElementById('send-trigger');
@@ -150,11 +146,8 @@ function Skyway(props){
     });
 
     //stream: 相手の映像の情報
-    room.on("stream", async (stream) => {
+    room.on("stream", (stream) => {
       setRemoteStream(stream);
-      //   ...remoteVideo,
-      //   { stream: stream, peerId: stream.peerId },
-      // ]);
     });
 
     //data: チャット受信
