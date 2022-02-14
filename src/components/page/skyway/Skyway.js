@@ -8,11 +8,11 @@ import Chat from './components/chat';
 import Timer from './components/timer';
 import MenuBar from './components/menuBar';
 
+
 function Skyway(props){
   // propsからurlの値を取得
   const meetingTime = props.match.params.time;
   const roomId = props.match.params.room;
-
   const expiryTimestamp = new Date();
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
 
