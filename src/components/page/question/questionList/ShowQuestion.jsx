@@ -28,12 +28,17 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+
+
 // テスト用データ
 import { questions as TestQuestions } from '../../../../database/questions_table';
 import { users as TestUsers } from '../../../../database/users_table';
 
+import {Auth} from 'aws-amplify';
 
 function QuestionPage(props) {
+    const AuthUser = Auth.currentAuthenticatedUser();
+    console.log(Auth.currentAuthenticatedUser());
 
     const [question, setQuestion] = useState(TestQuestions[0]);
     const [user, setUser] = useState(TestUsers[0]);

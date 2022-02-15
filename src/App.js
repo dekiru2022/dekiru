@@ -4,8 +4,7 @@ import awsconfig from './aws-exports';
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import DefaultRoute from './routes/defaultRoute';
-import Skyway from './components/page/skyway/Skyway';
+import afterLoginRoute from './routes/afterLoginRoute';
 
 import Login from './components/authenticate/login';
 
@@ -25,12 +24,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* headerとfooterがいらないページはここでルーティング */}
+      {/* ログイン関係のルーティング */}
       <Switch>
-        <Route path='/skyway/:time/:room' component={Skyway} />
         <Route path="/" component={
           authState === AuthState.SignedIn && user ?
-            DefaultRoute
+            afterLoginRoute
             :
             Login
         } />
