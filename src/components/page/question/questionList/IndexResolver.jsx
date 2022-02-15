@@ -19,17 +19,60 @@ import Typography from '@mui/material/Typography';
 // 張りぼての星
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+// Graphql インポート
+import { listQuestions } from '../../../../graphql/queries';
+import { onCreateQuestions } from '../../../../graphql/subscriptions';
+import { listUserIds } from '../../../../graphql/queries';
+import { onCreateUserId } from '../../../../graphql/subscriptions';
 
 // テスト用データ
 import { questions as TestQuestions } from '../../../../database/questions_table';
 import { users as TestUsers } from '../../../../database/users_table';
 
+import { API, graphqlOperation } from 'aws-amplify';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 export default function IndexResolver() {
     const [authUsers, setAuthUsers] = useState(TestUsers[0]);
     const [users, setUsers] = useState(TestUsers);
     //DBからとってきた質問
-    const [question, setQuestion] = useState(TestQuestions[0]);
+    // const [question, setQuestion] = useState(TestQuestions[0]);
+    const [questions, setQuestions] = useState();
+    const [user, setResolver] = useState();
+
+    // 再描画のたびに実行
+    useEffect(() => {
+      // getQuestionsData();
+      fetchQuestion();
+      fetchListResolver();
+  }, [])
+
+    // 表示
+    async function fetchQuestion() {
+      const apiData = await API.graphql({ query: listQuestions });
+      setQuestions(apiData.data.listQuestions.items);
+
+      // // ------追加------
+      // API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+      //     next: (eventData) => {
+      //         const post = eventData.value.data.onCreateQuestions
+      //         const posts = [...questions.filter(id => {
+      //             return ( id !== post.id )
+      //         }), post]
+      //         console.log("question")
+      //         console.log(apiData)
+      //         setQuestions({ posts })
+      //     }
+      // })
+      // ----ここまで-----
+  }
+
+      // 表示
+      async function fetchListResolver() {
+        const apiDataResolver = await API.graphql({ query: listUserIds });
+        setResolver(apiDataResolver.data.listUserIds.items);
+        console.log(apiDataResolver)
+    }
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center' }}>
@@ -41,13 +84,13 @@ export default function IndexResolver() {
                   質問内容
                 </Typography>
                 <Typography variant="h5" component="div">
-                  {question.title}
+                  {/* {questions.title} */}
                 </Typography>
                 <Typography sx={{ mt: 1.5 }} color="text.secondary">
                   詳細
                 </Typography>
                 <Typography variant="body2">
-                {question.content}
+                {/* {questions.content} */}
                 </Typography>
               </CardContent>
             </Card>
@@ -63,15 +106,15 @@ export default function IndexResolver() {
                               {user.name} 
                             </Typography>
                             <Typography variant="body2">
-                              {'　　　　　　　　　　　　　　　　　　' + user.ages + '歳'}
+                              {'　　　　　　　　　　　　　　　　　　' + user.firstName + '歳'}
                             </Typography>
                             <Typography color="text.secondary">
-                              {'保有資格：' + user.certification}
+                              {'保有資格：' + user.firstName}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              {'職務経験：' + user.workyear + '年'}
+                              {'職務経験：' + user.firstName + '年'}
                               <br />
-                              {'解決時間：' + user.questionResultTime　+ '分'}
+                              {'解決時間：' + user.firstName+ '分'}
                             </Typography>
                           </CardContent>
 
