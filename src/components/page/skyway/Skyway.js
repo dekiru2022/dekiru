@@ -30,6 +30,7 @@ function Skyway(props){
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
   
   
   useEffect(()=>{
@@ -66,7 +67,15 @@ function Skyway(props){
 
   
   useEffect(() => {
-    changeStream();
+    const promise = new Promise((resolve) => {
+      changeStream();
+      resolve();
+    }).then(()=>{
+      setTimeout(()=>{
+        roomData.room.close();
+        onStart();
+      }, 2000)
+    });
   }, [userVideo, userAudio, userDisplay]);
 
   //画面共有と自分の映像の取得・切り替え
@@ -149,7 +158,12 @@ function Skyway(props){
 
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
+      console.log('取得したときのremoteStream', stream);
       setRemoteStream(stream);
+      if (remoteVideoRef.current) {
+        remoteVideoRef.current.srcObject = stream;
+        remoteVideoRef.current.play().catch((e) => console.log(e));
+      }
     });
 
     //data: チャット受信
@@ -197,7 +211,8 @@ function Skyway(props){
         <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            {castVideo()}
+            <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
+            {/* {castVideo()} */}
           </Box>
 
           {/* チャット */}
