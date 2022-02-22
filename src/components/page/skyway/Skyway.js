@@ -157,10 +157,7 @@ function Skyway(props){
     
     //peerLeave: 誰かがroomから退室したときに発火
     room.on("peerLeave", (peerId) => {
-      setRemoteStream(()=>{
-        //remoteStream.getTracks().forEach((track) => track.stop());
-        return false;
-      });
+      setRemoteStream('');
       addMessages(`=== ${peerId} が退室しました ===`);
     });
 
@@ -168,10 +165,7 @@ function Skyway(props){
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
       addMessages('== ルームから退室しました ===');
-      setRemoteStream(()=>{
-        // remoteStream.getTracks().forEach((track) => track.stop());
-        return false;
-      });
+      setRemoteStream('');
       setIsConnected(false);
     });
 
