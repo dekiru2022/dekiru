@@ -2,6 +2,8 @@ import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect } from "react";
 import Box from '@mui/material/Box';
 
+import VideocamOffIcon from '@mui/icons-material/VideocamOff';
+
 import Spinner from 'react-spinkit';
 import Video from './components/video';
 import Chat from './components/chat';
@@ -28,6 +30,7 @@ function Skyway(props){
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
   
   
   useEffect(()=>{
@@ -64,7 +67,15 @@ function Skyway(props){
 
   
   useEffect(() => {
-    changeStream();
+    const promise = new Promise((resolve) => {
+      changeStream();
+      resolve();
+    }).then(()=>{
+      setTimeout(()=>{
+        roomData.room.close();
+        onStart();
+      }, 2000)
+    });
   }, [userVideo, userAudio, userDisplay]);
 
   //画面共有と自分の映像の取得・切り替え
@@ -147,7 +158,12 @@ function Skyway(props){
 
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
+      console.log('取得したときのremoteStream', stream);
       setRemoteStream(stream);
+      if (remoteVideoRef.current) {
+        remoteVideoRef.current.srcObject = stream;
+        remoteVideoRef.current.play().catch((e) => console.log(e));
+      }
     });
 
     //data: チャット受信
@@ -157,10 +173,7 @@ function Skyway(props){
     
     //peerLeave: 誰かがroomから退室したときに発火
     room.on("peerLeave", (peerId) => {
-      setRemoteStream(()=>{
-        //remoteStream.getTracks().forEach((track) => track.stop());
-        return false;
-      });
+      setRemoteStream('');
       addMessages(`=== ${peerId} が退室しました ===`);
     });
 
@@ -168,10 +181,7 @@ function Skyway(props){
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
       addMessages('== ルームから退室しました ===');
-      setRemoteStream(()=>{
-        // remoteStream.getTracks().forEach((track) => track.stop());
-        return false;
-      });
+      setRemoteStream('');
       setIsConnected(false);
     });
 
@@ -201,7 +211,8 @@ function Skyway(props){
         <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            {castVideo()}
+            <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
+            {/* {castVideo()} */}
           </Box>
 
           {/* チャット */}
@@ -233,15 +244,19 @@ function Skyway(props){
           </Box>
 
           {/* 自分の映像 */}
-          <Box sx={{ width: '100%', position: 'absolute', top: 0, left: 0 }}>
-            <Box sx={{ width: '20%' }}>
-              <video
-              width="100%"
-              ref={localVideoRef}
-              style={{transform: 'scale(-1,1)'}}
-              playsInline autoPlay muted></video>
+          <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
+            <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+              <VideocamOffIcon />
+              <Box sx={{ position:'absolute', top: 0, left: 0 }} >
+                <video
+                width="100%"
+                ref={localVideoRef}
+                style={{transform: 'scale(-1,1)'}}
+                playsInline autoPlay muted></video>
+              </Box>
             </Box>
           </Box>
+
         </Box>
       </Box>
       

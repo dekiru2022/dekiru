@@ -5,7 +5,7 @@ import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import afterLoginRoute from './routes/afterLoginRoute';
-
+import Skyway from './components/page/skyway/Skyway';
 import Login from './components/authenticate/login';
 
 
@@ -26,6 +26,7 @@ function App() {
     <BrowserRouter>
       {/* ログイン関係のルーティング */}
       <Switch>
+        <Route path='/skyway/:time/:room' component={Skyway} />
         <Route path="/" component={
           authState === AuthState.SignedIn && user ?
             afterLoginRoute
