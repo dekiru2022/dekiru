@@ -9,24 +9,25 @@ type NoteTest @model {
 }
 
 type UserId @model {
-  userId: String!
+  userId: ID!
   firstName: String
   lastName: String
   birthday: String
   handleName: String
-  mail:String!
-  experience:String
-  licenseFlag:Int
-  identificationFlag:Int
-  bankFlag:Int
-  created:String
-  updated:String
-  deleted_date:String
-  status:Int
-  point:Int
-  transferPoint:Int
-  GMOuserID:String
-
+  mail: String!
+  experience: String
+  licenseFlag: Int
+  identificationFlag: Int
+  bankFlag: Int
+  status: Int
+  point: Int
+  transferPoint: Int
+  GMOuserID: String
+  businessCode:String
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
 }
 
 type Questions @model {
@@ -36,9 +37,9 @@ type Questions @model {
   title:String!
   content:String!
   status:Int!
-  createdAt:String!
-  updatedAt:String
-  deleteFlg:Int
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
 
 }
 
@@ -50,11 +51,9 @@ type CashFlow @model {
   purchaserCash:String
   sellerCash:String
   earnings:String
-  created:String
-  updated:String
-  deleted:String
-  deleteFlg:Int
-
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
 }
 
 type QuestionQuestionnaire @model {
@@ -67,10 +66,9 @@ type QuestionQuestionnaire @model {
   privateQuestionValue2:Int
   privateQuestionValue3:Int
   privateQuestionValue4:Int
-  created:String
-  updated:String
-  deleted:String
-  deleteFlg:Int
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
   questonComment:String
 
 }
@@ -84,9 +82,8 @@ type AnswerQuestionnaire @model {
   privateAnswerValue2:Int
   privateAnswerValue3:Int
   declineFlg:Int
-  created:String
-  updated:String
-  deleted:String
-  deleteFlg:String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
   answerComment:String
 }
