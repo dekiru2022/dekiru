@@ -1,10 +1,10 @@
 import Peer,{SfuRoom} from "skyway-js";
-import React,{ useState, useRef, useEffect } from "react";
-import Box from '@mui/material/Box';
+import React,{ useState, useRef, useEffect, createContext } from "react";
 
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 
 import Spinner from 'react-spinkit';
+import SkywayMain from "./components/skyway_main";
 import { sfuJoinRoom } from "./components/skyway_functions";
 import Video from './components/video';
 import Chat from './components/chat';
@@ -17,13 +17,12 @@ import { API } from "aws-amplify";
 // ・それをjoinRoomでskywayサーバーに送るのにも成功している
 
 
+export const SkywayStoreContext = createContext();
+
 function Skyway(props){
   // propsからurlの値を取得
   const meetingTime = props.match.params.time;
   const roomId = props.match.params.room;
-  const expiryTimestamp = new Date();
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
-
 
   const API_KEY = '95ba327e-64d1-4c05-8f9f-ad00ac893e07';
   const peer = new Peer({key: API_KEY});
@@ -34,42 +33,42 @@ function Skyway(props){
   const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
-  const [userAudio, setUserAudio] = useState(true); //false: ミュート
+  const [userAudio, setUserAudio] = useState(false); //false: ミュート
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
+  const skywayStore = [
+    peer, meetingTime, roomId,
+    loading, setLoading,
+    roomData, setRoomData,
+    localStream, setLocalStream,
+    remoteStream, setRemoteStream,
+    isConnected, setIsConnected,
+    userDisplay, setUserDisplay,
+    userAudio, setUserAudio,
+    userVideo, setUserVideo,
+    isChat, setIsChat,
+    localVideoRef, remoteVideoRef
+  ]
   
-  
-  //一番最初に動くuseEffect
   useEffect(()=>{
-    //ユーザーの映像と音声を取得しlocalStreamに代入
     navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
-    .then( stream => {
-      setLocalStream(stream);
-    });
+      .then( stream => {
+        // 成功時にvideo要素にカメラ映像をセット
+        setLocalStream(stream);
+        localVideoRef.current.srcObject = stream;
+      }).catch( error => {
+        // 失敗時にはエラーログを出力
+        console.error('mediaDevice.getUserMedia() error:', error);
+        return;
+      });
   },[]);
 
-  //先のuseEffectでlocalStreamが取得できたら1回だけ動く処理
+  //localStreamが取得できたら1回だけ動くuseEffect
   useEffect(()=>{
     if(localStream && !loading){
-      
-      //videoに自分の映像をセット
-      localVideoRef.current.srcObject = localStream;
-      
-      //skywayサーバーに接続 => 相手の映像情報を取得
-      // new Promise((resolve, reject) => {
-      //   //sfuルームに接続
-      //   const room = peer.joinRoom(roomId, {
-        //   mode: 'sfu',
-      //   stream: localStream,
-      //   });
-      //   console.log('aiuer');
-      //   resolve(room);
-
-      // }).then((room)=>{
-      //   console.log(room);
-      // }).catch((e)=>{console.log(e)});
+      console.log('ローカルストリーム',localStream);
       
       setTimeout(()=>{
         sfuJoinRoom(peer,roomId, localStream).then((room)=>{
@@ -82,12 +81,16 @@ function Skyway(props){
           setEventListener(room);
           setIsConnected(true);
         }).catch(e=>console.log(e));
-      }, 2000)
+      }, 3000)
     }
   },[localStream]);
   
     useEffect(() => {
-      changeStream();
+      if(localStream){
+        localStream.getVideoTracks()[0].enabled = userVideo;
+        localStream.getAudioTracks()[0].enabled = userAudio;
+      }
+      //changeStream();
       // const promise = new Promise((resolve) => {
       //   changeStream();
       //   resolve();
@@ -225,67 +228,81 @@ function Skyway(props){
 
   return (
     <div>
-      <Box sx={{display: (loading? 'block': 'none')}}>
-        <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
-          {/* 相手の画面 */}
-          <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
-            {/* {castVideo()} */}
-          </Box>
-
-          {/* チャット */}
-          <Box sx={{display: (isChat ? 'block' : 'none')}} >
-            <Chat messages={roomData.messages} />
-          </Box>
-
-          {/* タイマー */}
-          <Box sx={{position: 'absolute', top: 0, right: 0}} >
-            <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
-          </Box>
-
-          {/* 操作バー */}
-          <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
-            <MenuBar
-              roomData={roomData}
-              userAudio={userAudio}
-              setUserAudio={(boolean)=>setUserAudio(boolean)}
-              userVideo={userVideo}
-              setUserVideo={(boolean)=>setUserVideo(boolean)}
-              userDisplay={userDisplay}
-              setUserDisplay={(boolean)=>setUserDisplay(boolean)}
-              isChat={isChat}
-              setIsChat={(boolean)=>setIsChat(boolean)}
-              isConnected={isConnected}
-              onStart={()=>onStart()}
-              onClose={()=>onClose()}
-              />
-          </Box>
-
-          {/* 自分の映像 */}
-          <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
-            <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
-              <VideocamOffIcon />
-              <Box sx={{ position:'absolute', top: 0, left: 0 }} >
-                <video
-                width="100%"
-                ref={localVideoRef}
-                style={{transform: 'scale(-1,1)'}}
-                playsInline autoPlay muted></video>
-              </Box>
-            </Box>
-          </Box>
-
-        </Box>
-      </Box>
-      
-      {/* //ページが読み込まれるまではローディングアイコンが表示 */}
-      <Box sx={{display: (loading? 'none': 'block')}}>
-        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Spinner name="three-bounce" />
-        </Box>
-      </Box>
+      <SkywayStoreContext.Provider value={{
+        peer,
+        loading, setLoading,
+        roomData, setRoomData,
+        localStream, setLocalStream,
+        remoteStream, setRemoteStream,
+        isConnected, setIsConnected,
+        userDisplay, setUserDisplay,
+        userAudio, setUserAudio,
+        userVideo, setUserVideo,
+        isChat, setIsChat,
+        localVideoRef, remoteVideoRef}}>
+        <SkywayMain />
+      </SkywayStoreContext.Provider>
     </div>
   );
 };
 
 export default Skyway;
+      // <Box sx={{display: (loading? 'block': 'none')}}>
+      //   <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
+      //     {/* 相手の画面 */}
+      //     <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
+      //       <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
+      //       {/* {castVideo()} */}
+      //     </Box>
+
+      //     {/* チャット */}
+      //     <Box sx={{display: (isChat ? 'block' : 'none')}} >
+      //       <Chat messages={roomData.messages} />
+      //     </Box>
+
+      //     {/* タイマー */}
+      //     <Box sx={{position: 'absolute', top: 0, right: 0}} >
+      //       <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
+      //     </Box>
+
+      //     {/* 操作バー */}
+      //     <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
+      //       <MenuBar
+      //         roomData={roomData}
+      //         userAudio={userAudio}
+      //         setUserAudio={(boolean)=>setUserAudio(boolean)}
+      //         userVideo={userVideo}
+      //         setUserVideo={(boolean)=>setUserVideo(boolean)}
+      //         userDisplay={userDisplay}
+      //         setUserDisplay={(boolean)=>setUserDisplay(boolean)}
+      //         isChat={isChat}
+      //         setIsChat={(boolean)=>setIsChat(boolean)}
+      //         isConnected={isConnected}
+      //         onStart={()=>onStart()}
+      //         onClose={()=>onClose()}
+      //         />
+      //     </Box>
+
+      //     {/* 自分の映像 */}
+      //     <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
+      //       <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+      //         <VideocamOffIcon />
+      //         <Box sx={{ position:'absolute', top: 0, left: 0 }} >
+      //           <video
+      //           width="100%"
+      //           ref={localVideoRef}
+      //           style={{transform: 'scale(-1,1)'}}
+      //           playsInline autoPlay muted></video>
+      //         </Box>
+      //       </Box>
+      //     </Box>
+
+      //   </Box>
+      // </Box>
+      
+      // {/* //ページが読み込まれるまではローディングアイコンが表示 */}
+      // <Box sx={{display: (loading? 'none': 'block')}}>
+      //   <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      //     <Spinner name="three-bounce" />
+      //   </Box>
+      // </Box>

@@ -4,5 +4,11 @@ export const sfuJoinRoom = async function(peer, roomId, localStream){
   mode: 'sfu',
   stream: localStream,
   });
+  console.log(room);
   return room;
+}
+
+export const getExpiryTimeStamp = (meetingTime) => {
+  const expiryTimestamp = new Date();
+  return expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
 }
