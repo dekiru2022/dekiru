@@ -33,7 +33,7 @@ function Skyway(props){
   const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
-  const [userAudio, setUserAudio] = useState(false); //false: ミュート
+  const [userAudio, setUserAudio] = useState(true); //false: ミュート
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
@@ -87,8 +87,13 @@ function Skyway(props){
   
     useEffect(() => {
       if(localStream){
-        localStream.getVideoTracks()[0].enabled = userVideo;
-        localStream.getAudioTracks()[0].enabled = userAudio;
+        console.log(localStream.getVideoTracks()[0]);
+        var videoTrack = localStream.getVideoTracks()[0];
+        var audioTrack = localStream.getAudioTracks()[0];
+        console.log(localStream);
+        console.log(localStream.getAudioTracks()[0]);
+        videoTrack.enabled = userVideo;
+        audioTrack.enabled = userAudio;
       }
       //changeStream();
       // const promise = new Promise((resolve) => {
@@ -247,62 +252,3 @@ function Skyway(props){
 };
 
 export default Skyway;
-      // <Box sx={{display: (loading? 'block': 'none')}}>
-      //   <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
-      //     {/* 相手の画面 */}
-      //     <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-      //       <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
-      //       {/* {castVideo()} */}
-      //     </Box>
-
-      //     {/* チャット */}
-      //     <Box sx={{display: (isChat ? 'block' : 'none')}} >
-      //       <Chat messages={roomData.messages} />
-      //     </Box>
-
-      //     {/* タイマー */}
-      //     <Box sx={{position: 'absolute', top: 0, right: 0}} >
-      //       <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
-      //     </Box>
-
-      //     {/* 操作バー */}
-      //     <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
-      //       <MenuBar
-      //         roomData={roomData}
-      //         userAudio={userAudio}
-      //         setUserAudio={(boolean)=>setUserAudio(boolean)}
-      //         userVideo={userVideo}
-      //         setUserVideo={(boolean)=>setUserVideo(boolean)}
-      //         userDisplay={userDisplay}
-      //         setUserDisplay={(boolean)=>setUserDisplay(boolean)}
-      //         isChat={isChat}
-      //         setIsChat={(boolean)=>setIsChat(boolean)}
-      //         isConnected={isConnected}
-      //         onStart={()=>onStart()}
-      //         onClose={()=>onClose()}
-      //         />
-      //     </Box>
-
-      //     {/* 自分の映像 */}
-      //     <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
-      //       <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
-      //         <VideocamOffIcon />
-      //         <Box sx={{ position:'absolute', top: 0, left: 0 }} >
-      //           <video
-      //           width="100%"
-      //           ref={localVideoRef}
-      //           style={{transform: 'scale(-1,1)'}}
-      //           playsInline autoPlay muted></video>
-      //         </Box>
-      //       </Box>
-      //     </Box>
-
-      //   </Box>
-      // </Box>
-      
-      // {/* //ページが読み込まれるまではローディングアイコンが表示 */}
-      // <Box sx={{display: (loading? 'none': 'block')}}>
-      //   <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      //     <Spinner name="three-bounce" />
-      //   </Box>
-      // </Box>
