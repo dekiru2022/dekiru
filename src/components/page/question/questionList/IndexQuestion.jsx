@@ -7,37 +7,23 @@
 //
 
 // インポート一覧
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 // Material UI インポート
 import { Grid } from '@material-ui/core'
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import SearchIcon from '@mui/icons-material/Search';
-import GridList from '@material-ui/core/GridList';
-// 質問カード　インポート
-import QuestionCard from '../QuestionCard';
 
 // テスト用データ
-import { questions as TestQuestions } from '../../../../database/questions_table';
 import { categories as TestCategories } from '../../../../database/categories_table';
 // Graphql インポート
 import { listQuestions } from '../../../../graphql/queries';
 import { onCreateQuestions } from '../../../../graphql/subscriptions';
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../../../graphql/mutations';
 import { QuestionCardResolver } from '../QuestionCardResolver';
-import { render } from '@testing-library/react';
-
-// test
-const initialFormState = { name: '', description: '' }
-
-
+import { ConsoleLogger } from '@aws-amplify/core';
 
 export default function IndexQuestion() {
 
@@ -46,68 +32,33 @@ export default function IndexQuestion() {
     // 検索条件
     const [filterQuery, setFilterQuery] = useState({});
     // ソート条件
-    const [sort, setSort] = useState({});
+    // const [sort, setSort] = useState({});
     // DBからとってきた質問
     const [questions, setQuestions] = useState([]);
+    // console.log("useState")
 
-    const [notes, setNotes] = useState([]);
-    const [formData, setFormData] = useState(initialFormState);
-
-    // 再描画のたびに実行
+    // 初回描画に実行
     useEffect(() => {
-        // getQuestionsData();
         getCategoriesData();
         fetchListQuestion();
     }, [])
 
-
-    // 表示
+    // AWSから質問一覧を取得
     async function fetchListQuestion() {
         const apiData = await API.graphql({ query: listQuestions });
         setQuestions(apiData.data.listQuestions.items);
-
-        // ------追加------
-        API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
-            next: (eventData) => {
-                console.log(eventData.value.data.onCreateQuestions);
-                // setQuestions(eventData.value.data.onCreateQuestions);
-
-                const post = eventData.value.data.onCreateQuestions
-                const posts = [...questions.filter(id => {
-                    return ( id !== post.id )
-                }), post]
-                console.log(posts)
-                setQuestions({ posts })
-            }
-        })
-        // ----ここまで-----
     }
-
-    // // // 表示
-    // async function fetchListQuestion() {
-    //     const apiData = await API.graphql(graphqlOperation(listQuestions));
-    //     console.log(apiData);
-    //     this.setQuestions(apiData.data.listQuestions.items);
-
-
-    //     API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
-    //         next: (eventData) => {
-    //           console.log('eventData: ', eventData)
-    //           const post = eventData.value.data.onCreateQuestions
-    //           const posts = [...this.state.posts.filter(content => {
-    //             return (content.title !== post.title)
-    //           }), post]
-    //           this.setQuestions({ posts })
-    //         }
-    //       })
-    // }
-
-    // // 一覧情報を取得しステートquestionsにセットする
-    // const getQuestionsData = () => {
-
-    //     //データ代入
-    //     // setQuestions(listQuestions);
-    // }
+    // ------購読------
+    useEffect(() => {
+        const subscription = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+            next: (eventData) => {
+                const post = eventData.value.data.onCreateQuestions
+                const posts = [...questions, post]
+                setQuestions(posts)
+            }
+        });
+        return() => subscription.unsubscribe();
+    })
 
 
     const getCategoriesData = () => {
@@ -177,7 +128,7 @@ export default function IndexQuestion() {
                                     <QuestionCardResolver question={question} />
                                 </Grid>
                                 {(() => {
-                                    if ((questions.length - 1 === i) && ((questions.length % 2) === 1)) {
+                                    if ((questions.length === i) && ((questions.length % 2) === 1)) {
                                         return (
                                             <Grid item xs={6}></Grid>
                                         )
@@ -188,8 +139,6 @@ export default function IndexQuestion() {
                     })
                 }
             </Grid>
-
-
         </>
     );
 }
