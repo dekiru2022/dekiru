@@ -9,24 +9,25 @@ type NoteTest @model {
 }
 
 type UserId @model {
-  userId: String!
+  userId: ID!
   firstName: String
   lastName: String
   birthday: String
   handleName: String
-  mail:String!
-  experience:String
-  licenseFlag:Int
-  identificationFlag:Int
-  bankFlag:Int
-  created:String
-  updated:String
-  deleted_date:String
-  status:Int
-  point:Int
-  transferPoint:Int
-  GMOuserID:String
-
+  mail: String!
+  experience: String
+  licenseFlag: Int
+  identificationFlag: Int
+  bankFlag: Int
+  status: Int
+  point: Int
+  transferPoint: Int
+  GMOuserID: String
+  businessCode:String
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
 }
 
 type Questions @model {

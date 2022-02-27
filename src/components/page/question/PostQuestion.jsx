@@ -7,7 +7,8 @@
 
 // インポート一覧
 import React, { useState, useEffect } from 'react';
-import { API } from 'aws-amplify';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+
 // Material UI インポート
 import { Grid } from '@material-ui/core'
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +21,7 @@ import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createQuestions as createQuestionsMutation } from '../../../graphql/mutations';
-
+import { listQuestions } from '../../../graphql/queries';
 // カテゴリー取得
 import { categories } from '../../../database/categories_table';
 
@@ -34,7 +35,7 @@ function PostQuestion() {
   // リストボックスの値格納
   const [categoriesArray, setCategoriesArray] = useState(categories);
   const [notes, setNotes] = useState([]);
-
+  const [checkBottomFlag, setCheckBottomFlag] = useState([]);
   // test
   const initialFormState = { title: '', content: '' }
   const [formData, setFormData] = useState(initialFormState);
@@ -42,15 +43,47 @@ function PostQuestion() {
   // コンポーネント再描画のたびに初期化
   useEffect(() => {
     getCategoryData();
+    checkBotton();
   }, []);
 
   // DBからカテゴリ一覧を取得
   const getCategoryData = () => {
   }
-
+//描画ごとに現在質問中かチェック
+  async function checkBotton(nextToken = null) {
+    let user1 = await Auth.currentAuthenticatedUser();
+    const cognitoID = user1.attributes.sub;
+    //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
+    const result = await API.graphql(graphqlOperation(listQuestions, {
+      filter: {
+        "and": [
+          {
+            "userId": {
+              "eq": cognitoID
+            }
+          },
+          {
+            "status": {
+              "eq": "1"
+            }
+          }
+        ]
+      },
+      limit: 10,
+      nextToken: nextToken,
+    }));
+    // null
+    if (result.data.listQuestions.items.length > 0) {
+      setCheckBottomFlag(2);
+    } else {
+      setCheckBottomFlag(1);
+    }
+  }
   // 入力チェック
-  async function inputChecl() {
-    if (formData.title == "" || formData.content == "" | formData.categoryId == null) {
+  async function inputCheck() {
+    if (checkBottomFlag == 2) {
+      alert('質問中のため、質問できません。');
+    } else if (formData.title == "" || formData.content == "" | formData.categoryId == null) {
       alert('全ての項目を入力してください');
     } else {
       let result = window.confirm('相談を送信してもよろしいですか？');
@@ -65,98 +98,98 @@ function PostQuestion() {
     }
   }
 
-  // データ送信
-  async function createQuestions() {
-    if (!formData.title || !formData.content) return;
-    formData.userId = "inputQuestionUserId";
-    // formData.categoryId = 1;
-    formData.status = 1;
-    formData.createdAt = "2022-02-10 00:00:00";
-    formData.updatedAt = "2022-02-10 00:00:00";
-    formData.deleteFlg = 0;
 
-    console.log(formData);
-    await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
-    setNotes([...notes, formData]);
-    setFormData(initialFormState);
+// データ送信
+async function createQuestions() {
+  if (!formData.title || !formData.content) return;
+  let user1 = await Auth.currentAuthenticatedUser();
+  formData.userId = user1.attributes.sub;
+  // formData.categoryId = 1;
+  let datetime = new Date().toISOString()
+  formData.status = 1;
+  formData.createdAt = datetime;
+  formData.updatedAt = datetime;
+  formData.deleteFlg = 0;
+  console.log(formData);
+  await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
+  setNotes([...notes, formData]);
+  setFormData(initialFormState);
+}
 
-  }
+// 画面描画
+return (
+  <>
+    <Grid container direction="column" spacing={2}>
 
-  // 画面描画
-  return (
-    <>
-      <Grid container direction="column" spacing={2}>
+      {/* タイトル */}
+      <Grid item style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+        <div style={{ fontSize: '36px' }}>相談入力</div>
+      </Grid>
 
-        {/* タイトル */}
-        <Grid item style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-          <div style={{ fontSize: '36px' }}>相談入力</div>
-        </Grid>
-
-        {/* カテゴリー選択 */}
-        <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-          <FormControl fullWidth>
-            <InputLabel style={{ fontSize: '21px' }} id="demo-multiple-title-label" >カテゴリー</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="カテゴリー"
-              title="category_id"
-              style={{ fontSize: '21px' }}
-              onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
-              value={formData.categoryId}
-            >
-              {categoriesArray.map((categoryArray, index) => (
-                <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        {/* タイトル入力 */}
-        <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-          <StyleTextField
-            label="タイトル"
-            placeholder="【至急】〇〇〇..."
-            onChange={e => setFormData({ ...formData, 'title': e.target.value })}
-            value={formData.title}
-          />
-        </Grid>
-
-        {/* 相談内容入力 */}
-        <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-          <Tooltip
-            title="自由に記入することができます"
-            placement="top-start"
-            arrow
+      {/* カテゴリー選択 */}
+      <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+        <FormControl fullWidth>
+          <InputLabel style={{ fontSize: '21px' }} id="demo-multiple-title-label" >カテゴリー</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="カテゴリー"
+            title="category_id"
+            style={{ fontSize: '21px' }}
+            onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+            value={formData.categoryId}
           >
-            <StyleMultilineTextField
-              label="相談内容"
-              onChange={e => setFormData({ ...formData, 'content': e.target.value })}
-              value={formData.content}
-              placeholder="
+            {categoriesArray.map((categoryArray, index) => (
+              <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
+
+      {/* タイトル入力 */}
+      <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+        <StyleTextField
+          label="タイトル"
+          placeholder="【至急】〇〇〇..."
+          onChange={e => setFormData({ ...formData, 'title': e.target.value })}
+          value={formData.title}
+        />
+      </Grid>
+
+      {/* 相談内容入力 */}
+      <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+        <Tooltip
+          title="自由に記入することができます"
+          placement="top-start"
+          arrow
+        >
+          <StyleMultilineTextField
+            label="相談内容"
+            onChange={e => setFormData({ ...formData, 'content': e.target.value })}
+            value={formData.content}
+            placeholder="
             - 聞きたいこと（質問の概要）&#13;
             - 目的（それを聞いてあなたは何がしたいのか）&#13;
             - 状況（あなたが今どのような状況で、なぜ悩んでいるのか）&#13;
             - 何でどこまで調べて何がわかったか（自分でやった事）&#13;
             - あなたの考え（自分としてはどうするべきと判断しているのか）&#13;
             ※ご自由に記載ください"
-            />
-          </Tooltip>
-        </Grid>
+          />
+        </Tooltip>
       </Grid>
+    </Grid>
 
-      {/* ボタン */}
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
-        <Grid item>
-          <BorderButton to="" />
-        </Grid>
-        <Grid item>
-          <StyleButton title="相談する" onClick={inputChecl} />
-
-        </Grid>
+    {/* ボタン */}
+    <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid item>
+        <BorderButton to="" />
       </Grid>
-    </>
-  )
+      <Grid item>
+        <StyleButton title="相談する" onClick={inputCheck} />
+      </Grid>
+    </Grid>
+  </>
+)
 }
 export default PostQuestion
 

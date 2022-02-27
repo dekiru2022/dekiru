@@ -36,6 +36,7 @@ const Header = ({ signOut, user }) => {
                 {/* <AmplifySignOut buttonText="ログアウト"></AmplifySignOut> */}
                 {/* 認証機能をボタンで実装できれば・・・ */}
                 <div style={{ margin: '0.5% 1% 0.5% 1%' }} ><StyleButton title="ログアウト" to="/" /></div>
+                <AmplifySignOut buttonText="ログアウト"></AmplifySignOut>
               </Box>
             </Box>
           </Toolbar>

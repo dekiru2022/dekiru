@@ -105,10 +105,6 @@ function BasicDetailsEdit() {
                 <StyleButton title="変更" to="/setting" onClick={inputCheck} />
             </CardActions>
         </Card>
-
-
-
-
     );
 }
 

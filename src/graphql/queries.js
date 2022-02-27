@@ -43,16 +43,15 @@ export const getUserId = /* GraphQL */ `
       licenseFlag
       identificationFlag
       bankFlag
-      created
-      updated
-      deleted_date
       status
       point
       transferPoint
       GMOuserID
+      businessCode
       id
       createdAt
       updatedAt
+      deletedAt
     }
   }
 `;
@@ -74,16 +73,15 @@ export const listUserIds = /* GraphQL */ `
         licenseFlag
         identificationFlag
         bankFlag
-        created
-        updated
-        deleted_date
         status
         point
         transferPoint
         GMOuserID
+        businessCode
         id
         createdAt
         updatedAt
+        deletedAt
       }
       nextToken
     }
