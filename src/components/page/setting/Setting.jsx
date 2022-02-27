@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import BasicDetail from './userInformation/BasicDetail';
 import NDA from './NDA';
 import Notice from './Notice';
-
+import {Auth} from 'aws-amplify'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,6 +53,7 @@ export default function Setting() {
 
   useEffect(() => {
     getUserData(id);
+    
   }, [])
 
   const handleChange = (event, newValue) => {

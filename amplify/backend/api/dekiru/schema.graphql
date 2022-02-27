@@ -37,9 +37,9 @@ type Questions @model {
   title:String!
   content:String!
   status:Int!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  deletedAt: AWSDateTime
+  createdAt:String!
+  updatedAt:String
+  deleteFlg:Int
 
 }
 
@@ -51,9 +51,11 @@ type CashFlow @model {
   purchaserCash:String
   sellerCash:String
   earnings:String
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  deletedAt: AWSDateTime
+  created:String
+  updated:String
+  deleted:String
+  deleteFlg:Int
+
 }
 
 type QuestionQuestionnaire @model {
@@ -66,9 +68,10 @@ type QuestionQuestionnaire @model {
   privateQuestionValue2:Int
   privateQuestionValue3:Int
   privateQuestionValue4:Int
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  deletedAt: AWSDateTime
+  created:String
+  updated:String
+  deleted:String
+  deleteFlg:Int
   questonComment:String
 
 }
@@ -82,8 +85,9 @@ type AnswerQuestionnaire @model {
   privateAnswerValue2:Int
   privateAnswerValue3:Int
   declineFlg:Int
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  deletedAt: AWSDateTime
+  created:String
+  updated:String
+  deleted:String
+  deleteFlg:String
   answerComment:String
 }

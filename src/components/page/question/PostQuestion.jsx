@@ -7,7 +7,8 @@
 
 // インポート一覧
 import React, { useState, useEffect } from 'react';
-import { API } from 'aws-amplify';
+import { API, Auth, graphqlOperation} from 'aws-amplify';
+
 // Material UI インポート
 import { Grid } from '@material-ui/core'
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +21,7 @@ import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createQuestions as createQuestionsMutation } from '../../../graphql/mutations';
-
+import { listQuestions} from '../../../graphql/queries';
 // カテゴリー取得
 import { categories } from '../../../database/categories_table';
 
@@ -42,14 +43,26 @@ function PostQuestion() {
   // コンポーネント再描画のたびに初期化
   useEffect(() => {
     getCategoryData();
+    checkBotton();
   }, []);
 
   // DBからカテゴリ一覧を取得
   const getCategoryData = () => {
   }
 
+  async function checkBotton(nextToken = null ) {
+
+    let user1 = await Auth.currentAuthenticatedUser();
+    const result = await API.graphql(graphqlOperation(listQuestions,{
+      userId: user1.attributes.sub,
+      limit: 10,
+      nextToken: nextToken,
+    }));
+    console.log(result);
+    console.log(user1.attributes.sub);
+  }
   // 入力チェック
-  async function inputChecl() {
+  async function inputCheck() {
     if (formData.title == "" || formData.content == "" | formData.categoryId == null) {
       alert('全ての項目を入力してください');
     } else {
@@ -68,18 +81,18 @@ function PostQuestion() {
   // データ送信
   async function createQuestions() {
     if (!formData.title || !formData.content) return;
-    formData.userId = "inputQuestionUserId";
+    let user1 = await Auth.currentAuthenticatedUser();
+    formData.userId = user1.attributes.sub;
     // formData.categoryId = 1;
+    let datetime = new Date().toISOString()
     formData.status = 1;
-    formData.createdAt = "2022-02-10 00:00:00";
-    formData.updatedAt = "2022-02-10 00:00:00";
+    formData.createdAt = datetime;
+    formData.updatedAt = datetime;
     formData.deleteFlg = 0;
-
     console.log(formData);
     await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
     setNotes([...notes, formData]);
     setFormData(initialFormState);
-
   }
 
   // 画面描画
@@ -151,8 +164,7 @@ function PostQuestion() {
           <BorderButton to="" />
         </Grid>
         <Grid item>
-          <StyleButton title="相談する" onClick={inputChecl} />
-
+          <StyleButton title="相談する" onClick={inputCheck} />
         </Grid>
       </Grid>
     </>
