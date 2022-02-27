@@ -68,6 +68,12 @@ export const createUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -96,6 +102,12 @@ export const updateUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -124,6 +136,12 @@ export const deleteUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -141,6 +159,7 @@ export const createQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
     }
   }
@@ -159,6 +178,7 @@ export const updateQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
     }
   }
@@ -177,7 +197,71 @@ export const deleteQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
+    }
+  }
+`;
+export const createAnswerUser = /* GraphQL */ `
+  mutation CreateAnswerUser(
+    $input: CreateAnswerUserInput!
+    $condition: ModelAnswerUserConditionInput
+  ) {
+    createAnswerUser(input: $input, condition: $condition) {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const updateAnswerUser = /* GraphQL */ `
+  mutation UpdateAnswerUser(
+    $input: UpdateAnswerUserInput!
+    $condition: ModelAnswerUserConditionInput
+  ) {
+    updateAnswerUser(input: $input, condition: $condition) {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const deleteAnswerUser = /* GraphQL */ `
+  mutation DeleteAnswerUser(
+    $input: DeleteAnswerUserInput!
+    $condition: ModelAnswerUserConditionInput
+  ) {
+    deleteAnswerUser(input: $input, condition: $condition) {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 `;
@@ -194,13 +278,11 @@ export const createCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -217,13 +299,11 @@ export const updateCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -240,13 +320,11 @@ export const deleteCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -265,13 +343,11 @@ export const createQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -290,13 +366,11 @@ export const updateQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -315,13 +389,11 @@ export const deleteQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -339,13 +411,11 @@ export const createAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;
@@ -363,13 +433,11 @@ export const updateAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;
@@ -387,13 +455,11 @@ export const deleteAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;

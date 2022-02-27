@@ -52,6 +52,12 @@ export const getUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -82,6 +88,12 @@ export const listUserIds = /* GraphQL */ `
         createdAt
         updatedAt
         deletedAt
+        job
+        jobed1
+        jobed2
+        jobed3
+        jobed4
+        jobed5
       }
       nextToken
     }
@@ -98,6 +110,7 @@ export const getQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
     }
   }
@@ -118,7 +131,51 @@ export const listQuestions = /* GraphQL */ `
         status
         createdAt
         updatedAt
+        deletedAt
         deleteFlg
+      }
+      nextToken
+    }
+  }
+`;
+export const getAnswerUser = /* GraphQL */ `
+  query GetAnswerUser($id: ID!) {
+    getAnswerUser(id: $id) {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const listAnswerUsers = /* GraphQL */ `
+  query ListAnswerUsers(
+    $filter: ModelAnswerUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAnswerUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        quwstionId
+        comment
+        userJob
+        userExperience
+        userLicenseFlag
+        time
+        ansStatus
+        createdAt
+        updatedAt
+        deletedAt
       }
       nextToken
     }
@@ -134,13 +191,11 @@ export const getCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -159,13 +214,11 @@ export const listCashFlows = /* GraphQL */ `
         purchaserCash
         sellerCash
         earnings
-        created
-        updated
-        deleted
-        deleteFlg
-        id
         createdAt
         updatedAt
+        deletedAt
+        deleteFlg
+        id
       }
       nextToken
     }
@@ -183,13 +236,11 @@ export const getQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -214,13 +265,11 @@ export const listQuestionQuestionnaires = /* GraphQL */ `
         privateQuestionValue2
         privateQuestionValue3
         privateQuestionValue4
-        created
-        updated
-        deleted
-        deleteFlg
-        questonComment
         createdAt
         updatedAt
+        deletedAt
+        deleteFlg
+        questonComment
       }
       nextToken
     }
@@ -237,13 +286,11 @@ export const getAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;
@@ -267,13 +314,11 @@ export const listAnswerQuestionnaires = /* GraphQL */ `
         privateAnswerValue2
         privateAnswerValue3
         declineFlg
-        created
-        updated
-        deleted
-        deleteFlg
-        answerComment
         createdAt
         updatedAt
+        deletedAt
+        deleteFlg
+        answerComment
       }
       nextToken
     }

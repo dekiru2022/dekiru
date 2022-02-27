@@ -56,6 +56,12 @@ export const onCreateUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -81,6 +87,12 @@ export const onUpdateUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -106,6 +118,12 @@ export const onDeleteUserId = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
+      job
+      jobed1
+      jobed2
+      jobed3
+      jobed4
+      jobed5
     }
   }
 `;
@@ -120,6 +138,7 @@ export const onCreateQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
     }
   }
@@ -135,6 +154,7 @@ export const onUpdateQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
     }
   }
@@ -150,7 +170,62 @@ export const onDeleteQuestions = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      deletedAt
       deleteFlg
+    }
+  }
+`;
+export const onCreateAnswerUser = /* GraphQL */ `
+  subscription OnCreateAnswerUser {
+    onCreateAnswerUser {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const onUpdateAnswerUser = /* GraphQL */ `
+  subscription OnUpdateAnswerUser {
+    onUpdateAnswerUser {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const onDeleteAnswerUser = /* GraphQL */ `
+  subscription OnDeleteAnswerUser {
+    onDeleteAnswerUser {
+      id
+      userId
+      quwstionId
+      comment
+      userJob
+      userExperience
+      userLicenseFlag
+      time
+      ansStatus
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 `;
@@ -164,13 +239,11 @@ export const onCreateCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -184,13 +257,11 @@ export const onUpdateCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -204,13 +275,11 @@ export const onDeleteCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
-      created
-      updated
-      deleted
-      deleteFlg
-      id
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      id
     }
   }
 `;
@@ -226,13 +295,11 @@ export const onCreateQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -248,13 +315,11 @@ export const onUpdateQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -270,13 +335,11 @@ export const onDeleteQuestionQuestionnaire = /* GraphQL */ `
       privateQuestionValue2
       privateQuestionValue3
       privateQuestionValue4
-      created
-      updated
-      deleted
-      deleteFlg
-      questonComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      questonComment
     }
   }
 `;
@@ -291,13 +354,11 @@ export const onCreateAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;
@@ -312,13 +373,11 @@ export const onUpdateAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;
@@ -333,13 +392,11 @@ export const onDeleteAnswerQuestionnaire = /* GraphQL */ `
       privateAnswerValue2
       privateAnswerValue3
       declineFlg
-      created
-      updated
-      deleted
-      deleteFlg
-      answerComment
       createdAt
       updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
     }
   }
 `;

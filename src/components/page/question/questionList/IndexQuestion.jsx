@@ -60,7 +60,6 @@ export default function IndexQuestion() {
         return() => subscription.unsubscribe();
     })
 
-
     const getCategoriesData = () => {
         //データの代入
         setCategories(TestCategories);

@@ -28,6 +28,13 @@ type UserId @model {
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
+  job: String
+  jobed1: String
+  jobed2: String
+  jobed3: String
+  jobed4: String
+  jobed5: String
+  
 }
 
 type Questions @model {
@@ -37,10 +44,24 @@ type Questions @model {
   title:String!
   content:String!
   status:Int!
-  createdAt:String!
-  updatedAt:String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
   deleteFlg:Int
-
+}
+type AnswerUser @model {
+  id: ID!
+  userId: ID!
+  quwstionId: ID!
+  comment: String
+  userJob: String
+  userExperience: String
+  userLicenseFlag: Int
+  time: Int!
+  ansStatus: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
 }
 
 type CashFlow @model {
@@ -51,9 +72,9 @@ type CashFlow @model {
   purchaserCash:String
   sellerCash:String
   earnings:String
-  created:String
-  updated:String
-  deleted:String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
   deleteFlg:Int
 
 }
@@ -68,9 +89,9 @@ type QuestionQuestionnaire @model {
   privateQuestionValue2:Int
   privateQuestionValue3:Int
   privateQuestionValue4:Int
-  created:String
-  updated:String
-  deleted:String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
   deleteFlg:Int
   questonComment:String
 
@@ -85,9 +106,9 @@ type AnswerQuestionnaire @model {
   privateAnswerValue2:Int
   privateAnswerValue3:Int
   declineFlg:Int
-  created:String
-  updated:String
-  deleted:String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
   deleteFlg:String
   answerComment:String
 }

@@ -72,6 +72,7 @@ function PostQuestion() {
       limit: 10,
       nextToken: nextToken,
     }));
+    console.log(result);
     // null
     if (result.data.listQuestions.items.length > 0) {
       setCheckBottomFlag(2);
@@ -103,9 +104,10 @@ function PostQuestion() {
 async function createQuestions() {
   if (!formData.title || !formData.content) return;
   let user1 = await Auth.currentAuthenticatedUser();
+  let datetime = new Date().toISOString();
+
   formData.userId = user1.attributes.sub;
   // formData.categoryId = 1;
-  let datetime = new Date().toISOString()
   formData.status = 1;
   formData.createdAt = datetime;
   formData.updatedAt = datetime;
