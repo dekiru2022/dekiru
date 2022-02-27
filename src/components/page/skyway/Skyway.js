@@ -5,10 +5,16 @@ import Box from '@mui/material/Box';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 
 import Spinner from 'react-spinkit';
+import { sfuJoinRoom } from "./components/skyway_functions";
 import Video from './components/video';
 import Chat from './components/chat';
 import Timer from './components/timer';
 import MenuBar from './components/menuBar';
+import { API } from "aws-amplify";
+
+// メモ
+// ・自分の映像（localStream）は音声、映像ともに取得できている
+// ・それをjoinRoomでskywayサーバーに送るのにも成功している
 
 
 function Skyway(props){
@@ -19,10 +25,12 @@ function Skyway(props){
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
 
 
-  const peer = new Peer({key: '95ba327e-64d1-4c05-8f9f-ad00ac893e07'});
+  const API_KEY = '95ba327e-64d1-4c05-8f9f-ad00ac893e07';
+  const peer = new Peer({key: API_KEY});
+  // const [peer, setPeer] = useState('');
   const [loading, setLoading] = useState(false);
   const [roomData, setRoomData] = useState({room: null, messages: ''});
-  const [localStream, setLocalStream] = useState('');
+  const [localStream, setLocalStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
@@ -33,50 +41,63 @@ function Skyway(props){
   const remoteVideoRef = useRef(null);
   
   
+  //一番最初に動くuseEffect
   useEffect(()=>{
-      setTimeout(()=>{
-        if(peer){
-          setLoading(true);
-
-          navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
-          .then( stream => {
-            // 成功時にvideo要素にカメラ映像をセット
-            setLocalStream(stream);
-            localVideoRef.current.srcObject = stream;
-            // localVideoRef.current.play();
-
-
-            const room = peer.joinRoom(roomId, {
-              mode: 'sfu',
-              stream: stream,
-            });
-            roomData.room = room;
-            let data = Object.assign({}, roomData);
-            setRoomData(data);
-            setEventListener(room);
-            setIsConnected(true);
-            console.log('onStart()');
-          }).catch( error => {
-            // 失敗時にはエラーログを出力
-            console.error('mediaDevice.getUserMedia() error:', error);
-            return;
-          });
-        }
-      }, 2000);
+    //ユーザーの映像と音声を取得しlocalStreamに代入
+    navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
+    .then( stream => {
+      setLocalStream(stream);
+    });
   },[]);
 
-  
-  useEffect(() => {
-    const promise = new Promise((resolve) => {
-      changeStream();
-      resolve();
-    }).then(()=>{
+  //先のuseEffectでlocalStreamが取得できたら1回だけ動く処理
+  useEffect(()=>{
+    if(localStream && !loading){
+      
+      //videoに自分の映像をセット
+      localVideoRef.current.srcObject = localStream;
+      
+      //skywayサーバーに接続 => 相手の映像情報を取得
+      // new Promise((resolve, reject) => {
+      //   //sfuルームに接続
+      //   const room = peer.joinRoom(roomId, {
+        //   mode: 'sfu',
+      //   stream: localStream,
+      //   });
+      //   console.log('aiuer');
+      //   resolve(room);
+
+      // }).then((room)=>{
+      //   console.log(room);
+      // }).catch((e)=>{console.log(e)});
+      
       setTimeout(()=>{
-        roomData.room.close();
-        onStart();
+        sfuJoinRoom(peer,roomId, localStream).then((room)=>{
+          setLoading(true); //ローディング終了
+
+          //接続情報を変数に保存
+          roomData.room = room;
+          let data = Object.assign({}, roomData);
+          setRoomData(data);
+          setEventListener(room);
+          setIsConnected(true);
+        }).catch(e=>console.log(e));
       }, 2000)
-    });
-  }, [userVideo, userAudio, userDisplay]);
+    }
+  },[localStream]);
+  
+    useEffect(() => {
+      changeStream();
+      // const promise = new Promise((resolve) => {
+      //   changeStream();
+      //   resolve();
+      // }).then(()=>{
+      //   setTimeout(()=>{
+      //     roomData.room.close();
+      //     onStart();
+      //   }, 2000)
+      // });
+    }, [userVideo, userAudio, userDisplay]);
 
   //画面共有と自分の映像の取得・切り替え
   const changeStream = () => {
@@ -90,7 +111,6 @@ function Skyway(props){
           setUserDisplay(false);
         });
         localVideoRef.current.srcObject = stream;
-        localVideoRef.current.play();
       }).catch( error => {
         console.error('mediaDevice.getDisplayMedia() error:', error);
         setUserDisplay(false);
@@ -102,7 +122,6 @@ function Skyway(props){
         // 成功時にvideo要素にカメラ映像をセット
         setLocalStream(stream);
         localVideoRef.current.srcObject = stream;
-        localVideoRef.current.play();
       }).catch( error => {
         // 失敗時にはエラーログを出力
         console.error('mediaDevice.getUserMedia() error:', error);
@@ -162,7 +181,6 @@ function Skyway(props){
       setRemoteStream(stream);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
-        remoteVideoRef.current.play().catch((e) => console.log(e));
       }
     });
 
