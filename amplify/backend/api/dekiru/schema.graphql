@@ -52,8 +52,9 @@ type Questions @model {
 type AnswerUser @model {
   id: ID!
   userId: ID!
-  quwstionId: ID!
+  questionId: ID!
   comment: String
+  userHandleName: String
   userJob: String
   userExperience: String
   userLicenseFlag: Int

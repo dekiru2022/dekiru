@@ -25,9 +25,6 @@ import { listQuestions } from '../../../graphql/queries';
 // カテゴリー取得
 import { categories } from '../../../database/categories_table';
 
-// test
-const initialFormState = { title: '', content: '' }
-
 // 質問投稿機能　main
 function PostQuestion() {
 
@@ -73,10 +70,12 @@ function PostQuestion() {
       nextToken: nextToken,
     }));
     console.log(result);
-    // null
+
     if (result.data.listQuestions.items.length > 0) {
+      // 質問中
       setCheckBottomFlag(2);
     } else {
+      //質問していない
       setCheckBottomFlag(1);
     }
   }

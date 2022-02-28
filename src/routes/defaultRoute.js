@@ -48,8 +48,8 @@ function DefaultRoute() {
         {/* 質問投稿関係 */}
         <Route exact path="/postQuestion" component={PostQuestion} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/showQuestion" component={ShowQuestion} />
-        <Route exact path="/indexResolver" component={IndexResolver} />
+        <Route exact path="/showQuestion/:QuestionId" component={ShowQuestion} />
+        <Route exact path='/indexResolver/:QuestionId' component={IndexResolver} />
         <Route exact path="/indexQuestion" component={IndexQuestion} />
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />

@@ -180,8 +180,9 @@ export const onCreateAnswerUser = /* GraphQL */ `
     onCreateAnswerUser {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag
@@ -198,8 +199,9 @@ export const onUpdateAnswerUser = /* GraphQL */ `
     onUpdateAnswerUser {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag
@@ -216,8 +218,9 @@ export const onDeleteAnswerUser = /* GraphQL */ `
     onDeleteAnswerUser {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag

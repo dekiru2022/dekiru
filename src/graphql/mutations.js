@@ -210,8 +210,9 @@ export const createAnswerUser = /* GraphQL */ `
     createAnswerUser(input: $input, condition: $condition) {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag
@@ -231,8 +232,9 @@ export const updateAnswerUser = /* GraphQL */ `
     updateAnswerUser(input: $input, condition: $condition) {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag
@@ -252,8 +254,9 @@ export const deleteAnswerUser = /* GraphQL */ `
     deleteAnswerUser(input: $input, condition: $condition) {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag

@@ -26,7 +26,7 @@ export default function Home() {
     checkBotton();
   }, [])
   const [checkBottomFlag, setCheckBottomFlag] = useState([]);
-
+  const [questionId, setQuestionId] = useState([]);
   //描画ごとに現在相談中かチェック
   async function checkBotton(nextToken = null) {
     let user1 = await Auth.currentAuthenticatedUser();
@@ -50,11 +50,17 @@ export default function Home() {
       limit: 10,
       nextToken: nextToken,
     }));
-    console.log(result);
+    console.log(result.data.listQuestions.items[0].id);
+    const tmp = result.data.listQuestions.items[0].id;
+    
+    setQuestionId(tmp);
+    console.log("home:"+ questionId);
     // null
     if (result.data.listQuestions.items.length > 0) {
+      // 質問中
       setCheckBottomFlag(0);
     } else {
+      //質問していない
       setCheckBottomFlag(1);
     }
   }
@@ -66,13 +72,16 @@ export default function Home() {
         <img width="100%" src={HomeTop} alt="Top" style={{ position: 'relative', top: '-330px' }} ></img>
       </p>
 
-      {/* ボタン */}
+      {/* ボタン 
+      ? 真
+      : 偽
+      */}
       <Grid container spacing={8} justifyContent="center" alignItems="center">
 
         <Grid item>
           {checkBottomFlag
             ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
-            : <StyleButton title="相談中" to="/indexResolver" fontSize="3.2rem" />
+            : <StyleButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
           }
         </Grid>
         <Grid item>

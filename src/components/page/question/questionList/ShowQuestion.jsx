@@ -5,9 +5,7 @@
 //
 //  質問詳細
 //
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -28,27 +26,140 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-
-
-// テスト用データ
-import { questions as TestQuestions } from '../../../../database/questions_table';
-import { users as TestUsers } from '../../../../database/users_table';
-
-import {Auth} from 'aws-amplify';
+import { StyleTextField, StyleMultilineTextField } from '../../../ui/styleTextField';
+//AWS
+import { Auth } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
+// graphqlインポート
+import { createAnswerUser as createAnswerUserMutation } from '../../../../graphql/mutations';
+import { getCognitoUserId, getUserId, getQuestions ,listAnswerUsers} from '../../../../graphql/queries';
 
 function QuestionPage(props) {
-    const AuthUser = Auth.currentAuthenticatedUser();
-    console.log(Auth.currentAuthenticatedUser());
 
-    const [question, setQuestion] = useState(TestQuestions[0]);
-    const [user, setUser] = useState(TestUsers[0]);
+
+    // const AuthUser = Auth.currentAuthenticatedUser();
+    // console.log(Auth.currentAuthenticatedUser());
+    let datetime = new Date().toISOString();
+    const [formData, setFormData] = useState([]);
+    const [question, setQuestion] = useState([]);
+    const [user, setUser] = useState([]);
     const [time, setTime] = useState(10);
-    const meetingTimeArray = [10, 20, 30, 40, 50, 60]
+    const [job, setJob] = useState();
+    const [experience, setExperience] = useState(0);
+    const meetingTimeArray = [0, 10, 20, 30, 40, 50, 60];
+    const jobArray = ["ケアーマネージャー", "介護士", "元介護士"];
+    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
+    const [title, setTitle] = useState([]);
+    const [content, setContent] = useState([]);
+    const [createdAt, setCreatedAt] = useState([]);
+    const [checkBottomFlag, setCheckBottomFlag] = useState([]);
 
     const inputChange = (e) => {
         const value = e.target.value;
         setTime(value);
     }
+    const inputJobChange = (e) => {
+        const value = e.target.value;
+        setJob(value);
+    }
+    const inputExperienceChange = (e) => {
+        const value = e.target.value;
+        setExperience(value);
+    }
+    const fetchQuestion = async () => {
+        // propsからurlの値を取得
+        const questionId = props.match.params.QuestionId;
+        console.log(questionId);
+
+        const apiQuestionData = await API.graphql(graphqlOperation(getQuestions, { id: questionId }));
+        setQuestion(apiQuestionData);
+        setTitle(apiQuestionData.data.getQuestions.title);
+        setContent(apiQuestionData.data.getQuestions.content);
+        setCreatedAt(apiQuestionData.data.getQuestions.createdAt);
+        console.log(apiQuestionData);
+    }
+
+    const fetchUser = async () => {
+        const user1 = await Auth.currentAuthenticatedUser();
+        let cognitoID = user1.attributes.sub;
+        const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
+        setUser(apiUserData);
+        // setUserPoint(apiData.data.getUserId.point);
+        // setUserTrasferPoint(apiData.data.getUserId.transferPoint);
+        console.log(apiUserData);//.data.getCognitoUserId.items
+    }
+    async function inputData() {
+        //データ送信用にフォームデータを定義
+        formData.userId = user.data.getUserId.id;
+        formData.questionId = question.data.getQuestions.id;
+        formData.userHandleName = user.data.getUserId.handleName;
+        formData.userLicenseFlag = '0';
+        formData.time = time;
+        formData.userJob = job;
+        formData.userExperience = experience;
+        formData.ansStatus = '1';
+        formData.createdAt = datetime;
+        formData.updatedAt = datetime;
+        console.log(formData);
+        inputCheck();
+    }
+    //描画ごとに現在質問中かチェック
+    async function checkBotton(nextToken = null) {
+        let user1 = await Auth.currentAuthenticatedUser();
+        const cognitoID = user1.attributes.sub;
+        //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
+        const result = await API.graphql(graphqlOperation(listAnswerUsers, {
+            filter: {
+                "and": [
+                    {
+                        "userId": {
+                            "eq": cognitoID
+                        }
+                    },
+                    {
+                        "ansStatus": {
+                            "eq": "1"
+                        }
+                    }
+                ]
+            },
+            limit: 10,
+            nextToken: nextToken,
+        }));
+        console.log(result);
+
+        if (result.data.listAnswerUsers.items.length > 0) {
+            // 質問中
+            setCheckBottomFlag(2);
+        } else {
+            //質問していない
+            setCheckBottomFlag(1);
+        }
+    }
+    // 入力チェック
+    async function inputCheck() {
+        if (checkBottomFlag == 2) {
+            alert('質問中のため、質問できません。');
+        } else if (formData.userExperience == "" || formData.userJob == "") {
+            alert('全ての項目を入力してください');
+        } else {
+            let result = window.confirm('相談を送信してもよろしいですか？');
+            // OKボタン押下時
+            if (result) {
+                await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
+                window.location.href = '/';
+                // キャンセルボタン押下時
+            } else {
+                // 何も処理を行わない
+            }
+        }
+    }
+    useEffect(() => {
+        fetchQuestion();
+        fetchUser();
+        checkBotton();
+    }, [])
 
     return (
         <Grid container>
@@ -56,38 +167,38 @@ function QuestionPage(props) {
                 <Box>
 
                     <Card sx={{ my: 4, minWidth: 300, maxWidth: 600 }}>
-                        <CardHeader
+                        {/* <CardHeader
                             avatar={
-                                question.user_id == 1
+                                question.userId == 1
                                     ?
                                     <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
-                                        {question.user_char_name}
+                                        {question.userId}
                                     </Avatar>
                                     :
                                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                        {question.user_char_name}
+                                        {question.userId}
                                     </Avatar>
                             }
                             action={<IconButton aria-label="settings">
                                 <MoreVertIcon />
                             </IconButton>}
-                            title={user.name + ' さん'} 歳
-                            subheader={user.ages + '歳'}
-                        />
+                            // title={user.name + ' さん'} 歳
+                            // subheader={user.ages + '歳'}
+                        /> */}
 
                         <CardContent>
                             <Typography variant="subtitle1" color="text.primary">
-                                {question.title}
+                                {title}
                             </Typography>
                             <Typography variant="body1" color="text.secondary">
-                                {question.content}
+                                {content}
                             </Typography>
                             <Typography mt={2} variant="body2" color="text.secondary">
-                                {question.created_at}
+                                {createdAt}
                             </Typography>
                         </CardContent>
 
-                        <CardActions disableSpacing>
+                        {/* <CardActions disableSpacing>
 
                             <IconButton aria-label="add to favorites">
                                 <FavoriteIcon />
@@ -97,7 +208,7 @@ function QuestionPage(props) {
                             </IconButton>
 
 
-                        </CardActions>
+                        </CardActions> */}
                     </Card>
 
                     <Box sx={{ display: 'flex', alignItems: 'end' }}>
@@ -106,7 +217,7 @@ function QuestionPage(props) {
                             <Select
                                 labelId="time"
                                 id="demo-simple-select"
-                                label="カテゴリー"
+                                label="解決想定時間"
                                 onChange={inputChange}
                                 name="category_id"
                                 defaultValue={10}
@@ -116,7 +227,47 @@ function QuestionPage(props) {
                                 ))}
                             </Select>
                         </Box>
-                        <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${user.id}`} target="_blank" >解決開始！</Button>
+                        <Box>
+                            <InputLabel id="time">職業</InputLabel>
+                            <Select
+                                labelId="time"
+                                id="demo-simple-select"
+                                label="職業"
+                                onChange={inputJobChange}
+                                defaultValue={10}
+                            >
+                                {jobArray.map((job, index) => (
+                                    <MenuItem value={job} key={index}>{job} </MenuItem>
+                                ))}
+                            </Select>
+                        </Box>
+                        <Box>
+                            <InputLabel id="experience">職務経験</InputLabel>
+                            <Select
+                                labelId="experience"
+                                id="demo-simple-select"
+                                label="職務経験"
+                                onChange={inputExperienceChange}
+                                defaultValue={1}
+                            >
+                                {experienceArray.map((experience, index) => (
+                                    <MenuItem value={experience} key={index}>{experience} </MenuItem>
+                                ))}
+                            </Select>
+                        </Box>
+                        {/* コメント入力 */}
+                        <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleTextField
+                                label="コメント"
+                                placeholder="相談者に一言コメントできます。"
+                                onChange={e => setFormData({ ...formData, 'comment': e.target.value })}
+                                value={formData.comment}
+                            />
+                        </Grid>
+                        {time
+                            ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${user.id}`} target="_blank" >解決する！</Button>
+                            : <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
+                        }
                     </Box>
                 </Box>
             </Box>

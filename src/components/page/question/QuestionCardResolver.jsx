@@ -53,7 +53,7 @@ export const QuestionCardResolver = (props) => {
       {/* フッター（カード内） */}
       <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', left: '10px' }}>
         {/* <Button variant='contained' component={LinkRouter} to="/showQuestion" >できます！</Button> */}
-        <StyleButton title="回答する" to="/showQuestion" />
+        <StyleButton title="回答する" to={`/showQuestion/${question.id}`} />
       </CardActions>
     </Card>
   );

@@ -143,8 +143,9 @@ export const getAnswerUser = /* GraphQL */ `
     getAnswerUser(id: $id) {
       id
       userId
-      quwstionId
+      questionId
       comment
+      userHandleName
       userJob
       userExperience
       userLicenseFlag
@@ -166,8 +167,9 @@ export const listAnswerUsers = /* GraphQL */ `
       items {
         id
         userId
-        quwstionId
+        questionId
         comment
+        userHandleName
         userJob
         userExperience
         userLicenseFlag
