@@ -36,9 +36,6 @@ import { getCognitoUserId, getUserId, getQuestions ,listAnswerUsers} from '../..
 
 function QuestionPage(props) {
 
-
-    // const AuthUser = Auth.currentAuthenticatedUser();
-    // console.log(Auth.currentAuthenticatedUser());
     let datetime = new Date().toISOString();
     const [formData, setFormData] = useState([]);
     const [question, setQuestion] = useState([]);
@@ -47,7 +44,7 @@ function QuestionPage(props) {
     const [job, setJob] = useState();
     const [experience, setExperience] = useState(0);
     const meetingTimeArray = [0, 10, 20, 30, 40, 50, 60];
-    const jobArray = ["ケアーマネージャー", "介護士", "元介護士"];
+    const jobArray = ["ケアーマネージャー", "介護士", "元介護士","介護福祉"];
     const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
         30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
     const [title, setTitle] = useState([]);
@@ -83,18 +80,26 @@ function QuestionPage(props) {
     const fetchUser = async () => {
         const user1 = await Auth.currentAuthenticatedUser();
         let cognitoID = user1.attributes.sub;
+        console.log(cognitoID);
         const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
         setUser(apiUserData);
         // setUserPoint(apiData.data.getUserId.point);
         // setUserTrasferPoint(apiData.data.getUserId.transferPoint);
         console.log(apiUserData);//.data.getCognitoUserId.items
     }
+
     async function inputData() {
         //データ送信用にフォームデータを定義
         formData.userId = user.data.getUserId.id;
         formData.questionId = question.data.getQuestions.id;
         formData.userHandleName = user.data.getUserId.handleName;
         formData.userLicenseFlag = '0';
+        {
+        user.data.getUserId.sex
+            ? formData.userSex = '女'
+            : formData.userSex = '男'
+        }
+        formData.userUnitPrice = '200';
         formData.time = time;
         formData.userJob = job;
         formData.userExperience = experience;
@@ -140,11 +145,12 @@ function QuestionPage(props) {
     // 入力チェック
     async function inputCheck() {
         if (checkBottomFlag == 2) {
-            alert('質問中のため、質問できません。');
+            alert('他に解答しているため、候補できません。');
         } else if (formData.userExperience == "" || formData.userJob == "") {
             alert('全ての項目を入力してください');
         } else {
-            let result = window.confirm('相談を送信してもよろしいですか？');
+            console.log("test1");
+            let result = window.confirm('解決の立候補してもよろしいですか？');
             // OKボタン押下時
             if (result) {
                 await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
@@ -165,7 +171,6 @@ function QuestionPage(props) {
         <Grid container>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Box>
-
                     <Card sx={{ my: 4, minWidth: 300, maxWidth: 600 }}>
                         {/* <CardHeader
                             avatar={
@@ -199,15 +204,12 @@ function QuestionPage(props) {
                         </CardContent>
 
                         {/* <CardActions disableSpacing>
-
                             <IconButton aria-label="add to favorites">
                                 <FavoriteIcon />
                             </IconButton>
                             <IconButton aria-label="share">
                                 <ShareIcon />
                             </IconButton>
-
-
                         </CardActions> */}
                     </Card>
 

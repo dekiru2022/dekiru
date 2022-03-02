@@ -15,6 +15,7 @@ type UserId @model {
   birthday: String
   handleName: String
   mail: String!
+  sex: Int
   experience: String
   licenseFlag: Int
   identificationFlag: Int
@@ -58,6 +59,8 @@ type AnswerUser @model {
   userJob: String
   userExperience: String
   userLicenseFlag: Int
+  userSex: String
+  userUnitPrice: Int
   time: Int!
   ansStatus: Int!
   createdAt: AWSDateTime!

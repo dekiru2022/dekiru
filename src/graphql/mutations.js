@@ -55,6 +55,7 @@ export const createUserId = /* GraphQL */ `
       birthday
       handleName
       mail
+      sex
       experience
       licenseFlag
       identificationFlag
@@ -89,6 +90,7 @@ export const updateUserId = /* GraphQL */ `
       birthday
       handleName
       mail
+      sex
       experience
       licenseFlag
       identificationFlag
@@ -123,6 +125,7 @@ export const deleteUserId = /* GraphQL */ `
       birthday
       handleName
       mail
+      sex
       experience
       licenseFlag
       identificationFlag
@@ -216,6 +219,8 @@ export const createAnswerUser = /* GraphQL */ `
       userJob
       userExperience
       userLicenseFlag
+      userSex
+      userUnitPrice
       time
       ansStatus
       createdAt
@@ -238,6 +243,8 @@ export const updateAnswerUser = /* GraphQL */ `
       userJob
       userExperience
       userLicenseFlag
+      userSex
+      userUnitPrice
       time
       ansStatus
       createdAt
@@ -260,6 +267,8 @@ export const deleteAnswerUser = /* GraphQL */ `
       userJob
       userExperience
       userLicenseFlag
+      userSex
+      userUnitPrice
       time
       ansStatus
       createdAt
