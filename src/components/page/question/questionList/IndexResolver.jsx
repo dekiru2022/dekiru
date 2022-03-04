@@ -22,6 +22,7 @@ import { listQuestions } from '../../../../graphql/queries';
 import { onCreateAnswerUser } from '../../../../graphql/subscriptions';
 import { listUserIds } from '../../../../graphql/queries';
 import { onCreateUserId } from '../../../../graphql/subscriptions';
+import { updateAnswerUser} from '../../../../graphql/mutations';
 import { listAnswerUsers, getQuestions ,getUserId} from '../../../../graphql/queries';
 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
@@ -38,6 +39,8 @@ export default function IndexResolver(props) {
   const [checkBottomFlag, setCheckBottomFlag] = useState([]);
   
   const [checkPoint, setCheckPoint] = useState([]);
+
+  const [selectId,setSelectId] = useState([]);
 
   // 再描画のたびに実行
   useEffect(() => {
@@ -125,6 +128,11 @@ export default function IndexResolver(props) {
       setCheckPoint(0);
     }
   }
+//ボタン押下後に、引数としてidを持ってくる
+  const handleClick = async (id) => {
+    console.log(id);
+
+  }
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -180,7 +188,7 @@ export default function IndexResolver(props) {
                   <CardActions disableSpacing>
                     {/* 会議時間と自身のidはDBから取ってくる */}
                     {checkPoint
-                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} to={`/skyway/10/${user.userId}`} target="_blank"  >依頼する</Button>
+                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter } onClick={() =>{ handleClick(user.id); }} to={`/skyway/10/${user.userId}`} target="_blank"  >依頼する</Button>
                       : <Button sx={{ mr: 4 }} variant='contained'  target="_blank"  >ポイント購入</Button>
                     }
                     {/* 張りぼて評価 */}
