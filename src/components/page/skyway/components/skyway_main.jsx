@@ -15,6 +15,7 @@ export default function SkywayMain(){
   const {
     peer, meetingTime, roomId,
     loading, setLoading,
+    room, setRoom,
     roomData, setRoomData,
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
@@ -35,9 +36,7 @@ export default function SkywayMain(){
       mode: 'sfu',
       stream: localStream,
     });
-    roomData.room = room;
-    let data = Object.assign({}, roomData);
-    setRoomData(data);
+    setRoom(room);
     setEventListener(room);
     setIsConnected(true);
     console.log('onStart()');
@@ -45,7 +44,7 @@ export default function SkywayMain(){
 
   //終了処理
   const onClose = () => {
-    roomData.room.close();
+    room.close();
     setIsConnected(false);
   }
 

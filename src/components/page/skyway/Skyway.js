@@ -26,8 +26,8 @@ function Skyway(props){
 
   const API_KEY = '95ba327e-64d1-4c05-8f9f-ad00ac893e07';
   const peer = new Peer({key: API_KEY});
-  // const [peer, setPeer] = useState('');
   const [loading, setLoading] = useState(false);
+  const [room, setRoom] = useState();
   const [roomData, setRoomData] = useState({room: null, messages: ''});
   const [localStream, setLocalStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
@@ -41,6 +41,7 @@ function Skyway(props){
   const skywayStore = [
     peer, meetingTime, roomId,
     loading, setLoading,
+    room, setRoom,
     roomData, setRoomData,
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
@@ -52,32 +53,28 @@ function Skyway(props){
     localVideoRef, remoteVideoRef
   ]
   
+  //カメラ映像と音声を取得
   useEffect(()=>{
     navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
       .then( stream => {
-        // 成功時にvideo要素にカメラ映像をセット
         setLocalStream(stream);
         localVideoRef.current.srcObject = stream;
       }).catch( error => {
-        // 失敗時にはエラーログを出力
         console.error('mediaDevice.getUserMedia() error:', error);
         return;
       });
   },[]);
 
   //localStreamが取得できたら1回だけ動くuseEffect
+  //skywayのルームに接続
   useEffect(()=>{
     if(localStream && !loading){
-      console.log('ローカルストリーム',localStream);
-      
       setTimeout(()=>{
-        sfuJoinRoom(peer,roomId, localStream).then((room)=>{
+        sfuJoinRoom(peer, roomId, localStream).then((room)=>{
           setLoading(true); //ローディング終了
 
           //接続情報を変数に保存
-          roomData.room = room;
-          let data = Object.assign({}, roomData);
-          setRoomData(data);
+          setRoom(room);
           setEventListener(room);
           setIsConnected(true);
         }).catch(e=>console.log(e));
@@ -90,21 +87,9 @@ function Skyway(props){
         console.log(localStream.getVideoTracks()[0]);
         var videoTrack = localStream.getVideoTracks()[0];
         var audioTrack = localStream.getAudioTracks()[0];
-        console.log(localStream);
-        console.log(localStream.getAudioTracks()[0]);
         videoTrack.enabled = userVideo;
         audioTrack.enabled = userAudio;
       }
-      //changeStream();
-      // const promise = new Promise((resolve) => {
-      //   changeStream();
-      //   resolve();
-      // }).then(()=>{
-      //   setTimeout(()=>{
-      //     roomData.room.close();
-      //     onStart();
-      //   }, 2000)
-      // });
     }, [userVideo, userAudio, userDisplay]);
 
   //画面共有と自分の映像の取得・切り替え
@@ -137,27 +122,6 @@ function Skyway(props){
       });
     }
     console.log('changeStream()')
-  }
-  
-  //開始処理
-  const onStart = async() => {
-      //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-      const room = peer.joinRoom(roomId, {
-        mode: 'sfu',
-        stream: localStream,
-      });
-      roomData.room = room;
-      let data = Object.assign({}, roomData);
-      setRoomData(data);
-      setEventListener(room);
-      setIsConnected(true);
-      console.log('onStart()');
-  }
-
-  //終了処理
-  const onClose = () => {
-    roomData.room.close();
-    setIsConnected(false);
   }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
@@ -236,6 +200,7 @@ function Skyway(props){
       <SkywayStoreContext.Provider value={{
         peer,
         loading, setLoading,
+        room, setRoom,
         roomData, setRoomData,
         localStream, setLocalStream,
         remoteStream, setRemoteStream,
