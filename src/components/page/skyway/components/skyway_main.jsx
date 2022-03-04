@@ -73,7 +73,6 @@ export default function SkywayMain(){
 
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
-      console.log('取得したときのremoteStream', stream);
       setRemoteStream(stream);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;

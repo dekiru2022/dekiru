@@ -28,12 +28,12 @@ function Skyway(props){
   const peer = new Peer({key: API_KEY});
   const [loading, setLoading] = useState(false);
   const [room, setRoom] = useState();
-  const [roomData, setRoomData] = useState({room: null, messages: ''});
+  const [roomData, setRoomData] = useState({ messages: ''});
   const [localStream, setLocalStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
-  const [userAudio, setUserAudio] = useState(true); //false: ミュート
+  const [userAudio, setUserAudio] = useState(false); //false: ミュート
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
@@ -149,7 +149,6 @@ function Skyway(props){
 
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
-      console.log('取得したときのremoteStream', stream);
       setRemoteStream(stream);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
