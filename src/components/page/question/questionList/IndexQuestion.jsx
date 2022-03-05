@@ -21,7 +21,7 @@ import { categories as TestCategories } from '../../../../database/categories_ta
 import { listQuestions } from '../../../../graphql/queries';
 import { onCreateQuestions } from '../../../../graphql/subscriptions';
 
-import { API, graphqlOperation } from 'aws-amplify';
+import { Auth,API, graphqlOperation } from 'aws-amplify';
 import { QuestionCardResolver } from '../QuestionCardResolver';
 import { ConsoleLogger } from '@aws-amplify/core';
 
@@ -36,13 +36,18 @@ export default function IndexQuestion() {
     // DBからとってきた質問
     const [questions, setQuestions] = useState([]);
     // console.log("useState")
+    const [cognitoId, setCognitoId] = useState([]);
 
     // 初回描画に実行
     useEffect(() => {
+        getId();
         getCategoriesData();
         fetchListQuestion();
     }, [])
-
+    async function getId() {
+        let user1 = await Auth.currentAuthenticatedUser();
+        setCognitoId(user1.attributes.sub);
+    }
     // AWSから質問一覧を取得
     async function fetchListQuestion() {
         const apiData = await API.graphql({ query: listQuestions });
@@ -118,9 +123,11 @@ export default function IndexQuestion() {
             </Grid>
 
             {/* 質問一覧　カードを表示 */}
+            {/*  */}
             <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }} >
                 {
                     questions.map((question, i) => {
+                    if(question.userId != cognitoId){
                         return (
                             <>
                                 <Grid item xs={6}>
@@ -135,6 +142,7 @@ export default function IndexQuestion() {
                                 })()}
                             </>
                         )
+                            }
                     })
                 }
             </Grid>

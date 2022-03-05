@@ -6,7 +6,6 @@
 //  質問詳細
 //
 import React, { useState, useEffect } from 'react';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -45,8 +44,7 @@ function QuestionPage(props) {
     const [experience, setExperience] = useState(0);
     const meetingTimeArray = [0, 10, 20, 30, 40, 50, 60];
     const jobArray = ["ケアーマネージャー", "介護士", "元介護士","介護福祉"];
-    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
+    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50","50~"];
     const [title, setTitle] = useState([]);
     const [content, setContent] = useState([]);
     const [createdAt, setCreatedAt] = useState([]);
@@ -150,7 +148,7 @@ function QuestionPage(props) {
             alert('全ての項目を入力してください');
         } else {
             console.log("test1");
-            let result = window.confirm('解決の立候補してもよろしいですか？');
+            let result = window.confirm('解決者として立候補してよろしいですか？');
             // OKボタン押下時
             if (result) {
                 await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
