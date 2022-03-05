@@ -90,7 +90,7 @@ export default function SkywayMain(){
         <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
+            <video width="100%" ref={remoteVideoRef} playsInline autoPlay muted></video>;
             {/* {castVideo()} */}
           </Box>
 

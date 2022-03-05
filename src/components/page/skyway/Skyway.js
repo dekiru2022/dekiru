@@ -22,7 +22,7 @@ function Skyway(props){
   const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
-  const [userAudio, setUserAudio] = useState(false); //false: ミュート
+  const [userAudio, setUserAudio] = useState(true); //false: ミュート
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
@@ -62,14 +62,7 @@ function Skyway(props){
   
   //カメラ映像と音声を取得
   useEffect(()=>{
-    navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
-      .then( stream => {
-        setLocalStream(stream);
-        localVideoRef.current.srcObject = stream;
-      }).catch( error => {
-        console.error('mediaDevice.getUserMedia() error:', error);
-        return;
-      });
+    getAndSetUserMedia();
   },[]);
 
   //localStreamが取得できたら1回だけ動くuseEffect
@@ -83,16 +76,53 @@ function Skyway(props){
     }
   },[localStream]);
   
-    useEffect(() => {
-      if(localStream){
-        console.log(localStream.getVideoTracks()[0]);
-        var videoTrack = localStream.getVideoTracks()[0];
-        var audioTrack = localStream.getAudioTracks()[0];
-        videoTrack.enabled = userVideo;
-        audioTrack.enabled = userAudio;
+  useEffect(() => {
+    if(localStream){
+      var videoTrack = localStream.getVideoTracks()[0];
+      var audioTrack = localStream.getAudioTracks()[0];
+      videoTrack.enabled = userVideo;
+      audioTrack.enabled = userAudio;
+    }
+  }, [userVideo, userAudio, userDisplay]);
+  
+  useEffect(()=>{
+    if(isConnected){
+      if(userDisplay){
+        navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
+        .then( stream => {
+            const DisplayMediaTrack = stream.getVideoTracks()[0];
+            //const DisplayMediaSender = peer.addTrack(DisplayMediaTrack, localStream);
+          // localStream.removeTrack(DisplayMediaTrack);
+            localStream.getVideoTracks().shift();
+            localStream.addTrack(DisplayMediaTrack, localStream);
+            //共有終了時、画面共有の変数をfalseに
+            stream.getTracks()[0].addEventListener('ended', () => {
+              setUserDisplay(false);
+            });
+            //localVideoRef.current.srcObject = localStream;
+          }).catch( error => {
+            console.error('mediaDevice.getDisplayMedia() error:', error);
+            setUserDisplay(false);
+            return;
+          });
+        }else{
+          getAndSetUserMedia();
+        }
       }
-    }, [userVideo, userAudio, userDisplay]);
+    }, [userDisplay])
 
+  const getAndSetUserMedia = () => {
+    navigator.mediaDevices.getUserMedia({video: true, audio: true})
+      .then( stream => {
+        // 成功時にvideo要素にカメラ映像をセット
+        setLocalStream(stream);
+        localVideoRef.current.srcObject = stream;
+      }).catch( error => {
+        // 失敗時にはエラーログを出力
+        console.error('mediaDevice.getUserMedia() error:', error);
+        return;
+      });
+  }
   //画面共有と自分の映像の取得・切り替え
   const changeStream = () => {
     if(userDisplay){
