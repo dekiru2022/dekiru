@@ -21,67 +21,6 @@ export default function SkywayMain(){
     localVideoRef, remoteVideoRef,
   } = useContext(SkywayStoreContext);
 
-  //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
-  const addMessages = (text) => {
-    roomData.messages += (text+ '\n');
-    let data = Object.assign({}, roomData);
-    setRoomData(data);
-  }
-
-  //ルームの各イベントに対して処理を追加
-  const setEventListener = (room) => {
-    const sendTrigger = document.getElementById('send-trigger');
-    const messageForm = document.getElementById('message-form');
-    
-    //open: SkyWayサーバーとの接続が成功したタイミングで発火
-    room.once("open", () => {
-      addMessages('=== ルームに参加しました ===');
-      setIsConnected(true);
-    });
-
-    //peerJoin: 誰かがroomに参加したときに発火
-    room.on("peerJoin", (peerId) => {
-      addMessages(`=== ${peerId} が参加しました ===`);
-    });
-
-    //stream: 相手の映像の情報
-    room.on("stream", (stream) => {
-      setRemoteStream(stream);
-      if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = stream;
-      }
-    });
-
-    //data: チャット受信
-    room.on("data", ({data, src}) => {
-      addMessages(`${src}: ${data}`);
-    })
-    
-    //peerLeave: 誰かがroomから退室したときに発火
-    room.on("peerLeave", (peerId) => {
-      setRemoteStream('');
-      addMessages(`=== ${peerId} が退室しました ===`);
-    });
-
-    //close: 自身が退室したときに発火
-    room.once('close', () => {
-      sendTrigger.removeEventListener('click', onClickSend);
-      addMessages('== ルームから退室しました ===');
-      setRemoteStream('');
-      setIsConnected(false);
-    });
-
-    //送信ボタンの処理
-    sendTrigger.addEventListener('click', () => onClickSend());
-    const onClickSend = () => {
-      const localMessage = messageForm.value;
-        if(localMessage){
-          room.send(localMessage);
-          addMessages(`あなた: ${localMessage}`);
-          messageForm.value = '';
-        }
-    }
-  }
   return (
     <div>
       <Box sx={{display: (loading? 'block': 'none')}}>

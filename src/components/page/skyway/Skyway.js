@@ -29,6 +29,7 @@ function Skyway(props){
   //開始処理
   const onStart = async() => {
     //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
+    console.log(localStream);
     const room = peer.joinRoom(roomId, {
       mode: 'sfu',
       stream: localStream,
@@ -59,17 +60,20 @@ function Skyway(props){
     onStart, onClose
   }
   
-  //カメラ映像と音声を取得し、skywayに接続
+  //カメラ映像と音声を取得skywayに接続
   useEffect(()=>{
     getAndSetUserMedia();
-    setTimeout(()=>{
-      onStart()
-      .then(setLoading(true));
-    }, 3000)
   },[]);
-
-  //localStreamが変更されたら送信する映像を変更
+  
   useEffect(()=>{
+    //一回のみ、onStart
+    if(localStream && !loading){
+      setTimeout(()=>{
+        onStart()
+        .then(setLoading(true));
+      }, 3000)
+    }
+    //localStreamが変更されたら送信する映像を変更
     if(room && localStream){
       room.replaceStream(localStream);
     }
