@@ -1,21 +1,9 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect, createContext } from "react";
-
-import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-
+import Box from '@mui/material/Box';
 import Spinner from 'react-spinkit';
 import SkywayMain from "./components/skyway_main";
-import { sfuJoinRoom } from "./components/skyway_functions";
-import Video from './components/video';
-import Chat from './components/chat';
-import Timer from './components/timer';
-import MenuBar from './components/menuBar';
 import { API } from "aws-amplify";
-
-// メモ
-// ・自分の映像（localStream）は音声、映像ともに取得できている
-// ・それをjoinRoomでskywayサーバーに送るのにも成功している
-
 
 export const SkywayStoreContext = createContext();
 
@@ -26,9 +14,9 @@ function Skyway(props){
 
   const API_KEY = '95ba327e-64d1-4c05-8f9f-ad00ac893e07';
   const peer = new Peer({key: API_KEY});
-  // const [peer, setPeer] = useState('');
   const [loading, setLoading] = useState(false);
-  const [roomData, setRoomData] = useState({room: null, messages: ''});
+  const [room, setRoom] = useState();
+  const [roomData, setRoomData] = useState({ messages: ''});
   const [localStream, setLocalStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
   const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
@@ -38,9 +26,27 @@ function Skyway(props){
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
-  const skywayStore = [
+  //開始処理
+  const onStart = async() => {
+    //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
+    const room = peer.joinRoom(roomId, {
+      mode: 'sfu',
+      stream: localStream,
+    });
+    setRoom(room);
+    setEventListener(room);
+    setIsConnected(true);
+    console.log('onStart()');
+  }
+  //終了処理
+  const onClose = async() => {
+    room.close();
+    setIsConnected(false);
+  }
+  const skywayStore = {
     peer, meetingTime, roomId,
     loading, setLoading,
+    room, setRoom,
     roomData, setRoomData,
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
@@ -49,83 +55,65 @@ function Skyway(props){
     userAudio, setUserAudio,
     userVideo, setUserVideo,
     isChat, setIsChat,
-    localVideoRef, remoteVideoRef
-  ]
+    localVideoRef, remoteVideoRef,
+    onStart, onClose
+  }
   
+  //カメラ映像と音声を取得し、skywayに接続
   useEffect(()=>{
-    navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
-      .then( stream => {
-        // 成功時にvideo要素にカメラ映像をセット
-        setLocalStream(stream);
-        localVideoRef.current.srcObject = stream;
-      }).catch( error => {
-        // 失敗時にはエラーログを出力
-        console.error('mediaDevice.getUserMedia() error:', error);
-        return;
-      });
+    getAndSetUserMedia();
+    setTimeout(()=>{
+      onStart()
+      .then(setLoading(true));
+    }, 3000)
   },[]);
 
-  //localStreamが取得できたら1回だけ動くuseEffect
+  //localStreamが変更されたら送信する映像を変更
   useEffect(()=>{
-    if(localStream && !loading){
-      console.log('ローカルストリーム',localStream);
-      
-      setTimeout(()=>{
-        sfuJoinRoom(peer,roomId, localStream).then((room)=>{
-          setLoading(true); //ローディング終了
-
-          //接続情報を変数に保存
-          roomData.room = room;
-          let data = Object.assign({}, roomData);
-          setRoomData(data);
-          setEventListener(room);
-          setIsConnected(true);
-        }).catch(e=>console.log(e));
-      }, 3000)
+    if(room && localStream){
+      room.replaceStream(localStream);
     }
   },[localStream]);
   
-    useEffect(() => {
-      if(localStream){
-        console.log(localStream.getVideoTracks()[0]);
-        var videoTrack = localStream.getVideoTracks()[0];
-        var audioTrack = localStream.getAudioTracks()[0];
-        console.log(localStream);
-        console.log(localStream.getAudioTracks()[0]);
-        videoTrack.enabled = userVideo;
-        audioTrack.enabled = userAudio;
+  useEffect(()=>{
+    if(isConnected){
+      if(userDisplay){
+        const newStream = new MediaStream;
+        navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
+          .then( stream => {
+            const displayMediaTrack = stream.getVideoTracks()[0];
+            const audioTrack = localStream.getAudioTracks()[0];
+            //共有終了時、画面共有の変数をfalseに
+            displayMediaTrack.addEventListener('ended', () => {
+              setUserDisplay(false);
+            });
+            newStream.addTrack(displayMediaTrack);
+            newStream.addTrack(audioTrack);
+            setLocalStream(newStream);
+            localVideoRef.current.srcObject = newStream;
+          }).catch( error => {
+            console.error('mediaDevice.getDisplayMedia() error:', error);
+            setUserDisplay(false);
+            return;
+          });
+        
+        }else{
+          getAndSetUserMedia();
+        }
       }
-      //changeStream();
-      // const promise = new Promise((resolve) => {
-      //   changeStream();
-      //   resolve();
-      // }).then(()=>{
-      //   setTimeout(()=>{
-      //     roomData.room.close();
-      //     onStart();
-      //   }, 2000)
-      // });
-    }, [userVideo, userAudio, userDisplay]);
+    }, [userDisplay]);
+  
+  useEffect(() => {
+    if(localStream){
+      var videoTrack = localStream.getVideoTracks()[0];
+      var audioTrack = localStream.getAudioTracks()[0];
+      videoTrack.enabled = userVideo;
+      audioTrack.enabled = userAudio;
+    }
+  }, [userVideo, userAudio]);
 
-  //画面共有と自分の映像の取得・切り替え
-  const changeStream = () => {
-    if(userDisplay){
-        navigator.mediaDevices.getDisplayMedia({video: true, audio: userAudio})
-      .then( stream => {
-        // 成功時にvideo要素に共有映像をセット
-        setLocalStream(stream);
-        //共有終了時、画面共有の変数をfalseに
-        stream.getTracks()[0].addEventListener('ended', () => {
-          setUserDisplay(false);
-        });
-        localVideoRef.current.srcObject = stream;
-      }).catch( error => {
-        console.error('mediaDevice.getDisplayMedia() error:', error);
-        setUserDisplay(false);
-        return;
-      });
-    }else{
-      navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
+  const getAndSetUserMedia = () => {
+    navigator.mediaDevices.getUserMedia({video: true, audio: true})
       .then( stream => {
         // 成功時にvideo要素にカメラ映像をセット
         setLocalStream(stream);
@@ -135,29 +123,6 @@ function Skyway(props){
         console.error('mediaDevice.getUserMedia() error:', error);
         return;
       });
-    }
-    console.log('changeStream()')
-  }
-  
-  //開始処理
-  const onStart = async() => {
-      //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-      const room = peer.joinRoom(roomId, {
-        mode: 'sfu',
-        stream: localStream,
-      });
-      roomData.room = room;
-      let data = Object.assign({}, roomData);
-      setRoomData(data);
-      setEventListener(room);
-      setIsConnected(true);
-      console.log('onStart()');
-  }
-
-  //終了処理
-  const onClose = () => {
-    roomData.room.close();
-    setIsConnected(false);
   }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
@@ -185,7 +150,6 @@ function Skyway(props){
 
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
-      console.log('取得したときのremoteStream', stream);
       setRemoteStream(stream);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
@@ -223,30 +187,18 @@ function Skyway(props){
     }
   }
   
-  const castVideo = () => {
-    console.log(remoteStream);
-    if(remoteStream){
-      return <Video stream={remoteStream} key={remoteStream.peerId} />
-    }
-  };
-  
-
   return (
     <div>
-      <SkywayStoreContext.Provider value={{
-        peer,
-        loading, setLoading,
-        roomData, setRoomData,
-        localStream, setLocalStream,
-        remoteStream, setRemoteStream,
-        isConnected, setIsConnected,
-        userDisplay, setUserDisplay,
-        userAudio, setUserAudio,
-        userVideo, setUserVideo,
-        isChat, setIsChat,
-        localVideoRef, remoteVideoRef}}>
+      <SkywayStoreContext.Provider value={skywayStore}>
         <SkywayMain />
       </SkywayStoreContext.Provider>
+
+      {/* ページが読み込まれるまではローディングアイコンが表示 */}
+      <Box sx={{display: (loading? 'none': 'block')}}>
+        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <Spinner name="three-bounce" />
+        </Box>
+      </Box>
     </div>
   );
 };

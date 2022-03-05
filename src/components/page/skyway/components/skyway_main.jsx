@@ -4,9 +4,6 @@ import { SkywayStoreContext } from "../Skyway";
 import Box from '@mui/material/Box';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 
-import { getExpiryTimeStamp } from "./skyway_functions";
-import Spinner from 'react-spinkit';
-import Video from './video';
 import Chat from './chat';
 import Timer from './timer';
 import MenuBar from './menuBar';
@@ -15,39 +12,14 @@ export default function SkywayMain(){
   const {
     peer, meetingTime, roomId,
     loading, setLoading,
+    room, setRoom,
     roomData, setRoomData,
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
     isConnected, setIsConnected,
-    userDisplay, setUserDisplay,
-    userAudio, setUserAudio,
-    userVideo, setUserVideo,
     isChat, setIsChat,
-    localVideoRef, remoteVideoRef
+    localVideoRef, remoteVideoRef,
   } = useContext(SkywayStoreContext);
-
-  const [expiryTimestamp, setExpiryTimestamp] = useState();
-
-      //開始処理
-  const onStart = async() => {
-    //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-    const room = peer.joinRoom(roomId, {
-      mode: 'sfu',
-      stream: localStream,
-    });
-    roomData.room = room;
-    let data = Object.assign({}, roomData);
-    setRoomData(data);
-    setEventListener(room);
-    setIsConnected(true);
-    console.log('onStart()');
-  }
-
-  //終了処理
-  const onClose = () => {
-    roomData.room.close();
-    setIsConnected(false);
-  }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
   const addMessages = (text) => {
@@ -74,12 +46,10 @@ export default function SkywayMain(){
 
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
-      console.log('取得したときのremoteStream', stream);
       setRemoteStream(stream);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
       }
-      setExpiryTimestamp(getExpiryTimeStamp(meetingTime));
     });
 
     //data: チャット受信
@@ -118,60 +88,37 @@ export default function SkywayMain(){
         <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            <video width="100%" ref={remoteVideoRef} playsInline autoPlay></video>;
-            {/* {castVideo()} */}
+            <video width="100%" ref={remoteVideoRef} playsInline autoPlay muted></video>;
           </Box>
 
           {/* チャット */}
           <Box sx={{display: (isChat ? 'block' : 'none')}} >
-            <Chat messages={roomData.messages} />
+            <Chat />
           </Box>
 
           {/* タイマー */}
           <Box sx={{position: 'absolute', top: 0, right: 0}} >
-            <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
+            <Timer />
           </Box>
 
           {/* 操作バー */}
           <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
-            <MenuBar
-              roomData={roomData}
-              userAudio={userAudio}
-              setUserAudio={(boolean)=>setUserAudio(boolean)}
-              userVideo={userVideo}
-              setUserVideo={(boolean)=>setUserVideo(boolean)}
-              userDisplay={userDisplay}
-              setUserDisplay={(boolean)=>setUserDisplay(boolean)}
-              isChat={isChat}
-              setIsChat={(boolean)=>setIsChat(boolean)}
-              isConnected={isConnected}
-              onStart={()=>onStart()}
-              onClose={()=>onClose()}
-              />
+            <MenuBar />
           </Box>
 
           {/* 自分の映像 */}
           <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
             <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
               <VideocamOffIcon />
-              <Box sx={{ position:'absolute', top: 0, left: 0 }} >
-                <video
-                width="100%"
-                ref={localVideoRef}
-                style={{transform: 'scale(-1,1)'}}
-                playsInline autoPlay muted></video>
+              <Box sx={{ position:'absolute', top: 0, left: 0, transform: 'scale(-1,1)' }} >
+                <video width="100%" ref={localVideoRef} playsInline autoPlay muted></video>
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
       
-      {/* //ページが読み込まれるまではローディングアイコンが表示 */}
-      <Box sx={{display: (loading? 'none': 'block')}}>
-        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Spinner name="three-bounce" />
-        </Box>
-      </Box>
+      
     </div>
   );
 }
