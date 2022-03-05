@@ -4,7 +4,6 @@ import { SkywayStoreContext } from "../Skyway";
 import Box from '@mui/material/Box';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 
-import { getExpiryTimeStamp } from "./skyway_functions";
 import Spinner from 'react-spinkit';
 import Video from './video';
 import Chat from './chat';
@@ -24,29 +23,28 @@ export default function SkywayMain(){
     userAudio, setUserAudio,
     userVideo, setUserVideo,
     isChat, setIsChat,
-    localVideoRef, remoteVideoRef
+    localVideoRef, remoteVideoRef,
+    onStart, onClose
   } = useContext(SkywayStoreContext);
 
-  const [expiryTimestamp, setExpiryTimestamp] = useState();
+  //     //開始処理
+  // const onStart = async() => {
+  //   //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
+  //   const room = peer.joinRoom(roomId, {
+  //     mode: 'sfu',
+  //     stream: localStream,
+  //   });
+  //   setRoom(room);
+  //   setEventListener(room);
+  //   setIsConnected(true);
+  //   console.log('onStart()');
+  // }
 
-      //開始処理
-  const onStart = async() => {
-    //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-    const room = peer.joinRoom(roomId, {
-      mode: 'sfu',
-      stream: localStream,
-    });
-    setRoom(room);
-    setEventListener(room);
-    setIsConnected(true);
-    console.log('onStart()');
-  }
-
-  //終了処理
-  const onClose = () => {
-    room.close();
-    setIsConnected(false);
-  }
+  // //終了処理
+  // const onClose = () => {
+  //   room.close();
+  //   setIsConnected(false);
+  // }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
   const addMessages = (text) => {
@@ -77,7 +75,6 @@ export default function SkywayMain(){
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
       }
-      setExpiryTimestamp(getExpiryTimeStamp(meetingTime));
     });
 
     //data: チャット受信
@@ -127,7 +124,7 @@ export default function SkywayMain(){
 
           {/* タイマー */}
           <Box sx={{position: 'absolute', top: 0, right: 0}} >
-            <Timer expiryTimestamp={expiryTimestamp} roomData={roomData} onClose={() => onClose()} />
+            <Timer onClose={() => onClose()} />
           </Box>
 
           {/* 操作バー */}

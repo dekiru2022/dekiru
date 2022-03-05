@@ -38,7 +38,24 @@ function Skyway(props){
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
-  const skywayStore = [
+  //開始処理
+  const onStart = async() => {
+    //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
+    const room = peer.joinRoom(roomId, {
+      mode: 'sfu',
+      stream: localStream,
+    });
+    setRoom(room);
+    setEventListener(room);
+    setIsConnected(true);
+    console.log('onStart()');
+  }
+  //終了処理
+  const onClose = () => {
+    room.close();
+    setIsConnected(false);
+  }
+  const skywayStore = {
     peer, meetingTime, roomId,
     loading, setLoading,
     room, setRoom,
@@ -50,8 +67,9 @@ function Skyway(props){
     userAudio, setUserAudio,
     userVideo, setUserVideo,
     isChat, setIsChat,
-    localVideoRef, remoteVideoRef
-  ]
+    localVideoRef, remoteVideoRef,
+    onStart, onClose
+  }
   
   //カメラ映像と音声を取得
   useEffect(()=>{
@@ -196,8 +214,11 @@ function Skyway(props){
 
   return (
     <div>
+      {/* <SkywayStoreContext.Provider value={{skywayStore}}>
+        <SkywayMain />
+      </SkywayStoreContext.Provider> */}
       <SkywayStoreContext.Provider value={{
-        peer,
+        peer, meetingTime, roomId,
         loading, setLoading,
         room, setRoom,
         roomData, setRoomData,
@@ -208,7 +229,8 @@ function Skyway(props){
         userAudio, setUserAudio,
         userVideo, setUserVideo,
         isChat, setIsChat,
-        localVideoRef, remoteVideoRef}}>
+        localVideoRef, remoteVideoRef,
+        onStart, onClose}}>
         <SkywayMain />
       </SkywayStoreContext.Provider>
     </div>
