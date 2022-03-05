@@ -3,7 +3,6 @@ import React,{ useState, useRef, useEffect, createContext } from "react";
 import Box from '@mui/material/Box';
 import Spinner from 'react-spinkit';
 import SkywayMain from "./components/skyway_main";
-import Video from './components/video';
 import { API } from "aws-amplify";
 
 export const SkywayStoreContext = createContext();
@@ -60,21 +59,49 @@ function Skyway(props){
     onStart, onClose
   }
   
-  //カメラ映像と音声を取得
+  //カメラ映像と音声を取得し、skywayに接続
   useEffect(()=>{
     getAndSetUserMedia();
+    setTimeout(()=>{
+      onStart()
+      .then(setLoading(true));
+    }, 3000)
   },[]);
 
-  //localStreamが取得できたら1回だけ動くuseEffect
-  //skywayのルームに接続
+  //localStreamが変更されたら送信する映像を変更
   useEffect(()=>{
-    if(localStream && !loading){
-      setTimeout(()=>{
-        onStart()
-        .then(setLoading(true));
-      }, 3000)
+    if(room && localStream){
+      room.replaceStream(localStream);
     }
   },[localStream]);
+  
+  useEffect(()=>{
+    if(isConnected){
+      if(userDisplay){
+        const newStream = new MediaStream;
+        navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
+          .then( stream => {
+            const displayMediaTrack = stream.getVideoTracks()[0];
+            const audioTrack = localStream.getAudioTracks()[0];
+            //共有終了時、画面共有の変数をfalseに
+            displayMediaTrack.addEventListener('ended', () => {
+              setUserDisplay(false);
+            });
+            newStream.addTrack(displayMediaTrack);
+            newStream.addTrack(audioTrack);
+            setLocalStream(newStream);
+            localVideoRef.current.srcObject = newStream;
+          }).catch( error => {
+            console.error('mediaDevice.getDisplayMedia() error:', error);
+            setUserDisplay(false);
+            return;
+          });
+        
+        }else{
+          getAndSetUserMedia();
+        }
+      }
+    }, [userDisplay]);
   
   useEffect(() => {
     if(localStream){
@@ -83,33 +110,7 @@ function Skyway(props){
       videoTrack.enabled = userVideo;
       audioTrack.enabled = userAudio;
     }
-  }, [userVideo, userAudio, userDisplay]);
-  
-  useEffect(()=>{
-    if(isConnected){
-      if(userDisplay){
-        navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
-        .then( stream => {
-            const DisplayMediaTrack = stream.getVideoTracks()[0];
-            //const DisplayMediaSender = peer.addTrack(DisplayMediaTrack, localStream);
-          // localStream.removeTrack(DisplayMediaTrack);
-            localStream.getVideoTracks().shift();
-            localStream.addTrack(DisplayMediaTrack, localStream);
-            //共有終了時、画面共有の変数をfalseに
-            stream.getTracks()[0].addEventListener('ended', () => {
-              setUserDisplay(false);
-            });
-            //localVideoRef.current.srcObject = localStream;
-          }).catch( error => {
-            console.error('mediaDevice.getDisplayMedia() error:', error);
-            setUserDisplay(false);
-            return;
-          });
-        }else{
-          getAndSetUserMedia();
-        }
-      }
-    }, [userDisplay])
+  }, [userVideo, userAudio]);
 
   const getAndSetUserMedia = () => {
     navigator.mediaDevices.getUserMedia({video: true, audio: true})
@@ -122,37 +123,6 @@ function Skyway(props){
         console.error('mediaDevice.getUserMedia() error:', error);
         return;
       });
-  }
-  //画面共有と自分の映像の取得・切り替え
-  const changeStream = () => {
-    if(userDisplay){
-        navigator.mediaDevices.getDisplayMedia({video: true, audio: userAudio})
-      .then( stream => {
-        // 成功時にvideo要素に共有映像をセット
-        setLocalStream(stream);
-        //共有終了時、画面共有の変数をfalseに
-        stream.getTracks()[0].addEventListener('ended', () => {
-          setUserDisplay(false);
-        });
-        localVideoRef.current.srcObject = stream;
-      }).catch( error => {
-        console.error('mediaDevice.getDisplayMedia() error:', error);
-        setUserDisplay(false);
-        return;
-      });
-    }else{
-      navigator.mediaDevices.getUserMedia({video: userVideo, audio: userAudio})
-      .then( stream => {
-        // 成功時にvideo要素にカメラ映像をセット
-        setLocalStream(stream);
-        localVideoRef.current.srcObject = stream;
-      }).catch( error => {
-        // 失敗時にはエラーログを出力
-        console.error('mediaDevice.getUserMedia() error:', error);
-        return;
-      });
-    }
-    console.log('changeStream()')
   }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
@@ -217,14 +187,6 @@ function Skyway(props){
     }
   }
   
-  const castVideo = () => {
-    console.log(remoteStream);
-    if(remoteStream){
-      return <Video stream={remoteStream} key={remoteStream.peerId} />
-    }
-  };
-  
-
   return (
     <div>
       <SkywayStoreContext.Provider value={skywayStore}>

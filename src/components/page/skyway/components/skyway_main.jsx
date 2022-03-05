@@ -4,8 +4,6 @@ import { SkywayStoreContext } from "../Skyway";
 import Box from '@mui/material/Box';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 
-import Spinner from 'react-spinkit';
-import Video from './video';
 import Chat from './chat';
 import Timer from './timer';
 import MenuBar from './menuBar';
@@ -91,7 +89,6 @@ export default function SkywayMain(){
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
             <video width="100%" ref={remoteVideoRef} playsInline autoPlay muted></video>;
-            {/* {castVideo()} */}
           </Box>
 
           {/* チャット */}
@@ -113,12 +110,8 @@ export default function SkywayMain(){
           <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
             <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
               <VideocamOffIcon />
-              <Box sx={{ position:'absolute', top: 0, left: 0 }} >
-                <video
-                width="100%"
-                ref={localVideoRef}
-                style={{transform: 'scale(-1,1)'}}
-                playsInline autoPlay muted></video>
+              <Box sx={{ position:'absolute', top: 0, left: 0, transform: 'scale(-1,1)' }} >
+                <video width="100%" ref={localVideoRef} playsInline autoPlay muted></video>
               </Box>
             </Box>
           </Box>
