@@ -1,21 +1,10 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect, createContext } from "react";
-
-import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-
+import Box from '@mui/material/Box';
 import Spinner from 'react-spinkit';
 import SkywayMain from "./components/skyway_main";
-import { sfuJoinRoom } from "./components/skyway_functions";
 import Video from './components/video';
-import Chat from './components/chat';
-import Timer from './components/timer';
-import MenuBar from './components/menuBar';
 import { API } from "aws-amplify";
-
-// メモ
-// ・自分の映像（localStream）は音声、映像ともに取得できている
-// ・それをjoinRoomでskywayサーバーに送るのにも成功している
-
 
 export const SkywayStoreContext = createContext();
 
@@ -51,7 +40,7 @@ function Skyway(props){
     console.log('onStart()');
   }
   //終了処理
-  const onClose = () => {
+  const onClose = async() => {
     room.close();
     setIsConnected(false);
   }
@@ -88,14 +77,8 @@ function Skyway(props){
   useEffect(()=>{
     if(localStream && !loading){
       setTimeout(()=>{
-        sfuJoinRoom(peer, roomId, localStream).then((room)=>{
-          setLoading(true); //ローディング終了
-
-          //接続情報を変数に保存
-          setRoom(room);
-          setEventListener(room);
-          setIsConnected(true);
-        }).catch(e=>console.log(e));
+        onStart()
+        .then(setLoading(true));
       }, 3000)
     }
   },[localStream]);
@@ -214,25 +197,16 @@ function Skyway(props){
 
   return (
     <div>
-      {/* <SkywayStoreContext.Provider value={{skywayStore}}>
-        <SkywayMain />
-      </SkywayStoreContext.Provider> */}
-      <SkywayStoreContext.Provider value={{
-        peer, meetingTime, roomId,
-        loading, setLoading,
-        room, setRoom,
-        roomData, setRoomData,
-        localStream, setLocalStream,
-        remoteStream, setRemoteStream,
-        isConnected, setIsConnected,
-        userDisplay, setUserDisplay,
-        userAudio, setUserAudio,
-        userVideo, setUserVideo,
-        isChat, setIsChat,
-        localVideoRef, remoteVideoRef,
-        onStart, onClose}}>
+      <SkywayStoreContext.Provider value={skywayStore}>
         <SkywayMain />
       </SkywayStoreContext.Provider>
+
+      {/* ページが読み込まれるまではローディングアイコンが表示 */}
+      <Box sx={{display: (loading? 'none': 'block')}}>
+        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <Spinner name="three-bounce" />
+        </Box>
+      </Box>
     </div>
   );
 };

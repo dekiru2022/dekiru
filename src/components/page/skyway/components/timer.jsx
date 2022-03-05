@@ -5,10 +5,9 @@ import { useTimer } from "react-timer-hook";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const Timer = (props) => {
-  const {onClose} = props;
-  const { meetingTime } = useContext(SkywayStoreContext);
-  
+const Timer = () => {
+  const { meetingTime, onClose } = useContext(SkywayStoreContext);
+
   const expiryTimestamp = new Date();
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 60*meetingTime);
   const {

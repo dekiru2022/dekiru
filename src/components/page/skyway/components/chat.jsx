@@ -1,11 +1,13 @@
-import React,{ useState, useRef, useEffect } from "react";
+import React,{ useContext } from "react";
+import { SkywayStoreContext } from "../Skyway";
 import Box from '@mui/material/Box';
 import { TextField, Button } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/Send';
 
-const Chat = (props) => {
-  const {messages} = props;
+const Chat = () => {
+  const { roomData } = useContext(SkywayStoreContext);
+  const messages = roomData.messages;
   
   return (
     <div>

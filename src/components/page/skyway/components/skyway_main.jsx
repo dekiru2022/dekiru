@@ -19,32 +19,9 @@ export default function SkywayMain(){
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
     isConnected, setIsConnected,
-    userDisplay, setUserDisplay,
-    userAudio, setUserAudio,
-    userVideo, setUserVideo,
     isChat, setIsChat,
     localVideoRef, remoteVideoRef,
-    onStart, onClose
   } = useContext(SkywayStoreContext);
-
-  //     //開始処理
-  // const onStart = async() => {
-  //   //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-  //   const room = peer.joinRoom(roomId, {
-  //     mode: 'sfu',
-  //     stream: localStream,
-  //   });
-  //   setRoom(room);
-  //   setEventListener(room);
-  //   setIsConnected(true);
-  //   console.log('onStart()');
-  // }
-
-  // //終了処理
-  // const onClose = () => {
-  //   room.close();
-  //   setIsConnected(false);
-  // }
 
   //チャットに変更があったとき、stateを更新する処理(setStateではうまく動かない)
   const addMessages = (text) => {
@@ -119,30 +96,17 @@ export default function SkywayMain(){
 
           {/* チャット */}
           <Box sx={{display: (isChat ? 'block' : 'none')}} >
-            <Chat messages={roomData.messages} />
+            <Chat />
           </Box>
 
           {/* タイマー */}
           <Box sx={{position: 'absolute', top: 0, right: 0}} >
-            <Timer onClose={() => onClose()} />
+            <Timer />
           </Box>
 
           {/* 操作バー */}
           <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
-            <MenuBar
-              roomData={roomData}
-              userAudio={userAudio}
-              setUserAudio={(boolean)=>setUserAudio(boolean)}
-              userVideo={userVideo}
-              setUserVideo={(boolean)=>setUserVideo(boolean)}
-              userDisplay={userDisplay}
-              setUserDisplay={(boolean)=>setUserDisplay(boolean)}
-              isChat={isChat}
-              setIsChat={(boolean)=>setIsChat(boolean)}
-              isConnected={isConnected}
-              onStart={()=>onStart()}
-              onClose={()=>onClose()}
-              />
+            <MenuBar />
           </Box>
 
           {/* 自分の映像 */}
@@ -161,12 +125,7 @@ export default function SkywayMain(){
         </Box>
       </Box>
       
-      {/* //ページが読み込まれるまではローディングアイコンが表示 */}
-      <Box sx={{display: (loading? 'none': 'block')}}>
-        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Spinner name="three-bounce" />
-        </Box>
-      </Box>
+      
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import React,{ useState, useRef, useEffect } from "react";
+import React,{ useContext } from "react";
+import { SkywayStoreContext } from "../Skyway";
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button  from '@mui/material/Button';
@@ -14,8 +16,14 @@ import ChatIcon from '@mui/icons-material/Chat';
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 
-const MenuBar = (props) => {
-  const {roomData,userAudio,setUserAudio,userVideo,setUserVideo,userDisplay,setUserDisplay,isChat,setIsChat,isConnected,onStart,onClose} = props;
+const MenuBar = () => {
+  const {
+    isConnected, setIsConnected,
+    userDisplay, setUserDisplay,
+    userAudio, setUserAudio,
+    userVideo, setUserVideo,
+    isChat, setIsChat,
+    onStart, onClose } = useContext(SkywayStoreContext);
   
   return (
     <Box sx={{ width: '100%', 'backgroundColor': 'rgba(255,255,255,1)' }}>
