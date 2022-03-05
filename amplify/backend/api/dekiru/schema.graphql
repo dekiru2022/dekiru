@@ -50,6 +50,7 @@ type Questions @model {
   deletedAt: AWSDateTime
   deleteFlg:Int
 }
+
 type AnswerUser @model {
   id: ID!
   userId: ID!

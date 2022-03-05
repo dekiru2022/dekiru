@@ -25,7 +25,7 @@ import { Auth,API, graphqlOperation } from 'aws-amplify';
 import { QuestionCardResolver } from '../QuestionCardResolver';
 import { ConsoleLogger } from '@aws-amplify/core';
 
-export default function IndexQuestion() {
+export default function IndexQuestion(props) {
 
     // カテゴリー
     const [categories, setCategories] = useState([]);
@@ -47,6 +47,9 @@ export default function IndexQuestion() {
     async function getId() {
         let user1 = await Auth.currentAuthenticatedUser();
         setCognitoId(user1.attributes.sub);
+        //URL
+        const answerId = props.match.params.AnswerId;
+        console.log(answerId);
     }
     // AWSから質問一覧を取得
     async function fetchListQuestion() {
@@ -100,6 +103,9 @@ export default function IndexQuestion() {
         <>
             <Grid container justifyContent="center" alignItems="center" spacing={2}>
                 {/* カテゴリ選択 */}
+                <Grid item xs={6}>
+                    {/* <QuestionCardResolver question={ } /> */}
+                </Grid>
                 <Grid item xs={4} style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
                     <p style={{ fontSize: '2rem' }}>新着相談</p>
                 </Grid>

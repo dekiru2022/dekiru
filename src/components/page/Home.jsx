@@ -15,7 +15,7 @@ import { StyleButton } from '../ui/styleButton';
 import HomeTop from '../../images/HOME-Top.png'
 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
-import { listQuestions } from '../../graphql/queries';
+import { listQuestions, listAnswerUsers } from '../../graphql/queries';
 /**
  * Home
  * @returns none
@@ -24,9 +24,13 @@ export default function Home() {
   useEffect(() => {
     // getQuestionsData();
     checkBotton();
+    checkAnsBottom();
   }, [])
   const [checkBottomFlag, setCheckBottomFlag] = useState([]);
   const [questionId, setQuestionId] = useState([]);
+  const [answerId, setAnswerId] = useState([]);
+  const [checkAnsFlag, setCheckAnsFlag] = useState([]);
+
   //描画ごとに現在相談中かチェック
   async function checkBotton(nextToken = null) {
     let user1 = await Auth.currentAuthenticatedUser();
@@ -52,9 +56,10 @@ export default function Home() {
     }));
     console.log(result.data.listQuestions.items[0].id);
     const tmp = result.data.listQuestions.items[0].id;
-    
+
     setQuestionId(tmp);
-    console.log("home:"+ questionId);
+    console.log("home:" + questionId);
+
     // null
     if (result.data.listQuestions.items.length > 0) {
       // 質問中
@@ -63,8 +68,42 @@ export default function Home() {
       //質問していない
       setCheckBottomFlag(1);
     }
-  }
 
+  }
+  async function checkAnsBottom(nextToken = null) {
+    let user1 = await Auth.currentAuthenticatedUser();
+    const cognitoID = user1.attributes.sub;
+    const ansResult = await API.graphql(graphqlOperation(listAnswerUsers, {
+      filter: {
+        "and": [
+          {
+            "userId": {
+              "eq": cognitoID
+            }
+          },
+          {
+            "ansStatus": {
+              "eq": "1"
+            }
+          }
+        ]
+      },
+      limit: 10,
+      nextToken: nextToken,
+    }));
+    console.log(ansResult);
+    const tmpAns = ansResult.data.listAnswerUsers.items[0].id;
+    setAnswerId(tmpAns);
+
+    //null
+    if (ansResult.data.listAnswerUsers.items.length > 0) {
+      // 解答中
+      setCheckAnsFlag(0);
+    } else {
+      //解答していない
+      setCheckAnsFlag(1);
+    }
+  }
   return (
     <>
       {/* 画像 */}
@@ -85,7 +124,10 @@ export default function Home() {
           }
         </Grid>
         <Grid item>
-          <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
+          {checkAnsFlag
+            ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
+            : <StyleButton title="解決" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
+          }
         </Grid>
       </Grid>
     </>
