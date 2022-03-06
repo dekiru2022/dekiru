@@ -30,10 +30,11 @@ function Skyway(props){
   const peer = new Peer({key: API_KEY});
   const [loading, setLoading] = useState(false);
   const [room, setRoom] = useState();
+  const [startFlag, setStartFlag] = useState(false); //通話が開始(相手の映像を取得）したらtrue
+  const [closeFlag, setCloseFlag] = useState(false); //通話が終了したらtrue
   const [roomData, setRoomData] = useState({ messages: ''});
   const [localStream, setLocalStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
-  const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
   const [userAudio, setUserAudio] = useState(true); //false: ミュート
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
@@ -43,29 +44,27 @@ function Skyway(props){
   //開始処理
   const onStart = async() => {
     //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-    console.log(localStream);
     const room = peer.joinRoom(roomId, {
       mode: 'sfu',
       stream: localStream,
     });
     setRoom(room);
     setEventListener(room);
-    setIsConnected(true);
     console.log('onStart()');
   }
   //終了処理
   const onClose = async() => {
     room.close();
-    setIsConnected(false);
   }
   const skywayStore = {
     peer, meetingTime, roomId,
     loading, setLoading,
     room, setRoom,
+    startFlag, setStartFlag,
+    closeFlag, setCloseFlag,
     roomData, setRoomData,
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
-    isConnected, setIsConnected,
     userDisplay, setUserDisplay,
     userAudio, setUserAudio,
     userVideo, setUserVideo,
@@ -94,7 +93,7 @@ function Skyway(props){
   },[localStream]);
   
   useEffect(()=>{
-    if(isConnected){
+    if(startFlag){
       if(userDisplay){
         const newStream = new MediaStream;
         navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
@@ -158,7 +157,6 @@ function Skyway(props){
     //open: SkyWayサーバーとの接続が成功したタイミングで発火
     room.once("open", () => {
       addMessages('=== ルームに参加しました ===');
-      setIsConnected(true);
     });
 
     //peerJoin: 誰かがroomに参加したときに発火
@@ -169,6 +167,7 @@ function Skyway(props){
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
       setRemoteStream(stream);
+      setStartFlag(true);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
       }
@@ -190,7 +189,7 @@ function Skyway(props){
       sendTrigger.removeEventListener('click', onClickSend);
       addMessages('== ルームから退室しました ===');
       setRemoteStream('');
-      setIsConnected(false);
+      setCloseFlag(true);
     });
 
     //送信ボタンの処理

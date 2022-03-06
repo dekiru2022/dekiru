@@ -11,12 +11,8 @@ import MenuBar from './menuBar';
 export default function SkywayMain(){
   const {
     peer, meetingTime, roomId,
+    startFlag,
     loading, setLoading,
-    room, setRoom,
-    roomData, setRoomData,
-    localStream, setLocalStream,
-    remoteStream, setRemoteStream,
-    isConnected, setIsConnected,
     isChat, setIsChat,
     localVideoRef, remoteVideoRef,
   } = useContext(SkywayStoreContext);
@@ -27,7 +23,7 @@ export default function SkywayMain(){
         <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
           {/* 相手の画面 */}
           <Box sx={{ height: '90vh' , display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            <video width="100%" ref={remoteVideoRef} playsInline autoPlay muted></video>;
+            <video width="100%" ref={remoteVideoRef} playsInline autoPlay muted></video>
           </Box>
 
           {/* チャット */}
@@ -36,9 +32,11 @@ export default function SkywayMain(){
           </Box>
 
           {/* タイマー */}
+          {startFlag &&
           <Box sx={{position: 'absolute', top: 0, right: 0}} >
             <Timer />
           </Box>
+          }
 
           {/* 操作バー */}
           <Box sx={{ width: '100%', height: '10vh', position: 'fixed', bottom: 0, right: 0 }}>
@@ -46,13 +44,8 @@ export default function SkywayMain(){
           </Box>
 
           {/* 自分の映像 */}
-          <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0 }}>
-            <Box sx={{ position: 'relative', backgroundColor: '#555', width: '100%', height: '180px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
-              <VideocamOffIcon />
-              <Box sx={{ position:'absolute', top: 0, left: 0, transform: 'scale(-1,1)' }} >
-                <video width="100%" ref={localVideoRef} playsInline autoPlay muted></video>
-              </Box>
-            </Box>
+          <Box sx={{ width: '20%', position: 'absolute', top: 0, left: 0, transform: 'scale(-1,1)' }}>
+            <video width="100%" ref={localVideoRef} playsInline autoPlay muted></video>
           </Box>
         </Box>
       </Box>
