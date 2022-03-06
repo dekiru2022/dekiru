@@ -1,9 +1,23 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect, createContext } from "react";
 import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { red, blue } from '@mui/material/colors';
 import Spinner from 'react-spinkit';
-import SkywayMain from "./components/skyway_main";
+import SkywayLayout from "./components/skyway_layout";
 import { API } from "aws-amplify";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: blue[800]
+    },
+    secondary: {
+      main: red[400],
+      dark: red[800]
+    },
+  },
+});
 
 export const SkywayStoreContext = createContext();
 
@@ -16,10 +30,11 @@ function Skyway(props){
   const peer = new Peer({key: API_KEY});
   const [loading, setLoading] = useState(false);
   const [room, setRoom] = useState();
+  const [startFlag, setStartFlag] = useState(false); //通話が開始(相手の映像を取得）したらtrue
+  const [closeFlag, setCloseFlag] = useState(false); //通話が終了したらtrue
   const [roomData, setRoomData] = useState({ messages: ''});
   const [localStream, setLocalStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
-  const [isConnected, setIsConnected] = useState(false); //false: 接続なし, true: 通話中
   const [userDisplay, setUserDisplay] = useState(false); //true: 画面共有
   const [userAudio, setUserAudio] = useState(true); //false: ミュート
   const [userVideo, setUserVideo] = useState(true); //false: カメラオフ
@@ -35,22 +50,21 @@ function Skyway(props){
     });
     setRoom(room);
     setEventListener(room);
-    setIsConnected(true);
     console.log('onStart()');
   }
   //終了処理
   const onClose = async() => {
     room.close();
-    setIsConnected(false);
   }
   const skywayStore = {
     peer, meetingTime, roomId,
     loading, setLoading,
     room, setRoom,
+    startFlag, setStartFlag,
+    closeFlag, setCloseFlag,
     roomData, setRoomData,
     localStream, setLocalStream,
     remoteStream, setRemoteStream,
-    isConnected, setIsConnected,
     userDisplay, setUserDisplay,
     userAudio, setUserAudio,
     userVideo, setUserVideo,
@@ -59,24 +73,27 @@ function Skyway(props){
     onStart, onClose
   }
   
-  //カメラ映像と音声を取得し、skywayに接続
+  //カメラ映像と音声を取得skywayに接続
   useEffect(()=>{
     getAndSetUserMedia();
-    setTimeout(()=>{
-      onStart()
-      .then(setLoading(true));
-    }, 3000)
   },[]);
-
-  //localStreamが変更されたら送信する映像を変更
+  
   useEffect(()=>{
+    //一回のみ、onStart
+    if(localStream && !loading){
+      setTimeout(()=>{
+        onStart()
+        .then(setLoading(true));
+      }, 3000)
+    }
+    //localStreamが変更されたら送信する映像を変更
     if(room && localStream){
       room.replaceStream(localStream);
     }
   },[localStream]);
   
   useEffect(()=>{
-    if(isConnected){
+    if(startFlag){
       if(userDisplay){
         const newStream = new MediaStream;
         navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
@@ -140,7 +157,6 @@ function Skyway(props){
     //open: SkyWayサーバーとの接続が成功したタイミングで発火
     room.once("open", () => {
       addMessages('=== ルームに参加しました ===');
-      setIsConnected(true);
     });
 
     //peerJoin: 誰かがroomに参加したときに発火
@@ -151,6 +167,7 @@ function Skyway(props){
     //stream: 相手の映像の情報
     room.on("stream", (stream) => {
       setRemoteStream(stream);
+      setStartFlag(true);
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = stream;
       }
@@ -172,7 +189,7 @@ function Skyway(props){
       sendTrigger.removeEventListener('click', onClickSend);
       addMessages('== ルームから退室しました ===');
       setRemoteStream('');
-      setIsConnected(false);
+      setCloseFlag(true);
     });
 
     //送信ボタンの処理
@@ -190,13 +207,15 @@ function Skyway(props){
   return (
     <div>
       <SkywayStoreContext.Provider value={skywayStore}>
-        <SkywayMain />
+        <ThemeProvider theme={theme}>
+          <SkywayLayout />
+        </ThemeProvider>
       </SkywayStoreContext.Provider>
 
       {/* ページが読み込まれるまではローディングアイコンが表示 */}
       <Box sx={{display: (loading? 'none': 'block')}}>
         <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Spinner name="three-bounce" />
+          <Spinner name="line-spin-fade-loader" color="gray"/>
         </Box>
       </Box>
     </div>

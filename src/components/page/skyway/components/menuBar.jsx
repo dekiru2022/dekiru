@@ -18,7 +18,7 @@ import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 
 const MenuBar = () => {
   const {
-    isConnected, setIsConnected,
+    startFlag,
     userDisplay, setUserDisplay,
     userAudio, setUserAudio,
     userVideo, setUserVideo,
@@ -27,32 +27,32 @@ const MenuBar = () => {
   
   return (
     <Box sx={{ width: '100%', 'backgroundColor': 'rgba(255,255,255,1)' }}>
-      <Stack justifyContent="center" direction="row" spacing={4}>
-          <Box>
-            <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
+      <Stack justifyContent="center" alignItems="center" direction="row" spacing={6}>
+          <Stack direction="row" spacing={4}>
+            <Button size='large' color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
               {userAudio
               ? <Stack alignItems="center"><MicIcon />ミュート</Stack>
               : <Stack alignItems="center"><MicOffIcon />ミュート解除</Stack>
               }
             </Button>
-            <Button color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
+            <Button size='large' color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
               {userVideo
               ? <Stack alignItems="center"><VideocamIcon />カメラオフ</Stack>
               : <Stack alignItems="center"><VideocamOffIcon />カメラオン</Stack>
               }
             </Button>
-            <Button color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
+            <Button size='large' color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
               {userDisplay
               ? <Stack alignItems="center"><ScreenShareIcon />共有終了</Stack>
               : <Stack alignItems="center"><StopScreenShareIcon/>画面共有</Stack>
               }
             </Button>
-            <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
-          </Box>
+            <Button size='large' color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
+          </Stack>
           <Stack justifyContent="center">
-            {isConnected
-            ?<Button size="small" color="secondary" variant="contained" onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
-            :<Button size="small" color="primary" variant="contained" onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
+            {startFlag
+            ?<Button color="secondary" variant="contained" disableElevation onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
+            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
             }
           </Stack>
         </Stack>

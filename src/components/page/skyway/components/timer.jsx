@@ -1,4 +1,4 @@
-import React,{ useState, useRef, useEffect, useContext } from "react";
+import React,{ useContext } from "react";
 import { SkywayStoreContext } from "../Skyway";
 
 import { useTimer } from "react-timer-hook";
