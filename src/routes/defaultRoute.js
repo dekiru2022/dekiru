@@ -51,6 +51,8 @@ function DefaultRoute() {
         <Route exact path="/showQuestion/:QuestionId" component={ShowQuestion} />
         <Route exact path='/indexResolver/:QuestionId' component={IndexResolver} />
         <Route exact path="/indexQuestion" component={IndexQuestion} />
+        <Route exact path="/indexQuestion/:AnswerId" component={IndexQuestion} />
+        
         <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         {/* ユーザ関係 */}

@@ -55,6 +55,8 @@ type AnswerUser @model {
   id: ID!
   userId: ID!
   questionId: ID!
+  questionTitle:String
+  questionContent:String
   comment: String
   userHandleName: String
   userJob: String

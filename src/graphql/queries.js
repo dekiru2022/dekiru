@@ -146,6 +146,8 @@ export const getAnswerUser = /* GraphQL */ `
       id
       userId
       questionId
+      questionTitle
+      questionContent
       comment
       userHandleName
       userJob
@@ -172,6 +174,8 @@ export const listAnswerUsers = /* GraphQL */ `
         id
         userId
         questionId
+        questionTitle
+        questionContent
         comment
         userHandleName
         userJob

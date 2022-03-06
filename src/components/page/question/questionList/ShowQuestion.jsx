@@ -91,6 +91,8 @@ function QuestionPage(props) {
         formData.userId = user.data.getUserId.id;
         formData.questionId = question.data.getQuestions.id;
         formData.userHandleName = user.data.getUserId.handleName;
+        formData.questionTitle = title;
+        formData.questionContent = content;
         formData.userLicenseFlag = '0';
         {
         user.data.getUserId.sex

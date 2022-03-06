@@ -184,6 +184,8 @@ export const onCreateAnswerUser = /* GraphQL */ `
       id
       userId
       questionId
+      questionTitle
+      questionContent
       comment
       userHandleName
       userJob
@@ -205,6 +207,8 @@ export const onUpdateAnswerUser = /* GraphQL */ `
       id
       userId
       questionId
+      questionTitle
+      questionContent
       comment
       userHandleName
       userJob
@@ -226,6 +230,8 @@ export const onDeleteAnswerUser = /* GraphQL */ `
       id
       userId
       questionId
+      questionTitle
+      questionContent
       comment
       userHandleName
       userJob

@@ -94,6 +94,7 @@ export default function Home() {
     console.log(ansResult);
     const tmpAns = ansResult.data.listAnswerUsers.items[0].id;
     setAnswerId(tmpAns);
+    console.log("tmpAns :"+tmpAns);
 
     //null
     if (ansResult.data.listAnswerUsers.items.length > 0) {
