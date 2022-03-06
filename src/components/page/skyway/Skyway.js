@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red, blue } from '@mui/material/colors';
 import Spinner from 'react-spinkit';
-import SkywayMain from "./components/skyway_main";
+import SkywayLayout from "./components/skyway_layout";
 import { API } from "aws-amplify";
 
 const theme = createTheme({
@@ -208,7 +208,7 @@ function Skyway(props){
     <div>
       <SkywayStoreContext.Provider value={skywayStore}>
         <ThemeProvider theme={theme}>
-          <SkywayMain />
+          <SkywayLayout />
         </ThemeProvider>
       </SkywayStoreContext.Provider>
 

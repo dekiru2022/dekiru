@@ -1,19 +1,17 @@
-import React,{ useState, useRef, useEffect, useContext } from "react";
+import React,{ useContext } from "react";
 import { SkywayStoreContext } from "../Skyway";
 
 import Box from '@mui/material/Box';
-import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 
 import Chat from './chat';
 import Timer from './timer';
 import MenuBar from './menuBar';
 
-export default function SkywayMain(){
+export default function SkywayLayout(){
   const {
-    peer, meetingTime, roomId,
-    startFlag,
-    loading, setLoading,
-    isChat, setIsChat,
+    startFlag, closeFlag,
+    loading,
+    isChat,
     localVideoRef, remoteVideoRef,
   } = useContext(SkywayStoreContext);
 
@@ -33,7 +31,7 @@ export default function SkywayMain(){
 
           {/* タイマー */}
           {startFlag &&
-          <Box sx={{position: 'absolute', top: 0, right: 0}} >
+          <Box sx={{position: 'absolute', top: 10, right: 10}} >
             <Timer />
           </Box>
           }
@@ -49,6 +47,12 @@ export default function SkywayMain(){
           </Box>
         </Box>
       </Box>
+
+      {closeFlag &&
+      <Box sx={{position: "fixed", top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '70vw', height: '70vh', backgroundColor: '#FFF'}} >
+        終了しました。
+      </Box>
+      }
       
       
     </div>
