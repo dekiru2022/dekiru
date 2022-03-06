@@ -26,7 +26,7 @@ export default function SkywayMain(){
       <Box sx={{display: (loading? 'block': 'none')}}>
         <Box sx={{ width: '100%', 'backgroundColor': '#333', position: 'relative'}}>
           {/* 相手の画面 */}
-          <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
+          <Box sx={{ height: '90vh' , display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
             <video width="100%" ref={remoteVideoRef} playsInline autoPlay muted></video>;
           </Box>
 
@@ -41,7 +41,7 @@ export default function SkywayMain(){
           </Box>
 
           {/* 操作バー */}
-          <Box sx={{ width: '100%', position: 'fixed', bottom: 0, right: 0 }}>
+          <Box sx={{ width: '100%', height: '10vh', position: 'fixed', bottom: 0, right: 0 }}>
             <MenuBar />
           </Box>
 

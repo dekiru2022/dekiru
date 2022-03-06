@@ -1,9 +1,23 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect, createContext } from "react";
 import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { red, blue } from '@mui/material/colors';
 import Spinner from 'react-spinkit';
 import SkywayMain from "./components/skyway_main";
 import { API } from "aws-amplify";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: blue[800]
+    },
+    secondary: {
+      main: red[400],
+      dark: red[800]
+    },
+  },
+});
 
 export const SkywayStoreContext = createContext();
 
@@ -194,13 +208,15 @@ function Skyway(props){
   return (
     <div>
       <SkywayStoreContext.Provider value={skywayStore}>
-        <SkywayMain />
+        <ThemeProvider theme={theme}>
+          <SkywayMain />
+        </ThemeProvider>
       </SkywayStoreContext.Provider>
 
       {/* ページが読み込まれるまではローディングアイコンが表示 */}
       <Box sx={{display: (loading? 'none': 'block')}}>
         <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Spinner name="three-bounce" />
+          <Spinner name="line-spin-fade-loader" color="gray"/>
         </Box>
       </Box>
     </div>

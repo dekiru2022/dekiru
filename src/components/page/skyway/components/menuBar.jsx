@@ -27,8 +27,8 @@ const MenuBar = () => {
   
   return (
     <Box sx={{ width: '100%', 'backgroundColor': 'rgba(255,255,255,1)' }}>
-      <Stack justifyContent="center" direction="row" spacing={4}>
-          <Box>
+      <Stack justifyContent="center" alignItems="center" direction="row" spacing={6}>
+          <Stack direction="row" spacing={4}>
             <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
               {userAudio
               ? <Stack alignItems="center"><MicIcon />ミュート</Stack>
@@ -48,11 +48,11 @@ const MenuBar = () => {
               }
             </Button>
             <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
-          </Box>
+          </Stack>
           <Stack justifyContent="center">
             {isConnected
-            ?<Button size="small" color="secondary" variant="contained" onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
-            :<Button size="small" color="primary" variant="contained" onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
+            ?<Button color="secondary" variant="contained" disableElevation onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
+            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
             }
           </Stack>
         </Stack>
