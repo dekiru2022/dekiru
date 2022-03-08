@@ -42,7 +42,7 @@ function PostQuestion() {
     getCategoryData();
     checkBotton();
   }, []);
-
+  
   // DBからカテゴリ一覧を取得
   const getCategoryData = () => {
   }
