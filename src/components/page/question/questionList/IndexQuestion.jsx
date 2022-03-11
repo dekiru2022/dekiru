@@ -112,11 +112,11 @@ export default function IndexQuestion(props) {
         const { name, value } = e.target;
         setFilterQuery({ ...filterQuery, [name]: value });
     };
-    const handleClick = (id) => {
+    const handleClick = async  (id) => {
         // 更新処理
         const api = 'https://7nikns07z9.execute-api.ap-northeast-1.amazonaws.com/testPost';
         const data = { "id": id };
-        axios
+        await axios
             .post(api, data)
             .then((response) => {
                 console.log(response);
@@ -125,6 +125,7 @@ export default function IndexQuestion(props) {
                 console.log(error);
             });
             console.log(id)
+        
         window.location.href = '/indexQuestion';
     }
 
@@ -191,7 +192,7 @@ return (
 
                         <CardActions disableSpacing>
                             {/* 会議時間と自身のidはDBから取ってくる */}
-                            <Button sx={{ mr: 4 }} variant='contained' color="success" onClick={() => { handleClick(users.id); }} target="_blank">解答やめる</Button>
+                            <Button sx={{ mr: 4 }} variant='contained' color="error" onClick={() => { handleClick(users.id); }} target="_blank">解答やめる</Button>
 
                         </CardActions>
                     </Card>
