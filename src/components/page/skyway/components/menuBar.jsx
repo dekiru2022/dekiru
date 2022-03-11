@@ -52,7 +52,7 @@ const MenuBar = () => {
           <Stack justifyContent="center">
             {startFlag
             ?<Button color="secondary" variant="contained" disableElevation onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
-            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
+            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()} startIcon={<CallIcon />}>待機中</Button>
             }
           </Stack>
         </Stack>

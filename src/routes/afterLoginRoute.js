@@ -10,7 +10,7 @@ function afterLoginRoute() {
     <BrowserRouter>
       {/* headerとfooterがいらないページはここでルーティング */}
       <Switch>
-        {/* <Route path='/skyway/:time/:room' component={Skyway} /> */}
+        <Route path='/skyway/:time/:room' component={Skyway} />
         <Route path="/" component={ DefaultRoute } />
       </Switch>
     </BrowserRouter>
