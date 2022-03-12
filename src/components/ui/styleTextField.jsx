@@ -22,7 +22,7 @@ export const StyleTextField = ({ value, label, placeholder, onChange }) => {
     return (
         <TextField
             inputProps={{ style: { fontSize: '24px' } }}
-            InputLabelProps={{ style: { fontSize: '21px' } }}
+            InputLabelProps={{ style: { fontSize: '21px', shrink: true } }}
             size='filled'
             margin="normal"
             variant="outlined"

@@ -47,13 +47,14 @@ export const StyleButton = ({ title, to, onClick, fontSize }) => {
 }
 
 /**
- * StyleButton
+ * StyleQuesButton
+ * オレンジ
  * @param {String} title - ボタンに表示する文字
  * @param {String} to - クリック後に飛ぶルーティング用パス
  * @param {Any} onClick - ハンドラを指定
- * @returns StyleButon
+ * @returns StyleQuesButton
  */
- export const StyleQuesButton = ({ title, to, onClick, fontSize }) => {
+export const StyleQuesButton = ({ title, to, onClick, fontSize }) => {
     return (
         <Button
             style={{
@@ -67,6 +68,37 @@ export const StyleButton = ({ title, to, onClick, fontSize }) => {
                 borderRadius: 20,
             }}
             className="style-ques-button"
+            variant="contained"
+            component={LinkRouter}
+            to={to}
+            onClick={onClick}
+        >
+            {title}
+        </Button>
+    )
+}
+
+/**
+ * StyleChengeButton
+ * @param {String} title - ボタンに表示する文字
+ * @param {String} to - クリック後に飛ぶルーティング用パス
+ * @param {Any} onClick - ハンドラを指定
+ * @returns StyleChengeButton
+ */
+export const StyleChengeButton = ({ title, to, onClick, fontSize }) => {
+    return (
+        <Button
+            style={{
+                // ボタン
+                width: 'auto',
+                height: 'auto',
+
+                // テキスト
+                color: '#FFF',
+                fontSize: setFontSize(fontSize) ,
+                borderRadius: 20,
+            }}
+            className="style-chenge-button"
             variant="contained"
             component={LinkRouter}
             to={to}
