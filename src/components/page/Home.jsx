@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react';
 // Material UI インポート
 import { Grid } from '@material-ui/core'
 // 共通部品（Button）
-import { StyleButton } from '../ui/styleButton';
+import { StyleButton,StyleQuesButton } from '../ui/styleButton';
 // 画像　インポート
 import HomeTop from '../../images/HOME-Top.png'
 
@@ -121,7 +121,7 @@ export default function Home() {
         <Grid item>
           {checkBottomFlag
             ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
-            : <StyleButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
+            : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
           }
         </Grid>
         <Grid item>

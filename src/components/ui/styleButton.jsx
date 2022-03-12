@@ -47,6 +47,37 @@ export const StyleButton = ({ title, to, onClick, fontSize }) => {
 }
 
 /**
+ * StyleButton
+ * @param {String} title - ボタンに表示する文字
+ * @param {String} to - クリック後に飛ぶルーティング用パス
+ * @param {Any} onClick - ハンドラを指定
+ * @returns StyleButon
+ */
+ export const StyleQuesButton = ({ title, to, onClick, fontSize }) => {
+    return (
+        <Button
+            style={{
+                // ボタン
+                width: 'auto',
+                height: 'auto',
+
+                // テキスト
+                color: '#FFF',
+                fontSize: setFontSize(fontSize) ,
+                borderRadius: 20,
+            }}
+            className="style-ques-button"
+            variant="contained"
+            component={LinkRouter}
+            to={to}
+            onClick={onClick}
+        >
+            {title}
+        </Button>
+    )
+}
+
+/**
  * BackButton
  * @param {String} title - ボタンに表示する文字
  * @param {String} to - クリック後に飛ぶルーティング用パス
