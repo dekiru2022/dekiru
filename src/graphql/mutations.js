@@ -205,6 +205,57 @@ export const deleteQuestions = /* GraphQL */ `
     }
   }
 `;
+export const createNootice = /* GraphQL */ `
+  mutation CreateNootice(
+    $input: CreateNooticeInput!
+    $condition: ModelNooticeConditionInput
+  ) {
+    createNootice(input: $input, condition: $condition) {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const updateNootice = /* GraphQL */ `
+  mutation UpdateNootice(
+    $input: UpdateNooticeInput!
+    $condition: ModelNooticeConditionInput
+  ) {
+    updateNootice(input: $input, condition: $condition) {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const deleteNootice = /* GraphQL */ `
+  mutation DeleteNootice(
+    $input: DeleteNooticeInput!
+    $condition: ModelNooticeConditionInput
+  ) {
+    deleteNootice(input: $input, condition: $condition) {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
 export const createAnswerUser = /* GraphQL */ `
   mutation CreateAnswerUser(
     $input: CreateAnswerUserInput!

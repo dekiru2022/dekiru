@@ -154,7 +154,7 @@ function QuestionPage(props) {
             // OKボタン押下時
             if (result) {
                 await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
-                window.location.href = '/';
+                //window.location.href = '/';
                 // キャンセルボタン押下時
             } else {
                 // 何も処理を行わない
