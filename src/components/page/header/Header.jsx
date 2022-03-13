@@ -11,10 +11,10 @@ import { Grid } from '@material-ui/core'
 import { Auth } from "aws-amplify";
 import { StyleButton } from '../../ui/styleButton';
 
-import {createMuiTheme, makeStyles} from '@material-ui/core/styles';
+import {createTheme, makeStyles} from '@material-ui/core/styles';
 import {MuiThemeProvider} from "@material-ui/core";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   shadows: ["none"]
 });
 

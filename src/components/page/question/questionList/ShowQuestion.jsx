@@ -36,7 +36,7 @@ import { getCognitoUserId, getUserId, getQuestions ,listAnswerUsers} from '../..
 function QuestionPage(props) {
 
     let datetime = new Date().toISOString();
-    const [formData, setFormData] = useState([]);
+    const [formData, setFormData] = useState({});
     const [question, setQuestion] = useState([]);
     const [user, setUser] = useState([]);
     const [time, setTime] = useState(10);

@@ -23,7 +23,7 @@ export const StyleTextField = ({ value, label, placeholder, onChange }) => {
         <TextField
             inputProps={{ style: { fontSize: '24px' } }}
             InputLabelProps={{ style: { fontSize: '21px', shrink: true } }}
-            size='filled'
+            size="medium"
             margin="normal"
             variant="outlined"
             fullWidth
@@ -49,7 +49,7 @@ export const StyleTextField = ({ value, label, placeholder, onChange }) => {
         <TextField
             inputProps={{ style: { fontSize: '24px' , lineHeight:'1.3' } }}
             InputLabelProps={{ style: { fontSize: '21px' } }}
-            size='filled'
+            size="medium"
             margin="normal"
             variant="outlined"
             multiline
