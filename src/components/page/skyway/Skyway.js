@@ -41,6 +41,11 @@ function Skyway(props){
   const [isChat, setIsChat] = useState(false); //false: チャットオフ
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
+
+  // TODO
+  // ・３分、１分、終了時に「解決しましたか？」→アンケートページへ
+  // 常に右下に延長ボタンを追加
+  
   //開始処理
   const onStart = async() => {
     //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
