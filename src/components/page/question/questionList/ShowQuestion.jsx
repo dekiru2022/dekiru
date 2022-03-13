@@ -62,8 +62,6 @@ function QuestionPage(props) {
     const fetchQuestion = async () => {
         // propsからurlの値を取得
         const questionId = props.match.params.QuestionId;
-        console.log(questionId);
-
         const apiQuestionData = await API.graphql(graphqlOperation(getQuestions, { id: questionId }));
         setQuestion(apiQuestionData.data.getQuestions);
     }
@@ -233,7 +231,7 @@ function QuestionPage(props) {
                                 id="demo-simple-select"
                                 label="職業"
                                 onChange={inputJobChange}
-                                defaultValue={10}
+                                defaultValue={'介護士'}
                             >
                                 {jobArray.map((job, index) => (
                                     <MenuItem value={job} key={index}>{job} </MenuItem>
