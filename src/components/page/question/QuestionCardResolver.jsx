@@ -32,7 +32,7 @@ export const QuestionCardResolver = (props) => {
 
   return (
     
-    <Card sx={{ m: 1, width:'40rem', height: '20rem', border: '0.1rem solid #26418D', position: 'relative' }}>
+    <Card sx={{ m: 1, width:'100%', height: '20rem', border: '0.1rem solid #26418D', position: 'relative' }}>
       {/* ヘッダー（カード内） */}
       <CardHeader
         // 相談タイトル
