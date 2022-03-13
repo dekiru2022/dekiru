@@ -270,7 +270,6 @@ function QuestionPage(props) {
             </Grid>
             <Grid item xs={0} sm={1} md={3} />
         </Grid>
-
     )
 }
 
