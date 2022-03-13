@@ -16,5 +16,23 @@
         "dekiru914d191e": {}
       }
     }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dekiru-staging-110634-authRole",
+      "UnauthRoleArn": "arn:aws:iam::133612345780:role/amplify-dekiru-staging-110634-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::133612345780:role/amplify-dekiru-staging-110634-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-dekiru-staging-110634-deployment",
+      "UnauthRoleName": "amplify-dekiru-staging-110634-unauthRole",
+      "StackName": "amplify-dekiru-staging-110634",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:133612345780:stack/amplify-dekiru-staging-110634/36edd350-a272-11ec-8ec4-0a768efa8f1d",
+      "AmplifyAppId": "d33oj2it33kjuz"
+    },
+    "categories": {
+      "auth": {
+        "dekiru914d191e": {}
+      }
+    }
   }
 }
