@@ -7,6 +7,7 @@
 //
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -164,9 +165,10 @@ function QuestionPage(props) {
 
     return (
         <Grid container>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                <Box>
-                    <Card sx={{ my: 4, minWidth: 300, maxWidth: 600 }}>
+            <Grid item xs={0} sm={1} md={3} />
+            <Grid item xs={12} sm={10} md={6}>
+                <Box mx={'auto'}>
+                    <Card sx={{ my: 4 }} >
                         <CardHeader
                             avatar={
                                 question.userId == 1
@@ -176,7 +178,7 @@ function QuestionPage(props) {
                                     </Avatar>
                                     :
                                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                        {question.userId}
+                                        {/* {question.userId} */}
                                     </Avatar>
                             }
                             action={<IconButton aria-label="settings">
@@ -208,66 +210,65 @@ function QuestionPage(props) {
                         </CardActions> */}
                     </Card>
 
-                    <Box sx={{ display: 'flex', alignItems: 'end' }}>
-                        <Box>
-                            <InputLabel id="time">解決想定時間</InputLabel>
-                            <Select
-                                labelId="time"
-                                id="demo-simple-select"
-                                label="解決想定時間"
-                                onChange={inputChange}
-                                name="category_id"
-                                defaultValue={10}
-                            >
-                                {meetingTimeArray.map((meetingTime, index) => (
-                                    <MenuItem value={meetingTime} key={index}>{meetingTime} 分</MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                        <Box>
-                            <InputLabel id="time">職業</InputLabel>
-                            <Select
-                                labelId="time"
-                                id="demo-simple-select"
-                                label="職業"
-                                onChange={inputJobChange}
-                                defaultValue={'介護士'}
-                            >
-                                {jobArray.map((job, index) => (
-                                    <MenuItem value={job} key={index}>{job} </MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                        <Box>
-                            <InputLabel id="experience">職務経験</InputLabel>
-                            <Select
-                                labelId="experience"
-                                id="demo-simple-select"
-                                label="職務経験"
-                                onChange={inputExperienceChange}
-                                defaultValue={1}
-                            >
-                                {experienceArray.map((experience, index) => (
-                                    <MenuItem value={experience} key={index}>{experience} </MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                        {/* コメント入力 */}
-                        <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <Box>
+                        <Stack justifyContent="space-between" alignItems="center" direction="row">
+                            <Box>
+                                <InputLabel id="time">解決想定時間</InputLabel>
+                                <Select
+                                    labelId="time"
+                                    label="解決想定時間"
+                                    onChange={inputChange}
+                                    defaultValue={10}
+                                >
+                                    {meetingTimeArray.map((meetingTime, index) => (
+                                        <MenuItem value={meetingTime} key={index}>{meetingTime} 分</MenuItem>
+                                    ))}
+                                </Select>
+                            </Box>
+                            <Box>
+                                <InputLabel id="job">職業</InputLabel>
+                                <Select
+                                    labelId="job"
+                                    label="職業"
+                                    onChange={inputJobChange}
+                                    defaultValue={'介護士'}
+                                >
+                                    {jobArray.map((job, index) => (
+                                        <MenuItem value={job} key={index}>{job} </MenuItem>
+                                    ))}
+                                </Select>
+                            </Box>
+                            <Box>
+                                <InputLabel id="experience">職務経験</InputLabel>
+                                <Select
+                                    labelId="experience"
+                                    label="職務経験"
+                                    onChange={inputExperienceChange}
+                                    defaultValue={1}
+                                >
+                                    {experienceArray.map((experience, index) => (
+                                        <MenuItem value={experience} key={index}>{experience} </MenuItem>
+                                    ))}
+                                </Select>
+                            </Box>
+                            <Box />
+                        </Stack>
+                        <Stack justifyContent="center" alignItems="center">
                             <StyleTextField
                                 label="コメント"
                                 placeholder="相談者に一言コメントできます。"
-                                onChange={e => setFormData({ ...formData, 'comment': e.target.value })}
+                                onChange={e => setFormData({ ...formData, comment: e.target.value })}
                                 value={formData.comment}
                             />
-                        </Grid>
-                        {time
-                            ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${question.id}`} target="_blank" >解決する！</Button>
-                            : <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
-                        }
+                            {time
+                                ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${question.id}`} target="_blank" >解決する！</Button>
+                                : <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
+                            }
+                        </Stack>
                     </Box>
                 </Box>
-            </Box>
+            </Grid>
+            <Grid item xs={0} sm={1} md={3} />
         </Grid>
 
     )
