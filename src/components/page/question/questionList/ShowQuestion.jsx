@@ -45,9 +45,6 @@ function QuestionPage(props) {
     const meetingTimeArray = [0, 10, 20, 30, 40, 50, 60];
     const jobArray = ["ケアーマネージャー", "介護士", "元介護士","介護福祉"];
     const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50","50~"];
-    const [title, setTitle] = useState([]);
-    const [content, setContent] = useState([]);
-    const [createdAt, setCreatedAt] = useState([]);
     const [checkBottomFlag, setCheckBottomFlag] = useState([]);
 
     const inputChange = (e) => {
@@ -68,11 +65,7 @@ function QuestionPage(props) {
         console.log(questionId);
 
         const apiQuestionData = await API.graphql(graphqlOperation(getQuestions, { id: questionId }));
-        setQuestion(apiQuestionData);
-        setTitle(apiQuestionData.data.getQuestions.title);
-        setContent(apiQuestionData.data.getQuestions.content);
-        setCreatedAt(apiQuestionData.data.getQuestions.createdAt);
-        console.log(apiQuestionData);
+        setQuestion(apiQuestionData.data.getQuestions);
     }
 
     const fetchUser = async () => {
@@ -89,10 +82,10 @@ function QuestionPage(props) {
     async function inputData() {
         //データ送信用にフォームデータを定義
         formData.userId = user.data.getUserId.id;
-        formData.questionId = question.data.getQuestions.id;
+        formData.questionId = question.id;
         formData.userHandleName = user.data.getUserId.handleName;
-        formData.questionTitle = title;
-        formData.questionContent = content;
+        formData.questionTitle = question.title;
+        formData.questionContent = question.content;
         formData.userLicenseFlag = '0';
         {
         user.data.getUserId.sex
@@ -165,7 +158,11 @@ function QuestionPage(props) {
         fetchQuestion();
         fetchUser();
         checkBotton();
-    }, [])
+    }, []);
+
+    useEffect(()=>{
+        console.log(question);
+    },[question])
 
     return (
         <Grid container>
@@ -193,13 +190,13 @@ function QuestionPage(props) {
 
                         <CardContent>
                             <Typography variant="subtitle1" color="text.primary">
-                                {title}
+                                {question.title}
                             </Typography>
                             <Typography variant="body1" color="text.secondary">
-                                {content}
+                                {question.content}
                             </Typography>
                             <Typography mt={2} variant="body2" color="text.secondary">
-                                {createdAt}
+                                {question.createdAt}
                             </Typography>
                         </CardContent>
 
@@ -267,7 +264,7 @@ function QuestionPage(props) {
                             />
                         </Grid>
                         {time
-                            ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${user.id}`} target="_blank" >解決する！</Button>
+                            ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${question.id}`} target="_blank" >解決する！</Button>
                             : <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
                         }
                     </Box>
