@@ -25,7 +25,6 @@ type UserId @model {
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
   job: String
-  
 }
 
 type Questions @model {
