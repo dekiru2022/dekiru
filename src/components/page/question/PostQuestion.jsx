@@ -90,7 +90,7 @@ function PostQuestion() {
       // OKボタン押下時
       if (result) {
         createQuestions();
-        window.location.href = '/indexResolver';
+        //window.location.href = '/indexResolver';
         // キャンセルボタン押下時
       } else {
         // 何も処理を行わない

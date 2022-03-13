@@ -178,6 +178,48 @@ export const onDeleteQuestions = /* GraphQL */ `
     }
   }
 `;
+export const onCreateNootice = /* GraphQL */ `
+  subscription OnCreateNootice {
+    onCreateNootice {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const onUpdateNootice = /* GraphQL */ `
+  subscription OnUpdateNootice {
+    onUpdateNootice {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const onDeleteNootice = /* GraphQL */ `
+  subscription OnDeleteNootice {
+    onDeleteNootice {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
 export const onCreateAnswerUser = /* GraphQL */ `
   subscription OnCreateAnswerUser {
     onCreateAnswerUser {

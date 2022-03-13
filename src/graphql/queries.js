@@ -140,6 +140,41 @@ export const listQuestions = /* GraphQL */ `
     }
   }
 `;
+export const getNootice = /* GraphQL */ `
+  query GetNootice($id: ID!) {
+    getNootice(id: $id) {
+      id
+      userId
+      noticeTitle
+      noticeStatus
+      linkDestinationUrl
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+export const listNootices = /* GraphQL */ `
+  query ListNootices(
+    $filter: ModelNooticeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNootices(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        noticeTitle
+        noticeStatus
+        linkDestinationUrl
+        createdAt
+        updatedAt
+        deletedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getAnswerUser = /* GraphQL */ `
   query GetAnswerUser($id: ID!) {
     getAnswerUser(id: $id) {

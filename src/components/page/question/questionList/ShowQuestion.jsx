@@ -154,7 +154,7 @@ function QuestionPage(props) {
             // OKボタン押下時
             if (result) {
                 await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
-                window.location.href = '/';
+                //window.location.href = '/';
                 // キャンセルボタン押下時
             } else {
                 // 何も処理を行わない
@@ -172,7 +172,7 @@ function QuestionPage(props) {
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Box>
                     <Card sx={{ my: 4, minWidth: 300, maxWidth: 600 }}>
-                        {/* <CardHeader
+                        <CardHeader
                             avatar={
                                 question.userId == 1
                                     ?
@@ -189,7 +189,7 @@ function QuestionPage(props) {
                             </IconButton>}
                             // title={user.name + ' さん'} 歳
                             // subheader={user.ages + '歳'}
-                        /> */}
+                        />
 
                         <CardContent>
                             <Typography variant="subtitle1" color="text.primary">

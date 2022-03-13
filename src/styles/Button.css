@@ -3,7 +3,24 @@
     /* テキスト */
     color: #fff;
     font-size: 1.5rem;
+    /* 背景 */
     background: linear-gradient(#72B3D6, 70%, #26418D);
+}
+
+.style-ques-button{
+    /* テキスト */
+    color: #fff;
+    font-size: 1.5rem;
+    /* 背景 */
+    background: linear-gradient(#ff9e3d, 70%, #a35310);
+}
+
+.style-chenge-button{
+    /* テキスト */
+    color: #fff;
+    font-size: 1.5rem;
+    /* 背景 */
+    background: linear-gradient(#32cd32, 70%, #006400);
 }
 
 .header{

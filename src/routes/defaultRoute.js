@@ -15,6 +15,7 @@ import QuestionList from '../components/page/question/QuestionCard';
 import Setting from '../components/page/setting/Setting';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
 import BasicDetailsEdit from '../components/page/setting/userInformation/BasicDetailsEdit';
+import BasicDetailsUserEdit from '../components/page/setting/userInformation/BasicDetailsUserEdit';
 import PostQuestion from '../components/page/question/PostQuestion';
 import IndexQuestion from '../components/page/question/questionList/IndexQuestion';
 import Money from '../components/page/setting/userInformation/Money';
@@ -57,6 +58,7 @@ function DefaultRoute() {
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         {/* ユーザ関係 */}
         <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />
+        <Route exact path="/BasicDetailsUserEdit" component={BasicDetailsUserEdit} />
         <Route exact path="/PointPurchase" component={Money} />
       </Switch>
 

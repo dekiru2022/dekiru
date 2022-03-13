@@ -51,6 +51,17 @@ type Questions @model {
   deleteFlg:Int
 }
 
+type Notice @model {
+  id: ID!
+  userId: String!
+  noticeTitle: String!
+  noticeStatus: Int!
+  linkDestinationUrl: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+}
+
 type AnswerUser @model {
   id: ID!
   userId: ID!
