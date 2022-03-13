@@ -1,39 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateNoteTest = /* GraphQL */ `
-  subscription OnCreateNoteTest {
-    onCreateNoteTest {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateNoteTest = /* GraphQL */ `
-  subscription OnUpdateNoteTest {
-    onUpdateNoteTest {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteNoteTest = /* GraphQL */ `
-  subscription OnDeleteNoteTest {
-    onDeleteNoteTest {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateUserId = /* GraphQL */ `
   subscription OnCreateUserId {
     onCreateUserId {
@@ -44,6 +11,7 @@ export const onCreateUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      address
       experience
       licenseFlag
       identificationFlag
@@ -58,11 +26,6 @@ export const onCreateUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
     }
   }
 `;
@@ -76,6 +39,7 @@ export const onUpdateUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      address
       experience
       licenseFlag
       identificationFlag
@@ -90,11 +54,6 @@ export const onUpdateUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
     }
   }
 `;
@@ -108,6 +67,7 @@ export const onDeleteUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      address
       experience
       licenseFlag
       identificationFlag
@@ -122,11 +82,6 @@ export const onDeleteUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
     }
   }
 `;
@@ -178,9 +133,9 @@ export const onDeleteQuestions = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNootice = /* GraphQL */ `
-  subscription OnCreateNootice {
-    onCreateNootice {
+export const onCreateNotice = /* GraphQL */ `
+  subscription OnCreateNotice {
+    onCreateNotice {
       id
       userId
       noticeTitle
@@ -192,9 +147,9 @@ export const onCreateNootice = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNootice = /* GraphQL */ `
-  subscription OnUpdateNootice {
-    onUpdateNootice {
+export const onUpdateNotice = /* GraphQL */ `
+  subscription OnUpdateNotice {
+    onUpdateNotice {
       id
       userId
       noticeTitle
@@ -206,9 +161,9 @@ export const onUpdateNootice = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNootice = /* GraphQL */ `
-  subscription OnDeleteNootice {
-    onDeleteNootice {
+export const onDeleteNotice = /* GraphQL */ `
+  subscription OnDeleteNotice {
+    onDeleteNotice {
       id
       userId
       noticeTitle
@@ -302,7 +257,6 @@ export const onCreateCashFlow = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
-      deleteFlg
       id
     }
   }
@@ -320,7 +274,6 @@ export const onUpdateCashFlow = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
-      deleteFlg
       id
     }
   }
@@ -338,7 +291,6 @@ export const onDeleteCashFlow = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
-      deleteFlg
       id
     }
   }
