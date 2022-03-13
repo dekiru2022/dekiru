@@ -1,35 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getNoteTest = /* GraphQL */ `
-  query GetNoteTest($id: ID!) {
-    getNoteTest(id: $id) {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listNoteTests = /* GraphQL */ `
-  query ListNoteTests(
-    $filter: ModelNoteTestFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listNoteTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        title
-        content
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getUserId = /* GraphQL */ `
   query GetUserId($id: ID!) {
     getUserId(id: $id) {
@@ -40,6 +11,7 @@ export const getUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      address
       experience
       licenseFlag
       identificationFlag
@@ -54,11 +26,6 @@ export const getUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
     }
   }
 `;
@@ -77,6 +44,7 @@ export const listUserIds = /* GraphQL */ `
         handleName
         mail
         sex
+        address
         experience
         licenseFlag
         identificationFlag
@@ -91,11 +59,6 @@ export const listUserIds = /* GraphQL */ `
         updatedAt
         deletedAt
         job
-        jobed1
-        jobed2
-        jobed3
-        jobed4
-        jobed5
       }
       nextToken
     }
@@ -140,9 +103,9 @@ export const listQuestions = /* GraphQL */ `
     }
   }
 `;
-export const getNootice = /* GraphQL */ `
-  query GetNootice($id: ID!) {
-    getNootice(id: $id) {
+export const getNotice = /* GraphQL */ `
+  query GetNotice($id: ID!) {
+    getNotice(id: $id) {
       id
       userId
       noticeTitle
@@ -154,13 +117,13 @@ export const getNootice = /* GraphQL */ `
     }
   }
 `;
-export const listNootices = /* GraphQL */ `
-  query ListNootices(
-    $filter: ModelNooticeFilterInput
+export const listNotices = /* GraphQL */ `
+  query ListNotices(
+    $filter: ModelNoticeFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listNootices(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listNotices(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         userId
@@ -241,7 +204,6 @@ export const getCashFlow = /* GraphQL */ `
       createdAt
       updatedAt
       deletedAt
-      deleteFlg
       id
     }
   }
@@ -264,7 +226,6 @@ export const listCashFlows = /* GraphQL */ `
         createdAt
         updatedAt
         deletedAt
-        deleteFlg
         id
       }
       nextToken
