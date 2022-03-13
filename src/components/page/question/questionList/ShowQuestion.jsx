@@ -102,7 +102,7 @@ function QuestionPage(props) {
         inputCheck();
     }
     //描画ごとに現在質問中かチェック
-    async function checkBotton(nextToken = null) {
+    async function checkButton(nextToken = null) {
         let user1 = await Auth.currentAuthenticatedUser();
         const cognitoID = user1.attributes.sub;
         //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
@@ -156,7 +156,7 @@ function QuestionPage(props) {
     useEffect(() => {
         fetchQuestion();
         fetchUser();
-        checkBotton();
+        checkButton();
     }, []);
 
     useEffect(()=>{
