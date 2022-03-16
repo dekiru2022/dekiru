@@ -94,7 +94,10 @@ export default function Notice() {
     setNotices(result.data.listNotices.items);
     console.log(result);
   }
-
+  const linkURL = async (URL) => {
+    console.log(URL);
+    window.location.href = URL;
+  }
   return (
     <Box sx={{ width: '100%' }}>
       {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -105,8 +108,12 @@ export default function Notice() {
             return (
               <>
                 <Grid item xs={6}>
-                  <Button variant="outlined" >
+                  <Button variant="outlined" 
+                  onClick={() => {
+                    linkURL(notice.linkDestinationUrl)
+                  }}>
                     {notice.noticeTitle}
+                    {notice.createdAt}
                   </Button>
                 </Grid>
                 {(() => {

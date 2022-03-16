@@ -150,6 +150,7 @@ export default function IndexResolver(props) {
       setCheckPoint(0);
     }
   }
+  //#36対応
   //ボタン押下後に、引数としてidを持ってくる
   const handleClick = async (id,url) => {
     console.log(id);
