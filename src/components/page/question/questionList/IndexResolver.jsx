@@ -31,6 +31,8 @@ import { onCreateUserId } from '../../../../graphql/subscriptions';
 import { updateAnswerUser } from '../../../../graphql/mutations';
 import { listAnswerUsers, getQuestions, getUserId } from '../../../../graphql/queries';
 
+import {createNotice as createNoticeMutation } from '../../../../graphql/mutations';
+
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import axios from 'axios';
@@ -53,6 +55,8 @@ export default function IndexResolver(props) {
   const handleMoreVertClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const initialFormState = { noticeStatus : 1 }
+  const [formData, setFormData] = useState(initialFormState);
 
   const open = Boolean(anchorEl);
 
@@ -146,10 +150,16 @@ export default function IndexResolver(props) {
       setCheckPoint(0);
     }
   }
+  //#36対応
   //ボタン押下後に、引数としてidを持ってくる
-  const handleClick = async (id) => {
+  const handleClick = async (id,url) => {
     console.log(id);
+    console.log(url);
+    formData.userId = id;
+    formData.noticeTitle = "あなたは選ばれました";
+    formData.linkDestinationUrl = url;
 
+    await API.graphql({ query: createNoticeMutation, variables: { input: formData } });
   }
   // 入力チェック
   const deleteCheck = async (id) => {
@@ -263,7 +273,7 @@ export default function IndexResolver(props) {
                   <CardActions disableSpacing>
                     {/* 会議時間と自身のidはDBから取ってくる */}
                     {checkPoint
-                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.id); }} to={`/skyway/10/${user.userId}`} target="_blank"  >依頼する</Button>
+                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId,`/skyway/${user.time}/${user.questionId}`); }} to={`/skyway/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
                       : <Button sx={{ mr: 4 }} variant='contained' target="_blank"  >ポイント購入</Button>
                     }
                     {/* 張りぼて評価 */}
@@ -282,4 +292,3 @@ export default function IndexResolver(props) {
     </Box>
   );
 }
-

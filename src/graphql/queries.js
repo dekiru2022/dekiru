@@ -140,9 +140,9 @@ export const listQuestions = /* GraphQL */ `
     }
   }
 `;
-export const getNootice = /* GraphQL */ `
-  query GetNootice($id: ID!) {
-    getNootice(id: $id) {
+export const getNotice = /* GraphQL */ `
+  query GetNotice($id: ID!) {
+    getNotice(id: $id) {
       id
       userId
       noticeTitle
@@ -154,13 +154,13 @@ export const getNootice = /* GraphQL */ `
     }
   }
 `;
-export const listNootices = /* GraphQL */ `
-  query ListNootices(
-    $filter: ModelNooticeFilterInput
+export const listNotices = /* GraphQL */ `
+  query ListNotices(
+    $filter: ModelNoticeFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listNootices(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listNotices(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         userId

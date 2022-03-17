@@ -178,9 +178,9 @@ export const onDeleteQuestions = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNootice = /* GraphQL */ `
-  subscription OnCreateNootice {
-    onCreateNootice {
+export const onCreateNotice = /* GraphQL */ `
+  subscription OnCreateNotice {
+    onCreateNotice {
       id
       userId
       noticeTitle
@@ -192,9 +192,9 @@ export const onCreateNootice = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNootice = /* GraphQL */ `
-  subscription OnUpdateNootice {
-    onUpdateNootice {
+export const onUpdateNotice = /* GraphQL */ `
+  subscription OnUpdateNotice {
+    onUpdateNotice {
       id
       userId
       noticeTitle
@@ -206,9 +206,9 @@ export const onUpdateNootice = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNootice = /* GraphQL */ `
-  subscription OnDeleteNootice {
-    onDeleteNootice {
+export const onDeleteNotice = /* GraphQL */ `
+  subscription OnDeleteNotice {
+    onDeleteNotice {
       id
       userId
       noticeTitle

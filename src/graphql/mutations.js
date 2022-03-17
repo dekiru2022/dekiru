@@ -205,12 +205,12 @@ export const deleteQuestions = /* GraphQL */ `
     }
   }
 `;
-export const createNootice = /* GraphQL */ `
-  mutation CreateNootice(
-    $input: CreateNooticeInput!
-    $condition: ModelNooticeConditionInput
+export const createNotice = /* GraphQL */ `
+  mutation CreateNotice(
+    $input: CreateNoticeInput!
+    $condition: ModelNoticeConditionInput
   ) {
-    createNootice(input: $input, condition: $condition) {
+    createNotice(input: $input, condition: $condition) {
       id
       userId
       noticeTitle
@@ -222,12 +222,12 @@ export const createNootice = /* GraphQL */ `
     }
   }
 `;
-export const updateNootice = /* GraphQL */ `
-  mutation UpdateNootice(
-    $input: UpdateNooticeInput!
-    $condition: ModelNooticeConditionInput
+export const updateNotice = /* GraphQL */ `
+  mutation UpdateNotice(
+    $input: UpdateNoticeInput!
+    $condition: ModelNoticeConditionInput
   ) {
-    updateNootice(input: $input, condition: $condition) {
+    updateNotice(input: $input, condition: $condition) {
       id
       userId
       noticeTitle
@@ -239,12 +239,12 @@ export const updateNootice = /* GraphQL */ `
     }
   }
 `;
-export const deleteNootice = /* GraphQL */ `
-  mutation DeleteNootice(
-    $input: DeleteNooticeInput!
-    $condition: ModelNooticeConditionInput
+export const deleteNotice = /* GraphQL */ `
+  mutation DeleteNotice(
+    $input: DeleteNoticeInput!
+    $condition: ModelNoticeConditionInput
   ) {
-    deleteNootice(input: $input, condition: $condition) {
+    deleteNotice(input: $input, condition: $condition) {
       id
       userId
       noticeTitle

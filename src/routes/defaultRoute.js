@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, createRef ,useState} from "react";
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut, AmplifySignIn } from '@aws-amplify/ui-react';
@@ -19,6 +19,10 @@ import BasicDetailsUserEdit from '../components/page/setting/userInformation/Bas
 import PostQuestion from '../components/page/question/PostQuestion';
 import IndexQuestion from '../components/page/question/questionList/IndexQuestion';
 import Money from '../components/page/setting/userInformation/Money';
+import NotificationSystem from 'react-notification-system';
+
+import { onCreateNotice } from '../graphql/subscriptions';
+import { API, graphqlOperation } from 'aws-amplify';
 import '../styles/App.css';
 
 Amplify.configure(awsconfig);
@@ -27,6 +31,14 @@ function DefaultRoute() {
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
 
+  //プッシュ通知
+  const ref = createRef();
+  const [title, setTitle] = useState("あなたは選ばれました");
+  const [level, setLevel] = useState("success");
+  const [position, setPosition] = useState("tr");
+  const [uid, setUid] = React.useState(0);
+  const [autoDismiss, setAutoDismiss] = useState(5);
+
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
@@ -34,10 +46,49 @@ function DefaultRoute() {
     });
   }, []);
 
+  useEffect(() => {
+    const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
+      next: (eventData) => {
+        const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
+        console.log(URL);
+        ref.current.addNotification({
+          title,
+          level,
+          position,
+          uid,
+          autoDismiss,
+          action: {
+            label: "相談者に会う",
+            callback: () => window.open(URL)
+          }
+        });
+      }
+    });
+    return () => subscription.unsubscribe();
+  })
   return(
     <BrowserRouter>
       {/* ヘッダー */}
       <Header />
+      <button
+        onClick={() => {
+          ref.current.addNotification({
+            title,
+            level,
+            position,
+            uid,
+            autoDismiss,
+            action: {
+              label: "Follow me",
+              callback: () => window.open("/")
+            }
+          });
+          setUid(uid + 1);
+        }}
+      >
+        Add notification
+      </button>
+      <NotificationSystem ref={ref} />
 
       {/* ルーティング */}
       <Switch>
