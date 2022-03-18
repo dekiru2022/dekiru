@@ -22,8 +22,7 @@ export default function Money() {
         <Grid item xs={3}> 
             <Moneycard
             title="Free 200p"
-            point="￥0/200p"
-            content="200pお得"
+            point="￥200/200p"
              />
         </Grid>
         <Grid item xs={3}> 
@@ -64,14 +63,14 @@ export default function Money() {
         <Grid item xs={3}> 
             <Moneycard
             title="Free 4000p"
-            point="￥0/4000p"
+            point="￥4000/4000p"
             content="400pお得"
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 400p"
-            point="￥0/400p"
+            point="￥5000/5000p"
             content="400pお得"
              />
         </Grid>

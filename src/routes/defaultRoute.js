@@ -37,7 +37,7 @@ function DefaultRoute() {
   const [level, setLevel] = useState("success");
   const [position, setPosition] = useState("tr");
   const [uid, setUid] = React.useState(0);
-  const [autoDismiss, setAutoDismiss] = useState(5);
+  const [autoDismiss, setAutoDismiss] = useState(10);
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {

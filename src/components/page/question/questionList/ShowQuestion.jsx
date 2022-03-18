@@ -136,6 +136,7 @@ function QuestionPage(props) {
     }
     // 入力チェック
     async function inputCheck() {
+        checkButton();
         if (checkBottomFlag == 2) {
             alert('他に解答しているため、候補できません。');
         } else if (formData.userExperience == "" || formData.userJob == "") {
@@ -156,7 +157,7 @@ function QuestionPage(props) {
     useEffect(() => {
         fetchQuestion();
         fetchUser();
-        checkButton();
+
     }, []);
 
     useEffect(()=>{
