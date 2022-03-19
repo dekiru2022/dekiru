@@ -50,7 +50,7 @@ export default function Moneycard(props) {
 
             <CardActions>
             <Button size="small"
-            onClick={() => { handleClick(URL,userId); }}
+            onClick={() => { handleClick(URL); }}
             >購入</Button>
             </CardActions>
         </Card>
