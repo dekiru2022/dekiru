@@ -56,6 +56,7 @@ export default function IndexQuestion(props) {
     const [findedQueestionTitle, setFindedQueestionTitle] = useState();
     const [findedQueestionCreatedAt, setFindedQueestionCreatedAt] = useState();
     const [findedQueestionContent, setFindedQueestionContent] = useState();
+
     // 初回描画に実行
     useEffect(() => {
         getId();
@@ -117,9 +118,9 @@ export default function IndexQuestion(props) {
     //     const filterQuestion = filterQuery.question && filterQuery.question.toLowerCase();
     //     // return tmpQuestions;
     // }, [filterQuery, sort, listQuestions]);
-    
+
     //検索機能
-    const handleKeyDown = async (e,nextToken = null) => {
+    const handleKeyDown = async (e, nextToken = null) => {
         if (e.keyCode === 13) {
             // エンターキーが押された時の処理
             //	contains 指定した値が含まれる
@@ -127,16 +128,16 @@ export default function IndexQuestion(props) {
                 filter: {
                     "and": [
                         {
-                          "title": {
-                            "contains": "a"
-                          }
+                            "title": {
+                                "contains": "a"
+                            }
                         },
                         {
-                          "status": {
-                            "eq": "1"
-                          }
+                            "status": {
+                                "eq": "1"
+                            }
                         }
-                      ]
+                    ]
                 },
                 limit: 10,
                 nextToken: nextToken,
@@ -247,12 +248,12 @@ export default function IndexQuestion(props) {
                                     {/* 検索フォーム */}
                                     <div className="search">
                                         <div className='search__bar'>
-                                            <SearchIcon />
                                             <input
                                                 className="search__bar__input"
                                                 placeholder="Search"
                                                 onKeyDown={(e) => handleKeyDown(e)}
                                             />
+                                            <SearchIcon />
                                         </div>
                                     </div>
                                     <FormControl sx={{ width: '300px', m: '1rem' }}>

@@ -70,11 +70,7 @@ export const createUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
+      address
     }
   }
 `;
@@ -105,11 +101,7 @@ export const updateUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
+      address
     }
   }
 `;
@@ -140,11 +132,7 @@ export const deleteUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
+      address
     }
   }
 `;

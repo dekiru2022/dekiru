@@ -54,11 +54,7 @@ export const getUserId = /* GraphQL */ `
       updatedAt
       deletedAt
       job
-      jobed1
-      jobed2
-      jobed3
-      jobed4
-      jobed5
+      address
     }
   }
 `;
@@ -91,11 +87,7 @@ export const listUserIds = /* GraphQL */ `
         updatedAt
         deletedAt
         job
-        jobed1
-        jobed2
-        jobed3
-        jobed4
-        jobed5
+        address
       }
       nextToken
     }

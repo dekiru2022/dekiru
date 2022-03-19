@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@mui/material/Container';
-
+//window.location.href = '/indexResolver';
 const useStyles = makeStyles({
     bullet: {
       display: 'inline-block',
@@ -21,9 +21,13 @@ const useStyles = makeStyles({
     },
 });
 
+const handleClick = async (URL) => {
+    // 更新処理
+    window.location.href = URL ;
+}
 
 export default function Moneycard(props) {
-    const { title, point, content} = props;
+    const { title, point, money,content,URL} = props;
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
     return (
@@ -34,7 +38,7 @@ export default function Moneycard(props) {
             </Typography>
 
             <Typography variant="h5" component="h2">
-                {point}
+                ¥{money}/{point}p
             </Typography>
 
             <Container maxWidth="sm">
@@ -45,7 +49,9 @@ export default function Moneycard(props) {
             </CardContent>
 
             <CardActions>
-            <Button size="small">購入</Button>
+            <Button size="small"
+            onClick={() => { handleClick(URL,userId); }}
+            >購入</Button>
             </CardActions>
         </Card>
     );

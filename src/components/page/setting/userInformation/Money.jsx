@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Grid from "@material-ui/core/Grid";
 import Moneycard from "./Moneycard";
 import Typography from '@material-ui/core/Typography';
 
+import { Auth } from 'aws-amplify'
 
-export default function Money() {
+export default function Money(props) {
+    const userId = props.match.params.userId;
+    const [userMail, setUserMail] = useState([]);
+
+    useEffect(() => {
+        getUserDateAws();
+    }, [])
+
+    const getUserDateAws = async () => {
+        let user1 = await Auth.currentAuthenticatedUser();
+        const mail = user1.attributes.email;
+        setUserMail(mail);
+    }
+
     return (
         <>
         <Grid container justify="center">
@@ -22,55 +36,65 @@ export default function Money() {
         <Grid item xs={3}> 
             <Moneycard
             title="Free 200p"
-            point="￥200/200p"
+            point="200"
+            money="200"
+            URL={`https://secure.telecomcredit.co.jp/inetcredit/secure/order.pl?clientip=00043&money=200&sendid=${userId}&usrmail=${userMail}`}
+
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard 
             title="Free 400p"
-            point="￥0/400p"
+            point="400"
+            money="400"
             content="400pお得"
             />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 600p"
-            point="￥0/600p"
+            point="600"
+            money="600"
             content="600pお得"
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 800p"
-            point="￥0/800p"
+            point="800"
+            money="800"
             content="800pお得"
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 1000p"
-            point="￥0/1000p"
+            point="1000"
+            money="1000"
             content="1000pお得"
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 2000p"
-            point="￥0/2000p"
+            point="2000"
+            money="2000"
             content="2000pお得"
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 4000p"
-            point="￥4000/4000p"
+            point="4000"
+            money="4000"
             content="400pお得"
              />
         </Grid>
         <Grid item xs={3}> 
             <Moneycard
             title="Free 400p"
-            point="￥5000/5000p"
+            point="5000"
+            money="5000"
             content="400pお得"
              />
         </Grid>

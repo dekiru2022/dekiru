@@ -30,11 +30,7 @@ type UserId @model {
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
   job: String
-  jobed1: String
-  jobed2: String
-  jobed3: String
-  jobed4: String
-  jobed5: String
+  address: String
   
 }
 

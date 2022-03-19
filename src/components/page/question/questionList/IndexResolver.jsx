@@ -85,6 +85,7 @@ export default function IndexResolver(props) {
   const fetchUserData = async () => {
     const user1 = await Auth.currentAuthenticatedUser();
     let cognitoID = user1.attributes.sub;
+    console.log(user1);
     const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
     setUser(apiUserData.data.getUserId);
     // setUserPoint(apiData.data.getUserId.point);
