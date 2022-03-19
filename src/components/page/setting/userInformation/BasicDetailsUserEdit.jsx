@@ -40,10 +40,9 @@ function BasicDetailsUserEdit() {
         await API.graphql(graphqlOperation(UpdateUserIdMutation, { input: user }))
     }
 
-
     // 入力チェック
     const inputCheck = () => {
-        const result = window.confirm('相談を送信してもよろしいですか？');
+        const result = window.confirm('変更してもよろしいですか？');
         // OKボタン押下時
         if (result) {
             console.log("updateUserInfo:", user)
@@ -117,7 +116,7 @@ function BasicDetailsUserEdit() {
                 </Typography>
             </CardContent>
             {/* 住所 */}
-            {/* <CardContent>
+            <CardContent>
                 <Typography variant="h5">
                     住所
                 </Typography>
@@ -130,7 +129,7 @@ function BasicDetailsUserEdit() {
                         />
                     </Grid>
                 </Typography>
-            </CardContent> */}
+            </CardContent>
             {/* 職業 */}
             <CardContent>
                 <Typography variant="h5">

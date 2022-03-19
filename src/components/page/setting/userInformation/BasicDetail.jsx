@@ -23,45 +23,32 @@ import { user as TestUser } from '../../../../database/current_user_data';
 
 
 export default function BasicDetail() {
-    //星の設定部分
-    const [userValue, setValue] = React.useState(2.5);
-    const [userName, setUserName] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [userMail, setUserMail] = useState([]);
-    const [userPoint, setUserPoint] = useState([]);
-    const [userTrasferPoint, setUserTrasferPoint] = useState([]);
-    //ユーザ情報を取得しステートuserにセットする
-    const getUserData = () => {
+    
+    const [user, setUser] = useState([]);
 
-    }
-    const getUserDateAws = async () => {
+    // user情報の取得（cognito）
+    const getUserDataAws = async () => {
         let user1 = await Auth.currentAuthenticatedUser();
-        let userName = user1.username;
         let cognitoID = user1.attributes.sub;
-        let mail = user1.attributes.email;
-        setUserName(userName);
-        setUserMail(mail);
         fetchUsers(cognitoID);
     }
 
+    // user情報の取得（DynamoDB）
+    const fetchUsers = async (cognitoID) => {
+        const apiData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
+        setUser(apiData.data.getUserId)
+    }
+
     useEffect(() => {
-        getUserDateAws();
-        getUserData();
+        getUserDataAws()
     }, [])
 
-    const fetchUsers = async (cognitoID) => {
-        console.log(cognitoID);
-        const apiData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
-        setUserPoint(apiData.data.getUserId.point);
-        setUserTrasferPoint(apiData.data.getUserId.transferPoint);
-        console.log(apiData);//.data.getCognitoUserId.items
-    }
     return (
         <Grid container spacing={2}>
             {/* ユーザ名 */}
             <Grid item xs={12}  >
                 <Typography variant="h4" >
-                    {userName}
+                    {user.handleName}
                 </Typography>
             </Grid>
 
@@ -74,12 +61,12 @@ export default function BasicDetail() {
                     />
                     <CardContent>
                         <Typography variant="h5" >
-                            {userPoint}
+                            {user.point}
                         </Typography>
                     </CardContent>
                     {/* ポイント購入ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleButton title="ポイント購入" to="/PointPurchase/" />
+                        <StyleButton title="ポイント購入" to={`/PointPurchase/${user.userId}`} />
                     </CardActions>
                 </Card>
 
@@ -92,7 +79,7 @@ export default function BasicDetail() {
                     />
                     <CardContent>
                         <Typography variant="h5">
-                            {userTrasferPoint}
+                            {user.trasferPoint}
                         </Typography>
                     </CardContent>
                     {/* 出金ボタン */}
@@ -113,7 +100,7 @@ export default function BasicDetail() {
                     {/* メールアドレス */}
                     <CardContent>
                         <Typography variant="h5">
-                            <p>メール： {userMail}</p>
+                            <p>メール： {user.mail}</p>
                         </Typography>
                     </CardContent>
                     {/* 変更ボタン */}
@@ -143,27 +130,27 @@ export default function BasicDetail() {
                     />
                     {/* 名前 */}
                     <CardContent>
-                        <Typography variant="h5">　　名前： {userMail}</Typography>
+                        <Typography variant="h5">　　名前： {user.firstName} {user.lastName}</Typography>
                     </CardContent>
                     {/* 性別 */}
                     <CardContent>
-                        <Typography variant="h5">　　性別： {userMail}</Typography>
+                        <Typography variant="h5">　　性別： {user.sex}</Typography>
                     </CardContent>
                     {/* 生年月日 */}
                     <CardContent>
-                        <Typography variant="h5">生年月日： {userMail}</Typography>
+                        <Typography variant="h5">生年月日： {user.birthday}</Typography>
                     </CardContent>
                     {/* 住所 */}
                     <CardContent>
-                        <Typography variant="h5">　　住所： {userMail}</Typography>
+                        <Typography variant="h5">　　住所： {user.address}</Typography>
                     </CardContent>
                     {/* 職業 */}
                     <CardContent>
-                        <Typography variant="h5">　　職業： {userMail}</Typography>
+                        <Typography variant="h5">　　職業： {user.job}</Typography>
                     </CardContent>
                     {/* 職務経験 */}
                     <CardContent>
-                        <Typography variant="h5">職務経験： {userMail}</Typography>
+                        <Typography variant="h5">職務経験： {user.experience}</Typography>
                     </CardContent>
 
                     {/* 変更ボタン */}
