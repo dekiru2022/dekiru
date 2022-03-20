@@ -39,38 +39,38 @@ function DefaultRoute() {
   const [uid, setUid] = React.useState(0);
   const [autoDismiss, setAutoDismiss] = useState(10);
 
-  useEffect(() => {
-    onAuthUIStateChange((nextAuthState, authData) => {
-      setAuthState(nextAuthState);
-      setUser(authData);
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthUIStateChange((nextAuthState, authData) => {
+  //     setAuthState(nextAuthState);
+  //     setUser(authData);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
-      next: (eventData) => {
-        const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
-        console.log(URL);
-        ref.current.addNotification({
-          title,
-          level,
-          position,
-          uid,
-          autoDismiss,
-          action: {
-            label: "相談者に会う",
-            callback: () => window.open(URL)
-          }
-        });
-      }
-    });
-    return () => subscription.unsubscribe();
-  })
+  // useEffect(() => {
+  //   const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
+  //     next: (eventData) => {
+  //       const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
+  //       console.log(URL);
+  //       ref.current.addNotification({
+  //         title,
+  //         level,
+  //         position,
+  //         uid,
+  //         autoDismiss,
+  //         action: {
+  //           label: "相談者に会う",
+  //           callback: () => window.open(URL)
+  //         }
+  //       });
+  //     }
+  //   });
+  //   return () => subscription.unsubscribe();
+  // })
   return(
     <BrowserRouter>
       {/* ヘッダー */}
       <Header />
-      <button
+      {/* <button
         onClick={() => {
           ref.current.addNotification({
             title,
@@ -88,7 +88,7 @@ function DefaultRoute() {
       >
         Add notification
       </button>
-      <NotificationSystem ref={ref} />
+      <NotificationSystem ref={ref} /> */}
 
       {/* ルーティング */}
       <Switch>

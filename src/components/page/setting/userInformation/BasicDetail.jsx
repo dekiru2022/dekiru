@@ -43,6 +43,17 @@ export default function BasicDetail() {
         getUserDataAws()
     }, [])
 
+    const getSex = () => {
+        console.log(user)
+        if (user.sex == 0) {
+            return '男性'
+        } else if (user.sex == 1) {
+            return '女性'
+        } else {
+            return 'その他'
+        }
+    }
+
     return (
         <Grid container spacing={2}>
             {/* ユーザ名 */}
@@ -111,12 +122,12 @@ export default function BasicDetail() {
                     {/* 登録資格  実装予定 */}
                     <CardContent>
                         <Typography variant="h5">
-                            test
+                            資格情報：
                         </Typography>
                     </CardContent>
-                    <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+                    {/* <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                         <StyleButton title="資格登録" to="/showQuestion" />
-                    </CardActions>
+                    </CardActions> */}
                 </Card>
             </Grid>
 
@@ -130,11 +141,12 @@ export default function BasicDetail() {
                     />
                     {/* 名前 */}
                     <CardContent>
-                        <Typography variant="h5">　　名前： {user.firstName} {user.lastName}</Typography>
+                        <Typography variant="h5">　　名前： {user.lastName} {user.firstName}</Typography>
                     </CardContent>
                     {/* 性別 */}
                     <CardContent>
-                        <Typography variant="h5">　　性別： {user.sex}</Typography>
+                        <Typography variant="h5">　　性別： {getSex()}
+                        </Typography>
                     </CardContent>
                     {/* 生年月日 */}
                     <CardContent>

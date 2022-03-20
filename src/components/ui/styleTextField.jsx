@@ -7,7 +7,7 @@
 
 // インポート
 import * as React from 'react';
-import TextField from '@material-ui/core/TextField';
+import { TextField, Input } from '@material-ui/core';
 
 
 /**
@@ -31,6 +31,30 @@ export const StyleTextField = ({ value, label, placeholder, onChange }) => {
             value={value}
             placeholder={placeholder}
             onChange={onChange}
+        />
+    )
+}
+
+/**
+ * StyleInputTextField
+ * @param {String} value - 値
+ * @param {String} label - ラベル
+ * @param {String} placeholder - デフォルトで表示
+ * @param {Any} onChange - ハンドラを指定
+ * @returns StyleTextField
+ */
+ export const StyleInputTextField = ({ value, label, placeholder }) => {
+    return (
+        <Input disabled
+            inputProps={{ style: { fontSize: '24px' } }}
+            InputLabelProps={{ style: { fontSize: '21px', shrink: true } }}
+            size="medium"
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            label={label}
+            value={value}
+            placeholder={placeholder}
         />
     )
 }

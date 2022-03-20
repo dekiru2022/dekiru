@@ -12,6 +12,10 @@ import { updateUserId as UpdateUserIdMutation } from '../../../../graphql/mutati
 import { API, graphqlOperation } from 'aws-amplify';
 import { Auth } from 'aws-amplify'
 import { getUserId } from '../../../../graphql/queries';
+import { InputLabel, FormControl, MenuItem, Select, NativeSelect } from '@material-ui/core';
+import '../../../../styles/Button.css'
+
+
 
 
 function BasicDetailsUserEdit() {
@@ -42,11 +46,12 @@ function BasicDetailsUserEdit() {
 
     // 入力チェック
     const inputCheck = () => {
+        console.log(user)
         const result = window.confirm('変更してもよろしいですか？');
         // OKボタン押下時
         if (result) {
-            console.log("updateUserInfo:", user)
             updateUser()
+            window.location.href = '/setting';
         } else {
             // キャンセルボタン押下時
             // 何も処理を行わない
@@ -63,7 +68,7 @@ function BasicDetailsUserEdit() {
 
             {/* 名前 */}
             <CardContent>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
                     名前
                 </Typography>
                 <Typography variant="h5">
@@ -78,31 +83,47 @@ function BasicDetailsUserEdit() {
                         <Grid item xs={5.9} ml={'0.83%'} >
                             <StyleTextField
                                 label="名"
-                                value={user.firstName || ''}  //「 || ''」を入れないとラベルと重なる
+                                value={user.firstName || ''} //「 || ''」を入れないとラベルと重なる
                                 onChange={e => setUser({ ...user, 'firstName': e.target.value })}
                             />
+
                         </Grid>
                     </Grid>
                 </Typography>
             </CardContent>
             {/* 性別 */}
             <CardContent>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
                     性別
                 </Typography>
                 <Typography variant="h5">
                     <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleTextField
-                            label="性別"
-                            value={user.sex || ''}  //「 || ''」を入れないとラベルと重なる
-                            onChange={e => setUser({ ...user, 'sex': e.target.value })}
-                        />
+                        <FormControl fullWidth style={{height: '60px'}}>
+                            <InputLabel >性別</InputLabel>
+                            <NativeSelect
+                                inputProps={{
+                                    style: {
+                                        fontSize: '24px',
+                                        height: '50px',
+                                    },
+                                    ' & .MuiInputBase-root':{
+                                        fontSize: '0rem'
+                                    }
+                                }}
+                                defaultValue={user.sex}
+                                onChange={e => setUser({ ...user, 'sex': parseInt(e.target.value) })}
+                            >
+                                <option value={0}>男性</option>
+                                <option value={1}>女性</option>
+                                <option value={2}>その他</option>
+                            </NativeSelect>
+                        </FormControl>
                     </Grid>
                 </Typography>
             </CardContent>
             {/* 生年月日 */}
             <CardContent>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
                     生年月日
                 </Typography>
                 <Typography variant="h5">
@@ -117,7 +138,7 @@ function BasicDetailsUserEdit() {
             </CardContent>
             {/* 住所 */}
             <CardContent>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
                     住所
                 </Typography>
                 <Typography variant="h5">
@@ -132,7 +153,7 @@ function BasicDetailsUserEdit() {
             </CardContent>
             {/* 職業 */}
             <CardContent>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
                     職業
                 </Typography>
                 <Typography variant="h5">
@@ -147,7 +168,7 @@ function BasicDetailsUserEdit() {
             </CardContent>
             {/* 職務経験 */}
             <CardContent>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
                     職務経験
                 </Typography>
                 <Typography variant="h5">
