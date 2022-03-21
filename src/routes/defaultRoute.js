@@ -19,6 +19,8 @@ import BasicDetailsUserEdit from '../components/page/setting/userInformation/Bas
 import PostQuestion from '../components/page/question/PostQuestion';
 import IndexQuestion from '../components/page/question/questionList/IndexQuestion';
 import Money from '../components/page/setting/userInformation/Money';
+import Survey_for_A from "../components/page/questionnaire/Survey_for_A";
+import Survey_for_Q from "../components/page/questionnaire/Survey_for_Q";
 import NotificationSystem from 'react-notification-system';
 
 import { onCreateNotice } from '../graphql/subscriptions';
@@ -111,6 +113,10 @@ function DefaultRoute() {
         <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />
         <Route exact path="/BasicDetailsUserEdit" component={BasicDetailsUserEdit} />
         <Route exact path="/PointPurchase/:userId" component={Money} />
+
+        {/* アンケート関係 */}
+        <Route exact path="/questionnaire/questioner" component={Survey_for_Q} />
+        <Route exact path="/questionnaire/respondent" component={Survey_for_A} />
       </Switch>
 
       {/* フッター */}

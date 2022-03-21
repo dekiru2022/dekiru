@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Chat from './chat';
 import Timer from './timer';
 import MenuBar from './menuBar';
+import EndMessage from "./endMessage";
 
 export default function SkywayLayout(){
   const {
@@ -49,9 +50,7 @@ export default function SkywayLayout(){
       </Box>
 
       {closeFlag &&
-      <Box sx={{position: "fixed", top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '70vw', height: '70vh', backgroundColor: '#FFF'}} >
-        終了しました。
-      </Box>
+      <EndMessage />
       }
       
       
