@@ -8,9 +8,8 @@ import Link from '@mui/material/Link';
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@material-ui/core'
-import { display } from '@material-ui/system';
 
-function Copyright(props) {
+function Copyright() {
   return (
     <div style={{ backgroundColor: '#26418D' }} >
       <Grid container spacing={6} justifyContent="center" alignItems="center" style={{ marginTop: '3%'}}>

@@ -16,6 +16,8 @@ import HomeTop from '../../images/HOME-Top.png'
 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { listQuestions, listAnswerUsers } from '../../graphql/queries';
+import "../../styles/App.css";
+
 /**
  * Home
  * @returns none
@@ -108,8 +110,10 @@ export default function Home() {
   return (
     <>
       {/* 画像 */}
-      <p style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden' }}>
+      <p className="pc-area" style={{ position: 'relative', width: '100%', height: '480px', overflow: 'hidden' }}>
         <img width="100%" src={HomeTop} alt="Top" style={{ position: 'relative', top: '-330px' }} ></img>
+      </p>
+      <p className="smartphone-area" style={{ margin: '10%' }}>
       </p>
 
       {/* ボタン 
@@ -131,6 +135,7 @@ export default function Home() {
           }
         </Grid>
       </Grid>
+      <p className="smartphone-area" style={{ marginBottom: '10%' }}></p>
     </>
   );
 }

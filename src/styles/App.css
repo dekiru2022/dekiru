@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.smartphone-area {
+	display: block;
+}
+
+.pc-area {
+	display: none;
+}
+
+@media screen and (min-width: 767px) {
+	.smartphone-area {
+		display: none;
+	}
+
+	.pc-area {
+		display: block;
+	}
+}
