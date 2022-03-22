@@ -263,7 +263,7 @@ function QuestionPage(props) {
                             />
                             <Box mt={4}>
                                 {time
-                                    ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/${time}/${question.id}`} target="_blank" >解決する！</Button>
+                                    ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/0/${time}/${question.id}`} target="_blank" >解決する！</Button>
                                     : <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
                                 }
                             </Box>

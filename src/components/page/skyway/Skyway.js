@@ -25,6 +25,7 @@ function Skyway(props){
   // propsからurlの値を取得
   const meetingTime = props.match.params.time;
   const roomId = props.match.params.room;
+  const isHost = props.match.params.isHost; //質問者なら1, 回答者なら0
 
   const API_KEY = '95ba327e-64d1-4c05-8f9f-ad00ac893e07';
   const peer = new Peer({key: API_KEY});
@@ -62,7 +63,7 @@ function Skyway(props){
     room.close();
   }
   const skywayStore = {
-    peer, meetingTime, roomId,
+    peer, isHost, meetingTime, roomId,
     loading, setLoading,
     room, setRoom,
     startFlag, setStartFlag,
@@ -134,6 +135,15 @@ function Skyway(props){
     }
   }, [userVideo, userAudio]);
 
+  //通話開始時、skywayの認証クレデンシャルをミーティングの時間に設定...peer認証がわからない
+  useEffect(() => {
+    console.log(peer);
+    // if(startFlag){
+    //   peer.updateCredential({
+    //     ttl: meetingTime
+    //   })
+    // }
+  }, [startFlag]);
   const getAndSetUserMedia = () => {
     navigator.mediaDevices.getUserMedia({video: true, audio: true})
       .then( stream => {
