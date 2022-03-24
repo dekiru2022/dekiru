@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "dekiru",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/itasakanoriyuki/IdeaProject/dekiru/amplify/backend/api/dekiru/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7,
+      "apiKeyExpirationDate": "2022-02-27T14:04:15.975Z",
+      "keyDescription": ""
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}

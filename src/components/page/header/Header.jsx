@@ -23,9 +23,9 @@ const theme = createTheme({
 
 const Header = ({ signOut, user }) => {
 
-  const SignOut = () => {
+  const SignOut = async () => {
     try {
-      Auth.signOut();
+      await Auth.signOut();
       window.location.reload();
     } catch (error) {
       console.log('error signing out: ', error);
@@ -64,7 +64,7 @@ const Header = ({ signOut, user }) => {
                   </div>
                   <div className="smartphone-area" style={{ margin: '2% 0% 1% 0%' }} >
                     <IconButton onClick={SignOut}>
-                      <LogoutIcon sx={{ fontSize: 40 }} color="primary" />
+                      <LogoutIcon sx={{ fontSize: 40 }} color="primary" onClick={SignOut} />
                     </IconButton>
                   </div>
 

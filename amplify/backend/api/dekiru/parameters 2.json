@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "dekiru",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-02-20T14:04:26.490Z"
+}
