@@ -73,6 +73,7 @@ const Header = ({ signOut, user }) => {
             </Toolbar>
           </AppBar>
         </Grid>
+        
         {/* 境界線 */}
         <Grid item style={{
           width: '95%',
