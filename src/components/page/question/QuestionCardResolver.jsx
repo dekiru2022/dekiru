@@ -59,7 +59,7 @@ export const QuestionCardResolver = (props) => {
       </Card>
 
       {/* スマホ用 */}
-      <Card cclassName="smartphone-area" sx={{ m: 1, width: '95%', height: '15rem', border: '0.1rem solid #26418D', position: 'relative' }}>
+      <Card className="smartphone-area" sx={{ m: 1, width: '95%', height: '15rem', border: '0.1rem solid #26418D', position: 'relative' }}>
         {/* ヘッダー（カード内） */}
         <CardHeader
           // 相談タイトル
