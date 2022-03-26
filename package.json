@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@aws-amplify/cli": "^7.6.23",
-    "@aws-amplify/ui-react": "^1.2.25",
+    "@aws-amplify/ui-react": "^1.2.26",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.5.3",
@@ -28,6 +28,7 @@
     "react-timer-hook": "^3.0.5",
     "recharts": "^2.1.8",
     "skyway-js": "^4.4.3",
+    "stripe": "^8.211.0",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

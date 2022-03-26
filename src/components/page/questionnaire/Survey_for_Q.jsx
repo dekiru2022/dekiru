@@ -8,6 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
+import { createQuestionQuestionnaire as createQuestionQuestionnaireMutation } from '../../../graphql/mutations';
 
 const labels_total = {
   1: 'トラブルがあった',
@@ -39,7 +40,7 @@ const labels_time = {
   5: 'とても早く解決した',
 };
 
-function Survey_for_Q(props){
+function Survey_for_Q(props) {
   const [total, setTotal] = React.useState(5);
   const [h_total, setH_Total] = React.useState(5);
   const [sodan, setSodan] = React.useState(5);
@@ -49,105 +50,146 @@ function Survey_for_Q(props){
   const [time, setTime] = React.useState(5);
   const [h_time, setH_Time] = React.useState(5);
 
-  return(
-    <div align="center">
-          <Typography variant='h3'>相談者に向けての評価</Typography>
-          <p><font color="gray">丁寧なコメントを心がけましょう。不快な言葉遣いは利用制限や退会処分になることがあります。</font></p>
-          <hr></hr>
-          <Typography variant='h4'>公開評価</Typography>
-          <p><font color="gray">公開評価は解決者に通知されます。</font></p>
-          <Typography variant='h5'>総合評価</Typography>
+  // 入力チェック
+  async function inputCheck() {
+    if (checkBottomFlag == 2) {
+      alert('質問中のため、質問できません。');
+    } else if (formData.title == "" || formData.content == "" | formData.categoryId == null) {
+      alert('全ての項目を入力してください');
+    } else {
+      let result = window.confirm('相談を送信してもよろしいですか？');
+      // OKボタン押下時
+      if (result) {
+        createQuestions();
+        //window.location.href = '/indexResolver';
+        // キャンセルボタン押下時
+      } else {
+        // 何も処理を行わない
+      }
+    }
+  }
 
-          <Box sx={{width: 400,display: 'flex',alignItems: 'center',}}>
-          <Rating
+  // データ送信
+  async function createQuestions() {
+    let user1 = await Auth.currentAuthenticatedUser();
+    let datetime = new Date().toISOString();
+
+    formData.userId = user1.attributes.sub;
+    formData.questionId = "";
+    // formData.categoryId = 1;
+    formData.publicQuestionValue = total;
+    formData.privateQuestionValue1 = sodan;
+    formData.privateQuestionValue2 = comu;
+    formData.privateQuestionValue3 = time;
+    formData.createdAt = datetime;
+    formData.updatedAt = datetime;
+    formData.deleteFlg = 0;
+    console.log(formData);
+    await API.graphql({ query: createQuestionQuestionnaireMutation, variables: { input: formData } });
+  }
+
+  return (
+    <div align="center">
+      <Typography variant='h3'>相談者に向けての評価</Typography>
+      <p><font color="gray">丁寧なコメントを心がけましょう。不快な言葉遣いは利用制限や退会処分になることがあります。</font></p>
+      <hr></hr>
+      <Typography variant='h4'>公開評価</Typography>
+      <p><font color="gray">公開評価は解決者に通知されます。</font></p>
+      <Typography variant='h5'>総合評価</Typography>
+
+      <Box sx={{ width: 400, display: 'flex', alignItems: 'center', }}>
+        <Rating
           name="hover-feedback"
           size="large"
           value={total}
           onChange={(event, newValue) => {
-          setTotal(newValue);
+            setTotal(newValue);
           }}
           onChangeActive={(event, newHover) => {
-          setH_Total(newHover);
+            setH_Total(newHover);
           }}
           emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-          />
-          {total !== null && (
+        />
+        {total !== null && (
           <Box sx={{ ml: 2 }}>{labels_total[h_total !== -1 ? h_total : total]}</Box>
-          )}
-          </Box>
+        )}
+      </Box>
 
-          <hr></hr>
-          <Typography variant='h4'>非公開評価</Typography>
-          <p><font color="gray">非公開評価は相手に通知されません。</font></p>
-          <Typography component="legend">相談はわかりやすかったですか？？</Typography>
+      <hr></hr>
+      <Typography variant='h4'>非公開評価</Typography>
+      <p><font color="gray">非公開評価は相手に通知されません。</font></p>
 
-          <Box sx={{width: 400,display: 'flex',alignItems: 'center',}}>
-          <Rating
+      {/* privateAnswerValue1 */}
+      <Typography component="legend">相談はわかりやすかったですか？？</Typography>
+
+      <Box sx={{ width: 400, display: 'flex', alignItems: 'center', }}>
+        <Rating
           name="hover-feedback"
           size="small"
           value={sodan}
           onChange={(event, newValue) => {
-          setSodan(newValue);
+            setSodan(newValue);
           }}
           onChangeActive={(event, newHover) => {
-          setH_Sodan(newHover);
+            setH_Sodan(newHover);
           }}
           emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-          />
-          {sodan !== null && (
+        />
+        {sodan !== null && (
           <Box sx={{ ml: 2 }}>{labels_soudan[h_sodan !== -1 ? h_sodan : sodan]}</Box>
-          )}
-          </Box>
+        )}
+      </Box>
 
-          <Typography component="legend">コミュニケーションは取れていましたか？</Typography>
-
-          <Box sx={{width: 400,display: 'flex',alignItems: 'center',}}>
-          <Rating
+      {/* privateAnswerValue2 */}
+      <Typography component="legend">コミュニケーションは取れていましたか？</Typography>
+      <Box sx={{ width: 400, display: 'flex', alignItems: 'center', }}>
+        <Rating
           name="hover-feedback"
           size='small'
           value={comu}
           onChange={(event, newValue) => {
-          setComu(newValue);
+            setComu(newValue);
           }}
           onChangeActive={(event, newHover) => {
-          setH_Comu(newHover);
+            setH_Comu(newHover);
           }}
           emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-          />
-          {comu !== null && (
+        />
+        {comu !== null && (
           <Box sx={{ ml: 2 }}>{labels_comu[h_comu !== -1 ? h_comu : comu]}</Box>
-          )}
-          </Box>
+        )}
+      </Box>
 
-          <Typography component="legend">希望した時間通りに問題は解決しましたか？</Typography>
+      {/* privateAnswerValue3 */}
+      <Typography component="legend">希望した時間通りに問題は解決しましたか？</Typography>
 
-          <Box sx={{width: 400,display: 'flex',alignItems: 'center',}}>
-          <Rating
+      <Box sx={{ width: 400, display: 'flex', alignItems: 'center', }}>
+        <Rating
           name="hover-feedback"
           size="small"
           value={time}
           onChange={(event, newValue) => {
-          setTime(newValue);
+            setTime(newValue);
           }}
           onChangeActive={(event, newHover) => {
-          setH_Time(newHover);
+            setH_Time(newHover);
           }}
           emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-          />
-          {time !== null && (
+        />
+        {time !== null && (
           <Box sx={{ ml: 2 }}>{labels_time[h_time !== -1 ? h_time : time]}</Box>
-          )}
-          </Box>
+        )}
+      </Box>
 
-          <hr></hr>
-          <p><font color="gray">相談を解決できなかった、力になれなかったと判断した場合は、下のボタンから辞退をすることが可能です。</font></p>
-          <p><font color="gray">辞退をすることで、受け取る費用をキャンセルすることができます。</font></p>
-          <p><font color="gray">その際、相談者からの評価は反映されません。</font></p>
-          <Button variant="contained">辞退</Button>
-          <hr></hr>
-          <Typography variant='h5'>評価へのご協力ありがとうございます。</Typography>
-          <Button variant="contained">送信</Button>
-      </div>
+      <hr></hr>
+      <p><font color="gray">相談を解決できなかった、力になれなかったと判断した場合は、下のボタンから辞退をすることが可能です。</font></p>
+      <p><font color="gray">辞退をすることで、受け取る費用をキャンセルすることができます。</font></p>
+      <p><font color="gray">その際、相談者からの評価は反映されません。</font></p>
+      <Button variant="contained">辞退</Button>
+      <hr></hr>
+      <Typography variant='h5'>評価へのご協力ありがとうございます。</Typography>
+      <Button variant="contained">送信</Button>
+    </div>
   )
 }
 

@@ -198,17 +198,17 @@ export default function IndexQuestion(props) {
                                     {/* ヘッダー（カード内） */}
                                     <CardHeader
                                         // 相談タイトル
-                                        title={findedQueestionTitle}
+                                        title={users.questionTitle}
                                         titleTypographyProps={{ variant: 'h5' }}
                                         // 相談作成時間
-                                        subheader={findedQueestionCreatedAt}
+                                        subheader={users.updatedAt}
                                         style={{ marginTop: '0.5%' }}
                                     />
 
                                     {/* 相談内容（カード内） */}
                                     <CardContent>
                                         <Typography variant="subtitle" color="text.secondary">
-                                            {findedQueestionContent}
+                                            {users.questionContent}
                                         </Typography>
                                     </CardContent>
                                 </Card>

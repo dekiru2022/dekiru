@@ -101,7 +101,6 @@ function PostQuestion() {
 
 // データ送信
 async function createQuestions() {
-  if (!formData.title || !formData.content) return;
   let user1 = await Auth.currentAuthenticatedUser();
   let datetime = new Date().toISOString();
 

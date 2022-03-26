@@ -116,6 +116,7 @@ type AnswerQuestionnaire @model {
   userId: String!
   questionId:String
   cashFlowId:String
+  publicQuestionValue:Int
   privateAnswerValue1:Int
   privateAnswerValue2:Int
   privateAnswerValue3:Int

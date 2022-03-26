@@ -43,5 +43,19 @@
         ]
       }
     }
+  },
+  "function": {
+    "S3Triggerb3ee1869": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
+  "storage": {
+    "mydreams": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }
