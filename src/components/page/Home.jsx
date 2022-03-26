@@ -11,8 +11,9 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core'
 // 共通部品（Button）
 import { StyleButton, StyleQuesButton } from '../ui/styleButton';
-// 画像　インポート
-import HomeTop from '../../images/HOME-Top.png'
+// 画像 インポート
+import HomeTop from '../../images/MyDREAMS_Home.png'
+import HomeTopPhone from '../../images/MyDREAMS_HomePhone.png'
 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { listQuestions, listAnswerUsers } from '../../graphql/queries';
@@ -111,10 +112,10 @@ export default function Home() {
     <>
       {/* 画像 */}
       <p className="pc-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-        <img alignItems="center" width="90%" height="auto" src={HomeTop} ></img>
+        <img alignItems="center" width="100%" height="auto" src={HomeTop} ></img>
       </p>
       <p className="smartphone-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-        <img alignItems="center" width="90%" height="auto" src={HomeTop} ></img>
+        <img alignItems="center" width="100%" height="auto" src={HomeTopPhone} ></img>
       </p>
 
       {/* ボタン 
@@ -136,17 +137,17 @@ export default function Home() {
         </Grid>
       </Grid>
 
-      <Grid container  className="smartphone-area" spacing={2} justifyContent="center" alignItems="center" >
-        <Grid item className="smartphone-area" >
+      <Grid container className="smartphone-area" spacing={2} justifyContent="center" alignItems="center" >
+        <Grid item xs={5} className="smartphone-area" >
           {checkBottomFlag
-            ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
-            : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
+            ? <StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
+            : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
           }
         </Grid>
-        <Grid item className="smartphone-area" >
+        <Grid item xs={5} className="smartphone-area" >
           {checkAnsFlag
-            ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
-            : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
+            ? <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
+            : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
           }
         </Grid>
       </Grid>
