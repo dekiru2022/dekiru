@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 // Graphql インポート
 import { createQuestionQuestionnaire as createQuestionQuestionnaireMutation } from '../../../graphql/mutations';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 
 const labels_total = {
   1: 'トラブルがあった',
@@ -61,30 +62,25 @@ function Survey_for_A(props) {
   //const initialFormState = { title: '', content: '' }
   const [formData, setFormData] = useState([]);
 
-    // 入力チェック
-    async function inputCheck() {
-      if (checkBottomFlag == 2) {
-        alert('質問中のため、質問できません。');
-      } else if (formData.title == "" || formData.content == "" | formData.categoryId == null) {
-        alert('全ての項目を入力してください');
-      } else {
-        let result = window.confirm('相談を送信してもよろしいですか？');
-        // OKボタン押下時
-        if (result) {
-          createQuestions();
-          //window.location.href = '/indexResolver';
-          // キャンセルボタン押下時
-        } else {
-          // 何も処理を行わない
-        }
-      }
+  // 入力チェック
+  async function inputCheck() {
+    let result = window.confirm('相談を送信してもよろしいですか？');
+    // OKボタン押下時
+    if (result) {
+      createQuestions();
+      //window.location.href = '/indexResolver';
+      // キャンセルボタン押下時
+    } else {
+      // 何も処理を行わない
     }
-  
+
+  }
+
   // データ送信
   async function createQuestions() {
     let user1 = await Auth.currentAuthenticatedUser();
     let datetime = new Date().toISOString();
-  
+
     formData.userId = user1.attributes.sub;
     formData.questionId = "";
     // formData.categoryId = 1;
@@ -133,7 +129,7 @@ function Survey_for_A(props) {
       <hr></hr>
       <Typography variant='h4'>非公開評価</Typography>
       <p><font color="gray">非公開評価は相手に通知されません。</font></p>
-      
+
       {/* privateQuestionValue1 */}
       <Typography component="legend">希望した時間通りに問題は解決しましたか？</Typography>
 
