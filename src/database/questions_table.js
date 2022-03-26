@@ -20,5 +20,16 @@ export const questions = [
     status: 1,
     created_at: '10分前',
     updated_at: '2022-01-01 00:10:00',
+  },
+  {
+    id: 3,
+    user_id: 2,
+    user_char_name: '外',
+    category_id: 1,
+    title: 'テレビのリモコンの使い方がわかりません',
+    content: 'リモコンの使い方を教えてください',
+    status: 1,
+    created_at: '10分前',
+    updated_at: '2022-01-01 00:10:00',
   }
 ]

@@ -1,14 +1,32 @@
 {
-  "dev": {
+  "develop": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-dekiru-dev-121729-authRole",
-      "UnauthRoleArn": "arn:aws:iam::133612345780:role/amplify-dekiru-dev-121729-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::133612345780:role/amplify-dekiru-dev-121729-authRole",
+      "AuthRoleName": "amplify-mydreams-develop-123131-authRole",
+      "UnauthRoleArn": "arn:aws:iam::133612345780:role/amplify-mydreams-develop-123131-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::133612345780:role/amplify-mydreams-develop-123131-authRole",
       "Region": "ap-northeast-1",
-      "DeploymentBucketName": "amplify-dekiru-dev-121729-deployment",
-      "UnauthRoleName": "amplify-dekiru-dev-121729-unauthRole",
-      "StackName": "amplify-dekiru-dev-121729",
-      "StackId": "arn:aws:cloudformation:ap-northeast-1:133612345780:stack/amplify-dekiru-dev-121729/2eb322f0-6e9f-11ec-b281-0e59336ed71f",
+      "DeploymentBucketName": "amplify-mydreams-develop-123131-deployment",
+      "UnauthRoleName": "amplify-mydreams-develop-123131-unauthRole",
+      "StackName": "amplify-mydreams-develop-123131",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:133612345780:stack/amplify-mydreams-develop-123131/89be1640-8fed-11ec-85a9-066029af67bf",
+      "AmplifyAppId": "d3ri846pfn4ovw"
+    },
+    "categories": {
+      "auth": {
+        "dekiru914d191e": {}
+      }
+    }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dekiru-staging-110634-authRole",
+      "UnauthRoleArn": "arn:aws:iam::133612345780:role/amplify-dekiru-staging-110634-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::133612345780:role/amplify-dekiru-staging-110634-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-dekiru-staging-110634-deployment",
+      "UnauthRoleName": "amplify-dekiru-staging-110634-unauthRole",
+      "StackName": "amplify-dekiru-staging-110634",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:133612345780:stack/amplify-dekiru-staging-110634/36edd350-a272-11ec-8ec4-0a768efa8f1d",
       "AmplifyAppId": "d33oj2it33kjuz"
     },
     "categories": {

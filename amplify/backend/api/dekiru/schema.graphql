@@ -2,8 +2,118 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Note @model {
+type UserId @model {
+  userId: ID!
+  firstName: String
+  lastName: String
+  birthday: String
+  handleName: String
+  mail: String!
+  sex: Int
+  address: String
+  experience: String
+  licenseFlag: Int
+  identificationFlag: Int
+  bankFlag: Int
+  status: Int
+  point: Int
+  transferPoint: Int
+  GMOuserID: String
+  businessCode:String
   id: ID!
-  name: String!
-  description: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+  job: String
+}
+
+type Questions @model {
+  id: ID!
+  userId: String!
+  categoryId: Int!
+  title:String!
+  content:String!
+  status:Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+  deleteFlg:Int
+}
+
+type Notice @model {
+  id: ID!
+  userId: String!
+  noticeTitle: String!
+  noticeStatus: Int!
+  linkDestinationUrl: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+}
+
+type AnswerUser @model {
+  id: ID!
+  userId: ID!
+  questionId: ID!
+  questionTitle:String
+  questionContent:String
+  comment: String
+  userHandleName: String
+  userJob: String
+  userExperience: String
+  userLicenseFlag: Int
+  userSex: String
+  userUnitPrice: Int
+  time: Int!
+  ansStatus: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+}
+
+type CashFlow @model {
+  cashFlowId: ID!
+  questionId: String
+  purchaserId:String
+  sellerId:String
+  purchaserCash:String
+  sellerCash:String
+  earnings:String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+}
+
+type QuestionQuestionnaire @model {
+  id: ID!
+  userId: String!
+  questionId:String!
+  cashFlowId:String
+  publicQuestionValue:Int
+  privateQuestionValue1:Int
+  privateQuestionValue2:Int
+  privateQuestionValue3:Int
+  privateQuestionValue4:Int
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+  deleteFlg:Int
+  questonComment:String
+
+}
+
+type AnswerQuestionnaire @model {
+  id: ID!
+  userId: String!
+  questionId:String
+  cashFlowId:String
+  privateAnswerValue1:Int
+  privateAnswerValue2:Int
+  privateAnswerValue3:Int
+  declineFlg:Int
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+  deleteFlg:String
+  answerComment:String
 }
