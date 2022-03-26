@@ -131,7 +131,7 @@ export default function Home() {
         <Grid item>
           {checkAnsFlag
             ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
-            : <StyleButton title="解決" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
+            : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
           }
         </Grid>
       </Grid>
