@@ -80,6 +80,7 @@ export const StyleQuesButton = ({ title, to, onClick, fontSize }) => {
 
 /**
  * StyleChengeButton
+ * グリーン
  * @param {String} title - ボタンに表示する文字
  * @param {String} to - クリック後に飛ぶルーティング用パス
  * @param {Any} onClick - ハンドラを指定

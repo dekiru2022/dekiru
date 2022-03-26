@@ -167,6 +167,7 @@ return (
             label="相談内容"
             onChange={e => setFormData({ ...formData, 'content': e.target.value })}
             value={formData.content}
+            rows={8}
             placeholder="
             - 聞きたいこと（質問の概要）&#13;
             - 目的（それを聞いてあなたは何がしたいのか）&#13;

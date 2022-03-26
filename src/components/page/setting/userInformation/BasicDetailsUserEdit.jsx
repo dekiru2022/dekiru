@@ -59,128 +59,178 @@ function BasicDetailsUserEdit() {
     }
 
     return (
-        <Card sx={{ m: 5, width: 'auto', height: 'auto', border: '0.1rem solid #26418D', position: 'relative' }}>
-            <CardHeader
+        <Card sx={{ m: 5, width: 'auto', height: 'auto', border: '0.1rem solid #26418D', position: 'relative', paddingBottom: '4rem' }}>
+            {/* タイトル */}
+            <p className="pc-area" ><CardHeader
                 title="ユーザー詳細情報"
                 titleTypographyProps={{ variant: 'h4' }}
                 style={{ marginTop: '0.5%' }}
-            />
+            /></p>
+            <p className="smartphone-area" ><CardHeader
+                title="ユーザー詳細情報"
+                titleTypographyProps={{ variant: 'h5' }}
+                style={{ marginTop: '0.5%' }}
+            /></p>
 
             {/* 名前 */}
             <CardContent>
-                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
-                    名前
-                </Typography>
-                <Typography variant="h5">
-                    <Grid container style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <Grid item xs={5.9} mr={'0.83%'} >
-                            <StyleTextField
-                                label="姓"
-                                value={user.lastName || ''}  //「 || ''」を入れないとラベルと重なる
-                                onChange={e => setUser({ ...user, 'lastName': e.target.value })}
-                            />
-                        </Grid>
-                        <Grid item xs={5.9} ml={'0.83%'} >
-                            <StyleTextField
-                                label="名"
-                                value={user.firstName || ''} //「 || ''」を入れないとラベルと重なる
-                                onChange={e => setUser({ ...user, 'firstName': e.target.value })}
-                            />
-
-                        </Grid>
-                    </Grid>
-                </Typography>
-            </CardContent>
-            {/* 性別 */}
-            <CardContent>
-                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
-                    性別
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <FormControl fullWidth style={{height: '60px'}}>
-                            <InputLabel >性別</InputLabel>
-                            <NativeSelect
-                                inputProps={{
-                                    style: {
-                                        fontSize: '24px',
-                                        height: '50px',
-                                    },
-                                    ' & .MuiInputBase-root':{
-                                        fontSize: '0rem'
-                                    }
-                                }}
-                                defaultValue={user.sex}
-                                onChange={e => setUser({ ...user, 'sex': parseInt(e.target.value) })}
-                            >
-                                <option value={0}>男性</option>
-                                <option value={1}>女性</option>
-                                <option value={2}>その他</option>
-                            </NativeSelect>
-                        </FormControl>
-                    </Grid>
-                </Typography>
-            </CardContent>
-            {/* 生年月日 */}
-            <CardContent>
-                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
-                    生年月日
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>名前</Typography>
+                <Typography className="smartphone-area" variant="h6" style={{ marginLeft: '5%' }}>名前</Typography>
+                <Grid container style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    {/* 姓 */}
+                    <Grid item className="pc-area" xs={12} md={5.9} mr={'0.83%'} >
                         <StyleTextField
-                            label="生年月日"
-                            value={user.birthday || ''}  //「 || ''」を入れないとラベルと重なる
-                            onChange={e => setUser({ ...user, 'birthday': e.target.value })}
+                            className="pc-area"
+                            label="姓"
+                            value={user.lastName || ''}  //「 || ''」を入れないとラベルと重なる
+                            onChange={e => setUser({ ...user, 'lastName': e.target.value })}
                         />
                     </Grid>
-                </Typography>
+                    <Grid item className="smartphone-area" xs={12} md={5.9} mr={'0.83%'} >
+                        <StyleTextField
+                            className="smartphone-area"
+                            label="姓"
+                            value={user.lastName || ''}  //「 || ''」を入れないとラベルと重なる
+                            onChange={e => setUser({ ...user, 'lastName': e.target.value })}
+                        />
+                    </Grid>
+
+                    {/* 名 */}
+                    <Grid item className="pc-area" xs={12} md={5.9} ml={'0.83%'} >
+                        <StyleTextField
+                            className="pc-area"
+                            label="名"
+                            value={user.firstName || ''} //「 || ''」を入れないとラベルと重なる
+                            onChange={e => setUser({ ...user, 'firstName': e.target.value })}
+                        />
+                    </Grid>
+                    <Grid item className="smartphone-area" xs={12} md={5.9} ml={'0.83%'} >
+                        <StyleTextField
+                            className="smartphone-area"
+                            label="名"
+                            value={user.firstName || ''} //「 || ''」を入れないとラベルと重なる
+                            onChange={e => setUser({ ...user, 'firstName': e.target.value })}
+                        />
+                    </Grid>
+                </Grid>
+            </CardContent>
+
+            {/* 性別 */}
+            <CardContent>
+                <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>性別</Typography>
+                <Typography className="smartphone-area" variant="h6" style={{ marginLeft: '5%' }}>性別</Typography>
+                <Grid item style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <FormControl fullWidth style={{ height: '60px' }}>
+                        <InputLabel >性別</InputLabel>
+                        <NativeSelect
+                            inputProps={{
+                                style: {
+                                    fontSize: '20px',
+                                    height: '40px',
+                                    borderBottom: 'none',
+                                    border: '1px solid silver',
+                                },
+                                ' & .MuiInputBase-root': {
+                                    fontSize: '0rem'
+                                }
+                            }}
+                            defaultValue={user.sex}
+                            onChange={e => setUser({ ...user, 'sex': parseInt(e.target.value) })}
+                        >
+                            <option value={0}>男性</option>
+                            <option value={1}>女性</option>
+                            <option value={2}>その他</option>
+                        </NativeSelect>
+                    </FormControl>
+                </Grid>
+            </CardContent>
+
+            {/* 生年月日 */}
+            <CardContent>
+                <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>生年月日</Typography>
+                <Typography className="smartphone-area" variant="h6" style={{ marginLeft: '5%' }}>生年月日</Typography>
+                <Grid item className="pc-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="pc-area"
+                        label="生年月日"
+                        value={user.birthday || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'birthday': e.target.value })}
+                    />
+                </Grid>
+                <Grid item className="smartphone-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="smartphone-area"
+                        label="生年月日"
+                        value={user.birthday || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'birthday': e.target.value })}
+                    />
+                </Grid>
             </CardContent>
             {/* 住所 */}
             <CardContent>
-                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
-                    住所
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleTextField
-                            label="住所"
-                            value={user.address || ''}  //「 || ''」を入れないとラベルと重なる
-                            onChange={e => setUser({ ...user, 'address': e.target.value })}
-                        />
-                    </Grid>
-                </Typography>
+                <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>住所</Typography>
+                <Typography className="smartphone-area" variant="h6" style={{ marginLeft: '5%' }}>住所</Typography>
+                <Grid item className="pc-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="pc-area"
+                        label="住所"
+                        value={user.address || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'address': e.target.value })}
+                    />
+                </Grid>
+                <Grid item className="smartphone-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="smartphone-area"
+                        label="住所"
+                        value={user.address || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'address': e.target.value })}
+                    />
+                </Grid>
             </CardContent>
             {/* 職業 */}
             <CardContent>
-                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
-                    職業
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleTextField
-                            label="職業"
-                            value={user.job || ''}  //「 || ''」を入れないとラベルと重なる
-                            onChange={e => setUser({ ...user, 'job': e.target.value })}
-                        />
-                    </Grid>
-                </Typography>
+                <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>職業</Typography>
+                <Typography className="smartphone-area" variant="h6" style={{ marginLeft: '5%' }}>職業</Typography>
+                <Grid item className="pc-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="pc-area"
+                        label="職業"
+                        value={user.job || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'job': e.target.value })}
+                    />
+                </Grid>
+                <Grid item className="smartphone-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="smartphone-area"
+                        label="職業"
+                        value={user.job || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'job': e.target.value })}
+                    />
+                </Grid>
             </CardContent>
             {/* 職務経験 */}
             <CardContent>
-                <Typography variant="h5" style={{ marginLeft: '10%', fontWeight: 'bold' }}>
-                    職務経験
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleTextField
-                            label="職務経験"
-                            value={user.experience || ''}  //「 || ''」を入れないとラベルと重なる
-                            onChange={e => setUser({ ...user, 'experience': e.target.value })}
-                        />
-                    </Grid>
-                </Typography>
+                <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>職務経験</Typography>
+                <Typography className="psmartphonec-area" variant="h6" style={{ marginLeft: '5%' }}>職務経験</Typography>
+                <Grid item className="pc-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="pc-area"
+                        label="職務経験"
+                        value={user.experience || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'experience': e.target.value })}
+                    />
+                </Grid>
+                <Grid item className="smartphone-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <StyleTextField
+                        className="smartphone-area"
+                        label="職務経験"
+                        value={user.experience || ''}  //「 || ''」を入れないとラベルと重なる
+                        onChange={e => setUser({ ...user, 'experience': e.target.value })}
+                    />
+                </Grid>
             </CardContent>
+
+            {/* 変更ボタン */}
             <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                 {/* カスタムボタンを使うとinputCheckで履歴のパスがうまくいかずエラーになる */}
                 <Button
@@ -191,6 +241,7 @@ function BasicDetailsUserEdit() {
 
                         // テキスト
                         color: '#FFF',
+                        fontSize: '1.5rem',
                         borderRadius: 20,
                     }}
                     className="style-chenge-button"
