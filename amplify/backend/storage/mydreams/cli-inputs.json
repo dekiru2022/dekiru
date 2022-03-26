@@ -1,0 +1,14 @@
+{
+  "resourceName": "mydreams",
+  "policyUUID": "4d1539c9",
+  "bucketName": "mydreamsbfee5a74e92c4995a80024a828466653",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

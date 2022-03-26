@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import BasicDetail from './userInformation/BasicDetail';
 import NDA from './NDA';
 import Notice from './Notice';
+import Certification from './userInformation/Certification';
 import {Auth} from 'aws-amplify'
 
 function TabPanel(props) {
@@ -67,6 +68,7 @@ export default function Setting() {
           <Tab label="マイページ" {...a11yProps(0)} />
           <Tab label="お知らせ" {...a11yProps(1)} />
           <Tab label="秘密保持契約" {...a11yProps(2)} />
+          <Tab label="秘密保持契約" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -77,6 +79,9 @@ export default function Setting() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <NDA />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Certification />
       </TabPanel>
     </Box>
   );
