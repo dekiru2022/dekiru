@@ -8,7 +8,8 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
-import { createQuestionQuestionnaire as createQuestionQuestionnaireMutation } from '../../../graphql/mutations';
+// Graphql インポート
+import { createAnswerQuestionnaire as createAnswerQuestionnaireMutation } from '../../../graphql/mutations';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 
 const labels_total = {
@@ -81,7 +82,7 @@ function Survey_for_Q(props) {
     formData.updatedAt = datetime;
     formData.deleteFlg = 0;
     console.log(formData);
-    await API.graphql({ query: createQuestionQuestionnaireMutation, variables: { input: formData } });
+    await API.graphql({ query: createAnswerQuestionnaireMutation, variables: { input: formData } });
   }
 
   return (
