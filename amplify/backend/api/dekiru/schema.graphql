@@ -10,6 +10,7 @@ type UserId @model {
   handleName: String
   mail: String!
   sex: Int
+  address: String
   experience: String
   licenseFlag: Int
   identificationFlag: Int
@@ -24,8 +25,6 @@ type UserId @model {
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
   job: String
-  address: String
-  
 }
 
 type Questions @model {
@@ -83,8 +82,6 @@ type CashFlow @model {
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
-  deleteFlg:Int
-
 }
 
 type QuestionQuestionnaire @model {
@@ -110,7 +107,6 @@ type AnswerQuestionnaire @model {
   userId: String!
   questionId:String
   cashFlowId:String
-  publicQuestionValue:Int
   privateAnswerValue1:Int
   privateAnswerValue2:Int
   privateAnswerValue3:Int
