@@ -44,15 +44,14 @@
       }
     }
   },
-  "function": {
-    "S3Triggerb3ee1869": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
   "storage": {
-    "mydreams": {
+    "mydreams9b813ffb": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    },
+    "MyDREAMS": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": []

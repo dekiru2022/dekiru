@@ -1,7 +1,7 @@
 {
-  "resourceName": "mydreams",
-  "policyUUID": "4d1539c9",
-  "bucketName": "mydreamsbfee5a74e92c4995a80024a828466653",
+  "resourceName": "MyDREAMS",
+  "policyUUID": "1ddf8629",
+  "bucketName": "mydreams5029aef38b124622a7bcdec1272d3b77",
   "storageAccess": "auth",
   "guestAccess": [],
   "authAccess": [
