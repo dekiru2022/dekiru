@@ -32,10 +32,10 @@ function BasicDetailsEdit() {
     }
     // user情報の取得（DynamoDB）
     const fetchUsers = async (cognitoID) => {
-        console.log("cognitoID:",cognitoID);
+        // console.log("cognitoID:", cognitoID)
         const apiData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
         setUser(apiData.data.getUserId)
-        console.log("apiData:",apiData.data.getUserId);//.data.getCognitoUserId.items
+        // console.log("apiData:", apiData.data.getUserId)
     }
 
     useEffect(() => {
@@ -62,69 +62,102 @@ function BasicDetailsEdit() {
     // データ送信
     async function createQuestions() {
         if (!formData.handleName || !formData.mail) return;
-        console.log(formData);
+        // console.log(formData);
         await API.graphql({ query: updateUserIdMutation, variables: { input: formData } });
-
     }
 
-
+    // 画面描画
     return (
+        <Grid container spacing={2}>
+            <Grid item xs={12} m={1}>
+                <Card sx={{ width: '100%', height: '30rem', border: '0.1rem solid #26418D', position: 'relative' }}>
+                    {/* タイトル */}
+                    <p className="pc-area" ><CardHeader
+                        title="ユーザー情報"
+                        titleTypographyProps={{ variant: 'h4' }}
+                        style={{ marginTop: '0.5%' }}
+                    /></p>
+                    <p className="smartphone-area" ><CardHeader
+                        title="ユーザー情報"
+                        titleTypographyProps={{ variant: 'h5' }}
+                        style={{ marginTop: '0.5%' }}
+                    /></p>
 
-        <Card sx={{ m: 5, width: 'auto', height: '30rem', border: '0.1rem solid #26418D', position: 'relative' }}>
-            <CardHeader
-                title="ユーザー情報"
-                titleTypographyProps={{ variant: 'h4' }}
-                style={{ marginTop: '0.5%' }}
-            />
-            <CardContent>
-                <Typography variant="h5">
-                    ユーザー名
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleInputTextField
-                            label="ユーザー名"
-                            value={user.handleName || ''}  //「 || ''」を入れないとラベルと重なる
+                    {/* ユーザ名 */}
+                    <CardContent>
+                        <Typography className="pc-area" variant="h5">ユーザー名</Typography>
+                        <Typography className="smartphone-area" variant="h6">ユーザー名</Typography>
+                        <Grid item className="pc-area" style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleInputTextField
+                                className="pc-area"
+                                label="ユーザー名"
+                                value={user.handleName || ''}  //「 || ''」を入れないとラベルと重なる
                             // 現在変更不可
                             // onChange={e => setUser({ ...user, 'handleName': e.target.value })}
-                        />
-                    </Grid>
-                </Typography>
-            </CardContent>
-            <CardContent>
-                <Typography variant="h5">
-                    メールアドレス
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleInputTextField
-                            label="メールアドレス"
-                            value={user.mail='' ? '' : user.mail || ''}  //「 || ''」を入れないとラベルと重なる
+                            />
+                        </Grid>
+                        <Grid item className="smartphone-area" style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleInputTextField
+                                className="smartphone-area"
+                                label="ユーザー名"
+                                value={user.handleName || ''}  //「 || ''」を入れないとラベルと重なる
+                            // 現在変更不可
+                            // onChange={e => setUser({ ...user, 'handleName': e.target.value })}
+                            />
+                        </Grid>
+                    </CardContent>
+
+                    {/* メールアドレス */}
+                    <CardContent>
+                        <Typography className="pc-area" variant="h5">メールアドレス</Typography>
+                        <Typography className="smartphone-area" variant="h6">メールアドレス</Typography>
+                        <Grid item className="pc-area" style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleInputTextField
+                                className="pc-area"
+                                label="メールアドレス"
+                                value={user.mail = '' ? '' : user.mail || ''}  //「 || ''」を入れないとラベルと重なる
                             // 現在変更不可
                             // onChange={e => setUser({ ...user, 'mail': e.target.value })}
-                        />
-                    </Grid>
-                </Typography>
-            </CardContent>
-            <CardContent>
-                <Typography variant="h5">
-                    資格情報
-                </Typography>
-                <Typography variant="h5">
-                    <Grid item style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <StyleInputTextField
-                            label="資格"
-                            value={ (user.licenseFlag === 0 || user.licenseFlag === null) ? 'なし' || '' : 'あり' || ''}  //「 || ''」を入れないとラベルと重なる
+                            />
+                        </Grid>
+                        <Grid item className="smartphone-area" style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleInputTextField
+                                className="smartphone-area"
+                                label="メールアドレス"
+                                value={user.mail = '' ? '' : user.mail || ''}  //「 || ''」を入れないとラベルと重なる
                             // 現在変更不可
                             // onChange={e => setUser({ ...user, 'mail': e.target.value })}
-                        />
-                    </Grid>
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                <StyleChengeButton title="資格登録" onClick={inputCheck} />
-            </CardActions>
-        </Card>
+                            />
+                        </Grid>
+                    </CardContent>
+
+                    {/* 資格情報 */}
+                    <CardContent>
+                        <Typography className="pc-area" variant="h5">資格情報</Typography>
+                        <Typography className="smartphone-area" variant="h6">資格情報</Typography>
+                        <Grid item className="pc-area" style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleInputTextField
+                                className="pc-area"
+                                label="資格"
+                                value={(user.licenseFlag === 0 || user.licenseFlag === null) ? 'なし' || '' : 'あり' || ''}  //「 || ''」を入れないとラベルと重なる
+                            />
+                        </Grid>
+                        <Grid item className="smartphone-area" style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+                            <StyleInputTextField
+                                className="smartphone-area"
+                                label="資格"
+                                value={(user.licenseFlag === 0 || user.licenseFlag === null) ? 'なし' || '' : 'あり' || ''}  //「 || ''」を入れないとラベルと重なる
+                            />
+                        </Grid>
+                    </CardContent>
+
+                    {/* 資格登録ボタン */}
+                    <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+                        <StyleChengeButton title="資格登録" onClick={inputCheck} />
+                    </CardActions>
+                </Card>
+            </Grid>
+        </Grid>
     );
 }
 
