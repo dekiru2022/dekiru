@@ -1,0 +1,63 @@
+import React,{ useContext } from "react";
+import { SkywayStoreContext } from "../Skyway";
+
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Button  from '@mui/material/Button';
+
+import CallIcon from '@mui/icons-material/Call';
+import CallEndIcon from '@mui/icons-material/CallEnd';
+import SendIcon from '@mui/icons-material/Send';
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import VideocamOffIcon from '@mui/icons-material/VideocamOff';
+import ChatIcon from '@mui/icons-material/Chat';
+import ScreenShareIcon from '@mui/icons-material/ScreenShare';
+import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
+
+const MenuBar = () => {
+  const {
+    startFlag,
+    userDisplay, setUserDisplay,
+    userAudio, setUserAudio,
+    userVideo, setUserVideo,
+    isChat, setIsChat,
+    onStart, onClose } = useContext(SkywayStoreContext);
+  
+  return (
+    <Box sx={{ width: '100%', 'backgroundColor': 'rgba(255,255,255,1)' }}>
+      <Stack justifyContent="center" alignItems="center" direction="row" spacing={6}>
+          <Stack direction="row" spacing={4}>
+            <Button size='large' color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
+              {userAudio
+              ? <Stack alignItems="center"><MicIcon />ミュート</Stack>
+              : <Stack alignItems="center"><MicOffIcon />ミュート解除</Stack>
+              }
+            </Button>
+            <Button size='large' color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
+              {userVideo
+              ? <Stack alignItems="center"><VideocamIcon />カメラオフ</Stack>
+              : <Stack alignItems="center"><VideocamOffIcon />カメラオン</Stack>
+              }
+            </Button>
+            <Button size='large' color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
+              {userDisplay
+              ? <Stack alignItems="center"><ScreenShareIcon />共有終了</Stack>
+              : <Stack alignItems="center"><StopScreenShareIcon/>画面共有</Stack>
+              }
+            </Button>
+            <Button size='large' color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
+          </Stack>
+          <Stack justifyContent="center">
+            {startFlag
+            ?<Button color="secondary" variant="contained" disableElevation onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
+            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()} startIcon={<CallIcon />}>開始</Button>
+            }
+          </Stack>
+        </Stack>
+    </Box>
+  );
+};
+
+export default MenuBar;
