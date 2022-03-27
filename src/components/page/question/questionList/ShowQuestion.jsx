@@ -32,7 +32,7 @@ import { Auth } from 'aws-amplify';
 import { API, graphqlOperation } from 'aws-amplify';
 // graphqlインポート
 import { createAnswerUser as createAnswerUserMutation } from '../../../../graphql/mutations';
-import { getCognitoUserId, getUserId, getQuestions ,listAnswerUsers} from '../../../../graphql/queries';
+import { getCognitoUserId, getUserId, getQuestions, listAnswerUsers } from '../../../../graphql/queries';
 
 function QuestionPage(props) {
 
@@ -44,8 +44,8 @@ function QuestionPage(props) {
     const [job, setJob] = useState();
     const [experience, setExperience] = useState(0);
     const meetingTimeArray = [0, 10, 20, 30, 40, 50, 60];
-    const jobArray = ["ケアーマネージャー", "介護士", "元介護士","介護福祉"];
-    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50","50~"];
+    const jobArray = ["ケアーマネージャー", "介護士", "元介護士", "介護福祉"];
+    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50", "50~"];
     const [checkBottomFlag, setCheckBottomFlag] = useState([]);
 
     const inputChange = (e) => {
@@ -87,9 +87,9 @@ function QuestionPage(props) {
         formData.questionContent = question.content;
         formData.userLicenseFlag = '0';
         {
-        user.data.getUserId.sex
-            ? formData.userSex = '女'
-            : formData.userSex = '男'
+            user.data.getUserId.sex
+                ? formData.userSex = '女'
+                : formData.userSex = '男'
         }
         formData.userUnitPrice = '200';
         formData.time = time;
@@ -160,9 +160,9 @@ function QuestionPage(props) {
 
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(question);
-    },[question])
+    }, [question])
 
     return (
         <Grid container>
@@ -185,8 +185,8 @@ function QuestionPage(props) {
                             action={<IconButton aria-label="settings">
                                 <MoreVertIcon />
                             </IconButton>}
-                            // title={user.name + ' さん'} 歳
-                            // subheader={user.ages + '歳'}
+                        // title={user.name + ' さん'} 歳
+                        // subheader={user.ages + '歳'}
                         />
 
                         <CardContent>
@@ -262,10 +262,7 @@ function QuestionPage(props) {
                                 value={formData.comment}
                             />
                             <Box mt={4}>
-                                {time
-                                    ? <Button size='large' variant='contained' color="success" component={LinkRouter} to={`/skyway/0/${time}/${question.id}`} target="_blank" >解決する！</Button>
-                                    : <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
-                                }
+                                <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
                             </Box>
                         </Stack>
                     </Box>

@@ -45,12 +45,6 @@
     }
   },
   "storage": {
-    "mydreams9b813ffb": {
-      "service": "S3",
-      "serviceType": "imported",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    },
     "MyDREAMS": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
