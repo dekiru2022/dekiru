@@ -18,17 +18,9 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "mydreams": {
+        "MyDREAMS": {
             "BucketName": "string",
             "Region": "string"
-        }
-    },
-    "function": {
-        "S3Triggerb3ee1869": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
         }
     }
 }

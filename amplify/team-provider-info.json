@@ -15,10 +15,10 @@
       "auth": {
         "dekiru914d191e": {}
       },
-      "function": {
-        "S3Triggerb3ee1869": {
-          "deploymentBucketName": "amplify-mydreams-develop-123131-deployment",
-          "s3Key": "amplify-builds/S3Triggerb3ee1869-364a7577646f45397530-build.zip"
+      "storage": {
+        "mydreams9b813ffb": {
+          "bucketName": "mydreams59f0ef9e5da242eba7f13360a75bdd0f123131-develop",
+          "region": "ap-northeast-1"
         }
       }
     }
