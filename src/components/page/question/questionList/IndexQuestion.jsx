@@ -15,6 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SearchIcon from '@material-ui/icons/Search';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 // テスト用データ
 import { categories as TestCategories } from '../../../../database/categories_table';
@@ -37,6 +39,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import '../../../../styles/Search.css';
+import { TextField } from '@mui/material';
+import { StyleTextField } from '../../../ui/styleTextField';
 
 export default function IndexQuestion(props) {
 
@@ -119,32 +123,42 @@ export default function IndexQuestion(props) {
     //     // return tmpQuestions;
     // }, [filterQuery, sort, listQuestions]);
 
-    //検索機能
-    const handleKeyDown = async (e, nextToken = null) => {
+    //検索機能（Serchアイコンクリック）
+    const onClickSerch = async (e, nextToken = null) => {
+        searchQuestion(nextToken)
+    };
+    //検索機能(エンター)
+    const handleKeyDown = (e, nextToken = null) => {
         if (e.keyCode === 13) {
             // エンターキーが押された時の処理
-            //	contains 指定した値が含まれる
-            const apiData = await API.graphql(graphqlOperation(listQuestions, {
-                filter: {
-                    "and": [
-                        {
-                            "title": {
-                                "contains": "a"
-                            }
-                        },
-                        {
-                            "status": {
-                                "eq": "1"
-                            }
+            searchQuestion(nextToken)
+        };
+    }
+    //検索機能
+    const searchQuestion = async (nextToken) => {
+        //	contains 指定した値が含まれる
+        const apiData = await API.graphql(graphqlOperation(listQuestions, {
+            filter: {
+                "and": [
+                    {
+                        "title": {
+                            "contains": "a"
                         }
-                    ]
-                },
-                limit: 10,
-                nextToken: nextToken,
-            }));
-            setQuestions(apiData.data.listQuestions.items);
-        }
-    };
+                    },
+                    {
+                        "status": {
+                            "eq": "1"
+                        }
+                    }
+                ]
+            },
+            limit: 10,
+            nextToken: nextToken,
+        }));
+        setQuestions(apiData.data.listQuestions.items);
+    }
+
+
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;
@@ -186,116 +200,125 @@ export default function IndexQuestion(props) {
                 {AnswerId ? '解答中' : '新着相談'}
             </p>
 
-            <Grid container justifyContent="center">
 
-                {AnswerId
-                    ? // 解答時の表示
-                    <>
-                        <Grid item xs={0} sm={1} md={3} />
-                        <Grid item xs={12} sm={10} md={6}>
-                            <Card my={4}>
-                                <Card sx={{ width: '100%', minHeight: '16rem', boxSizing: 'border-box', border: '0.1rem solid #26418D', position: 'relative' }}>
-                                    {/* ヘッダー（カード内） */}
-                                    <CardHeader
-                                        // 相談タイトル
-                                        title={users.questionTitle}
-                                        titleTypographyProps={{ variant: 'h5' }}
-                                        // 相談作成時間
-                                        subheader={users.updatedAt}
-                                        style={{ marginTop: '0.5%' }}
-                                    />
+            {AnswerId
+                ? // 解答時の表示
+                <Grid container justifyContent="center">
+                    <Grid item xs={0} sm={1} md={3} />
+                    <Grid item xs={12} sm={10} md={6}>
+                        <Card my={4}>
+                            <Card sx={{ width: '100%', minHeight: '16rem', boxSizing: 'border-box', border: '0.1rem solid #26418D', position: 'relative' }}>
+                                {/* ヘッダー（カード内） */}
+                                <CardHeader
+                                    // 相談タイトル
+                                    title={users.questionTitle}
+                                    titleTypographyProps={{ variant: 'h5' }}
+                                    // 相談作成時間
+                                    subheader={users.updatedAt}
+                                    style={{ marginTop: '0.5%' }}
+                                />
 
-                                    {/* 相談内容（カード内） */}
-                                    <CardContent>
-                                        <Typography variant="subtitle" color="text.secondary">
-                                            {users.questionContent}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                                {/* <QuestionCardResolver question={findedQueestion} /> */}
+                                {/* 相談内容（カード内） */}
                                 <CardContent>
-                                    <Typography variant="h6">
-                                        {users.userHandleName}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {'性別：' + users.userSex}
-                                        <br />
-                                        {'職業：' + users.userJob}
-                                        <br />
-                                        {'職務経験：' + users.userExperience + '年'}
-                                        <br />
-                                        {'解決時間：' + users.time + '分'}
-                                        <br />
-                                        {'相談費用：' + users.userUnitPrice + '円'}
+                                    <Typography variant="subtitle" color="text.secondary">
+                                        {users.questionContent}
                                     </Typography>
                                 </CardContent>
-
-                                <CardActions disableSpacing>
-                                    {/* 会議時間と自身のidはDBから取ってくる */}
-                                    <Button sx={{ mr: 4 }} variant='contained' color="error" onClick={() => { handleClick(users.id); }} target="_blank">解答やめる</Button>
-
-                                </CardActions>
                             </Card>
+                            {/* <QuestionCardResolver question={findedQueestion} /> */}
+                            <CardContent>
+                                <Typography variant="h6">
+                                    {users.userHandleName}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {'性別：' + users.userSex}
+                                    <br />
+                                    {'職業：' + users.userJob}
+                                    <br />
+                                    {'職務経験：' + users.userExperience + '年'}
+                                    <br />
+                                    {'解決時間：' + users.time + '分'}
+                                    <br />
+                                    {'相談費用：' + users.userUnitPrice + '円'}
+                                </Typography>
+                            </CardContent>
 
+                            <CardActions disableSpacing>
+                                {/* 会議時間と自身のidはDBから取ってくる */}
+                                <Button sx={{ mr: 4 }} variant='contained' color="error" onClick={() => { handleClick(users.id); }} target="_blank">解答やめる</Button>
+
+                            </CardActions>
+                        </Card>
+
+                    </Grid>
+                    <Grid item xs={0} sm={1} md={3} />
+                </Grid>
+                :// 非解答時の表示
+                <div style={{ width: '90%', margin: '0 auto' }}>
+                    <Grid container spacing={3} justifyContent="center" alignItems="center" >
+                        <Grid item xs={12} md={6} >
+                            {/* 検索フォーム */}
+                            <TextField
+                                InputLabelProps={{ style: { fontSize: '21px', shrink: true } }}
+                                size="medium"
+                                margin="none"
+                                variant="outlined"
+                                fullWidth
+                                InputProps={{
+                                    style: { fontSize: '21px' },
+                                    endAdornment: (
+                                        <InputAdornment>
+                                            <IconButton>
+                                                <SearchIcon onClick={(e) => onClickSerch(e)} />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                                label="検索"
+                                onKeyDown={(e) => handleKeyDown(e)}
+                            ></TextField>
                         </Grid>
-                        <Grid item xs={0} sm={1} md={3} />
-                    </>
-                    :// 非解答時の表示
-                    <>
-                        <Grid item xs={12} md={10} >
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    {/* 検索フォーム */}
-                                    <div className="search">
-                                        <div className='search__bar'>
-                                            <input
-                                                className="search__bar__input"
-                                                placeholder="Search"
-                                                onKeyDown={(e) => handleKeyDown(e)}
-                                            />
-                                            <SearchIcon />
-                                        </div>
-                                    </div>
-                                    <FormControl sx={{ width: '300px', m: '1rem' }}>
-                                        <InputLabel style={{ fontSize: '21px' }} id="category-label" >カテゴリー</InputLabel>
-                                        <Select
-                                            labelId="category-label"
-                                            label="カテゴリー"
-                                            onChange={handleFilter}
-                                            name="category_id"
-                                            style={{ fontSize: '21px' }}
-                                        >
-                                            {categories.map((category, index) => (
-                                                <MenuItem style={{ fontSize: '18px' }} value={category.categoryId} key={index}>{category.category}</MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                                {
-                                    questions.map((question, i) => {
-                                        if (question.userId != cognitoId) {
-                                            return (
-                                                <>
-                                                    <Grid item xs={12} sm={6}>
-                                                        <QuestionCardResolver question={question} />
-                                                    </Grid>
-                                                    {(() => {
-                                                        if ((questions.length === i) && ((questions.length % 2) === 1)) {
-                                                            return (
-                                                                <Grid item xs={12} sm={6}></Grid>
-                                                            )
-                                                        }
-                                                    })()}
-                                                </>
-                                            )
-                                        }
-                                    })
+                        <Grid item xs={12} md={6}>
+                            <FormControl sx={{ width: '100%' }}>
+                                <InputLabel style={{ fontSize: '21px' }} id="category-label" >カテゴリー</InputLabel>
+                                <Select
+                                    labelId="category-label"
+                                    label="カテゴリー"
+                                    onChange={handleFilter}
+                                    name="category_id"
+                                    style={{ fontSize: '21px', paddingRight: '0' }}
+                                >
+                                    {categories.map((category, index) => (
+                                        <MenuItem style={{ fontSize: '18px' }} value={category.categoryId} key={index}>{category.category}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{ marginTop: '1%' }}>
+                        {
+                            questions.map((question, i) => {
+                                if (question.userId != cognitoId) {
+                                    return (
+                                        <>
+                                            <Grid item xs={12} md={6}>
+                                                <QuestionCardResolver question={question} />
+                                            </Grid>
+                                            {(() => {
+                                                if ((questions.length === i) && ((questions.length % 2) === 1)) {
+                                                    return (
+                                                        <Grid item xs={12} md={6}></Grid>
+                                                    )
+                                                }
+                                            })()}
+                                        </>
+                                    )
                                 }
-                            </Grid>
-                        </Grid>
-                    </>
-                }
-            </Grid>
+                            })
+                        }
+                    </Grid>
+                </div>
+            }
         </>
     );
 }

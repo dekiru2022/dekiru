@@ -18,9 +18,10 @@ import { EditNotifications } from '@mui/icons-material';
  * @param {String} label - ラベル
  * @param {String} placeholder - デフォルトで表示
  * @param {Any} onChange - ハンドラを指定
+ * @param {Any} onKeyDown - Enter押下時の処理
  * @returns StyleTextField
  */
-export const StyleTextField = ({ className, value, label, placeholder, onChange }) => {
+export const StyleTextField = ({ className, value, label, placeholder, onChange, onKeyDown }) => {
     let font
 
     if (className == "smartphone-area") {
@@ -42,6 +43,7 @@ export const StyleTextField = ({ className, value, label, placeholder, onChange 
             value={value}
             placeholder={placeholder}
             onChange={onChange}
+            onKeyDown={onKeyDown}
         />
     )
 }

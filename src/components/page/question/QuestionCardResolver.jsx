@@ -33,7 +33,7 @@ export const QuestionCardResolver = (props) => {
   return (
     <>
       {/* PC用 */}
-      <Card className="pc-area" sx={{ m: 1, width: '100%', height: '20rem', border: '0.1rem solid #26418D', position: 'relative' }}>
+      <Card className="pc-area" sx={{ width: '100%', height: '20rem', border: '0.1rem solid #26418D', position: 'relative' }}>
         {/* ヘッダー（カード内） */}
         <CardHeader
           // 相談タイトル
@@ -59,7 +59,7 @@ export const QuestionCardResolver = (props) => {
       </Card>
 
       {/* スマホ用 */}
-      <Card className="smartphone-area" sx={{ m: 1, width: '95%', height: '15rem', border: '0.1rem solid #26418D', position: 'relative' }}>
+      <Card className="smartphone-area" sx={{ width: '100%', height: '15rem', border: '0.1rem solid #26418D', position: 'relative' }}>
         {/* ヘッダー（カード内） */}
         <CardHeader
           // 相談タイトル
