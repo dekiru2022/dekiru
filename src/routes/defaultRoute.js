@@ -48,26 +48,26 @@ function DefaultRoute() {
   //   });
   // }, []);
 
-  // useEffect(() => {
-  //   const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
-  //     next: (eventData) => {
-  //       const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
-  //       console.log(URL);
-  //       ref.current.addNotification({
-  //         title,
-  //         level,
-  //         position,
-  //         uid,
-  //         autoDismiss,
-  //         action: {
-  //           label: "相談者に会う",
-  //           callback: () => window.open(URL)
-  //         }
-  //       });
-  //     }
-  //   });
-  //   return () => subscription.unsubscribe();
-  // })
+  useEffect(() => {
+    const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
+      next: (eventData) => {
+        const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
+        console.log(URL);
+        ref.current.addNotification({
+          title,
+          level,
+          position,
+          uid,
+          autoDismiss,
+          action: {
+            label: "相談者に会う",
+            callback: () => window.open(URL)
+          }
+        });
+      }
+    });
+    return () => subscription.unsubscribe();
+  })
   return(
     <BrowserRouter>
       {/* ヘッダー */}

@@ -116,19 +116,10 @@ export default function IndexResolver(props) {
     console.log(id);
     const result = await API.graphql(graphqlOperation(listAnswerUsers, {
       filter: {
-        "and": [
-          {
             "questionId": {
               "eq": id
             }
           },
-          {
-            "ansStatus": {
-              "eq": "1"
-            }
-          }
-        ]
-      },
       limit: 10,
       nextToken: nextToken,
     }));
