@@ -246,13 +246,13 @@ export default function IndexQuestion(props) {
                             <CardActions disableSpacing>
                                 {/* 会議時間と自身のidはDBから取ってくる */}
                                 <Button sx={{ mr: 4 }} variant='contained' color="error" onClick={() => { handleClick(users.id); }} target="_blank">解答やめる</Button>
-
                             </CardActions>
                         </Card>
 
                     </Grid>
                     <Grid item xs={0} sm={1} md={3} />
                 </Grid>
+
                 :// 非解答時の表示
                 <div style={{ width: '90%', margin: '0 auto' }}>
                     <Grid container spacing={3} justifyContent="center" alignItems="center" >

@@ -122,14 +122,14 @@ export default function Home() {
       ? 真
       : 偽
       */}
-      <Grid container className="pc-area" spacing={8} justifyContent="center" alignItems="center" >
-        <Grid item className="pc-area">
+      <Grid container className="pc-area" justifyContent="center" alignItems="center" >
+        <Grid item style={{ marginRight: '1.5%' }} className="pc-area">
           {checkBottomFlag
             ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
             : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
           }
         </Grid>
-        <Grid item className="pc-area">
+        <Grid item style={{ marginLeft: '1.5%' }} className="pc-area">
           {checkAnsFlag
             ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
             : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
@@ -137,14 +137,14 @@ export default function Home() {
         </Grid>
       </Grid>
 
-      <Grid container className="smartphone-area" spacing={2} justifyContent="center" alignItems="center" >
-        <Grid item xs={5} className="smartphone-area" >
+      <Grid container className="smartphone-area" justifyContent="center" alignItems="center" >
+        <Grid item style={{ marginRight: '0.5%' }} xs={5} className="smartphone-area" >
           {checkBottomFlag
             ? <StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
             : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
           }
         </Grid>
-        <Grid item xs={5} className="smartphone-area" >
+        <Grid item style={{ marginLeft: '0.5%' }} xs={5} className="smartphone-area" >
           {checkAnsFlag
             ? <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
             : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
