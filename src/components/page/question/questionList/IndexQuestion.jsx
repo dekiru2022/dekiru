@@ -125,24 +125,24 @@ export default function IndexQuestion(props) {
 
     //検索機能（Serchアイコンクリック）
     const onClickSerch = async (e, nextToken = null) => {
-        searchQuestion(nextToken)
+        searchQuestion(nextToken,e.target.value)
     };
     //検索機能(エンター)
     const handleKeyDown = (e, nextToken = null) => {
         if (e.keyCode === 13) {
             // エンターキーが押された時の処理
-            searchQuestion(nextToken)
+            searchQuestion(nextToken,e.target.value)
         };
     }
     //検索機能
-    const searchQuestion = async (nextToken) => {
+    const searchQuestion = async (nextToken, keyValue) => {
         //	contains 指定した値が含まれる
         const apiData = await API.graphql(graphqlOperation(listQuestions, {
             filter: {
                 "and": [
                     {
                         "title": {
-                            "contains": "a"
+                            "contains": keyValue
                         }
                     },
                     {
@@ -158,12 +158,12 @@ export default function IndexQuestion(props) {
         setQuestions(apiData.data.listQuestions.items);
     }
 
-
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;
         setFilterQuery({ ...filterQuery, [name]: value });
     };
+    
     const handleClick = async (id) => {
         // 更新処理
         const api = 'https://7nikns07z9.execute-api.ap-northeast-1.amazonaws.com/testPost';

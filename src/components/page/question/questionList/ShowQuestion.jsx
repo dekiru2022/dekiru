@@ -42,10 +42,10 @@ function QuestionPage(props) {
     const [user, setUser] = useState([]);
     const [time, setTime] = useState(10);
     const [job, setJob] = useState();
-    const [experience, setExperience] = useState(0);
-    const meetingTimeArray = [0, 10, 20, 30, 40, 50, 60];
+    const [experience, setExperience] = useState(1);
+    const meetingTimeArray = [10, 20, 30, 40, 50, 60];
     const jobArray = ["ケアーマネージャー", "介護士", "元介護士", "介護福祉"];
-    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50", "50~"];
+    const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~14", "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50", "50~"];
     const [checkBottomFlag, setCheckBottomFlag] = useState([]);
 
     const inputChange = (e) => {

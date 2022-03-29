@@ -38,7 +38,7 @@ function DefaultRoute() {
   const [level, setLevel] = useState("success");
   const [position, setPosition] = useState("tr");
   const [uid, setUid] = React.useState(0);
-  const [autoDismiss, setAutoDismiss] = useState(10);
+  const [autoDismiss, setAutoDismiss] = useState(30);
 
   // useEffect(() => {
   //   onAuthUIStateChange((nextAuthState, authData) => {
@@ -67,6 +67,7 @@ function DefaultRoute() {
     });
     return () => subscription.unsubscribe();
   })
+  
   return(
     <BrowserRouter>
       {/* ヘッダー */}
@@ -88,8 +89,9 @@ function DefaultRoute() {
         }}
       >
         Add notification
-      </button>
-      <NotificationSystem ref={ref} /> */}
+      </button> */}
+      {/* 必要 */}
+      <NotificationSystem ref={ref} />
 
       {/* ルーティング */}
       <Switch>

@@ -27,8 +27,13 @@ export default function Home() {
   useEffect(() => {
     // getQuestionsData();
     checkBotton();
+  }, [])
+
+  useEffect(() => {
+    // getQuestionsData();
     checkAnsBottom();
   }, [])
+  
   const [checkBottomFlag, setCheckBottomFlag] = useState([]);
   const [questionId, setQuestionId] = useState([]);
   const [answerId, setAnswerId] = useState([]);
@@ -78,18 +83,11 @@ export default function Home() {
     const cognitoID = user1.attributes.sub;
     const ansResult = await API.graphql(graphqlOperation(listAnswerUsers, {
       filter: {
-        "and": [
-          {
-            "userId": {
-              "eq": cognitoID
-            }
-          },
-          {
-            "ansStatus": {
-              "eq": "1"
-            }
-          }
-        ]
+
+        "userId": {
+          "eq": cognitoID
+        }
+
       },
       limit: 10,
       nextToken: nextToken,
