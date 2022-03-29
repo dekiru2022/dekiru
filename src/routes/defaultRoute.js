@@ -11,7 +11,6 @@ import Home from '../components/page/Home';
 import IndexResolver from "../components/page/question/questionList/IndexResolver";
 import Copyright from '../components/page/footer/Copyright';
 import BasicDetail from '../components/page/setting/userInformation/BasicDetail';
-import QuestionList from '../components/page/question/QuestionCard';
 import Setting from '../components/page/setting/Setting';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
 import BasicDetailsEdit from '../components/page/setting/userInformation/BasicDetailsEdit';
@@ -107,7 +106,6 @@ function DefaultRoute() {
         <Route exact path="/indexQuestion" component={IndexQuestion} />
         <Route exact path="/indexQuestion/:AnswerId" component={IndexQuestion} />
         
-        <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         {/* ユーザ関係 */}
         <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />
