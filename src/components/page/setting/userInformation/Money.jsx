@@ -39,7 +39,7 @@ export default function Money(props) {
             point="200"
             money="200"
             content="一般"
-            URL={`https://secure.telecomcredit.co.jp/inetcredit/secure/order.pl?clientip=00043&money=200&sendid=${userId}&usrmail=${userMail}`}
+            URL={`https://buy.stripe.com/test_28o5lfaMDg4ge1q7st`}
 
              />
         </Grid>
