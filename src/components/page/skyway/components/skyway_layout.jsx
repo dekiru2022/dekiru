@@ -1,6 +1,5 @@
 import React,{ useContext } from "react";
 import { SkywayStoreContext } from "../Skyway";
-import logo from '../../../../images/MyDEREAMS2.png';
 
 import Box from '@mui/material/Box';
 
@@ -59,16 +58,15 @@ export default function SkywayLayout(){
     </>
   );
 }
-
+// *
+// *CSS
+// *
 //全体
 const wrapperStyle = {
   height: "100vh",
   width: "100%",
   position: "relative",
   backgroundColor: "#333",
-  backgroundImage: `url(${logo})`,
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center center",
 };
 
 //自分の映像
