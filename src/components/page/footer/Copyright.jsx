@@ -13,7 +13,7 @@ import { padding } from '@mui/system';
 function Copyright() {
   return (
     <div style={{ backgroundColor: '#26418D' }} >
-      <Grid container spacing={8} justifyContent="center" alignItems="center" style={{ marginTop: '3%'}}>
+      <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '3%', padding: '3%'}}>
         <Grid item xs={12} sm={2}>
           <Typography variant="body2" color="#FFF" align="center">
             {'Copyright © '}<Link color="inherit" href="https://top.dekiru2021.com/">DEKIRU</Link>{' '}{new Date().getFullYear()}{'.'}

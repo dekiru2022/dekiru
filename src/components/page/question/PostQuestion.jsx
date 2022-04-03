@@ -21,12 +21,14 @@ import { StyleButton, BorderButton } from '../../ui/styleButton';
 import { StyleTextField, StyleMultilineTextField } from '../../ui/styleTextField';
 // Graphql インポート
 import { createQuestions as createQuestionsMutation } from '../../../graphql/mutations';
-import { listQuestions } from '../../../graphql/queries';
+import { listQuestions , getUserId } from '../../../graphql/queries';
 // カテゴリー取得
 import { categories } from '../../../database/categories_table';
+import { Button } from '@mui/material';
 
 // 質問投稿機能　main
 function PostQuestion() {
+  const [user, setUser] = useState();
 
   // フォームの入力値格納
   // リストボックスの値格納
@@ -37,19 +39,38 @@ function PostQuestion() {
   const initialFormState = { title: '', content: '' }
   const [formData, setFormData] = useState(initialFormState);
 
+  const [checkPoint, setCheckPoint] = useState([]);
   // コンポーネント再描画のたびに初期化
   useEffect(() => {
-    getCategoryData();
-    checkBotton();
+    getUserData();
+
   }, []);
   
   // DBからカテゴリ一覧を取得
-  const getCategoryData = () => {
+  const getUserData = async () => {
+    const user1 = await Auth.currentAuthenticatedUser();
+    let cognitoID = user1.attributes.sub;
+
+    const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
+    setUser(apiUserData.data.getUserId);
+
+    checkMoney(apiUserData.data.getUserId);
+    checkBotton(cognitoID);
+  }
+
+  async function checkMoney(checkPoint1) {
+    let point = checkPoint1.point;
+    let transferPoint = checkPoint1.transferPoint;
+    let sumPoint = point + transferPoint;
+
+    if (sumPoint >= '200') {
+      setCheckPoint(1);
+    } else {
+      setCheckPoint(0);
+    }
   }
 //描画ごとに現在質問中かチェック
-  async function checkBotton(nextToken = null) {
-    let user1 = await Auth.currentAuthenticatedUser();
-    const cognitoID = user1.attributes.sub;
+  async function checkBotton(cognitoID,nextToken = null) {
     //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
     const result = await API.graphql(graphqlOperation(listQuestions, {
       filter: {
@@ -186,7 +207,10 @@ return (
         <BorderButton to="" />
       </Grid>
       <Grid item>
-        <StyleButton title="相談する" onClick={inputCheck} />
+        {checkPoint
+        ?<Button sx={{ mr: 12 }} style={{ fontSize: 20 }} variant='contained' color="success" title="相談する" onClick={inputCheck} >依頼する</Button>
+        :<Button sx={{ mr: 12 }} style={{ fontSize: 20 }} variant='contained' target="_blank"  >ポイント購入</Button>
+        }
       </Grid>
     </Grid>
   </>

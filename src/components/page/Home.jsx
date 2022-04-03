@@ -12,7 +12,7 @@ import { Grid } from '@material-ui/core'
 // 共通部品（Button）
 import { StyleButton, StyleQuesButton } from '../ui/styleButton';
 // 画像 インポート
-import HomeTop from '../../images/MyDREAMS_Home.png'
+import HomeTop from '../../images/MyDREAMS_HOME_PC.jpg'
 import HomeTopPhone from '../../images/MyDREAMS_HomePhone.png'
 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
@@ -27,8 +27,13 @@ export default function Home() {
   useEffect(() => {
     // getQuestionsData();
     checkBotton();
+  }, [])
+
+  useEffect(() => {
+    // getQuestionsData();
     checkAnsBottom();
   }, [])
+  
   const [checkBottomFlag, setCheckBottomFlag] = useState([]);
   const [questionId, setQuestionId] = useState([]);
   const [answerId, setAnswerId] = useState([]);
@@ -78,18 +83,11 @@ export default function Home() {
     const cognitoID = user1.attributes.sub;
     const ansResult = await API.graphql(graphqlOperation(listAnswerUsers, {
       filter: {
-        "and": [
-          {
-            "userId": {
-              "eq": cognitoID
-            }
-          },
-          {
-            "ansStatus": {
-              "eq": "1"
-            }
-          }
-        ]
+
+        "userId": {
+          "eq": cognitoID
+        }
+
       },
       limit: 10,
       nextToken: nextToken,
@@ -113,45 +111,38 @@ export default function Home() {
       {/* 画像 */}
       <p className="pc-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTop} ></img>
+        <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
+          <Grid item style={{ paddingRight: '1.5%' }} className="pc-area">
+            {checkBottomFlag
+              ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
+              : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
+            }
+          </Grid>
+          <Grid item style={{ paddingLeft: '1.5%' }} className="pc-area">
+            {checkAnsFlag
+              ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
+              : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
+            }
+          </Grid>
+        </Grid>
       </p>
       <p className="smartphone-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTopPhone} ></img>
+        <Grid container className="smartphone-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
+          <Grid item style={{ paddingRight: '0.5%' }} xs={5} className="smartphone-area" >
+            {checkBottomFlag
+              ? <StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
+              : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
+            }
+          </Grid>
+          <Grid item style={{ paddingLeft: '0.5%' }} xs={5} className="smartphone-area" >
+            {checkAnsFlag
+              ? <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
+              : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
+            }
+          </Grid>
+        </Grid>
       </p>
-
-      {/* ボタン 
-      ? 真
-      : 偽
-      */}
-      <Grid container className="pc-area" spacing={8} justifyContent="center" alignItems="center" >
-        <Grid item className="pc-area">
-          {checkBottomFlag
-            ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
-            : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
-          }
-        </Grid>
-        <Grid item className="pc-area">
-          {checkAnsFlag
-            ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
-            : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
-          }
-        </Grid>
-      </Grid>
-
-      <Grid container className="smartphone-area" spacing={2} justifyContent="center" alignItems="center" >
-        <Grid item xs={5} className="smartphone-area" >
-          {checkBottomFlag
-            ? <StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
-            : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
-          }
-        </Grid>
-        <Grid item xs={5} className="smartphone-area" >
-          {checkAnsFlag
-            ? <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
-            : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
-          }
-        </Grid>
-      </Grid>
-      <p className="smartphone-area" style={{ marginBottom: '10%' }}></p>
     </>
   );
 }

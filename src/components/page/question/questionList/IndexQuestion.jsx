@@ -125,24 +125,24 @@ export default function IndexQuestion(props) {
 
     //検索機能（Serchアイコンクリック）
     const onClickSerch = async (e, nextToken = null) => {
-        searchQuestion(nextToken)
+        searchQuestion(nextToken,e.target.value)
     };
     //検索機能(エンター)
     const handleKeyDown = (e, nextToken = null) => {
         if (e.keyCode === 13) {
             // エンターキーが押された時の処理
-            searchQuestion(nextToken)
+            searchQuestion(nextToken,e.target.value)
         };
     }
     //検索機能
-    const searchQuestion = async (nextToken) => {
+    const searchQuestion = async (nextToken, keyValue) => {
         //	contains 指定した値が含まれる
         const apiData = await API.graphql(graphqlOperation(listQuestions, {
             filter: {
                 "and": [
                     {
                         "title": {
-                            "contains": "a"
+                            "contains": keyValue
                         }
                     },
                     {
@@ -158,12 +158,12 @@ export default function IndexQuestion(props) {
         setQuestions(apiData.data.listQuestions.items);
     }
 
-
     // 入力した情報をfilterQueryに入れる
     const handleFilter = e => {
         const { name, value } = e.target;
         setFilterQuery({ ...filterQuery, [name]: value });
     };
+    
     const handleClick = async (id) => {
         // 更新処理
         const api = 'https://7nikns07z9.execute-api.ap-northeast-1.amazonaws.com/testPost';
@@ -246,13 +246,13 @@ export default function IndexQuestion(props) {
                             <CardActions disableSpacing>
                                 {/* 会議時間と自身のidはDBから取ってくる */}
                                 <Button sx={{ mr: 4 }} variant='contained' color="error" onClick={() => { handleClick(users.id); }} target="_blank">解答やめる</Button>
-
                             </CardActions>
                         </Card>
 
                     </Grid>
                     <Grid item xs={0} sm={1} md={3} />
                 </Grid>
+
                 :// 非解答時の表示
                 <div style={{ width: '90%', margin: '0 auto' }}>
                     <Grid container spacing={3} justifyContent="center" alignItems="center" >

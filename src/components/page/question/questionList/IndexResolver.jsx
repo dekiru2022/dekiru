@@ -85,12 +85,11 @@ export default function IndexResolver(props) {
   const fetchUserData = async () => {
     const user1 = await Auth.currentAuthenticatedUser();
     let cognitoID = user1.attributes.sub;
-    console.log(user1);
+
     const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
     setUser(apiUserData.data.getUserId);
     // setUserPoint(apiData.data.getUserId.point);
     // setUserTrasferPoint(apiData.data.getUserId.transferPoint);
-    console.log(apiUserData.data.getUserId);
     //console.log(apiUserData);//.data.getCognitoUserId.items
     checkMoney(apiUserData.data.getUserId);
   }
@@ -127,14 +126,9 @@ export default function IndexResolver(props) {
     setResolver(result.data.listAnswerUsers.items);
   }
   async function checkMoney(checkPoint1) {
-    console.log('aaa');
-
     let point = checkPoint1.point;
     let transferPoint = checkPoint1.transferPoint;
     let sumPoint = point + transferPoint;
-
-
-    console.log(sumPoint);
 
     if (sumPoint >= '200') {
       setCheckPoint(1);
@@ -145,14 +139,13 @@ export default function IndexResolver(props) {
   //#36対応
   //ボタン押下後に、引数としてidを持ってくる
   const handleClick = async (id,url) => {
-    console.log(id);
-    console.log(url);
     formData.userId = id;
     formData.noticeTitle = "あなたは選ばれました";
     formData.linkDestinationUrl = url;
 
     await API.graphql({ query: createNoticeMutation, variables: { input: formData } });
   }
+
   // 入力チェック
   const deleteCheck = async (id) => {
     console.log(id);

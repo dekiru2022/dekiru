@@ -11,7 +11,6 @@ import Home from '../components/page/Home';
 import IndexResolver from "../components/page/question/questionList/IndexResolver";
 import Copyright from '../components/page/footer/Copyright';
 import BasicDetail from '../components/page/setting/userInformation/BasicDetail';
-import QuestionList from '../components/page/question/QuestionCard';
 import Setting from '../components/page/setting/Setting';
 import ShowQuestion from '../components/page/question/questionList/ShowQuestion';
 import BasicDetailsEdit from '../components/page/setting/userInformation/BasicDetailsEdit';
@@ -39,7 +38,7 @@ function DefaultRoute() {
   const [level, setLevel] = useState("success");
   const [position, setPosition] = useState("tr");
   const [uid, setUid] = React.useState(0);
-  const [autoDismiss, setAutoDismiss] = useState(10);
+  const [autoDismiss, setAutoDismiss] = useState(30);
 
   // useEffect(() => {
   //   onAuthUIStateChange((nextAuthState, authData) => {
@@ -68,6 +67,7 @@ function DefaultRoute() {
     });
     return () => subscription.unsubscribe();
   })
+  
   return(
     <BrowserRouter>
       {/* ヘッダー */}
@@ -89,8 +89,9 @@ function DefaultRoute() {
         }}
       >
         Add notification
-      </button>
-      <NotificationSystem ref={ref} /> */}
+      </button> */}
+      {/* 必要 */}
+      <NotificationSystem ref={ref} />
 
       {/* ルーティング */}
       <Switch>
@@ -107,7 +108,6 @@ function DefaultRoute() {
         <Route exact path="/indexQuestion" component={IndexQuestion} />
         <Route exact path="/indexQuestion/:AnswerId" component={IndexQuestion} />
         
-        <Route exact path="/componets/TopBar/QuestionList" component={QuestionList} />
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         {/* ユーザ関係 */}
         <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />

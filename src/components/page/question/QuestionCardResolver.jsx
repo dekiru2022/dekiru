@@ -8,7 +8,7 @@
 //
 
 //  インポート一覧
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleButton } from '../../ui/styleButton';
 //  ui インポート
 import Card from '@mui/material/Card';
@@ -16,13 +16,6 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-// Graphql インポート
-import { listQuestions } from '../../../graphql/queries';
-
-import { API } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-
-
 
 // メイン画面（カード）
 export const QuestionCardResolver = (props) => {
@@ -53,7 +46,6 @@ export const QuestionCardResolver = (props) => {
 
         {/* フッター（カード内） */}
         <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', left: '10px' }}>
-          {/* <Button variant='contained' component={LinkRouter} to="/showQuestion" >できます！</Button> */}
           <StyleButton title="回答する" to={`/showQuestion/${question.id}`} />
         </CardActions>
       </Card>
@@ -79,7 +71,6 @@ export const QuestionCardResolver = (props) => {
 
         {/* フッター（カード内） */}
         <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', left: '10px' }}>
-          {/* <Button variant='contained' component={LinkRouter} to="/showQuestion" >できます！</Button> */}
           <StyleButton title="回答する" to={`/showQuestion/${question.id}`} />
         </CardActions>
       </Card>
