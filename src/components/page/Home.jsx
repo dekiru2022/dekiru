@@ -41,32 +41,26 @@ export default function Home() {
 
   //描画ごとに現在相談中かチェック
   async function checkBotton(nextToken = null) {
+
     let user1 = await Auth.currentAuthenticatedUser();
     const cognitoID = user1.attributes.sub;
+    let filter = {
+      userId: {"eq": cognitoID}
+    };
+
     //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
     const result = await API.graphql(graphqlOperation(listQuestions, {
-      filter: {
-        "and": [
-          {
-            "userId": {
-              "eq": cognitoID
-            }
-          },
-          {
-            "status": {
-              "eq": "1"
-            }
-          }
-        ]
-      },
-      limit: 10,
+      filter: filter,
+      limit: 100,
       nextToken: nextToken,
     }));
-    console.log(result.data.listQuestions.items[0].id);
-    const tmp = result.data.listQuestions.items[0].id;
 
-    setQuestionId(tmp);
-    console.log("home:" + questionId);
+
+    const findStatus1Queestion = result.data.listQuestions.items.map(el => el.status);
+    const findNumber = findStatus1Queestion.indexOf(1);
+    console.log(result.data.listQuestions.items[findNumber].id);
+    setQuestionId(result.data.listQuestions.items[findNumber].id);
+    // console.log("home:" + questionId);
 
     // null
     if (result.data.listQuestions.items.length > 0) {
