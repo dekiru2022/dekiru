@@ -163,7 +163,7 @@ export default function IndexQuestion(props) {
         const { name, value } = e.target;
         setFilterQuery({ ...filterQuery, [name]: value });
     };
-    
+
     const handleClick = async (id) => {
         // 更新処理
         const api = 'https://7nikns07z9.execute-api.ap-northeast-1.amazonaws.com/testPost';

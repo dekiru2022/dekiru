@@ -83,13 +83,13 @@ export default function Home() {
         }
 
       },
-      limit: 10,
+      limit: 100,
       nextToken: nextToken,
     }));
-    console.log(ansResult);
-    const tmpAns = ansResult.data.listAnswerUsers.items[0].id;
-    setAnswerId(tmpAns);
-    console.log("tmpAns :" + tmpAns);
+    const findStatus1Answer = ansResult.data.listAnswerUsers.items.map(el => el.status);
+    const findNumber = findStatus1Answer.indexOf(1);
+    console.log(ansResult.data.listQuestions.items[findNumber].id);
+    setAnswerId(ansResult.data.listQuestions.items[findNumber].id);
 
     //null
     if (ansResult.data.listAnswerUsers.items.length > 0) {
