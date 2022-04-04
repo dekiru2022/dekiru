@@ -135,6 +135,7 @@ function Skyway(props){
     }
   }, [userVideo, userAudio]);
 
+  
   //通話開始時、skywayの認証クレデンシャルをミーティングの時間に設定...peer認証がわからない
   useEffect(() => {
     console.log(peer);
@@ -144,6 +145,8 @@ function Skyway(props){
     //   })
     // }
   }, [startFlag]);
+
+
   const getAndSetUserMedia = () => {
     navigator.mediaDevices.getUserMedia({video: true, audio: true})
       .then( stream => {

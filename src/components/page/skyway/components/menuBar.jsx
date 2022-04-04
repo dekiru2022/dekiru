@@ -5,8 +5,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button  from '@mui/material/Button';
 
-import CallIcon from '@mui/icons-material/Call';
-import CallEndIcon from '@mui/icons-material/CallEnd';
 import SendIcon from '@mui/icons-material/Send';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
@@ -26,33 +24,33 @@ const MenuBar = () => {
     onStart, onClose } = useContext(SkywayStoreContext);
   
   return (
-    <Box sx={{ width: '100%', 'backgroundColor': 'rgba(255,255,255,1)' }}>
-      <Stack justifyContent="center" alignItems="center" direction="row" spacing={6}>
-          <Stack direction="row" spacing={4}>
-            <Button size='large' color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
+    <Box sx={wrapperStyle}>
+      <Stack justifyContent="center" alignItems="center" direction="row" spacing={4}>
+          <Stack direction="row" spacing={2} sx={fontStyle}>
+            <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
               {userAudio
-              ? <Stack alignItems="center"><MicIcon />ミュート</Stack>
-              : <Stack alignItems="center"><MicOffIcon />ミュート解除</Stack>
+              ? <Stack alignItems="center"><MicIcon /><Box sx={fontStyle}>ミュート</Box></Stack>
+              : <Stack alignItems="center"><MicOffIcon /><Box sx={fontStyle}>ミュート解除</Box></Stack>
               }
             </Button>
-            <Button size='large' color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
+            <Button color="primary" variant="text" onClick={() => {setUserVideo(prev => !prev)}}>
               {userVideo
-              ? <Stack alignItems="center"><VideocamIcon />カメラオフ</Stack>
-              : <Stack alignItems="center"><VideocamOffIcon />カメラオン</Stack>
+              ? <Stack alignItems="center"><VideocamIcon /><Box sx={fontStyle}>カメラオフ</Box></Stack>
+              : <Stack alignItems="center"><VideocamOffIcon /><Box sx={fontStyle}>カメラオン</Box></Stack>
               }
             </Button>
-            <Button size='large' color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
+            <Button color="primary" variant="text" onClick={() => {setUserDisplay(prev => !prev)}}>
               {userDisplay
-              ? <Stack alignItems="center"><ScreenShareIcon />共有終了</Stack>
-              : <Stack alignItems="center"><StopScreenShareIcon/>画面共有</Stack>
+              ? <Stack alignItems="center"><ScreenShareIcon /><Box sx={fontStyle}>共有終了</Box></Stack>
+              : <Stack alignItems="center"><StopScreenShareIcon/><Box sx={fontStyle}>画面共有</Box></Stack>
               }
             </Button>
-            <Button size='large' color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon />チャット</Stack></Button>
+            <Button color="primary" variant="text" onClick={() => {setIsChat(prev => !prev)}}><Stack alignItems="center"><ChatIcon /><Box sx={fontStyle}>チャット</Box></Stack></Button>
           </Stack>
           <Stack justifyContent="center">
             {startFlag
-            ?<Button color="secondary" variant="contained" disableElevation onClick={() => onClose()} startIcon={<CallEndIcon />}>終了</Button>
-            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()} startIcon={<CallIcon />}>待機中</Button>
+            ?<Button color="secondary" variant="contained" disableElevation onClick={() => onClose()}>終了</Button>
+            :<Button color="primary" variant="contained" disableElevation onClick={() => onStart()}>待機中</Button>
             }
           </Stack>
         </Stack>
@@ -61,3 +59,12 @@ const MenuBar = () => {
 };
 
 export default MenuBar;
+
+const wrapperStyle = {
+  width: "100%",
+  height: "100%",
+  backgroundColor: "#fff"
+}
+const fontStyle = {
+  fontSize: "0.5rem"
+};

@@ -115,8 +115,8 @@ function DefaultRoute() {
         <Route exact path="/PointPurchase/:userId" component={Money} />
 
         {/* アンケート関係 */}
-        <Route exact path="/questionnaire/questioner" component={Survey_for_Q} />
-        <Route exact path="/questionnaire/respondent" component={Survey_for_A} />
+        <Route exact path="/questionnaire/:questionId/questioner" component={Survey_for_Q} />
+        <Route exact path="/questionnaire/:questionId/respondent" component={Survey_for_A} />
       </Switch>
 
       {/* フッター */}
