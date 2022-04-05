@@ -86,18 +86,19 @@ export default function IndexQuestion(props) {
                     "eq": "1"
                 }
             },
-            limit: 10,
+            limit: 100,
             nextToken: nextToken,
         }));
+        console.log(apiData.data.listQuestions.items);
         setQuestions(apiData.data.listQuestions.items);
 
         //ログインユーザが解答している質問を検索
         //https://www.digitalocean.com/community/tutorials/js-array-search-methods-ja
-        const findQueestion = apiData.data.listQuestions.items.map(el => el.id);
-        const findNumber = findQueestion.indexOf(users.questionId);
-        setFindedQueestionTitle(apiData.data.listQuestions.items[findNumber].title);
-        setFindedQueestionCreatedAt(apiData.data.listQuestions.items[findNumber].createdAt);
-        setFindedQueestionContent(apiData.data.listQuestions.items[findNumber].content);
+        // const findQueestion = apiData.data.listQuestions.items.map(el => el.id);
+        // const findNumber = findQueestion.indexOf(users.questionId);
+        // setFindedQueestionTitle(apiData.data.listQuestions.items[findNumber].title);
+        // setFindedQueestionCreatedAt(apiData.data.listQuestions.items[findNumber].createdAt);
+        // setFindedQueestionContent(apiData.data.listQuestions.items[findNumber].content);
     }
     // ------購読------
     useEffect(() => {

@@ -138,12 +138,26 @@ export default function IndexResolver(props) {
   }
   //#36対応
   //ボタン押下後に、引数としてidを持ってくる
-  const handleClick = async (id,url) => {
+  const handleClick = async (id,time,url) => {
     formData.userId = id;
     formData.noticeTitle = "あなたは選ばれました";
     formData.linkDestinationUrl = url;
 
     await API.graphql({ query: createNoticeMutation, variables: { input: formData } });
+    const api = 'https://f005ii5zjh.execute-api.ap-northeast-1.amazonaws.com/testExtension';
+    const data = { 
+      "id": id ,
+      "solvedTime": time
+    };
+    await axios
+        .post(api, data)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        console.log(data)
   }
 
   // 入力チェック
@@ -258,7 +272,7 @@ export default function IndexResolver(props) {
                   <CardActions disableSpacing>
                     {/* 会議時間と自身のidはDBから取ってくる */}
                     {checkPoint
-                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId,`/skyway/${user.time}/${user.questionId}`); }} to={`/skyway/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
+                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId,user.time,`/skyway/${user.time}/${user.questionId}`); }} to={`/skyway/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
                       : <Button sx={{ mr: 4 }} variant='contained' target="_blank"  >ポイント購入</Button>
                     }
                     {/* 張りぼて評価 */}
