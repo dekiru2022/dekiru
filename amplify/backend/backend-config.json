@@ -44,11 +44,5 @@
       }
     }
   },
-  "storage": {
-    "testMyDREAMS": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    }
-  }
+  "storage": {}
 }
