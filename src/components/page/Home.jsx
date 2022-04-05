@@ -75,21 +75,18 @@ export default function Home() {
   async function checkAnsBottom(nextToken = null) {
     let user1 = await Auth.currentAuthenticatedUser();
     const cognitoID = user1.attributes.sub;
+    let filter = {
+      userId: {"eq": cognitoID}
+    };
     const ansResult = await API.graphql(graphqlOperation(listAnswerUsers, {
-      filter: {
-
-        "userId": {
-          "eq": cognitoID
-        }
-
-      },
+      filter: filter,
       limit: 100,
       nextToken: nextToken,
     }));
-    const findStatus1Answer = ansResult.data.listAnswerUsers.items.map(el => el.status);
+    const findStatus1Answer = ansResult.data.listAnswerUsers.items.map(el => el.ansStatus);
     const findNumber = findStatus1Answer.indexOf(1);
-    console.log(ansResult.data.listQuestions.items[findNumber].id);
-    setAnswerId(ansResult.data.listQuestions.items[findNumber].id);
+    console.log(ansResult.data.listAnswerUsers.items[findNumber].id);
+    setAnswerId(ansResult.data.listAnswerUsers.items[findNumber].id);
 
     //null
     if (ansResult.data.listAnswerUsers.items.length > 0) {
