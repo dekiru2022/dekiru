@@ -41,7 +41,7 @@ type Questions @model {
   title:String!
   content:String!
   status:Int!
-  time:Int
+  solvedTime:Int
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime

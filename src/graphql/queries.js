@@ -102,6 +102,7 @@ export const getQuestions = /* GraphQL */ `
       title
       content
       status
+      time
       createdAt
       updatedAt
       deletedAt
@@ -123,6 +124,7 @@ export const listQuestions = /* GraphQL */ `
         title
         content
         status
+        time
         createdAt
         updatedAt
         deletedAt

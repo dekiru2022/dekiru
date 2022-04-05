@@ -148,6 +148,7 @@ export const createQuestions = /* GraphQL */ `
       title
       content
       status
+      time
       createdAt
       updatedAt
       deletedAt
@@ -167,6 +168,7 @@ export const updateQuestions = /* GraphQL */ `
       title
       content
       status
+      time
       createdAt
       updatedAt
       deletedAt
@@ -186,6 +188,7 @@ export const deleteQuestions = /* GraphQL */ `
       title
       content
       status
+      time
       createdAt
       updatedAt
       deletedAt
