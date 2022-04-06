@@ -51,7 +51,8 @@ function Survey_for_Q(props) {
   const [h_comu, setH_Comu] = React.useState(5);
   const [time, setTime] = React.useState(5);
   const [h_time, setH_Time] = React.useState(5);
-  const [formData, setFormData] = useState([]);
+  const [formData] = useState([]);
+
 
   // 入力チェック
   async function inputCheck() {
@@ -68,11 +69,12 @@ function Survey_for_Q(props) {
 
   // データ送信
   async function createQuestions() {
+    const roomId = props.match.params.questionId;
     let user1 = await Auth.currentAuthenticatedUser();
     let datetime = new Date().toISOString();
 
     formData.userId = user1.attributes.sub;
-    formData.questionId = "";
+    formData.questionId = roomId;
     // formData.categoryId = 1;
     formData.publicQuestionValue = total;
     formData.privateQuestionValue1 = sodan;
@@ -185,7 +187,7 @@ function Survey_for_Q(props) {
       <Button variant="contained">辞退</Button>
       <hr></hr>
       <Typography variant='h5'>評価へのご協力ありがとうございます。</Typography>
-      <Button variant="contained">送信</Button>
+      <Button variant="contained" onClick={inputCheck}>送信</Button>
     </div>
   )
 }
