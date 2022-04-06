@@ -119,10 +119,13 @@ export default function IndexResolver(props) {
               "eq": id
             }
           },
-      limit: 10,
+      limit: 100,
       nextToken: nextToken,
     }));
     console.log(result);
+    const findStatus1Queestion = result.data.listAnswerUsers.items.map(el => el.ansStatus);
+    const findNumber = findStatus1Queestion.indexOf(1);
+    //console.log(result.data.listAnswerUsers.items[findNumber].id);
     setResolver(result.data.listAnswerUsers.items);
   }
   async function checkMoney(checkPoint1) {

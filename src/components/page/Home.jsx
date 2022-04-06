@@ -55,7 +55,6 @@ export default function Home() {
       nextToken: nextToken,
     }));
 
-
     const findStatus1Queestion = result.data.listQuestions.items.map(el => el.status);
     const findNumber = findStatus1Queestion.indexOf(1);
     console.log(result.data.listQuestions.items[findNumber].id);
