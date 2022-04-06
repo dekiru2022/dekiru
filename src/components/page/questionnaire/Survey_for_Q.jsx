@@ -76,13 +76,13 @@ function Survey_for_Q(props) {
     formData.userId = user1.attributes.sub;
     formData.questionId = roomId;
     // formData.categoryId = 1;
-    formData.publicQuestionValue = total;
-    formData.privateQuestionValue1 = sodan;
-    formData.privateQuestionValue2 = comu;
-    formData.privateQuestionValue3 = time;
+    formData.publicAnswerValue = total;
+    formData.privateAnswerValue1 = sodan;
+    formData.privateAnswerValue2 = comu;
+    formData.privateAnswerValue3 = time;
     formData.createdAt = datetime;
     formData.updatedAt = datetime;
-    formData.deleteFlg = 0;
+    // formData.deleteFlg = 0;
     console.log(formData);
     await API.graphql({ query: createAnswerQuestionnaireMutation, variables: { input: formData } });
   }

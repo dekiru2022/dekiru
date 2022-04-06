@@ -323,6 +323,7 @@ export const getAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -351,6 +352,7 @@ export const listAnswerQuestionnaires = /* GraphQL */ `
         userId
         questionId
         cashFlowId
+        publicAnswerValue
         privateAnswerValue1
         privateAnswerValue2
         privateAnswerValue3

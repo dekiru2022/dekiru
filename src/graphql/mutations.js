@@ -467,6 +467,7 @@ export const createAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -489,6 +490,7 @@ export const updateAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -511,6 +513,7 @@ export const deleteAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3

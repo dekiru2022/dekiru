@@ -401,6 +401,7 @@ export const onCreateAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -420,6 +421,7 @@ export const onUpdateAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -439,6 +441,7 @@ export const onDeleteAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
