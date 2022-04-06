@@ -111,7 +111,6 @@ function PostQuestion() {
       // OKボタン押下時
       if (result) {
         createQuestions();
-        //window.location.href = '/indexResolver';
         // キャンセルボタン押下時
       } else {
         // 何も処理を行わない
@@ -131,10 +130,13 @@ async function createQuestions() {
   formData.createdAt = datetime;
   formData.updatedAt = datetime;
   formData.deleteFlg = 0;
-  console.log(formData);
-  await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
+
+  const r = await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
+  console.log(r.data.createQuestions.id);
   setNotes([...notes, formData]);
   setFormData(initialFormState);
+  const url = r.data.createQuestions.id;
+  window.location.href = `/indexResolver/${url}`;
 }
 
 // 画面描画
