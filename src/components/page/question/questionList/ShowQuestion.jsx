@@ -146,7 +146,9 @@ function QuestionPage(props) {
             let result = window.confirm('解決者として立候補してよろしいですか？');
             // OKボタン押下時
             if (result) {
-                await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
+                const r = await API.graphql({ query: createAnswerUserMutation, variables: { input: formData } });
+                const url = r.data.createAnswerUser.id;
+                window.location.href = `/indexQuestion/${url}`;
                 //window.location.href = '/';
                 // キャンセルボタン押下時
             } else {

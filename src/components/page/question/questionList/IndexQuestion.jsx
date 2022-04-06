@@ -140,20 +140,10 @@ export default function IndexQuestion(props) {
         //	contains 指定した値が含まれる
         const apiData = await API.graphql(graphqlOperation(listQuestions, {
             filter: {
-                "and": [
-                    {
-                        "title": {
-                            "contains": keyValue
-                        }
-                    },
-                    {
-                        "status": {
-                            "eq": "1"
-                        }
-                    }
-                ]
+                "title": {"contains": keyValue },
+                "status": {"eq": "1"}
             },
-            limit: 10,
+            limit: 100,
             nextToken: nextToken,
         }));
         setQuestions(apiData.data.listQuestions.items);

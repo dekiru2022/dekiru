@@ -33,7 +33,6 @@ function PostQuestion() {
   // フォームの入力値格納
   // リストボックスの値格納
   const [categoriesArray, setCategoriesArray] = useState(categories);
-  const [notes, setNotes] = useState([]);
   const [checkBottomFlag, setCheckBottomFlag] = useState([]);
   // test
   const initialFormState = { title: '', content: '' }
@@ -125,16 +124,12 @@ async function createQuestions() {
   let datetime = new Date().toISOString();
 
   formData.userId = user1.attributes.sub;
-  // formData.categoryId = 1;
   formData.status = 1;
   formData.createdAt = datetime;
   formData.updatedAt = datetime;
   formData.deleteFlg = 0;
 
   const r = await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
-  console.log(r.data.createQuestions.id);
-  setNotes([...notes, formData]);
-  setFormData(initialFormState);
   const url = r.data.createQuestions.id;
   window.location.href = `/indexResolver/${url}`;
 }

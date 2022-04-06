@@ -44,21 +44,19 @@ export default function Home() {
 
     let user1 = await Auth.currentAuthenticatedUser();
     const cognitoID = user1.attributes.sub;
-    let filter = {
-      userId: {"eq": cognitoID}
-    };
+
 
     //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
     const result = await API.graphql(graphqlOperation(listQuestions, {
-      filter: filter,
+      filter: {
+        "userId": {  "eq": cognitoID },
+        "status": { "eq": 1 }
+      },
       limit: 100,
       nextToken: nextToken,
     }));
-
-    const findStatus1Queestion = result.data.listQuestions.items.map(el => el.status);
-    const findNumber = findStatus1Queestion.indexOf(1);
-    console.log(result.data.listQuestions.items[findNumber].id);
-    setQuestionId(result.data.listQuestions.items[findNumber].id);
+    console.log(result.data.listQuestions.items[0].id);
+    setQuestionId(result.data.listQuestions.items[0].id);
     // console.log("home:" + questionId);
 
     // null
@@ -74,18 +72,17 @@ export default function Home() {
   async function checkAnsBottom(nextToken = null) {
     let user1 = await Auth.currentAuthenticatedUser();
     const cognitoID = user1.attributes.sub;
-    let filter = {
-      userId: {"eq": cognitoID}
-    };
+
     const ansResult = await API.graphql(graphqlOperation(listAnswerUsers, {
-      filter: filter,
+      filter: {
+        "userId": {  "eq": cognitoID },
+        "ansStatus": { "eq": 1 }
+      },
       limit: 100,
       nextToken: nextToken,
     }));
-    const findStatus1Answer = ansResult.data.listAnswerUsers.items.map(el => el.ansStatus);
-    const findNumber = findStatus1Answer.indexOf(1);
-    console.log(ansResult.data.listAnswerUsers.items[findNumber].id);
-    setAnswerId(ansResult.data.listAnswerUsers.items[findNumber].id);
+    console.log(ansResult.data.listAnswerUsers.items[0].id);
+    setAnswerId(ansResult.data.listAnswerUsers.items[0].id);
 
     //null
     if (ansResult.data.listAnswerUsers.items.length > 0) {
