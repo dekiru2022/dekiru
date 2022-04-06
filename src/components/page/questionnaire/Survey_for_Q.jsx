@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 // Graphql インポート
-import { createAnswerQuestionnaire as createAnswerQuestionnaireMutation } from '../../../graphql/mutations';
+import { createAnswerQuestionnaire } from '../../../graphql/mutations';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 
 const labels_total = {
@@ -51,7 +51,10 @@ function Survey_for_Q(props) {
   const [h_comu, setH_Comu] = React.useState(5);
   const [time, setTime] = React.useState(5);
   const [h_time, setH_Time] = React.useState(5);
-  const [formData] = useState([]);
+  const roomId = props.match.params.questionId;
+
+  const initialFormState = { questionId: roomId};
+  const [formData] = useState(initialFormState);
 
 
   // 入力チェック
@@ -69,12 +72,11 @@ function Survey_for_Q(props) {
 
   // データ送信
   async function createQuestions() {
-    const roomId = props.match.params.questionId;
-    let user1 = await Auth.currentAuthenticatedUser();
-    let datetime = new Date().toISOString();
 
+
+    let datetime = new Date().toISOString();
+    let user1 = await Auth.currentAuthenticatedUser();
     formData.userId = user1.attributes.sub;
-    formData.questionId = roomId;
     // formData.categoryId = 1;
     formData.publicAnswerValue = total;
     formData.privateAnswerValue1 = sodan;
@@ -84,7 +86,8 @@ function Survey_for_Q(props) {
     formData.updatedAt = datetime;
     // formData.deleteFlg = 0;
     console.log(formData);
-    await API.graphql({ query: createAnswerQuestionnaireMutation, variables: { input: formData } });
+    const r =  await API.graphql({ query: createAnswerQuestionnaire, variables: { input: formData } });
+    console.log(r);
   }
 
   return (
