@@ -272,7 +272,7 @@ export default function IndexResolver(props) {
                   <CardActions disableSpacing>
                     {/* 会議時間と自身のidはDBから取ってくる */}
                     {checkPoint
-                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId,user.time,`/skyway/${user.time}/${user.questionId}`); }} to={`/skyway/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
+                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId,user.time,`/skyway/0/${user.time}/${user.questionId}`); }} to={`/skyway/1/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
                       : <Button sx={{ mr: 4 }} variant='contained' target="_blank"  >ポイント購入</Button>
                     }
                     {/* 張りぼて評価 */}
