@@ -23,7 +23,7 @@ export default function SkywayLayout(){
         <Box sx={wrapperStyle}>
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
-            <Video isReverse={false} stream={remoteVideoRef} />
+            <Video me={false} stream={remoteVideoRef} />
           </Box>
 
           {/* チャット */}
@@ -45,7 +45,7 @@ export default function SkywayLayout(){
 
           {/* 自分の映像 */}
           <Box sx={localStreamStyle}>
-            <Video isReverse={true} stream={localVideoRef} />
+            <Video me={true} stream={localVideoRef} />
           </Box>
         </Box>
       </Box>

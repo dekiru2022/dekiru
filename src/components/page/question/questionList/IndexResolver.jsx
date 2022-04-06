@@ -6,10 +6,13 @@
 //  解決希望者一覧
 //
 import React, { useState, useEffect, } from 'react';
+import { Link as LinkRouter } from 'react-router-dom';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+import axios from 'axios';
+// mui インポート
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { yellow } from '@mui/material/colors';
-import { Link as LinkRouter } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
@@ -19,47 +22,30 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import CardHeader from '@mui/material/CardHeader';
-
-// 張りぼての星
+// 評価の星 インポート
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 // Graphql インポート
-import { listQuestions } from '../../../../graphql/queries';
 import { onCreateAnswerUser } from '../../../../graphql/subscriptions';
-import { listUserIds } from '../../../../graphql/queries';
-import { onCreateUserId } from '../../../../graphql/subscriptions';
-import { updateAnswerUser } from '../../../../graphql/mutations';
 import { listAnswerUsers, getQuestions, getUserId } from '../../../../graphql/queries';
+import { createNotice as createNoticeMutation } from '../../../../graphql/mutations';
 
-import {createNotice as createNoticeMutation } from '../../../../graphql/mutations';
-
-import { API, Auth, graphqlOperation } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import axios from 'axios';
-
+/** 回答希望者一覧画面 */
 export default function IndexResolver(props) {
-  const [user, setUser] = useState();
-  //DBからとってきた質問
-  // const [question, setQuestion] = useState(TestQuestions[0]);
   const [questions, setQuestions] = useState([]);
-
-  const [questionId, setQuestionId] = useState([]);
   const [users, setResolver] = useState([]);
-  const [checkBottomFlag, setCheckBottomFlag] = useState([]);
-
   const [checkPoint, setCheckPoint] = useState([]);
-
-  const [selectId, setSelectId] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const initialFormState = { noticeStatus: 1 }
+  const formData = useState(initialFormState);
+  const open = Boolean(anchorEl);
 
+  /** カード内のメニューウインドウ開く */
   const handleMoreVertClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const initialFormState = { noticeStatus : 1 }
-  const [formData, setFormData] = useState(initialFormState);
 
-  const open = Boolean(anchorEl);
-
+  /** カード内のメニューウインドウ閉じる */
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -67,7 +53,7 @@ export default function IndexResolver(props) {
   // 再描画のたびに実行
   useEffect(() => {
     fetchUserData();
-    checkBotton();
+    fetchQuestion();
   }, [])
 
   // ------購読------
@@ -82,55 +68,22 @@ export default function IndexResolver(props) {
     return () => subscription.unsubscribe();
   })
 
+  /** userIDの取得 */
   const fetchUserData = async () => {
-    const user1 = await Auth.currentAuthenticatedUser();
-    let cognitoID = user1.attributes.sub;
+    // cognitoのユーザIDを取得
+    const user = await Auth.currentAuthenticatedUser();
+    let cognitoID = user.attributes.sub;
 
+    // cognitoのユーザIDからユーザIDテーブルの値を取得
     const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
-    setUser(apiUserData.data.getUserId);
-    // setUserPoint(apiData.data.getUserId.point);
-    // setUserTrasferPoint(apiData.data.getUserId.transferPoint);
-    //console.log(apiUserData);//.data.getCognitoUserId.items
     checkMoney(apiUserData.data.getUserId);
   }
 
-  // 表示
-  //描画ごとに現在質問中かチェック
-  async function checkBotton() {
-    //URLから取得
-    const questionId = props.match.params.QuestionId;
-    console.log(questionId);
-
-    const apiQuestionData = await API.graphql(graphqlOperation(getQuestions, { id: questionId }));
-    console.log(apiQuestionData);
-    setQuestions(apiQuestionData.data.getQuestions);
-    setQuestionId(apiQuestionData.data.getQuestions.id);
-    console.log(questionId);
-
-    fetchListResolver(questionId, null);
-  }
-
-  // TODO isuues
-  async function fetchListResolver(id, nextToken) {
-    console.log(id);
-    const result = await API.graphql(graphqlOperation(listAnswerUsers, {
-      filter: {
-            "questionId": {
-              "eq": id
-            }
-          },
-      limit: 100,
-      nextToken: nextToken,
-    }));
-    console.log(result);
-    const findStatus1Queestion = result.data.listAnswerUsers.items.map(el => el.ansStatus);
-    const findNumber = findStatus1Queestion.indexOf(1);
-    console.log("a",result.data.listAnswerUsers.items[findNumber]);
-    setResolver(result.data.listAnswerUsers.items);
-  }
-  async function checkMoney(checkPoint1) {
-    let point = checkPoint1.point;
-    let transferPoint = checkPoint1.transferPoint;
+  /** 所持ポイントのチェック
+   * @param user UserIdテーブルのレコード */
+  async function checkMoney(user) {
+    let point = user.point;
+    let transferPoint = user.transferPoint;
     let sumPoint = point + transferPoint;
 
     if (sumPoint >= '200') {
@@ -139,54 +92,70 @@ export default function IndexResolver(props) {
       setCheckPoint(0);
     }
   }
+
+  /**  描画ごとに現在質問中の質問を取得 */
+  async function fetchQuestion() {
+    //URLから取得
+    const questionId = props.match.params.QuestionId;
+    const apiQuestionData = await API.graphql(graphqlOperation(getQuestions, { id: questionId }));
+    setQuestions(apiQuestionData.data.getQuestions);
+    fetchListResolver(questionId, null);
+  }
+
+  /** 回答希望者リストの取得 */
+  async function fetchListResolver(id, nextToken) {
+    const result = await API.graphql(graphqlOperation(listAnswerUsers, {
+      filter: {
+        "questionId": {  "eq": id },
+        "ansStatus": { "eq": 1 }
+      },
+      limit: 100,
+      nextToken: nextToken,
+    }));
+    setResolver(result.data.listAnswerUsers.items);
+  }
+
   //#36対応
-  //ボタン押下後に、引数としてidを持ってくる
-  const handleClick = async (id,time,url) => {
+  /** ボタン押下後に、引数としてidを持ってくる */
+  const handleClick = async (id, time, url) => {
     formData.userId = id;
     formData.noticeTitle = "あなたは選ばれました";
     formData.linkDestinationUrl = url;
 
     await API.graphql({ query: createNoticeMutation, variables: { input: formData } });
     const api = 'https://f005ii5zjh.execute-api.ap-northeast-1.amazonaws.com/testExtension';
-    const data = { 
-      "id": id ,
+    const data = {
+      "id": id,
       "solvedTime": time
     };
     await axios
-        .post(api, data)
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-        console.log(data)
+      .post(api, data)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      });
   }
 
-  // 入力チェック
+  /** 質問削除チェック  */
   const deleteCheck = async (id) => {
-    console.log(id);
     let result = window.confirm('質問を削除してもよろしいですか？');
-    
+
     if (result) {   // OKボタン押下時
       const api = 'https://4og2qtmzoj.execute-api.ap-northeast-1.amazonaws.com/testQuestion';
       const data = { "id": id };
       await axios
-          .post(api, data)
-          .then((response) => {
-              console.log(response);
-          })
-          .catch((error) => {
-              console.log(error);
-          });
-          console.log(id)
+        .post(api, data)
+        .then((response) => {})
+        .catch((error) => {});
       window.location.href = '/';
-
-     
     } else { // キャンセルボタン押下時
       // 何も処理を行わない
     }
   }
+
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 
@@ -220,7 +189,6 @@ export default function IndexResolver(props) {
               <MenuItem
                 onClick={() => {
                   handleClose()
-
                 }}
               >
                 編集する
@@ -275,7 +243,7 @@ export default function IndexResolver(props) {
                   <CardActions disableSpacing>
                     {/* 会議時間と自身のidはDBから取ってくる */}
                     {checkPoint
-                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId,user.time,`/skyway/0/${user.time}/${user.questionId}`); }} to={`/skyway/1/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
+                      ? <Button sx={{ mr: 4 }} variant='contained' color="success" component={LinkRouter} onClick={() => { handleClick(user.userId, user.time, `/skyway/0/${user.time}/${user.questionId}`); }} to={`/skyway/1/${user.time}/${user.questionId}`} target="_blank"  >依頼する</Button>
                       : <Button sx={{ mr: 4 }} variant='contained' target="_blank"  >ポイント購入</Button>
                     }
                     {/* 張りぼて評価 */}

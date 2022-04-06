@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import logo from '../../../../images/MyDEREAMS2.png';
 
 export default function Video(props){
-  const {isReverse, stream} = props; //true: 反転（自分）, false: そのまま
+  const {me, stream} = props; //me  true: 自分、反転、ミュート, false: 相手
   const [isNoVideo, setIsNoVideo] = useState(false);
   //映像が無かったらマイドリのロゴを表示（未実装）
   useEffect(() => {
@@ -20,13 +20,13 @@ export default function Video(props){
       {isNoVideo
       ? <Box sx={[videoStyle, noVideoStyle]} />
       :
-      <Box sx={isReverse ? [videoStyle, reverseVideoStyle] : videoStyle}>
+      <Box sx={me ? [videoStyle, reverseVideoStyle] : videoStyle}>
         <video
           width="100%"
           height="100%"
           ref={stream}
           autoPlay 
-          muted={true} />
+          muted={me} />
       </Box>
       }
     </>
