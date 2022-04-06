@@ -110,7 +110,7 @@ export default function IndexResolver(props) {
     fetchListResolver(questionId, null);
   }
 
-  // 表示
+  // TODO isuues
   async function fetchListResolver(id, nextToken) {
     console.log(id);
     const result = await API.graphql(graphqlOperation(listAnswerUsers, {
@@ -125,7 +125,7 @@ export default function IndexResolver(props) {
     console.log(result);
     const findStatus1Queestion = result.data.listAnswerUsers.items.map(el => el.ansStatus);
     const findNumber = findStatus1Queestion.indexOf(1);
-    //console.log(result.data.listAnswerUsers.items[findNumber].id);
+    console.log("a",result.data.listAnswerUsers.items[findNumber]);
     setResolver(result.data.listAnswerUsers.items);
   }
   async function checkMoney(checkPoint1) {
