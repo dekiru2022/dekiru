@@ -148,6 +148,7 @@ export const createQuestions = /* GraphQL */ `
       title
       content
       status
+      solvedTime
       createdAt
       updatedAt
       deletedAt
@@ -167,6 +168,7 @@ export const updateQuestions = /* GraphQL */ `
       title
       content
       status
+      solvedTime
       createdAt
       updatedAt
       deletedAt
@@ -186,6 +188,7 @@ export const deleteQuestions = /* GraphQL */ `
       title
       content
       status
+      solvedTime
       createdAt
       updatedAt
       deletedAt
@@ -464,6 +467,7 @@ export const createAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -486,6 +490,7 @@ export const updateAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3
@@ -508,6 +513,7 @@ export const deleteAnswerQuestionnaire = /* GraphQL */ `
       userId
       questionId
       cashFlowId
+      publicAnswerValue
       privateAnswerValue1
       privateAnswerValue2
       privateAnswerValue3

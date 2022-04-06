@@ -55,7 +55,6 @@ export default function Home() {
       nextToken: nextToken,
     }));
 
-
     const findStatus1Queestion = result.data.listQuestions.items.map(el => el.status);
     const findNumber = findStatus1Queestion.indexOf(1);
     console.log(result.data.listQuestions.items[findNumber].id);
@@ -75,21 +74,18 @@ export default function Home() {
   async function checkAnsBottom(nextToken = null) {
     let user1 = await Auth.currentAuthenticatedUser();
     const cognitoID = user1.attributes.sub;
+    let filter = {
+      userId: {"eq": cognitoID}
+    };
     const ansResult = await API.graphql(graphqlOperation(listAnswerUsers, {
-      filter: {
-
-        "userId": {
-          "eq": cognitoID
-        }
-
-      },
-      limit: 10,
+      filter: filter,
+      limit: 100,
       nextToken: nextToken,
     }));
-    console.log(ansResult);
-    const tmpAns = ansResult.data.listAnswerUsers.items[0].id;
-    setAnswerId(tmpAns);
-    console.log("tmpAns :" + tmpAns);
+    const findStatus1Answer = ansResult.data.listAnswerUsers.items.map(el => el.ansStatus);
+    const findNumber = findStatus1Answer.indexOf(1);
+    console.log(ansResult.data.listAnswerUsers.items[findNumber].id);
+    setAnswerId(ansResult.data.listAnswerUsers.items[findNumber].id);
 
     //null
     if (ansResult.data.listAnswerUsers.items.length > 0) {

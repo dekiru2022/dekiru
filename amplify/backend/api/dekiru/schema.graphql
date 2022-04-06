@@ -41,6 +41,7 @@ type Questions @model {
   title:String!
   content:String!
   status:Int!
+  solvedTime:Int
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
@@ -116,6 +117,7 @@ type AnswerQuestionnaire @model {
   userId: String!
   questionId:String
   cashFlowId:String
+  publicAnswerValue:Int
   privateAnswerValue1:Int
   privateAnswerValue2:Int
   privateAnswerValue3:Int
