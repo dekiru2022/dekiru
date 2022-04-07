@@ -58,22 +58,32 @@ function Survey_for_Q(props) {
 
 
   // 入力チェック
-  async function inputCheck() {
-      let result = window.confirm('相談を送信してもよろしいですか？');
+  async function inputQuestionnaireCheck() {
+      let result = window.confirm('アンケートを送信してもよろしいですか？');
       // OKボタン押下時
       if (result) {
-        createQuestions();
-        //window.location.href = '/indexResolver';
+        createQuestionnaire();
+        window.location.href = '/';
         // キャンセルボタン押下時
       } else {
         // 何も処理を行わない
       }
   }
 
-  // データ送信
-  async function createQuestions() {
-
-
+  //入力チェック
+  async function inputDecline() {
+    let result = window.confirm('辞退してもよろしいですか？');
+    // OKボタン押下時
+    if (result) {
+      createDecline();
+      window.location.href = '/';
+      // キャンセルボタン押下時
+    } else {
+      // 何も処理を行わない
+    }
+  }
+  // アンケート結果送信
+  async function createQuestionnaire() {
     let datetime = new Date().toISOString();
     let user1 = await Auth.currentAuthenticatedUser();
     formData.userId = user1.attributes.sub;
@@ -83,8 +93,23 @@ function Survey_for_Q(props) {
     formData.privateAnswerValue2 = comu;
     formData.privateAnswerValue3 = time;
     formData.createdAt = datetime;
+    formData.declineFlg = 0;
     formData.updatedAt = datetime;
+
     // formData.deleteFlg = 0;
+    console.log(formData);
+    const r =  await API.graphql({ query: createAnswerQuestionnaire, variables: { input: formData } });
+    console.log(r);
+  }
+  //辞退を送信
+  async function createDecline() {
+    let datetime = new Date().toISOString();
+    let user1 = await Auth.currentAuthenticatedUser();
+    formData.userId = user1.attributes.sub;
+    // formData.categoryId = 1;
+    formData.createdAt = datetime;
+    formData.updatedAt = datetime;
+    formData.declineFlg = 1;
     console.log(formData);
     const r =  await API.graphql({ query: createAnswerQuestionnaire, variables: { input: formData } });
     console.log(r);
@@ -187,10 +212,10 @@ function Survey_for_Q(props) {
       <p><font color="gray">相談を解決できなかった、力になれなかったと判断した場合は、下のボタンから辞退をすることが可能です。</font></p>
       <p><font color="gray">辞退をすることで、受け取る費用をキャンセルすることができます。</font></p>
       <p><font color="gray">その際、相談者からの評価は反映されません。</font></p>
-      <Button variant="contained">辞退</Button>
+      <Button variant="contained" onClick={inputDecline}>辞退</Button>
       <hr></hr>
       <Typography variant='h5'>評価へのご協力ありがとうございます。</Typography>
-      <Button variant="contained" onClick={inputCheck}>送信</Button>
+      <Button variant="contained" onClick={inputQuestionnaireCheck}>送信</Button>
     </div>
   )
 }

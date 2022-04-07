@@ -128,3 +128,48 @@ type AnswerQuestionnaire @model {
   deleteFlg:String
   answerComment:String
 }
+
+type SkypeCheckoutSession @model {
+  id: ID!
+  skypeId: String
+  object: String
+  afterEexpiration: String
+  allowPromotionCodes: String
+  amountSubtotal: Int
+  amountTotal: Int
+  clientReferenceId: String
+  consent: String
+  consentCollection: String
+  currency: String
+  customer: String
+  customerCreation:String
+  customerDetails: [String]
+  customerEmail: String
+  expires_at: String
+  livemode: String
+  locale: String
+  metadata: [String]
+  mode: String
+  paymentIntent:String
+  paymentLink: String
+  paymentMethodOptions: String
+  paymentMethodTypes: [String]
+  paymentStatus:String
+  phoneNumberCollection: [String]
+  recoveredFrom: String
+  setupIntent: String
+  shipping: String
+  shippingAddressCollection: String
+  shippingOptions:String
+  shippingRate: String
+  status: String
+  submitType: String
+  subscription :String
+  totalDetails: [String]
+  url: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  deletedAt: AWSDateTime
+  deleteFlg:String
+  answerComment:String
+}

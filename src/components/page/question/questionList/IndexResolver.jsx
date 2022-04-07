@@ -36,8 +36,10 @@ export default function IndexResolver(props) {
   const [users, setResolver] = useState([]);
   const [checkPoint, setCheckPoint] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
-  const initialFormState = { noticeStatus: 1 }
-  const formData = useState(initialFormState);
+  //この二つがないとエラーになる
+  const initialFormState = {noticeStatus : 1};
+  const [formData,set] = useState(initialFormState);
+
   const open = Boolean(anchorEl);
 
   /** カード内のメニューウインドウ開く */
@@ -118,9 +120,15 @@ export default function IndexResolver(props) {
   //#36対応
   /** ボタン押下後に、引数としてidを持ってくる */
   const handleClick = async (id, time, url) => {
+    let datetime = new Date().toISOString();
+
     formData.userId = id;
     formData.noticeTitle = "あなたは選ばれました";
-    formData.linkDestinationUrl = url;
+    formData.linkDestinationUrl =url;
+    formData.userId = id;
+    formData.createdAt = datetime;
+    formData.updatedAt = datetime;
+    console.log(formData);
 
     await API.graphql({ query: createNoticeMutation, variables: { input: formData } });
     const api = 'https://f005ii5zjh.execute-api.ap-northeast-1.amazonaws.com/testExtension';
