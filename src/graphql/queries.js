@@ -367,3 +367,110 @@ export const listAnswerQuestionnaires = /* GraphQL */ `
     }
   }
 `;
+export const getSkypeCheckoutSession = /* GraphQL */ `
+  query GetSkypeCheckoutSession($id: ID!) {
+    getSkypeCheckoutSession(id: $id) {
+      id
+      skypeId
+      object
+      afterEexpiration
+      allowPromotionCodes
+      amountSubtotal
+      amountTotal
+      clientReferenceId
+      consent
+      consentCollection
+      currency
+      customer
+      customerCreation
+      customerDetails
+      customerEmail
+      expires_at
+      livemode
+      locale
+      metadata
+      mode
+      paymentIntent
+      paymentLink
+      paymentMethodOptions
+      paymentMethodTypes
+      paymentStatus
+      phoneNumberCollection
+      recoveredFrom
+      setupIntent
+      shipping
+      shippingAddressCollection
+      shippingOptions
+      shippingRate
+      status
+      submitType
+      subscription
+      totalDetails
+      url
+      createdAt
+      updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
+    }
+  }
+`;
+export const listSkypeCheckoutSessions = /* GraphQL */ `
+  query ListSkypeCheckoutSessions(
+    $filter: ModelSkypeCheckoutSessionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSkypeCheckoutSessions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        skypeId
+        object
+        afterEexpiration
+        allowPromotionCodes
+        amountSubtotal
+        amountTotal
+        clientReferenceId
+        consent
+        consentCollection
+        currency
+        customer
+        customerCreation
+        customerDetails
+        customerEmail
+        expires_at
+        livemode
+        locale
+        metadata
+        mode
+        paymentIntent
+        paymentLink
+        paymentMethodOptions
+        paymentMethodTypes
+        paymentStatus
+        phoneNumberCollection
+        recoveredFrom
+        setupIntent
+        shipping
+        shippingAddressCollection
+        shippingOptions
+        shippingRate
+        status
+        submitType
+        subscription
+        totalDetails
+        url
+        createdAt
+        updatedAt
+        deletedAt
+        deleteFlg
+        answerComment
+      }
+      nextToken
+    }
+  }
+`;

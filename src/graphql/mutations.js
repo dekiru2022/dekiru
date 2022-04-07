@@ -526,3 +526,156 @@ export const deleteAnswerQuestionnaire = /* GraphQL */ `
     }
   }
 `;
+export const createSkypeCheckoutSession = /* GraphQL */ `
+  mutation CreateSkypeCheckoutSession(
+    $input: CreateSkypeCheckoutSessionInput!
+    $condition: ModelSkypeCheckoutSessionConditionInput
+  ) {
+    createSkypeCheckoutSession(input: $input, condition: $condition) {
+      id
+      skypeId
+      object
+      afterEexpiration
+      allowPromotionCodes
+      amountSubtotal
+      amountTotal
+      clientReferenceId
+      consent
+      consentCollection
+      currency
+      customer
+      customerCreation
+      customerDetails
+      customerEmail
+      expires_at
+      livemode
+      locale
+      metadata
+      mode
+      paymentIntent
+      paymentLink
+      paymentMethodOptions
+      paymentMethodTypes
+      paymentStatus
+      phoneNumberCollection
+      recoveredFrom
+      setupIntent
+      shipping
+      shippingAddressCollection
+      shippingOptions
+      shippingRate
+      status
+      submitType
+      subscription
+      totalDetails
+      url
+      createdAt
+      updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
+    }
+  }
+`;
+export const updateSkypeCheckoutSession = /* GraphQL */ `
+  mutation UpdateSkypeCheckoutSession(
+    $input: UpdateSkypeCheckoutSessionInput!
+    $condition: ModelSkypeCheckoutSessionConditionInput
+  ) {
+    updateSkypeCheckoutSession(input: $input, condition: $condition) {
+      id
+      skypeId
+      object
+      afterEexpiration
+      allowPromotionCodes
+      amountSubtotal
+      amountTotal
+      clientReferenceId
+      consent
+      consentCollection
+      currency
+      customer
+      customerCreation
+      customerDetails
+      customerEmail
+      expires_at
+      livemode
+      locale
+      metadata
+      mode
+      paymentIntent
+      paymentLink
+      paymentMethodOptions
+      paymentMethodTypes
+      paymentStatus
+      phoneNumberCollection
+      recoveredFrom
+      setupIntent
+      shipping
+      shippingAddressCollection
+      shippingOptions
+      shippingRate
+      status
+      submitType
+      subscription
+      totalDetails
+      url
+      createdAt
+      updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
+    }
+  }
+`;
+export const deleteSkypeCheckoutSession = /* GraphQL */ `
+  mutation DeleteSkypeCheckoutSession(
+    $input: DeleteSkypeCheckoutSessionInput!
+    $condition: ModelSkypeCheckoutSessionConditionInput
+  ) {
+    deleteSkypeCheckoutSession(input: $input, condition: $condition) {
+      id
+      skypeId
+      object
+      afterEexpiration
+      allowPromotionCodes
+      amountSubtotal
+      amountTotal
+      clientReferenceId
+      consent
+      consentCollection
+      currency
+      customer
+      customerCreation
+      customerDetails
+      customerEmail
+      expires_at
+      livemode
+      locale
+      metadata
+      mode
+      paymentIntent
+      paymentLink
+      paymentMethodOptions
+      paymentMethodTypes
+      paymentStatus
+      phoneNumberCollection
+      recoveredFrom
+      setupIntent
+      shipping
+      shippingAddressCollection
+      shippingOptions
+      shippingRate
+      status
+      submitType
+      subscription
+      totalDetails
+      url
+      createdAt
+      updatedAt
+      deletedAt
+      deleteFlg
+      answerComment
+    }
+  }
+`;
