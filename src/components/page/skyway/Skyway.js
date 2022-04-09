@@ -1,9 +1,7 @@
 import Peer,{SfuRoom} from "skyway-js";
 import React,{ useState, useRef, useEffect, createContext } from "react";
-import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red, blue } from '@mui/material/colors';
-import Spinner from 'react-spinkit';
 import SkywayLayout from "./components/skyway_layout";
 import { API } from "aws-amplify";
 
@@ -24,7 +22,7 @@ export const SkywayStoreContext = createContext();
 function Skyway(props){
   // propsからurlの値を取得
   const meetingTime = props.match.params.time;
-  const roomId = props.match.params.room;
+  const questionId = props.match.params.room;
   const isHost = props.match.params.isHost; //質問者なら1, 回答者なら0
 
   const API_KEY = '95ba327e-64d1-4c05-8f9f-ad00ac893e07';
@@ -50,7 +48,7 @@ function Skyway(props){
   //開始処理
   const onStart = async() => {
     //peer.joinRoom()で接続 => roomに接続相手の情報が帰ってくる
-    const room = peer.joinRoom(roomId, {
+    const room = peer.joinRoom(questionId, {
       mode: 'sfu',
       stream: localStream,
     });
@@ -63,7 +61,7 @@ function Skyway(props){
     room.close();
   }
   const skywayStore = {
-    peer, isHost, meetingTime, roomId,
+    peer, isHost, meetingTime, questionId,
     loading, setLoading,
     room, setRoom,
     startFlag, setStartFlag,
@@ -229,13 +227,6 @@ function Skyway(props){
           <SkywayLayout />
         </ThemeProvider>
       </SkywayStoreContext.Provider>
-
-      {/* ページが読み込まれるまではローディングアイコンが表示 */}
-      <Box sx={{display: (loading? 'none': 'block')}}>
-        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Spinner name="line-spin-fade-loader" color="gray"/>
-        </Box>
-      </Box>
     </div>
   );
 };

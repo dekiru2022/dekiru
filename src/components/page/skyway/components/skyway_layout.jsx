@@ -1,5 +1,6 @@
 import React,{ useContext } from "react";
 import { SkywayStoreContext } from "../Skyway";
+import Spinner from 'react-spinkit';
 
 import Box from '@mui/material/Box';
 
@@ -19,36 +20,41 @@ export default function SkywayLayout(){
 
   return (
     <>
-      <Box sx={{display: (loading? 'block': 'none')}}>
-        <Box sx={wrapperStyle}>
+      <Box sx={wrapperStyle}>
+        <Box sx={{display: (loading? 'block': 'none')}}>
           {/* 相手の画面 */}
           <Box sx={{ height: '100vh', display: 'flex', 'justifyContent': 'center', margin: 'auto'}}>
             <Video me={false} stream={remoteVideoRef} />
           </Box>
-
           {/* チャット */}
-          <Box sx={{display: (isChat ? 'block' : 'none')}} >
+          <Box sx={chatStyle} >
             <Chat />
           </Box>
-
           {/* タイマー */}
           {startFlag &&
           <Box sx={{position: 'absolute', top: 10, right: 10}} >
             <Timer />
           </Box>
           }
-
-          {/* 操作バー */}
-          <Box sx={menuBarStyle}>
-            <MenuBar />
-          </Box>
-
           {/* 自分の映像 */}
           <Box sx={localStreamStyle}>
             <Video me={true} stream={localVideoRef} />
           </Box>
         </Box>
+        {/* ページが読み込まれるまではローディングアイコンが表示 */}
+        <Box sx={{display: (loading? 'none': 'block')}}>
+          <Box sx={loadingStyle}>
+            <Spinner name="line-spin-fade-loader" color="gray"/>
+          </Box>
+        </Box>
+
+        {/* 操作バー */}
+        <Box sx={menuBarStyle}>
+          <MenuBar />
+        </Box>
       </Box>
+
+
 
       {closeFlag &&
       <EndMessage />
@@ -69,6 +75,14 @@ const wrapperStyle = {
   backgroundColor: "#333",
 };
 
+//チャット
+const chatStyle = {
+  position: 'absolute',
+  top: 0, 
+  right: 0,
+  zIndex: '1'
+}
+
 //自分の映像
 const localStreamWidth = 240;
 const localStreamStyle = {
@@ -87,4 +101,13 @@ const menuBarStyle = {
   position: 'absolute',
   bottom: 0,
   left: 0,
+}
+
+//ローディングアイコン
+const loadingStyle = {
+  width: '100%',
+  height: '100vh',
+  display: 'flex', 
+  alignItems: 'center',
+  justifyContent: 'center'
 }
