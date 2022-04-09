@@ -99,7 +99,7 @@ export default function Home() {
   }
   return (
     <>
-      {/* 画像 */}
+      {/* PC */}
       <p className="pc-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTop} ></img>
         <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
@@ -121,6 +121,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </p>
+      {/* スマホ */}
       <p className="smartphone-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTopPhone} ></img>
         <Grid container className="smartphone-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
