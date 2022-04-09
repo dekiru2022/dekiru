@@ -14,10 +14,14 @@ import { StyleButton, StyleQuesButton } from '../ui/styleButton';
 // 画像 インポート
 import HomeTop from '../../images/MyDREAMS_HOME_PC.jpg'
 import HomeTopPhone from '../../images/MyDREAMS_HomePhone.png'
+import QuesButton from '../../images/相談する透過.png'
+import ResolveButton from '../../images/解決する透過.png'
 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { listQuestions, listAnswerUsers } from '../../graphql/queries';
 import "../../styles/App.css";
+import { Link as LinkRouter } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 /**
  * Home
@@ -101,14 +105,18 @@ export default function Home() {
         <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
           <Grid item style={{ paddingRight: '1.5%' }} className="pc-area">
             {checkBottomFlag
-              ? <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
-              : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
+              ? // <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
+                <Button component={LinkRouter} to="/postQuestion" ><img src={QuesButton}></img></Button>
+              : // <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
+                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} ><img src={QuesButton}></img></Button>
             }
           </Grid>
           <Grid item style={{ paddingLeft: '1.5%' }} className="pc-area">
             {checkAnsFlag
-              ? <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
-              : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
+              ? // <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
+                <Button component={LinkRouter} to="/indexQuestion" ><img src={ResolveButton}></img></Button>
+              : // <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
+                <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} ><img src={ResolveButton}></img></Button>
             }
           </Grid>
         </Grid>
@@ -118,14 +126,18 @@ export default function Home() {
         <Grid container className="smartphone-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
           <Grid item style={{ paddingRight: '0.5%' }} xs={5} className="smartphone-area" >
             {checkBottomFlag
-              ? <StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
-              : <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
+              ? //<StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
+                <Button component={LinkRouter} to="/postQuestion" ><img src={QuesButton}></img></Button>
+              : // <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
+                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} ><img src={QuesButton}></img></Button>
             }
           </Grid>
           <Grid item style={{ paddingLeft: '0.5%' }} xs={5} className="smartphone-area" >
             {checkAnsFlag
-              ? <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
-              : <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
+              ? // <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
+                <Button component={LinkRouter} to="/indexQuestion" ><img src={ResolveButton}></img></Button>
+              : // <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
+                <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} ><img src={ResolveButton}></img></Button>
             }
           </Grid>
         </Grid>

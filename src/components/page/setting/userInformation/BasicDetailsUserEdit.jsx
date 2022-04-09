@@ -211,7 +211,7 @@ function BasicDetailsUserEdit() {
             {/* 職務経験 */}
             <CardContent>
                 <Typography className="pc-area" variant="h5" style={{ marginLeft: '5%' }}>職務経験</Typography>
-                <Typography className="psmartphonec-area" variant="h6" style={{ marginLeft: '5%' }}>職務経験</Typography>
+                <Typography className="smartphone-area" variant="h6" style={{ marginLeft: '5%' }}>職務経験</Typography>
                 <Grid item className="pc-area" style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
                     <StyleTextField
                         className="pc-area"
