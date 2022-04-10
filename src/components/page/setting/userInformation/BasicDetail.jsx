@@ -79,7 +79,7 @@ export default function BasicDetail() {
                     </CardContent>
                     {/* ポイント購入ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleButton title="ポイント購入" to={`/PointPurchase/${user.userId}`} />
+                        <StyleButton title="ポイント購入" to={`/PointPurchase`} />
                     </CardActions>
                 </Card>
 

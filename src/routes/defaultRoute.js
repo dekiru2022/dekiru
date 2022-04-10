@@ -112,7 +112,7 @@ function DefaultRoute() {
         {/* ユーザ関係 */}
         <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />
         <Route exact path="/BasicDetailsUserEdit" component={BasicDetailsUserEdit} />
-        <Route exact path="/PointPurchase/:userId" component={Money} />
+        <Route exact path="/PointPurchase/" component={Money} />
 
         {/* アンケート関係 */}
         <Route exact path="/questionnaire/:questionId/questioner" component={Survey_for_Q} />

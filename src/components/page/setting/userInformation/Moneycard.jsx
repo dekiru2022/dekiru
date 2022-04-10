@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
 import { API, Auth } from 'aws-amplify';
-import { createSkypeCheckoutSession } from '../../../../graphql/mutations';
+import { createSkypeCheckoutSession, updateUserId } from '../../../../graphql/mutations';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -62,22 +62,22 @@ export default function Moneycard(props) {
     const handleClick = async (event) => {
         // When the customer clicks on the button, redirect them to Checkout.
         let user1 = await Auth.currentAuthenticatedUser();
-        formData.userId = user1.attributes.sub;
-    
-        const r = await API.graphql({ query: createSkypeCheckoutSession, variables: { input: formData } });
+        const uId = user1.attributes.sub;
+
+        const r = await API.graphql({ query: createSkypeCheckoutSession, variables: { input: {userId: uId} } });
         console.log(r);
         const clientReferenceId = r.data.createSkypeCheckoutSession.id;
 
         const stripe = await stripePromise;
         const { error } = await stripe.redirectToCheckout({
             lineItems: [{
-                price: "price_1KiS4xIN86oz83NDKzGBkqlX", // Replace with the ID of your price
+                price: URL, // Replace with the ID of your price
                 quantity: 1,
             }],
             mode: 'payment',
             clientReferenceId: clientReferenceId,
             successUrl: 'http://localhost:3000/PointPurchase/',
-            cancelUrl: 'https://example.com/cancel',
+            cancelUrl: 'http://localhost:3000/PointPurchase/',
         });
         // If `redirectToCheckout` fails due to a browser or network
         // error, display the localized error message to your customer
@@ -103,8 +103,11 @@ export default function Moneycard(props) {
 
             <CardActions>
                 <Button size="small"
-                    onClick={() => { handleOpen(); }}
-                >購入</Button>
+                        variant="contained"
+                        color="success"
+                        onClick={() => { handleClick(); }}
+                >購入
+                </Button>
                 <Modal
                     open={open}
                     onClose={handleClose}
