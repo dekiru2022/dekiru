@@ -371,6 +371,7 @@ export const getSkypeCheckoutSession = /* GraphQL */ `
   query GetSkypeCheckoutSession($id: ID!) {
     getSkypeCheckoutSession(id: $id) {
       id
+      userId
       skypeId
       object
       afterEexpiration
@@ -428,6 +429,7 @@ export const listSkypeCheckoutSessions = /* GraphQL */ `
     ) {
       items {
         id
+        userId
         skypeId
         object
         afterEexpiration

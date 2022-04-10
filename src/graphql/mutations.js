@@ -533,6 +533,7 @@ export const createSkypeCheckoutSession = /* GraphQL */ `
   ) {
     createSkypeCheckoutSession(input: $input, condition: $condition) {
       id
+      userId
       skypeId
       object
       afterEexpiration
@@ -584,6 +585,7 @@ export const updateSkypeCheckoutSession = /* GraphQL */ `
   ) {
     updateSkypeCheckoutSession(input: $input, condition: $condition) {
       id
+      userId
       skypeId
       object
       afterEexpiration
@@ -635,6 +637,7 @@ export const deleteSkypeCheckoutSession = /* GraphQL */ `
   ) {
     deleteSkypeCheckoutSession(input: $input, condition: $condition) {
       id
+      userId
       skypeId
       object
       afterEexpiration

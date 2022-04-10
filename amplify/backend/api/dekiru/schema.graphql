@@ -131,6 +131,7 @@ type AnswerQuestionnaire @model {
 
 type SkypeCheckoutSession @model {
   id: ID!
+  userId: ID
   skypeId: String
   object: String
   afterEexpiration: String

@@ -458,6 +458,7 @@ export const onCreateSkypeCheckoutSession = /* GraphQL */ `
   subscription OnCreateSkypeCheckoutSession {
     onCreateSkypeCheckoutSession {
       id
+      userId
       skypeId
       object
       afterEexpiration
@@ -506,6 +507,7 @@ export const onUpdateSkypeCheckoutSession = /* GraphQL */ `
   subscription OnUpdateSkypeCheckoutSession {
     onUpdateSkypeCheckoutSession {
       id
+      userId
       skypeId
       object
       afterEexpiration
@@ -554,6 +556,7 @@ export const onDeleteSkypeCheckoutSession = /* GraphQL */ `
   subscription OnDeleteSkypeCheckoutSession {
     onDeleteSkypeCheckoutSession {
       id
+      userId
       skypeId
       object
       afterEexpiration
