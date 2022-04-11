@@ -227,6 +227,7 @@ export const onCreateAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
+      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -250,6 +251,7 @@ export const onUpdateAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
+      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -273,6 +275,7 @@ export const onDeleteAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
+      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -290,6 +293,8 @@ export const onCreateCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
+      businessCode
+      businessCash
       createdAt
       updatedAt
       deletedAt
@@ -308,6 +313,8 @@ export const onUpdateCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
+      businessCode
+      businessCash
       createdAt
       updatedAt
       deletedAt
@@ -326,6 +333,8 @@ export const onDeleteCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
+      businessCode
+      businessCash
       createdAt
       updatedAt
       deletedAt

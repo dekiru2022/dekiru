@@ -185,6 +185,7 @@ export const getAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
+      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -213,6 +214,7 @@ export const listAnswerUsers = /* GraphQL */ `
         userSex
         userUnitPrice
         time
+        videoFinishedTime
         ansStatus
         createdAt
         updatedAt
@@ -232,6 +234,8 @@ export const getCashFlow = /* GraphQL */ `
       purchaserCash
       sellerCash
       earnings
+      businessCode
+      businessCash
       createdAt
       updatedAt
       deletedAt
@@ -255,6 +259,8 @@ export const listCashFlows = /* GraphQL */ `
         purchaserCash
         sellerCash
         earnings
+        businessCode
+        businessCash
         createdAt
         updatedAt
         deletedAt
