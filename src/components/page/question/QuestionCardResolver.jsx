@@ -16,6 +16,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
+import { green, red } from '@mui/material/colors';
+import Avatar from '@mui/material/Avatar';
 
 // メイン画面（カード）
 export const QuestionCardResolver = (props) => {
@@ -30,6 +32,10 @@ export const QuestionCardResolver = (props) => {
         {/* ヘッダー（カード内） */}
         <CardHeader
           // 相談タイトル
+          avatar={
+                <Avatar  aria-label="recipe" src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${question.userId}/ProfileImage/public.png`}>
+                </Avatar>
+        }
           title={question.title}
           titleTypographyProps={{ variant: 'h5' }}
           // 相談作成時間

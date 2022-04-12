@@ -9,6 +9,7 @@ import NDA from './NDA';
 import Notice from './Notice';
 import Certification from './userInformation/Certification';
 import {Auth} from 'aws-amplify'
+import UpLoadTest from './userInformation/upLoad';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,10 +79,10 @@ export default function Setting() {
         <Notice />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <NDA />
+        <Certification />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Certification />
+        <UpLoadTest />
       </TabPanel>
     </Box>
   );

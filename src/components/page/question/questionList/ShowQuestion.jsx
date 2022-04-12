@@ -42,6 +42,7 @@ function QuestionPage(props) {
     const [user, setUser] = useState([]);
     const [time, setTime] = useState(10);
     const [job, setJob] = useState();
+    const [cognitoUserID, setCognitoUserID] = useState();
     const [experience, setExperience] = useState(1);
     const meetingTimeArray = [10, 20, 30, 40, 50, 60];
     const jobArray = ["ケアーマネージャー", "介護士", "元介護士", "介護福祉"];
@@ -71,8 +72,11 @@ function QuestionPage(props) {
         const user1 = await Auth.currentAuthenticatedUser();
         let cognitoID = user1.attributes.sub;
         console.log(cognitoID);
+        
         const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
         setUser(apiUserData);
+
+        setCognitoUserID(cognitoID);
         // setUserPoint(apiData.data.getUserId.point);
         // setUserTrasferPoint(apiData.data.getUserId.transferPoint);
         console.log(apiUserData);//.data.getCognitoUserId.items
@@ -174,14 +178,7 @@ function QuestionPage(props) {
                     <Card sx={{ my: 4 }} >
                         <CardHeader
                             avatar={
-                                question.userId == 1
-                                    ?
-                                    <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
-                                        {question.userId}
-                                    </Avatar>
-                                    :
-                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                        {/* {question.userId} */}
+                                    <Avatar aria-label="recipe" src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoUserID}/ProfileImage/public.png`}>
                                     </Avatar>
                             }
                             action={<IconButton aria-label="settings">

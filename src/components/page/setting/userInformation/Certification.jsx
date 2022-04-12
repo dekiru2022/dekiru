@@ -3,61 +3,79 @@
 //バケットについて：https://recipe.kc-cloud.jp/archives/783
 //S3バケットにアクセスするための権限設定：https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/#manual-setup-import-storage-bucket
 
+//https://www.aizulab.com/blog/react-image-crop/
+
 import Amplify from 'aws-amplify';
 import aws_exports from '../../../../aws-exports';
-import { Storage, Auth , Hub} from 'aws-amplify';
+import { Storage, Auth, Hub } from 'aws-amplify';
 import { AmplifyS3Image } from "@aws-amplify/ui-react";
 import React, { useState, useEffect } from 'react';
-import { AmplifyS3ImagePicker } from '@aws-amplify/ui-react';
+
+import ReactCrop from 'react-image-crop';
+
+import { Button } from '@mui/material';
 
 Amplify.configure(aws_exports);
 
 function Certification() {
-    // console.log("useState")
-    const [cognitoId, setCognitoId] = useState();
+  // console.log("useState")
+  const [url, setUrl] = useState("");
+  const [cognitoUserID, setCognitoUserID] = useState();
+  const [src, setSrc] = useState();
+  const [files, setFiles] = useState();
 
-    useEffect(() => {
-        Hub.listen("storage", (data) => console.log(data))
-        Hub.listen("storage", ({ payload }) => {
-          if (payload.event === "upload" && payload.message) {
-            const imageKey = payload.message.replace("Upload success for ", "")
-            if (payload.data.attrs.result === "success") {
-              console.log(`アップロードに成功しました。`)
-            } else {
-              Storage.remove(imageKey)
-              console.log(`アップロードに失敗しました。`)
-            }
-          }
-        })
-        return () => {
-          Hub.remove("storage", () => {})
-        }
-      }, [])
-    // async function onChange(e) {
-    //     const file = e.target.files[0];
-    //     // user情報の取得（cognito）
-    //     let user1 = await Auth.currentAuthenticatedUser();
-    //     let cognitoID = user1.attributes.sub;
-    //     setCognitoId(cognitoID);
-    //     try {
-    //         await Storage.put(`${cognitoID}/ProfileImage/${file.name}`, file, {
-    //             contentType: "image/png", // contentType is optional
-    //         });
-    //     } catch (error) {
-    //         console.log("Error uploading file: ", error);
-    //     }
-    // }
+  useEffect(() => {
+    getDataAws()
+  }, [])
 
-    //   useEffect(() => {
-    //     getUserDataAws()
-    // }, [])
+  async function getDataAws() {
+    let user1 = await Auth.currentAuthenticatedUser();
+    let cognitoID = user1.attributes.sub;
+    setCognitoUserID(cognitoID);
 
-    return (
-        <>
-            <AmplifyS3Image imgKey={`${cognitoId}/ProfileImage/2022-02-14_21.12.13.png`} />
-            <AmplifyS3ImagePicker trace />;
-            {/* <input type="file" onChange={onChange} /> */}
-        </>
-    );
+    setSrc(`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoID}/ProfileImage/public.png`);
+    console.log(src);
+  }
+  async function onChange(e) {
+    setFiles(e.target.files[0])
+  }
+  async function onClick(e) {
+
+    const fileData = files.name.split('.');
+    const fileExtension = fileData[fileData.length - 1];
+
+    try {
+      await Storage.put(`${cognitoUserID}/ProfileImage/public.${fileExtension}`, files, {
+        contentType: "image/png", // contentType is optional
+      });
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+  }
+
+  return (
+    <>
+      {/* <AmplifyS3Image imgKey={`${cognitoId}/ProfileImage/2022-02-14_21.12.13.png`} /> */}
+      {/* <AmplifyS3ImagePicker trace /> */}
+
+      <input type="file" accept="image/*" onChange={onChange} />
+      {src && <img style={{ maxWidth: '100%' }} src={src} />}
+      <Button
+        style={{
+          // ボタン
+          width: 'auto',
+          height: 'auto',
+
+          // テキスト
+          color: '#FFF',
+          fontSize: '1.5rem',
+          borderRadius: 20,
+        }}
+        className="style-button"
+        variant="contained"
+        onClick={onClick} >アップロードする
+      </Button>
+    </>
+  );
 }
 export default Certification
