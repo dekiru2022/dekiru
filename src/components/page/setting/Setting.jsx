@@ -68,7 +68,7 @@ export default function Setting() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="マイページ" {...a11yProps(0)} />
           <Tab label="お知らせ" {...a11yProps(1)} />
-          <Tab label="秘密保持契約" {...a11yProps(2)} />
+          <Tab label="資格登録" {...a11yProps(2)} />
           <Tab label="秘密保持契約" {...a11yProps(3)} />
         </Tabs>
       </Box>
@@ -82,7 +82,7 @@ export default function Setting() {
         <Certification />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <UpLoadTest />
+        <NDA />
       </TabPanel>
     </Box>
   );

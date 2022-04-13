@@ -75,7 +75,7 @@ export default function UpLoadTest() {
 
   return (
     <>
-      <label >
+
         <input
           style={{ display: "none" }}
           id="upload-image"
@@ -90,7 +90,6 @@ export default function UpLoadTest() {
           variant="contained"
           component="span"
         ></button>
-      </label>
       <ReactCrop
         src={viewImage}
         crop={crop}

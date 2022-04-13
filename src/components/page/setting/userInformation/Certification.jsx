@@ -12,6 +12,7 @@ import { AmplifyS3Image } from "@aws-amplify/ui-react";
 import React, { useState, useEffect } from 'react';
 
 import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 import { Button } from '@mui/material';
 
@@ -24,9 +25,50 @@ function Certification() {
   const [src, setSrc] = useState();
   const [files, setFiles] = useState();
 
+  const [cropDataURL, setCropDataURL] = useState(null);
+  const [crop, setCrop] = useState({
+    unit: '%', // Can be 'px' or '%'
+    x: 25,
+    y: 25,
+    width: 50,
+    height: 50
+  });
+  const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
+  const [imageFiles, setImageFiles] = useState([]);
+  const [images, setImages] = useState([]);
+
   useEffect(() => {
     getDataAws()
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const images = [], fileReaders = [];
+    let isCancel = false;
+    if (imageFiles.length) {
+      imageFiles.forEach((file) => {
+        const fileReader = new FileReader();
+        fileReaders.push(fileReader);
+        fileReader.onload = (e) => {
+          const { result } = e.target;
+          if (result) {
+            images.push(result)
+          }
+          if (images.length === imageFiles.length && !isCancel) {
+            setImages(images);
+          }
+        }
+        fileReader.readAsDataURL(file);
+      })
+    };
+    return () => {
+      isCancel = true;
+      fileReaders.forEach(fileReader => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort()
+        }
+      })
+    }
+  }, [imageFiles]);
 
   async function getDataAws() {
     let user1 = await Auth.currentAuthenticatedUser();
@@ -36,30 +78,56 @@ function Certification() {
     setSrc(`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoID}/ProfileImage/public.png`);
     console.log(src);
   }
+
   async function onChange(e) {
-    setFiles(e.target.files[0])
+    const { files } = e.target;
+    const validImageFiles = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.type.match(imageTypeRegex)) {
+        validImageFiles.push(file);
+      }
+    }
+    if (validImageFiles.length) {
+      setImageFiles(validImageFiles);
+      return;
+    }
+    alert("Selected images are not of valid type!");
   }
+
   async function onClick(e) {
 
-    const fileData = files.name.split('.');
-    const fileExtension = fileData[fileData.length - 1];
+    for (let i = 0; i < imageFiles.length; i++) {
+      const file = imageFiles[i];
+      const fileData = file.name.split('.');
+      const fileExtension = fileData[fileData.length - 1];
 
-    try {
-      await Storage.put(`${cognitoUserID}/ProfileImage/public.${fileExtension}`, files, {
-        contentType: "image/png", // contentType is optional
-      });
-    } catch (error) {
-      console.log("Error uploading file: ", error);
+      if (file.type.match(imageTypeRegex)) {
+        try {
+          await Storage.put(`${cognitoUserID}/ProfileImage/private${i}.${fileExtension}`, file, {
+            contentType: "image/jpeg", // contentType is optional
+          });
+        } catch (error) {
+          console.log("Error uploading file: ", error);
+        }
+      }
     }
   }
 
   return (
     <>
-      {/* <AmplifyS3Image imgKey={`${cognitoId}/ProfileImage/2022-02-14_21.12.13.png`} /> */}
-      {/* <AmplifyS3ImagePicker trace /> */}
+      <input type="file" accept='.png, .jpg, .jpeg' onChange={(e) => onChange(e)} multiple />
+      {
+        images.length > 0 ?
+          <div>
+            {
+              images.map((image, idx) => {
+                return <p key={idx}> <img src={image} style={{ maxWidth: '50%' }} /> </p>
+              })
+            }
+          </div> : null
+      }
 
-      <input type="file" accept="image/*" onChange={onChange} />
-      {src && <img style={{ maxWidth: '100%' }} src={src} />}
       <Button
         style={{
           // ボタン
@@ -78,4 +146,5 @@ function Certification() {
     </>
   );
 }
+
 export default Certification
