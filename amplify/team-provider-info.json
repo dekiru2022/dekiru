@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "dekiru914d191e": {}
+      },
+      "storage": {
+        "mydreamsa019e003": {
+          "bucketName": "mydreams769891ee61d8400295a4455b85879f9f123131-develop",
+          "region": "ap-northeast-1"
+        }
       }
     }
   }

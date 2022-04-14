@@ -73,7 +73,6 @@ type AnswerUser @model {
   userSex: String
   userUnitPrice: Int
   time: Int!
-  videoFinishedTime:AWSDateTime
   ansStatus: Int!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
@@ -85,11 +84,9 @@ type CashFlow @model {
   questionId: String
   purchaserId:String
   sellerId:String
-  purchaserCash:Int
-  sellerCash:Int
-  earnings:Int
-  businessCode:String
-  businessCash:Int
+  purchaserCash:String
+  sellerCash:String
+  earnings:String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
