@@ -128,6 +128,7 @@ export const onCreateQuestions = /* GraphQL */ `
       content
       status
       solvedTime
+      videoFinishedTime
       createdAt
       updatedAt
       deletedAt
@@ -145,6 +146,7 @@ export const onUpdateQuestions = /* GraphQL */ `
       content
       status
       solvedTime
+      videoFinishedTime
       createdAt
       updatedAt
       deletedAt
@@ -162,6 +164,7 @@ export const onDeleteQuestions = /* GraphQL */ `
       content
       status
       solvedTime
+      videoFinishedTime
       createdAt
       updatedAt
       deletedAt
@@ -227,7 +230,6 @@ export const onCreateAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
-      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -251,7 +253,6 @@ export const onUpdateAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
-      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -275,7 +276,6 @@ export const onDeleteAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
-      videoFinishedTime
       ansStatus
       createdAt
       updatedAt

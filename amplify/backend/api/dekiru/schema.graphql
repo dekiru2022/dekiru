@@ -42,6 +42,7 @@ type Questions @model {
   content:String!
   status:Int!
   solvedTime:Int
+  videoFinishedTime:AWSDateTime
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime
@@ -84,9 +85,11 @@ type CashFlow @model {
   questionId: String
   purchaserId:String
   sellerId:String
-  purchaserCash:String
-  sellerCash:String
-  earnings:String
+  purchaserCash:Int
+  sellerCash:Int
+  earnings:Int
+  businessCode:String
+  businessCash:Int
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   deletedAt: AWSDateTime

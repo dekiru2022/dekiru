@@ -103,6 +103,7 @@ export const getQuestions = /* GraphQL */ `
       content
       status
       solvedTime
+      videoFinishedTime
       createdAt
       updatedAt
       deletedAt
@@ -125,6 +126,7 @@ export const listQuestions = /* GraphQL */ `
         content
         status
         solvedTime
+        videoFinishedTime
         createdAt
         updatedAt
         deletedAt
@@ -185,7 +187,6 @@ export const getAnswerUser = /* GraphQL */ `
       userSex
       userUnitPrice
       time
-      videoFinishedTime
       ansStatus
       createdAt
       updatedAt
@@ -214,7 +215,6 @@ export const listAnswerUsers = /* GraphQL */ `
         userSex
         userUnitPrice
         time
-        videoFinishedTime
         ansStatus
         createdAt
         updatedAt
