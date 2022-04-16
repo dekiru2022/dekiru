@@ -5,8 +5,11 @@
 // ユーザ画面
 //https://medium.com/@dantasfiles/three-methods-to-get-user-information-in-aws-amplify-authentication-e4e39e658c33
 //
+
 import React, { useState, useEffect, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import IconButton from "@material-ui/core/IconButton";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -19,13 +22,39 @@ import { getCognitoUserId, listUserIds, getUserId } from '../../../../graphql/qu
 import { Auth } from 'aws-amplify'
 // テスト用データ
 import { user as TestUser } from '../../../../database/current_user_data';
+import Avatar from '@mui/material/Avatar';
+import Modal from '@mui/material/Modal';
+import { Button } from '@mui/material';
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    height: 500,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
+const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
 export default function BasicDetail() {
 
     const [user, setUser] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [file, setFile] = useState(null);
+    const [fileDataURL, setFileDataURL] = useState(null);
+    const [cognitoUserID, setCognitoUserID] = useState();
 
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     // user情報の取得（cognito）
     const getUserDataAws = async () => {
         let user1 = await Auth.currentAuthenticatedUser();
@@ -40,8 +69,31 @@ export default function BasicDetail() {
     }
 
     useEffect(() => {
-        getUserDataAws()
-    }, [])
+        getUserDataAws();
+
+    }, []);
+
+    // useEffect(() => {
+
+    //     let fileReader, isCancel = false;
+    //     if (file) {
+    //         fileReader = new FileReader();
+    //         fileReader.onload = (e) => {
+    //             const { result } = e.target;
+    //             if (result && !isCancel) {
+    //                 setFileDataURL(result)
+    //             }
+    //         }
+    //         fileReader.readAsDataURL(file);
+    //     }
+    //     return () => {
+    //         isCancel = true;
+    //         if (fileReader && fileReader.readyState === 1) {
+    //             fileReader.abort();
+    //         }
+    //     }
+
+    // }, [file]);
 
     const getSex = () => {
         // console.log(user)
@@ -54,10 +106,29 @@ export default function BasicDetail() {
         }
     }
 
+    async function onClick(e) {
+        const file = e.target.files[0];
+        if (!file.type.match(imageMimeType)) {
+            alert("Image mime type is not valid");
+            return;
+        }
+        setFile(file);
+    }
     return (
         <Grid container spacing={2}>
+            <Grid item xs={4}  >
+                <IconButton onClick={() => handleOpen()}>
+                    <Avatar
+                        aria-label="recipe"
+                        src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${user.id}/ProfileImage/public.png`}
+                        sx={{ width: 100, height: 100 }}
+                    >
+                    </Avatar>
+                </IconButton>
+
+            </Grid>
             {/* ユーザ名 */}
-            <Grid item xs={12}  >
+            <Grid item xs={8}  >
                 <Typography className="pc-area" variant="h4" >{user.handleName}</Typography>
                 <Typography className="smartphone-area" variant="h5" >{user.handleName}</Typography>
             </Grid>

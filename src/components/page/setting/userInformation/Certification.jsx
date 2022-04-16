@@ -4,7 +4,7 @@
 //S3バケットにアクセスするための権限設定：https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/#manual-setup-import-storage-bucket
 
 //https://www.aizulab.com/blog/react-image-crop/
-
+//https://morioh.com/p/8f3de63a3303
 import Amplify from 'aws-amplify';
 import aws_exports from '../../../../aws-exports';
 import { Storage, Auth, Hub } from 'aws-amplify';
@@ -20,19 +20,8 @@ Amplify.configure(aws_exports);
 
 function Certification() {
   // console.log("useState")
-  const [url, setUrl] = useState("");
-  const [cognitoUserID, setCognitoUserID] = useState();
-  const [src, setSrc] = useState();
-  const [files, setFiles] = useState();
 
-  const [cropDataURL, setCropDataURL] = useState(null);
-  const [crop, setCrop] = useState({
-    unit: '%', // Can be 'px' or '%'
-    x: 25,
-    y: 25,
-    width: 50,
-    height: 50
-  });
+  const [cognitoUserID, setCognitoUserID] = useState();
   const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
@@ -74,9 +63,6 @@ function Certification() {
     let user1 = await Auth.currentAuthenticatedUser();
     let cognitoID = user1.attributes.sub;
     setCognitoUserID(cognitoID);
-
-    setSrc(`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoID}/ProfileImage/public.png`);
-    console.log(src);
   }
 
   async function onChange(e) {
@@ -129,17 +115,6 @@ function Certification() {
       }
 
       <Button
-        style={{
-          // ボタン
-          width: 'auto',
-          height: 'auto',
-
-          // テキスト
-          color: '#FFF',
-          fontSize: '1.5rem',
-          borderRadius: 20,
-        }}
-        className="style-button"
         variant="contained"
         onClick={onClick} >アップロードする
       </Button>
