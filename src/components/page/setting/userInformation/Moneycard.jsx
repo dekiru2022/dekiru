@@ -50,8 +50,8 @@ export default function Moneycard(props) {
     const { title, point, money, content, URL } = props;
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
-    
-    const [formData,set] = React.useState([]);
+
+    const [formData, set] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -64,7 +64,7 @@ export default function Moneycard(props) {
         let user1 = await Auth.currentAuthenticatedUser();
         const uId = user1.attributes.sub;
 
-        const r = await API.graphql({ query: createSkypeCheckoutSession, variables: { input: {userId: uId} } });
+        const r = await API.graphql({ query: createSkypeCheckoutSession, variables: { input: { userId: uId } } });
         console.log(r);
         const clientReferenceId = r.data.createSkypeCheckoutSession.id;
 
@@ -83,6 +83,31 @@ export default function Moneycard(props) {
         // error, display the localized error message to your customer
         // using `error.message`.
     };
+    const onClickEvent = () => {
+        window.addEventListener('load', function () {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/serviceWorker.js')
+                    .then(function (registration) {
+                        return registration.pushManager.getSubscription().then(function (subscription) {
+                            console.log("subscription", subscription)
+                            if (subscription) {
+                                console.log("aaa")
+                                return subscription
+                            }
+                            return registration.pushManager.subscribe({
+                                userVisibleOnly: true
+                            })
+                        })
+                    }).then(function (subscription) {
+                        var endpoint = subscription.endpoint
+                        console.log("pushManager endpoint:", endpoint)
+                    }).catch(function (error) {
+                        console.log("serviceWorker error:", error)
+                    })
+            }
+        })
+    }
+
     return (
         <Card variant="outlined">
             <CardContent>
@@ -103,9 +128,12 @@ export default function Moneycard(props) {
 
             <CardActions>
                 <Button size="small"
-                        variant="contained"
-                        color="success"
-                        onClick={() => { handleClick(); }}
+                    variant="contained"
+                    color="success"
+                    onClick={() => {
+                        handleClick();
+                        onClickEvent();
+                    }}
                 >購入
                 </Button>
                 <Modal
