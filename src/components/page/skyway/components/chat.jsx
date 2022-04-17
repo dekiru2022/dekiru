@@ -72,7 +72,7 @@ const messageStyle = {
   whiteSpace: 'pre-wrap', 
   wordWrap: 'break-word', 
   fontSize: '0.8rem', 
-  padding: '10px 8px 20px',
+  padding: '10px 8px 20px'
 }
 const formStyle = {
   height: formHeight,

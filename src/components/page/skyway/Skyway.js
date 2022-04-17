@@ -21,7 +21,6 @@ export const SkywayStoreContext = createContext();
 
 function Skyway(props){
   // propsからurlの値を取得
-  const meetingTime = props.match.params.time;
   const questionId = props.match.params.room;
   const isHost = props.match.params.isHost; //質問者なら1, 回答者なら0
 
@@ -29,6 +28,7 @@ function Skyway(props){
   const peer = new Peer({key: API_KEY});
   const [loading, setLoading] = useState(false);
   const [room, setRoom] = useState();
+  const [meetingTime, setMeetingTime] = useState(Number(props.match.params.time));
   const [startFlag, setStartFlag] = useState(false); //通話が開始(相手の映像を取得）したらtrue
   const [closeFlag, setCloseFlag] = useState(false); //通話が終了したらtrue
   const [roomData, setRoomData] = useState({ messages: ''});
@@ -61,9 +61,10 @@ function Skyway(props){
     room.close();
   }
   const skywayStore = {
-    peer, isHost, meetingTime, questionId,
+    peer, isHost, questionId,
     loading, setLoading,
     room, setRoom,
+    meetingTime, setMeetingTime,
     startFlag, setStartFlag,
     closeFlag, setCloseFlag,
     roomData, setRoomData,
