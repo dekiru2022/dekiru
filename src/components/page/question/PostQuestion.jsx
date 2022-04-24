@@ -202,23 +202,10 @@ function PostQuestion() {
       {/* ボタン */}
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item>
-          <BorderButton to="" />
-        </Grid>
-        <Grid item>
           {checkPoint
             ? <Button
-              style={{
-                // ボタン
-                width: 'auto',
-                height: 'auto',
-
-                // テキスト
-                color: '#FFF',
-                fontSize: '1.5rem',
-                borderRadius: 20,
-              }}
-              className="style-button"
               variant="contained"
+              style={{ fontSize: 20 }}
               onClick={inputCheck} >依頼する</Button>
             : <Button sx={{ mr: 12 }} style={{ fontSize: 20 }} variant='contained' target="_blank"  >ポイント購入</Button>
           }
