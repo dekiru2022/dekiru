@@ -25,6 +25,7 @@ import { Grid } from '@material-ui/core'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
 
 import { StyleTextField, StyleMultilineTextField } from '../../../ui/styleTextField';
 //AWS
@@ -173,108 +174,96 @@ function QuestionPage(props) {
     }, [question])
 
     return (
-        <Grid container alignItems="center" justifyContent="center" >
-            <Grid item xs={0} sm={1} md={3} />
+        <Grid container alignItems="center" justify="center" spacing={1} >
             <Grid item xs={10} sm={10} md={6} >
-                <Box mx={'auto'}>
-                    <Card sx={{ my: 4 }} >
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="recipe" src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoUserID}/ProfileImage/public.png`}>
-                                </Avatar>
-                            }
-                            action={<IconButton aria-label="settings">
-                                <MoreVertIcon />
-                            </IconButton>}
-                        // title={user.name + ' さん'} 歳
-                        // subheader={user.ages + '歳'}
-                        />
+                <Card sx={{ my: 4 }} >
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoUserID}/ProfileImage/public.png`}>
+                            </Avatar>
+                        }
+                        action={<IconButton aria-label="settings">
+                            <MoreVertIcon />
+                        </IconButton>}
+                    />
 
-                        {/* 相談内容　詳細　見出し */}
-                        <CardContent>
-                            <Typography variant="subtitle1" color="text.primary">
-                                {question.title}
-                            </Typography>
-                            <Typography variant="body1" color="text.secondary">
-                                {question.content}
-                            </Typography>
-                            <Typography mt={2} variant="body2" color="text.secondary">
-                                {question.createdAt}
-                            </Typography>
-                        </CardContent>
-
-                        {/* <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                            </IconButton>
-                            <IconButton aria-label="share">
-                                <ShareIcon />
-                            </IconButton>
-                        </CardActions> */}
-                    </Card>
-
-                    {/* 解決候補者一覧 */}
-                    <Box>
-                        <Stack justifyContent="space-between" alignItems="center" direction="row">
-                            <Box>
-                                <InputLabel id="time">解決想定時間</InputLabel>
-                                <Select
-                                    labelId="time"
-                                    label="解決想定時間"
-                                    onChange={inputChange}
-                                    defaultValue={10}
-                                >
-                                    {meetingTimeArray.map((meetingTime, index) => (
-                                        <MenuItem value={meetingTime} key={index}>{meetingTime} 分</MenuItem>
-                                    ))}
-                                </Select>
-                            </Box>
-                            <Box>
-                                <InputLabel id="experience">職務経験</InputLabel>
-                                <Select
-                                    labelId="experience"
-                                    label="職務経験"
-                                    onChange={inputExperienceChange}
-                                    defaultValue={1}
-                                >
-                                    {experienceArray.map((experience, index) => (
-                                        <MenuItem value={experience} key={index}>{experience} </MenuItem>
-                                    ))}
-                                </Select>
-                            </Box>
-                        </Stack>
-                        <Box style={{ widht: '100%' }}>
-                            <InputLabel id="job">職業</InputLabel>
-                            <Select
-                                labelId="job"
-                                id="demo-simple-select"
-                                label="カテゴリー"
-                                title="category_id"
-                                style={{ fontSize: '21px', widht: '80%' }}
-                                onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
-                                value={formData.categoryId}
-                            >
-                                {categoriesArray.map((categoryArray, index) => (
-                                    <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                        <Stack justifyContent="center" alignItems="center">
-                            <StyleTextField
-                                label="コメント"
-                                placeholder="相談者に一言コメントできます。"
-                                onChange={e => setFormData({ ...formData, comment: e.target.value })}
-                                value={formData.comment}
-                            />
-                            <Box mt={4}>
-                                <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
-                            </Box>
-                        </Stack>
-                    </Box>
-                </Box>
+                    {/* 相談内容　詳細　見出し */}
+                    <CardContent>
+                        <Typography variant="subtitle1" color="text.primary">
+                            {question.title}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            {question.content}
+                        </Typography>
+                        <Typography mt={2} variant="body2" color="text.secondary">
+                            {question.createdAt}
+                        </Typography>
+                    </CardContent>
+                </Card>
             </Grid>
-            <Grid item xs={0} sm={1} md={3} />
-        </Grid>
+
+            {/* 解決候補者一覧 */}
+            <Grid item xs={5} sm={10} md={6} justifyContent="center" alignItems="center" >
+                <FormControl style={{ width: '100%' }}>
+                    <InputLabel id="time">解決想定時間</InputLabel>
+                    <Select
+                        labelId="time"
+                        label="解決想定時間"
+                        onChange={inputChange}
+                        defaultValue={10}
+                    >
+                        {meetingTimeArray.map((meetingTime, index) => (
+                            <MenuItem value={meetingTime} key={index}>{meetingTime} 分</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid item xs={5} sm={10} md={6} justifyContent="center" alignItems="center" >
+                <FormControl style={{ width: '100%' }}>
+                    <InputLabel id="experience" fullWidth >職務経験</InputLabel>
+                    <Select
+                        labelId="experience"
+                        label="職務経験"
+                        onChange={inputExperienceChange}
+                        defaultValue={1}
+                    >
+                        {experienceArray.map((experience, index) => (
+                            <MenuItem value={experience} key={index}>{experience} </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+
+            <Grid item xs={10} sm={10} md={6} >
+                <FormControl style={{ width: '100%' }}>
+                    <InputLabel id="job" >職業</InputLabel>
+                    <Select
+                        labelId="job"
+                        id="demo-simple-select"
+                        label="カテゴリー"
+                        title="category_id"
+                        style={{ fontSize: '21px', widht: '100%' }}
+                        onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+                        value={formData.categoryId}
+                    >
+                        {categoriesArray.map((categoryArray, index) => (
+                            <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid item xs={10} sm={10} md={6} justifyContent="center" alignItems="center" >
+                <StyleTextField
+                    label="コメント"
+                    placeholder="相談者に一言コメントできます。"
+                    onChange={e => setFormData({ ...formData, comment: e.target.value })}
+                    value={formData.comment}
+                />
+            </Grid>
+            <Grid item xs={4} sm={10} md={6} justify="center" alignItems="center" >
+                <Button size='large' variant='contained' color="success" target="_blank" onClick={inputData} >解決する！</Button>
+            </Grid>
+        </Grid >
     )
 }
 
