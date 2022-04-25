@@ -59,6 +59,7 @@ function Skyway(props){
   //終了処理
   const onClose = async() => {
     room.close();
+    setCloseFlag(true);
   }
   const skywayStore = {
     peer, isHost, questionId,
@@ -206,7 +207,6 @@ function Skyway(props){
       sendTrigger.removeEventListener('click', onClickSend);
       addMessages('== ルームから退室しました ===');
       setRemoteStream('');
-      setCloseFlag(true);
     });
 
     //送信ボタンの処理
