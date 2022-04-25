@@ -100,6 +100,7 @@ function Survey_for_Q(props) {
     console.log(formData);
     const r =  await API.graphql({ query: createAnswerQuestionnaire, variables: { input: formData } });
     console.log(r);
+
   }
   //辞退を送信
   async function createDecline() {
@@ -113,6 +114,7 @@ function Survey_for_Q(props) {
     console.log(formData);
     const r =  await API.graphql({ query: createAnswerQuestionnaire, variables: { input: formData } });
     console.log(r);
+    window.location.href = '/';
   }
 
   return (

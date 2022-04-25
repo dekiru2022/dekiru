@@ -34,6 +34,8 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { createAnswerUser as createAnswerUserMutation } from '../../../../graphql/mutations';
 import { getCognitoUserId, getUserId, getQuestions, listAnswerUsers } from '../../../../graphql/queries';
 
+import { categories } from '../../../../database/categories_table';
+
 function QuestionPage(props) {
 
     let datetime = new Date().toISOString();
@@ -45,7 +47,7 @@ function QuestionPage(props) {
     const [cognitoUserID, setCognitoUserID] = useState();
     const [experience, setExperience] = useState(1);
     const meetingTimeArray = [10, 20, 30, 40, 50, 60];
-    const jobArray = ["ケアーマネージャー", "介護士", "元介護士", "介護福祉"];
+    const [categoriesArray, setCategoriesArray] = useState(categories);
     const experienceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11~14", "15~20", "21~25", "26~30", "31~35", "36~40", "41~45", "46~50", "50~"];
     const [checkBottomFlag, setCheckBottomFlag] = useState([]);
 
@@ -72,7 +74,7 @@ function QuestionPage(props) {
         const user1 = await Auth.currentAuthenticatedUser();
         let cognitoID = user1.attributes.sub;
         console.log(cognitoID);
-        
+
         const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
         setUser(apiUserData);
 
@@ -178,8 +180,8 @@ function QuestionPage(props) {
                     <Card sx={{ my: 4 }} >
                         <CardHeader
                             avatar={
-                                    <Avatar aria-label="recipe" src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoUserID}/ProfileImage/public.png`}>
-                                    </Avatar>
+                                <Avatar aria-label="recipe" src={`https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/public/${cognitoUserID}/ProfileImage/public.png`}>
+                                </Avatar>
                             }
                             action={<IconButton aria-label="settings">
                                 <MoreVertIcon />
@@ -229,14 +231,18 @@ function QuestionPage(props) {
                                 <InputLabel id="job">職業</InputLabel>
                                 <Select
                                     labelId="job"
-                                    label="職業"
-                                    onChange={inputJobChange}
-                                    defaultValue={'介護士'}
+                                    id="demo-simple-select"
+                                    label="カテゴリー"
+                                    title="category_id"
+                                    style={{ fontSize: '21px' }}
+                                    onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+                                    value={formData.categoryId}
                                 >
-                                    {jobArray.map((job, index) => (
-                                        <MenuItem value={job} key={index}>{job} </MenuItem>
+                                    {categoriesArray.map((categoryArray, index) => (
+                                        <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
                                     ))}
                                 </Select>
+
                             </Box>
                             <Box>
                                 <InputLabel id="experience">職務経験</InputLabel>

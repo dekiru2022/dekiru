@@ -244,7 +244,9 @@ export default function IndexResolver(props) {
                       <br />
                       {'解決時間：' + user.time + '分'}
                       <br />
-                      {'相談費用：' + user.userUnitPrice + '円'}
+                      {'相談金額：' + user.userUnitPrice + '円'}
+                      <br />
+                      {'合計金額：' + (parseInt(user.userUnitPrice)*parseInt(user.time) / 10) + '円'}
                     </Typography>
                   </CardContent>
 
