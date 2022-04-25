@@ -18,6 +18,8 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import { green, red } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
+import { Link as LinkRouter } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 // メイン画面（カード）
 export const QuestionCardResolver = (props) => {
@@ -52,7 +54,12 @@ export const QuestionCardResolver = (props) => {
 
         {/* フッター（カード内） */}
         <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', left: '10px' }}>
-          <StyleButton title="回答する" to={`/showQuestion/${question.id}`} />
+        <Button
+              variant="contained"
+              component={LinkRouter}
+              to={`/showQuestion/${question.id}`}
+              sx={{ fontSize: 20}}
+              >回答する</Button>
         </CardActions>
       </Card>
 
@@ -77,7 +84,12 @@ export const QuestionCardResolver = (props) => {
 
         {/* フッター（カード内） */}
         <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', left: '10px' }}>
-          <StyleButton title="回答する" to={`/showQuestion/${question.id}`} />
+        <Button
+              variant="contained"
+              component={LinkRouter}
+              to={`/showQuestion/${question.id}`}
+              sx={{ fontSize: 20}}
+              >回答する</Button>
         </CardActions>
       </Card>
     </>

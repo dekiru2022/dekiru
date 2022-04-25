@@ -25,6 +25,7 @@ import { user as TestUser } from '../../../../database/current_user_data';
 import Avatar from '@mui/material/Avatar';
 import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
+import { Link as LinkRouter } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -150,7 +151,12 @@ export default function BasicDetail() {
                     </CardContent>
                     {/* ポイント購入ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleButton title="ポイント購入" to={`/PointPurchase`} />
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/PointPurchase`}
+                            sx={{ fontSize: 20 }}
+                        >ポイント購入</Button>
                     </CardActions>
                 </Card>
 
@@ -172,7 +178,12 @@ export default function BasicDetail() {
                     </CardContent>
                     {/* 出金ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleButton title="出金" to="/showQuestion" />
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/PointPurchase`}
+                            sx={{ fontSize: 20 }}
+                        >出金</Button>
                     </CardActions>
                 </Card>
             </Grid>
@@ -256,7 +267,12 @@ export default function BasicDetail() {
 
                     {/* 変更ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', top: '10px', right: '10px' }}>
-                        <StyleButton title="変更" to="/BasicDetailsUserEdit" />
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/BasicDetailsUserEdit`}
+                            sx={{ fontSize: 20 }}
+                        >変更</Button>
                     </CardActions>
                 </Card>
             </Grid>
