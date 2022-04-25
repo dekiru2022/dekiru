@@ -16,7 +16,7 @@ function Copyright() {
       <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '3%', padding: '3%'}}>
         <Grid item xs={12} sm={2}>
           <Typography variant="body2" color="#FFF" align="center">
-            {'Copyright © '}<Link color="inherit" href="https://top.dekiru2021.com/">DEKIRU</Link>{' '}{new Date().getFullYear()}{'.'}
+            {'Copyright © '}<Link color="inherit" href="https://top.mydreams2022.com/">MyDREAMS</Link>{' '}{new Date().getFullYear()}{'.'}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={2}>

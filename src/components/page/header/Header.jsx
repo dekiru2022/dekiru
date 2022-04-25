@@ -42,7 +42,7 @@ const Header = ({ signOut, user }) => {
 
                 {/* ロゴの表示 */}
                 <Button color="primary" component={LinkRouter} to="/" style={{ marginBottom: '1.1%' }}>
-                  <img width="60%" src={logo2} alt="DEKIRU"></img>
+                  <img width="60%" src={logo2} alt="MyDREAMS"></img>
                 </Button>
                 <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
 
