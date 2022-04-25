@@ -56,8 +56,8 @@ function QuestionPage(props) {
         setTime(value);
     }
     const inputJobChange = (e) => {
-        const value = e.target.value;
-        setJob(value);
+        
+        setJob(e.target.value);
     }
     const inputExperienceChange = (e) => {
         const value = e.target.value;
@@ -251,7 +251,9 @@ function QuestionPage(props) {
                                 label="カテゴリー"
                                 title="category_id"
                                 style={{ fontSize: '21px', widht: '80%' }}
-                                onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+                                onChange={
+                                    e => setFormData({ ...formData, 'categoryId': e.target.value })
+                                }
                                 value={formData.categoryId}
                             >
                                 {categoriesArray.map((categoryArray, index) => (
