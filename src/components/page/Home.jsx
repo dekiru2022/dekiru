@@ -136,13 +136,13 @@ export default function Home() {
               ? //<StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
                 <Button component={LinkRouter} to="/postQuestion" style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
               : // <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
-                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} style={{ width: '750%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
+                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
             }
           </Grid>
           <Grid item style={{ paddingLeft: '0.5%' }} xs={5} className="smartphone-area" >
             {checkAnsFlag
               ? // <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
-                <Button component={LinkRouter} to="/indexQuestion" style={{ width: '750%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
+                <Button component={LinkRouter} to="/indexQuestion" style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
               : // <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
                 <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
             }
