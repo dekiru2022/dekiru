@@ -208,7 +208,12 @@ export default function BasicDetail() {
                     </CardContent>
                     {/* 変更ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', top: '10px', right: '10px' }}>
-                        <StyleButton title="変更" to="/BasicDetailsEdit" />
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/BasicDetailsEdit`}
+                            sx={{ fontSize: 20 }}
+                        >変更</Button>
                     </CardActions>
 
                     {/* 登録資格  実装予定 */}

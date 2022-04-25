@@ -14,6 +14,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Auth } from 'aws-amplify'
 import { getCognitoUserId, listUserIds, getUserId } from '../../../../graphql/queries';
 import { Label } from '@mui/icons-material';
+import Button from '@mui/material/Button';
 
 
 function BasicDetailsEdit() {
@@ -153,7 +154,14 @@ function BasicDetailsEdit() {
 
                     {/* 資格登録ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleChengeButton title="資格登録" onClick={inputCheck} />
+                        <Button
+                            className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }}
+                            variant="contained"
+
+                            sx={{ fontSize: 20 }}
+                            onClick={inputCheck}
+                        >資格登録
+                        </Button>
                     </CardActions>
                 </Card>
             </Grid>

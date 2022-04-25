@@ -26,7 +26,6 @@ export const QuestionCardResolver = (props) => {
 
   // 変数宣言
   const { question } = props
-
   return (
     <>
       {/* PC用 */}
