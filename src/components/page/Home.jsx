@@ -12,7 +12,7 @@ import { Grid } from '@material-ui/core'
 // 共通部品（Button）
 import { StyleButton, StyleQuesButton } from '../ui/styleButton';
 // 画像 インポート
-import HomeTop from '../../images/MyDREAMS_Home.png'
+import HomeTop from '../../images/MyDREAMS_HOME_PC.jpg'
 import HomeTopPhone from '../../images/MyDREAMS_HomePhone.jpg'
 import QuesButton from '../../images/相談する透過.png'
 import ResolveButton from '../../images/解決する透過.png'
@@ -105,10 +105,10 @@ export default function Home() {
   return (
     <>
       {/* PC */}
-      <p className="pc-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
+      <p className="pc-area" style={{ overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTop} ></img>
         {/* <div style={containerStyle}><h1 style={{color: "black"}}>Hi! Try edit me</h1></div> */}
-        <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
+        <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ bottom: 0, left: 0 }} >
           <Grid item style={{ paddingRight: '1.5%' }} className="pc-area">
             {checkBottomFlag
               ? // <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
