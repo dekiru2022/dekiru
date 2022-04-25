@@ -47,6 +47,7 @@ const Header = ({ signOut, user }) => {
                 <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
 
                   {/* 各種ボタン（PC） */}
+                  <div className="pc-area">
                   <Button
                     className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} 
                     variant="contained"
@@ -55,6 +56,7 @@ const Header = ({ signOut, user }) => {
                     sx={{ fontSize: 20 }}
                      >ホーム
                   </Button>
+                  
                   <Button
                     className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} 
                     variant="contained"
@@ -70,7 +72,7 @@ const Header = ({ signOut, user }) => {
                     sx={{ fontSize: 20 }} 
                     >ログアウト
                   </Button>
-
+                  </div>
                   {/* 各種ボタン（スマホ） */}
                   <div className="smartphone-area" style={{ margin: '2% 0% 1% 0%' }} >
                     <IconButton component={LinkRouter} to="/">
