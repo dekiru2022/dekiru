@@ -207,7 +207,7 @@ export default function BasicDetail() {
                         <Typography className="smartphone-area" variant="h6"><p>メール： {user.mail}</p></Typography>
                     </CardContent>
                     {/* 変更ボタン */}
-                    <CardActions disableSpacing style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                    <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                         <Button
                             variant="contained"
                             component={LinkRouter}
@@ -271,7 +271,7 @@ export default function BasicDetail() {
                     </CardContent>
 
                     {/* 変更ボタン */}
-                    <CardActions disableSpacing style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                    <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                         <Button
                             variant="contained"
                             component={LinkRouter}
