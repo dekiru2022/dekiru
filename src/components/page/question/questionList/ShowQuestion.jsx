@@ -57,8 +57,8 @@ function QuestionPage(props) {
         setTime(value);
     }
     const inputJobChange = (e) => {
-        const value = e.target.value;
-        setJob(value);
+        
+        setJob(e.target.value);
     }
     const inputExperienceChange = (e) => {
         const value = e.target.value;

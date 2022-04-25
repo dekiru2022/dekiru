@@ -68,6 +68,7 @@ type AnswerUser @model {
   questionContent:String
   comment: String
   userHandleName: String
+  categoryId: String
   userJob: String
   userExperience: String
   userLicenseFlag: Int
