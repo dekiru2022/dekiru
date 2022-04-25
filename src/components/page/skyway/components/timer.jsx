@@ -1,3 +1,7 @@
+//firebaseをmydrのアカウントで
+//延長するとリセットになってしまう。今の秒数に追加したい。
+//timestampをfirebaseに送ると、getSeconds()が使えなくなる
+
 import React,{ useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { initializeApp } from "firebase/app";
@@ -22,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const Timer = () => {
-  const { isHost, questionId, meetingTime, setMeetingTime, onClose } = useContext(SkywayStoreContext);
+  const { isHost, questionId, meetingTime, setMeetingTime, onClose,closeFlag } = useContext(SkywayStoreContext);
   // 今回使う参照
   const ref = doc(db, "meetingTimes", questionId);
 
@@ -46,11 +50,21 @@ const Timer = () => {
       setDoc(ref , {
         questionId: questionId,
         meetingTime: meetingTime,
-        expiryTimestamp: expiryTimestamp
+        expiryTimestamp: expiryTimestamp,
+        isMeeting: true
       })
     }
   },[]);
 
+  //closeFlag=trueなら、クラウドでもミーティングを終了したことにする
+  useEffect(()=>{
+    if(closeFlag){
+      updateDoc(ref , {
+        isMeeting: false
+      })
+      console.log("closeFlag is true")
+    }
+  },[closeFlag]);
   //ミーティング時間が変更されたとき、タイマーをセットしなおす
   useEffect(()=>{
     restart(expiryTimestamp);
@@ -72,12 +86,20 @@ const Timer = () => {
 
   //firestoreのミーティング時間更新時の処理
   const unsub = onSnapshot(ref, (doc) => {
-    const newExpiryTimestamp = doc.data().expiryTimestamp;//dbのミーティング終了時刻
-    const newMeetingTime = doc.data().meetingTime;
-    const extension = newMeetingTime - meetingTime;
-    if(extension > 0){
-      setMeetingTime(newMeetingTime);
-      expiryTimestamp.setSeconds(newExpiryTimestamp.getSeconds() + 60*extension);
+    const isMeeting = doc.data().isMeeting;
+    if(isMeeting){
+      const newExpiryTimestamp = doc.data().expiryTimestamp;//dbのミーティング終了時刻
+      const newMeetingTime = doc.data().meetingTime;
+      const extension = newMeetingTime - meetingTime;
+      if(extension > 0){
+        setMeetingTime(newMeetingTime);
+        expiryTimestamp.setSeconds(newExpiryTimestamp.getSeconds() + 60*extension);
+      }
+    }else{
+      if(closeFlag == false){
+        onClose();
+      }
+      
     }
 });
 
