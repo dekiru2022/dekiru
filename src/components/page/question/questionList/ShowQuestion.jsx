@@ -173,9 +173,9 @@ function QuestionPage(props) {
     }, [question])
 
     return (
-        <Grid container>
+        <Grid container alignItems="center" justifyContent="center" >
             <Grid item xs={0} sm={1} md={3} />
-            <Grid item xs={12} sm={10} md={6}>
+            <Grid item xs={10} sm={10} md={6} >
                 <Box mx={'auto'}>
                     <Card sx={{ my: 4 }} >
                         <CardHeader
@@ -190,6 +190,7 @@ function QuestionPage(props) {
                         // subheader={user.ages + '歳'}
                         />
 
+                        {/* 相談内容　詳細　見出し */}
                         <CardContent>
                             <Typography variant="subtitle1" color="text.primary">
                                 {question.title}
@@ -212,6 +213,7 @@ function QuestionPage(props) {
                         </CardActions> */}
                     </Card>
 
+                    {/* 解決候補者一覧 */}
                     <Box>
                         <Stack justifyContent="space-between" alignItems="center" direction="row">
                             <Box>
@@ -228,23 +230,6 @@ function QuestionPage(props) {
                                 </Select>
                             </Box>
                             <Box>
-                                <InputLabel id="job">職業</InputLabel>
-                                <Select
-                                    labelId="job"
-                                    id="demo-simple-select"
-                                    label="カテゴリー"
-                                    title="category_id"
-                                    style={{ fontSize: '21px' }}
-                                    onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
-                                    value={formData.categoryId}
-                                >
-                                    {categoriesArray.map((categoryArray, index) => (
-                                        <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
-                                    ))}
-                                </Select>
-
-                            </Box>
-                            <Box>
                                 <InputLabel id="experience">職務経験</InputLabel>
                                 <Select
                                     labelId="experience"
@@ -257,8 +242,23 @@ function QuestionPage(props) {
                                     ))}
                                 </Select>
                             </Box>
-                            <Box />
                         </Stack>
+                        <Box style={{ widht: '100%' }}>
+                            <InputLabel id="job">職業</InputLabel>
+                            <Select
+                                labelId="job"
+                                id="demo-simple-select"
+                                label="カテゴリー"
+                                title="category_id"
+                                style={{ fontSize: '21px', widht: '80%' }}
+                                onChange={e => setFormData({ ...formData, 'categoryId': e.target.value })}
+                                value={formData.categoryId}
+                            >
+                                {categoriesArray.map((categoryArray, index) => (
+                                    <MenuItem style={{ fontSize: '18px' }} value={categoryArray.categoryId} key={index}>{categoryArray.category}</MenuItem>
+                                ))}
+                            </Select>
+                        </Box>
                         <Stack justifyContent="center" alignItems="center">
                             <StyleTextField
                                 label="コメント"
