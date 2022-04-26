@@ -100,7 +100,7 @@ function QuestionPage(props) {
         }
         formData.userUnitPrice = '200';
         formData.time = time;
-        formData.userJob = job;
+        
         formData.userExperience = experience;
         formData.ansStatus = '1';
         formData.createdAt = datetime;
