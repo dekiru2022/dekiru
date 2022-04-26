@@ -95,6 +95,7 @@ function Survey_for_A(props) {
     formData.deleteFlg = 0;
     console.log(formData);
     await API.graphql({ query: createQuestionQuestionnaireMutation, variables: { input: formData } });
+    window.location.href = '/';
   }
 
   return (

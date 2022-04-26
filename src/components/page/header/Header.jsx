@@ -42,35 +42,37 @@ const Header = ({ signOut, user }) => {
 
                 {/* ロゴの表示 */}
                 <Button color="primary" component={LinkRouter} to="/" style={{ marginBottom: '1.1%' }}>
-                  <img width="60%" src={logo2} alt="DEKIRU"></img>
+                  <img width="60%" src={logo2} alt="MyDREAMS"></img>
                 </Button>
                 <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
 
                   {/* 各種ボタン（PC） */}
-                  <Button
-                    className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} 
-                    variant="contained"
-                    component={LinkRouter}
-                    to={"/"}
-                    sx={{ fontSize: 20 }}
-                     >ホーム
-                  </Button>
-                  <Button
-                    className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} 
-                    variant="contained"
-                    component={LinkRouter}
-                    to={"/setting"}
-                    sx={{ fontSize: 20}}
+                  <div className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} >
+                    <Button
+                      variant="contained"
+                      component={LinkRouter}
+                      to={"/"}
+                      sx={{ fontSize: 20 }}
+                    >ホーム
+                    </Button>
+                    </div>
+                    <div className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} >
+                    <Button
+                      variant="contained"
+                      component={LinkRouter}
+                      to={"/setting"}
+                      sx={{ fontSize: 20 }}
                     >設定
-                  </Button>
-                  <Button
-                    className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} 
-                    variant="contained"
-                    onClick={SignOut}
-                    sx={{ fontSize: 20 }} 
+                    </Button>
+                    </div>
+                    <div className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }} >
+                    <Button
+                      variant="contained"
+                      onClick={SignOut}
+                      sx={{ fontSize: 20 }}
                     >ログアウト
-                  </Button>
-
+                    </Button>
+                  </div>
                   {/* 各種ボタン（スマホ） */}
                   <div className="smartphone-area" style={{ margin: '2% 0% 1% 0%' }} >
                     <IconButton component={LinkRouter} to="/">
@@ -93,7 +95,7 @@ const Header = ({ signOut, user }) => {
             </Toolbar>
           </AppBar>
         </Grid>
-        
+
         {/* 境界線 */}
         <Grid item style={{
           width: '95%',

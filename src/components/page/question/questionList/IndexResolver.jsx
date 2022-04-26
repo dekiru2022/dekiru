@@ -5,6 +5,7 @@
 //
 //  解決希望者一覧
 //
+
 import React, { useState, useEffect, } from 'react';
 import { Link as LinkRouter } from 'react-router-dom';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
@@ -235,6 +236,7 @@ export default function IndexResolver(props) {
                     {/* <Typography color="text.secondary">
                             {'保有資格：' + user.firstName}
                           </Typography> */}
+
                     <Typography variant="body2" color="text.secondary">
                       {'性別：' + user.userSex}
                       <br />
@@ -244,7 +246,9 @@ export default function IndexResolver(props) {
                       <br />
                       {'解決時間：' + user.time + '分'}
                       <br />
-                      {'相談費用：' + user.userUnitPrice + '円'}
+                      {'相談金額：' + user.userUnitPrice + '円'}
+                      <br />
+                      {'合計金額：' + (parseInt(user.userUnitPrice)*parseInt(user.time) / 10) + '円'}
                     </Typography>
                   </CardContent>
 

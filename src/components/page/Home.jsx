@@ -49,7 +49,12 @@ export default function Home() {
     let user1 = await Auth.currentAuthenticatedUser();
     const cognitoID = user1.attributes.sub;
 
-
+    // const containerStyle = {
+    //   backgroundImage:
+    //     "url(https://mydreams769891ee61d8400295a4455b85879f9f123131-develop.s3.ap-northeast-1.amazonaws.com/background/%E3%83%9B%E3%83%BC%E3%83%A0_k04c%E6%96%87%E5%AD%97%E3%81%AA%E3%81%97.jpg)",
+    //   width: "600px",
+    //   height: "600px",
+    // };
     //filterの参考：https://qiita.com/isamuJazz/items/22b34985d9ee17d890c6
     const result = await API.graphql(graphqlOperation(listQuestions, {
       filter: {
@@ -100,45 +105,46 @@ export default function Home() {
   return (
     <>
       {/* PC */}
-      <p className="pc-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
+      <p className="pc-area" style={{ overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTop} ></img>
-        <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
+        {/* <div style={containerStyle}><h1 style={{color: "black"}}>Hi! Try edit me</h1></div> */}
+        <Grid container className="pc-area" justifyContent="center" alignItems="center" style={{ bottom: 0, left: 0 }} >
           <Grid item style={{ paddingRight: '1.5%' }} className="pc-area">
             {checkBottomFlag
               ? // <StyleButton title="相談する" to="/postQuestion" fontSize="3.2rem" />
-                <Button component={LinkRouter} to="/postQuestion" style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
+                <Button component={LinkRouter} to="/postQuestion" style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={QuesButton}></img></Button>
               : // <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="3.2rem" />
-                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
+                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={QuesButton}></img></Button>
             }
           </Grid>
           <Grid item style={{ paddingLeft: '1.5%' }} className="pc-area">
             {checkAnsFlag
               ? // <StyleButton title="解決する" to="/indexQuestion" fontSize="3.2rem" />
-                <Button component={LinkRouter} to="/indexQuestion" style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
+                <Button component={LinkRouter} to="/indexQuestion" style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={ResolveButton}></img></Button>
               : // <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="3.2rem" />
-                <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
+                <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} style={{ width: '75%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={ResolveButton}></img></Button>
             }
           </Grid>
         </Grid>
       </p>
       {/* スマホ */}
-      <p className="smartphone-area" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
+      <p className="smartphone-area" style={{ overflow: 'hidden', textAlign: 'center' }}>
         <img alignItems="center" width="100%" height="auto" src={HomeTopPhone} ></img>
-        <Grid container className="smartphone-area" justifyContent="center" alignItems="center" style={{ position: 'absolute', bottom: 0, left: 0 }} >
+        <Grid container className="smartphone-area" justifyContent="center" alignItems="center" style={{ bottom: 0, left: 0 }} >
           <Grid item style={{ paddingRight: '0.5%' }} xs={5} className="smartphone-area" >
             {checkBottomFlag
               ? //<StyleButton title="相談する" to="/postQuestion" fontSize="1.5rem" />
-                <Button component={LinkRouter} to="/postQuestion" style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
+                <Button component={LinkRouter} to="/postQuestion" style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={QuesButton}></img></Button>
               : // <StyleQuesButton title="相談中" to={`/indexResolver/${questionId}`} fontSize="1.5rem" />
-                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={QuesButton}></img></Button>
+                <Button component={LinkRouter} to={`/indexResolver/${questionId}`} style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={QuesButton}></img></Button>
             }
           </Grid>
           <Grid item style={{ paddingLeft: '0.5%' }} xs={5} className="smartphone-area" >
             {checkAnsFlag
               ? // <StyleButton title="解決する" to="/indexQuestion" fontSize="1.5rem" />
-                <Button component={LinkRouter} to="/indexQuestion" style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
+                <Button component={LinkRouter} to="/indexQuestion" style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={ResolveButton}></img></Button>
               : // <StyleQuesButton title="解決中" to={`/indexQuestion/${answerId}`} fontSize="1.5rem" />
-                <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,0.5)' }} ><img src={ResolveButton}></img></Button>
+                <Button component={LinkRouter} to={`/indexQuestion/${answerId}`} style={{ width: '100%', height: 'auto' , border: '0.1rem solid #26418D', background: 'rgba(255,255,255,1)' }} ><img src={ResolveButton}></img></Button>
             }
           </Grid>
         </Grid>

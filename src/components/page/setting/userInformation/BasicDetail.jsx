@@ -25,6 +25,7 @@ import { user as TestUser } from '../../../../database/current_user_data';
 import Avatar from '@mui/material/Avatar';
 import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
+import { Link as LinkRouter } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -94,6 +95,10 @@ export default function BasicDetail() {
     //     }
 
     // }, [file]);
+    const getPoint = () => {
+        let point = user.point;
+        return point.toLocaleString();
+    }
 
     const getSex = () => {
         // console.log(user)
@@ -103,6 +108,71 @@ export default function BasicDetail() {
             return '女性'
         } else {
             return 'その他'
+        }
+    }
+    const getJob = () => {
+        console.log(user.categoryId);
+        
+        switch (user.categoryId) {
+            case '1':
+                return '農業,林業';
+                
+            case '2':
+                return '漁業';
+                
+            case '3':
+                return '鉱業,採石業,砂利採取業';
+                
+            case '4':
+                return '建設業';
+                
+            case '5':
+                return '製造業';
+                
+            case '6':
+                return '電気・ガス・熱供給・水道業';
+                
+            case '7':
+                return '情報通信業';
+                
+            case '8':
+                return '運輸業,郵便業';
+                
+            case '9':
+                return '卸売業・小売業';
+                
+            case '10':
+                return '金融業,保険業';
+                
+            case '11':
+                return '不動産業,物品賃貸業';
+                
+            case '12':
+                return '学術研究,専門・技術サービス業';
+                
+            case '13':
+                return '宿泊業,飲食店';
+                
+            case '14':
+                return '生活関連サービス業,娯楽業';
+                
+            case '15':
+                return '教育学習支援業';
+                
+            case '16':
+                return '医療,福祉';
+                
+            case '17':
+                return '複合サービス事業';
+                
+            case '18':
+                return 'サービス業';
+                
+            case '19':
+                return 'その他';
+                
+            default:
+                return '不明';
         }
     }
 
@@ -145,12 +215,17 @@ export default function BasicDetail() {
                         titleTypographyProps={{ variant: 'h5' }}
                     /></p>
                     <CardContent>
-                        <Typography className="pc-area" variant="h5" >{user.point}</Typography>
-                        <Typography className="smartphone-area" variant="h6" >{user.point}</Typography>
+                        <Typography className="pc-area" variant="h5" >{getPoint()}</Typography>
+                        <Typography className="smartphone-area" variant="h6" >{getPoint()}</Typography>
                     </CardContent>
                     {/* ポイント購入ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleButton title="ポイント購入" to={`/PointPurchase`} />
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/PointPurchase`}
+                            sx={{ fontSize: 20 }}
+                        >ポイント購入</Button>
                     </CardActions>
                 </Card>
 
@@ -172,7 +247,12 @@ export default function BasicDetail() {
                     </CardContent>
                     {/* 出金ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                        <StyleButton title="出金" to="/showQuestion" />
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/PointPurchase`}
+                            sx={{ fontSize: 20 }}
+                        >出金</Button>
                     </CardActions>
                 </Card>
             </Grid>
@@ -196,8 +276,13 @@ export default function BasicDetail() {
                         <Typography className="smartphone-area" variant="h6"><p>メール： {user.mail}</p></Typography>
                     </CardContent>
                     {/* 変更ボタン */}
-                    <CardActions disableSpacing style={{ position: 'absolute', top: '10px', right: '10px' }}>
-                        <StyleButton title="変更" to="/BasicDetailsEdit" />
+                    <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/BasicDetailsEdit`}
+                            sx={{ fontSize: 20 }}
+                        >変更</Button>
                     </CardActions>
 
                     {/* 登録資格  実装予定 */}
@@ -245,8 +330,8 @@ export default function BasicDetail() {
                     </CardContent>
                     {/* 職業 */}
                     <CardContent>
-                        <Typography className="pc-area" variant="h5">　　職業： {user.job}</Typography>
-                        <Typography className="smartphone-area" variant="h6">　　職業： {user.job}</Typography>
+                        <Typography className="pc-area" variant="h5">　　職業： {getJob()}</Typography>
+                        <Typography className="smartphone-area" variant="h6">　　職業： {getJob()}</Typography>
                     </CardContent>
                     {/* 職務経験 */}
                     <CardContent>
@@ -255,8 +340,13 @@ export default function BasicDetail() {
                     </CardContent>
 
                     {/* 変更ボタン */}
-                    <CardActions disableSpacing style={{ position: 'absolute', top: '10px', right: '10px' }}>
-                        <StyleButton title="変更" to="/BasicDetailsUserEdit" />
+                    <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+                        <Button
+                            variant="contained"
+                            component={LinkRouter}
+                            to={`/BasicDetailsUserEdit`}
+                            sx={{ fontSize: 20 }}
+                        >変更</Button>
                     </CardActions>
                 </Card>
             </Grid>

@@ -14,7 +14,8 @@ import React, { useState, useEffect } from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
-import { Button } from '@mui/material';
+import { Link as LinkRouter } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 Amplify.configure(aws_exports);
 

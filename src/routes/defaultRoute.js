@@ -1,4 +1,4 @@
-import React, { useEffect, createRef ,useState} from "react";
+import React, { useEffect, createRef, useState } from "react";
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut, AmplifySignIn } from '@aws-amplify/ui-react';
@@ -22,16 +22,19 @@ import Survey_for_A from "../components/page/questionnaire/Survey_for_A";
 import Survey_for_Q from "../components/page/questionnaire/Survey_for_Q";
 import NotificationSystem from 'react-notification-system';
 
-import { onCreateNotice } from '../graphql/subscriptions';
-import { API, graphqlOperation } from 'aws-amplify';
+
+import {  getUserId } from '../graphql/queries';
+import { onCreateNotice ,onCreateQuestions} from '../graphql/subscriptions';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import '../styles/App.css';
+import { Sync } from "@mui/icons-material";
 
 Amplify.configure(awsconfig);
 
 function DefaultRoute() {
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
-
+  
   //プッシュ通知
   const ref = createRef();
   const [title, setTitle] = useState("あなたは選ばれました");
@@ -39,6 +42,7 @@ function DefaultRoute() {
   const [position, setPosition] = useState("tr");
   const [uid, setUid] = React.useState(0);
   const [autoDismiss, setAutoDismiss] = useState(30);
+  const [cognitoID, setCognitoID] = useState();
 
   // useEffect(() => {
   //   onAuthUIStateChange((nextAuthState, authData) => {
@@ -47,28 +51,61 @@ function DefaultRoute() {
   //   });
   // }, []);
 
-  useEffect(() => {
-    const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
-      next: (eventData) => {
-        const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
-        console.log(URL);
-        ref.current.addNotification({
-          title,
-          level,
-          position,
-          uid,
-          autoDismiss,
-          action: {
-            label: "相談者に会う",
-            callback: () => window.open(URL)
-          }
-        });
-      }
-    });
-    return () => subscription.unsubscribe();
-  })
+  useEffect( () => {
+    const f = async () =>{
+      let user1 = await Auth.currentAuthenticatedUser();
+      setCognitoID(user1.attributes.sub);
+
+      const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
+        next: (eventData) => {
   
-  return(
+          if (cognitoID === eventData.value.data.onCreateNotice.userId) {
+            ref.current.addNotification({
+              title,
+              level,
+              position,
+              uid,
+              autoDismiss,
+              action: {
+                label: "相談者に会う",
+                callback: () => window.open(URL)
+              }
+            });
+          }
+        }
+      });
+      return () => subscription.unsubscribe();
+    }
+    f();
+  })
+
+  useEffect( () => {
+    const f = async () =>{
+      let user1 = await Auth.currentAuthenticatedUser();
+      setCognitoID(user1.attributes.sub);
+      const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
+      
+
+      const subscription = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+        next: (eventData) => {
+  
+          if (apiUserData.data.getUserId.categoryId === eventData.value.data.onCreateQuestions.categoryId) {
+            ref.current.addNotification({
+              title: "新着相談があります",
+              level: "info",
+              position,
+              uid,
+              autoDismiss,
+            });
+          }
+        }
+      });
+      return () => subscription.unsubscribe();
+    }
+    f();
+  })
+
+  return (
     <BrowserRouter>
       {/* ヘッダー */}
       <Header />
@@ -107,7 +144,7 @@ function DefaultRoute() {
         <Route exact path='/indexResolver/:QuestionId' component={IndexResolver} />
         <Route exact path="/indexQuestion" component={IndexQuestion} />
         <Route exact path="/indexQuestion/:AnswerId" component={IndexQuestion} />
-        
+
         <Route exact path="/componets/TopBar/Question/Detail" component={BasicDetail} />
         {/* ユーザ関係 */}
         <Route exact path="/BasicDetailsEdit" component={BasicDetailsEdit} />
