@@ -12,13 +12,14 @@ import { useTimer } from "react-timer-hook";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { QuizTwoTone } from "@mui/icons-material";
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBKME9U-I7U50v7lgt0qaJO3duUphbZzB4",
-  authDomain: "mydream-ed7f7.firebaseapp.com",
-  projectId: "mydream-ed7f7",
-  storageBucket: "mydream-ed7f7.appspot.com",
-  messagingSenderId: "520787174919",
-  appId: "1:520787174919:web:d18694b6a92ebdb57e6ca2"
+  apiKey: "AIzaSyA6Ef3JjXb_MZ0JjD5JVpJODbOpRH2IeJw",
+  authDomain: "mydreams-36c7f.firebaseapp.com",
+  projectId: "mydreams-36c7f",
+  storageBucket: "mydreams-36c7f.appspot.com",
+  messagingSenderId: "1007216711491",
+  appId: "1:1007216711491:web:9f1ba14c091552499641f6"
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
