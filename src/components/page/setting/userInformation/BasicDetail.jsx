@@ -97,11 +97,13 @@ export default function BasicDetail() {
     // }, [file]);
     const getPoint = () => {
         let point = user.point;
-        return point.toLocaleString();
+        // let  display = point.toLocaleString()
+        return point
     }
 
     const getSex = () => {
         // console.log(user)
+        console.log(user.sex);
         if (user.sex == 0) {
             return '男性'
         } else if (user.sex == 1) {
