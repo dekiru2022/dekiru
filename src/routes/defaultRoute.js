@@ -23,18 +23,19 @@ import Survey_for_Q from "../components/page/questionnaire/Survey_for_Q";
 import NotificationSystem from 'react-notification-system';
 
 
-import {  getUserId } from '../graphql/queries';
-import { onCreateNotice ,onCreateQuestions} from '../graphql/subscriptions';
+import { getUserId } from '../graphql/queries';
+import { onCreateNotice, onCreateQuestions } from '../graphql/subscriptions';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import '../styles/App.css';
 import { Sync } from "@mui/icons-material";
+
 
 Amplify.configure(awsconfig);
 
 function DefaultRoute() {
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
-  
+
   //プッシュ通知
   const ref = createRef();
   const [title, setTitle] = useState("あなたは選ばれました");
@@ -51,14 +52,14 @@ function DefaultRoute() {
   //   });
   // }, []);
 
-  useEffect( () => {
-    const f = async () =>{
+  useEffect(() => {
+    const f = async () => {
       let user1 = await Auth.currentAuthenticatedUser();
       setCognitoID(user1.attributes.sub);
 
       const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
         next: (eventData) => {
-  
+          const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
           if (cognitoID === eventData.value.data.onCreateNotice.userId) {
             ref.current.addNotification({
               title,
@@ -77,21 +78,15 @@ function DefaultRoute() {
       return () => subscription.unsubscribe();
     }
     f();
-  })
-
-  useEffect( () => {
-    const f = async () =>{
-      let user1 = await Auth.currentAuthenticatedUser();
-      setCognitoID(user1.attributes.sub);
-      const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
-      
-
-      const subscription = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+    const f1 = async () => {
+      const subscription1 = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
         next: (eventData) => {
-  
-          if (apiUserData.data.getUserId.categoryId === eventData.value.data.onCreateQuestions.categoryId) {
+          console.log(eventData.value.data.onCreateQuestions.categoryId);
+          console.log(localStorage.getItem('categoryId'));
+          let aaa = parseInt(localStorage.getItem('categoryId'));
+          if (eventData.value.data.onCreateQuestions.categoryId === aaa) {
             ref.current.addNotification({
-              title: "新着相談があります",
+              title: '新着の質問があります',
               level: "info",
               position,
               uid,
@@ -100,10 +95,11 @@ function DefaultRoute() {
           }
         }
       });
-      return () => subscription.unsubscribe();
+      return () => subscription1.unsubscribe();
     }
-    f();
+    f1();
   })
+
 
   return (
     <BrowserRouter>
