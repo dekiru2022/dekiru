@@ -132,7 +132,7 @@ function PostQuestion() {
 
     const r = await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
     const url = r.data.createQuestions.id;
-    //window.location.href = `/indexResolver/${url}`;
+    window.location.href = `/indexResolver/${url}`;
   }
 
   // 画面描画

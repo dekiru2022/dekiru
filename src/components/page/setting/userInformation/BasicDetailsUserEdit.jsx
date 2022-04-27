@@ -44,6 +44,7 @@ function BasicDetailsUserEdit() {
     const updateUser = async () => {
         const a = await API.graphql(graphqlOperation(UpdateUserIdMutation, { input: user }))
         console.log(a);
+        localStorage.setItem('categoryId', user.categoryId);
     }
 
     // 入力チェック
@@ -53,7 +54,7 @@ function BasicDetailsUserEdit() {
         // OKボタン押下時
         if (result) {
             updateUser()
-            //window.location.href = '/setting';
+            window.location.href = '/setting';
         } else {
             // キャンセルボタン押下時
             // 何も処理を行わない

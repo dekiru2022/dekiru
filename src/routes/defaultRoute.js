@@ -81,8 +81,6 @@ function DefaultRoute() {
     const f1 = async () => {
       const subscription1 = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
         next: (eventData) => {
-          console.log(eventData.value.data.onCreateQuestions.categoryId);
-          console.log(localStorage.getItem('categoryId'));
           let aaa = parseInt(localStorage.getItem('categoryId'));
           if (eventData.value.data.onCreateQuestions.categoryId === aaa) {
             ref.current.addNotification({
