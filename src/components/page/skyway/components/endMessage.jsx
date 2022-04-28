@@ -15,8 +15,8 @@ export default function EndMessage(){
       <Stack justifyContent="space-evenly" alignItems="center" direction="column" sx={{ height: "100%"}}>
       制限時間が終了しました。評価アンケートにご協力ください。
       {isHost == 1
-      ?<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/questioner`} >回答する</Button>
-      :<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/respondent`} >回答する</Button>
+      ?<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/respondent`} >回答する</Button>
+      :<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/questioner`} >回答する</Button>
       }
       </Stack>
       
