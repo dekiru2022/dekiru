@@ -24,7 +24,7 @@ import NotificationSystem from 'react-notification-system';
 
 
 import { getUserId } from '../graphql/queries';
-import { onCreateNotice, onCreateQuestions } from '../graphql/subscriptions';
+import { onCreateNotice, onCreateQuestions ,onCreateAnswerUser} from '../graphql/subscriptions';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import '../styles/App.css';
 import { Sync } from "@mui/icons-material";
@@ -96,6 +96,24 @@ function DefaultRoute() {
       return () => subscription1.unsubscribe();
     }
     f1();
+    const f2 = async () => {
+      const subscription1 = API.graphql(graphqlOperation(onCreateAnswerUser)).subscribe({
+        next: (eventData) => {
+          let bbb = localStorage.getItem('questionId');
+          if (eventData.value.data.onCreateAnswerUser.questionId === bbb) {
+            ref.current.addNotification({
+              title: '質問に対しての解決者がいます！',
+              level,
+              position,
+              uid,
+              autoDismiss,
+            });
+          }
+        }
+      });
+      return () => subscription1.unsubscribe();
+    }
+    f2();
   })
 
 
