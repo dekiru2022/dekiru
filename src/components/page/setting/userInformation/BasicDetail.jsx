@@ -114,68 +114,72 @@ export default function BasicDetail() {
     }
     const getJob = () => {
         console.log(user.categoryId);
-        
-        switch (user.categoryId) {
-            case '1':
-                return '農業,林業';
-                
-            case '2':
-                return '漁業';
-                
-            case '3':
-                return '鉱業,採石業,砂利採取業';
-                
-            case '4':
-                return '建設業';
-                
-            case '5':
-                return '製造業';
-                
-            case '6':
-                return '電気・ガス・熱供給・水道業';
-                
-            case '7':
-                return '情報通信業';
-                
-            case '8':
-                return '運輸業,郵便業';
-                
-            case '9':
-                return '卸売業・小売業';
-                
-            case '10':
-                return '金融業,保険業';
-                
-            case '11':
-                return '不動産業,物品賃貸業';
-                
-            case '12':
-                return '学術研究,専門・技術サービス業';
-                
-            case '13':
-                return '宿泊業,飲食店';
-                
-            case '14':
-                return '生活関連サービス業,娯楽業';
-                
-            case '15':
-                return '教育学習支援業';
-                
-            case '16':
-                return '医療,福祉';
-                
-            case '17':
-                return '複合サービス事業';
-                
-            case '18':
-                return 'サービス業';
-                
-            case '19':
-                return 'その他';
-                
+        const Cid = parseInt(user.categoryId);
+        let returnJob;
+
+        switch (Cid) {
+            case 1:
+                returnJob = '農業,林業';
+                break;
+            case 2:
+                returnJob = '漁業';
+                break;
+            case 3:
+                returnJob ='鉱業,採石業,砂利採取業';
+                break;
+            case 4:
+                returnJob = '建設業';
+                break;
+            case 5:
+                returnJob = '製造業';
+                break;
+            case 6:
+                returnJob = '電気・ガス・熱供給・水道業';
+                break;
+            case 7:
+                returnJob = '情報通信業';
+                break;
+            case 8:
+                returnJob = '運輸業,郵便業';
+                break;
+            case 9:
+                returnJob = '卸売業・小売業';
+                break;
+            case 10:
+                returnJob = '金融業,保険業';
+                break;
+            case 11:
+                returnJob = '不動産業,物品賃貸業';
+                break;
+            case 12:
+                returnJob = '学術研究,専門・技術サービス業';
+                break;
+            case 13:
+                returnJob ='宿泊業,飲食店';
+                break;
+            case 14:
+                returnJob = '生活関連サービス業,娯楽業';
+                break;
+            case 15:
+                returnJob = '教育学習支援業';
+                break;
+            case 16:
+                returnJob = '医療,福祉';
+                break;
+            case 17:
+                returnJob = '複合サービス事業';
+                break;
+            case 18:
+                returnJob = 'サービス業';
+                break;
+            case 19:
+                returnJob = 'その他';
+                break;
             default:
-                return '不明';
+                returnJob = '不明';
+                break;
         }
+        return returnJob;
     }
 
     async function onClick(e) {

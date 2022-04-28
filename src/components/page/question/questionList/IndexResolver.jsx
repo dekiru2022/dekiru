@@ -65,7 +65,7 @@ export default function IndexResolver(props) {
       next: (eventData) => {
         const post = eventData.value.data.onCreateAnswerUser;
         const posts = [...users, post];
-        setQuestions(posts);
+        setResolver(posts);
       }
     });
     return () => subscription.unsubscribe();

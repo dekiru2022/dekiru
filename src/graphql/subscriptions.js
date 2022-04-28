@@ -44,6 +44,7 @@ export const onCreateUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      categoryId
       experience
       licenseFlag
       identificationFlag
@@ -72,6 +73,7 @@ export const onUpdateUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      categoryId
       experience
       licenseFlag
       identificationFlag
@@ -100,6 +102,7 @@ export const onDeleteUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      categoryId
       experience
       licenseFlag
       identificationFlag
@@ -224,6 +227,7 @@ export const onCreateAnswerUser = /* GraphQL */ `
       questionContent
       comment
       userHandleName
+      categoryId
       userJob
       userExperience
       userLicenseFlag
@@ -247,6 +251,7 @@ export const onUpdateAnswerUser = /* GraphQL */ `
       questionContent
       comment
       userHandleName
+      categoryId
       userJob
       userExperience
       userLicenseFlag
@@ -270,6 +275,7 @@ export const onDeleteAnswerUser = /* GraphQL */ `
       questionContent
       comment
       userHandleName
+      categoryId
       userJob
       userExperience
       userLicenseFlag

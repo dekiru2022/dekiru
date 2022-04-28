@@ -132,6 +132,7 @@ function PostQuestion() {
 
     const r = await API.graphql({ query: createQuestionsMutation, variables: { input: formData } });
     const url = r.data.createQuestions.id;
+    localStorage.setItem('questionId', url);
     window.location.href = `/indexResolver/${url}`;
   }
 

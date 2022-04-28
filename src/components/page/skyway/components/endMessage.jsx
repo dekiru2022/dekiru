@@ -19,7 +19,6 @@ export default function EndMessage(){
       :<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/respondent`} >回答する</Button>
       }
       </Stack>
-      
     </Box>
   )
 }

@@ -40,6 +40,7 @@ export const getUserId = /* GraphQL */ `
       handleName
       mail
       sex
+      categoryId
       experience
       licenseFlag
       identificationFlag
@@ -73,6 +74,7 @@ export const listUserIds = /* GraphQL */ `
         handleName
         mail
         sex
+        categoryId
         experience
         licenseFlag
         identificationFlag
@@ -181,6 +183,7 @@ export const getAnswerUser = /* GraphQL */ `
       questionContent
       comment
       userHandleName
+      categoryId
       userJob
       userExperience
       userLicenseFlag
@@ -209,6 +212,7 @@ export const listAnswerUsers = /* GraphQL */ `
         questionContent
         comment
         userHandleName
+        categoryId
         userJob
         userExperience
         userLicenseFlag

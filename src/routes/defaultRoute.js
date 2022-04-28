@@ -23,12 +23,13 @@ import Survey_for_Q from "../components/page/questionnaire/Survey_for_Q";
 import NotificationSystem from 'react-notification-system';
 
 
-import {  getUserId } from '../graphql/queries';
-import { onCreateNotice ,onCreateQuestions} from '../graphql/subscriptions';
+import { getUserId } from '../graphql/queries';
+import { onCreateNotice, onCreateQuestions ,onCreateAnswerUser} from '../graphql/subscriptions';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import '../styles/App.css';
 import { Sync } from "@mui/icons-material";
 import Tmp from '../components/page/setting/userInformation/Tmp';
+
 
 
 Amplify.configure(awsconfig);
@@ -36,7 +37,7 @@ Amplify.configure(awsconfig);
 function DefaultRoute() {
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
-  
+
   //プッシュ通知
   const ref = createRef();
   const [title, setTitle] = useState("あなたは選ばれました");
@@ -53,14 +54,14 @@ function DefaultRoute() {
   //   });
   // }, []);
 
-  useEffect( () => {
-    const f = async () =>{
+  useEffect(() => {
+    const f = async () => {
       let user1 = await Auth.currentAuthenticatedUser();
       setCognitoID(user1.attributes.sub);
 
       const subscription = API.graphql(graphqlOperation(onCreateNotice)).subscribe({
         next: (eventData) => {
-  
+          const URL = eventData.value.data.onCreateNotice.linkDestinationUrl;
           if (cognitoID === eventData.value.data.onCreateNotice.userId) {
             ref.current.addNotification({
               title,
@@ -79,21 +80,13 @@ function DefaultRoute() {
       return () => subscription.unsubscribe();
     }
     f();
-  })
-
-  useEffect( () => {
-    const f = async () =>{
-      let user1 = await Auth.currentAuthenticatedUser();
-      setCognitoID(user1.attributes.sub);
-      const apiUserData = await API.graphql(graphqlOperation(getUserId, { id: cognitoID }));
-      
-
-      const subscription = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
+    const f1 = async () => {
+      const subscription1 = API.graphql(graphqlOperation(onCreateQuestions)).subscribe({
         next: (eventData) => {
-  
-          if (apiUserData.data.getUserId.categoryId === eventData.value.data.onCreateQuestions.categoryId) {
+          let aaa = parseInt(localStorage.getItem('categoryId'));
+          if (eventData.value.data.onCreateQuestions.categoryId === aaa) {
             ref.current.addNotification({
-              title: "新着相談があります",
+              title: '新着の質問があります',
               level: "info",
               position,
               uid,
@@ -102,10 +95,29 @@ function DefaultRoute() {
           }
         }
       });
-      return () => subscription.unsubscribe();
+      return () => subscription1.unsubscribe();
     }
-    f();
+    f1();
+    const f2 = async () => {
+      const subscription1 = API.graphql(graphqlOperation(onCreateAnswerUser)).subscribe({
+        next: (eventData) => {
+          let bbb = localStorage.getItem('questionId');
+          if (eventData.value.data.onCreateAnswerUser.questionId === bbb) {
+            ref.current.addNotification({
+              title: '質問に対しての解決者がいます！',
+              level,
+              position,
+              uid,
+              autoDismiss,
+            });
+          }
+        }
+      });
+      return () => subscription1.unsubscribe();
+    }
+    f2();
   })
+
 
   return (
     <BrowserRouter>
@@ -156,8 +168,8 @@ function DefaultRoute() {
         <Route exact path="/PointPurchase/" component={Money} />
 
         {/* アンケート関係 */}
-        <Route exact path="/questionnaire/:questionId/questioner" component={Survey_for_Q} />
-        <Route exact path="/questionnaire/:questionId/respondent" component={Survey_for_A} />
+        <Route exact path="/questionnaire/:questionId/questioner" component={Survey_for_A} />
+        <Route exact path="/questionnaire/:questionId/respondent" component={Survey_for_Q} />
       </Switch>
 
       {/* フッター */}

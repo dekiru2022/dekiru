@@ -15,7 +15,8 @@ type UserId @model {
   birthday: String
   handleName: String
   mail: String!
-  sex: Int
+  sex: Int  
+  categoryId: Int
   experience: String
   licenseFlag: Int
   identificationFlag: Int
@@ -31,7 +32,6 @@ type UserId @model {
   deletedAt: AWSDateTime
   job: String
   address: String
-  
 }
 
 type Questions @model {

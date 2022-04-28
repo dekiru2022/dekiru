@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import DefaultRoute from './defaultRoute';
 import Skyway from '../components/page/skyway/Skyway';
 
-function afterLoginRoute() {
 
+function afterLoginRoute() {
   return (
     <BrowserRouter>
       {/* headerとfooterがいらないページはここでルーティング */}
@@ -15,5 +15,5 @@ function afterLoginRoute() {
       </Switch>
     </BrowserRouter>
   )
-}
+};
 export default afterLoginRoute;
