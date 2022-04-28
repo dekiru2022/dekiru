@@ -48,10 +48,10 @@ function BasicDetailsEdit() {
         if (user.handleName == "" || user.mail == "") {
             alert('ユーザー名とメールは必須項目です。');
         } else {
-            let result = window.confirm('相談を送信してもよろしいですか？');
+            let result = window.confirm('資格登録です。');
             // OKボタン押下時
             if (result) {
-                createQuestions();
+                // createQuestions();
                 window.location.href = '/setting';
                 // キャンセルボタン押下時
             } else {
@@ -155,12 +155,11 @@ function BasicDetailsEdit() {
                     {/* 資格登録ボタン */}
                     <CardActions disableSpacing style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                         <Button
-                            className="pc-area" style={{ margin: '0.5% 1% 0.5% 1%' }}
                             variant="contained"
-
                             sx={{ fontSize: 20 }}
                             onClick={inputCheck}
-                        >資格登録
+                        >
+                        資格登録
                         </Button>
                     </CardActions>
                 </Card>

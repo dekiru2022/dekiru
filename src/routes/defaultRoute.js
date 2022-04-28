@@ -28,6 +28,8 @@ import { onCreateNotice ,onCreateQuestions} from '../graphql/subscriptions';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import '../styles/App.css';
 import { Sync } from "@mui/icons-material";
+import Tmp from '../components/page/setting/userInformation/Tmp';
+
 
 Amplify.configure(awsconfig);
 
@@ -132,6 +134,8 @@ function DefaultRoute() {
 
       {/* ルーティング */}
       <Switch>
+
+      <Route exact path="/tmp" component={Tmp} />
 
         {/* ヘッダーナビゲーション関係 */}
         <Route exact path="/notifications" component={Notice} />

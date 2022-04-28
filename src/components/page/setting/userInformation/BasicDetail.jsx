@@ -252,7 +252,7 @@ export default function BasicDetail() {
                         <Button
                             variant="contained"
                             component={LinkRouter}
-                            to={`/PointPurchase`}
+                            to={`/Tmp`}
                             sx={{ fontSize: 20 }}
                         >出金</Button>
                     </CardActions>
