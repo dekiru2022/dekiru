@@ -25,7 +25,7 @@ const MenuBar = () => {
   
   return (
     <Box sx={wrapperStyle}>
-      <Stack justifyContent="center" alignItems="center" direction="row" spacing={4}>
+      <Stack justifyContent="center" alignItems="center" direction="row" spacing={3}>
           <Stack direction="row" spacing={2} sx={fontStyle}>
             <Button color="primary" variant="text" onClick={() => {setUserAudio(prev => !prev)}}>
               {userAudio
