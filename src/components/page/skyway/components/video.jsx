@@ -35,7 +35,7 @@ export default function Video(props){
 }
 
 const videoStyle = {
-  outline: `1px solid #eee`,
+  outline: `1px solid #e00`,
   width: "100%",
   height: "100%",
   maxWidth: "100%",
