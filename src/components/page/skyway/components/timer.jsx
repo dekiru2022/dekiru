@@ -45,9 +45,9 @@ const Timer = () => {
     onClose();
   }});
 
-  //質問者(isHost = 0)なら、終了時刻をCloud Firestoreに保存
+  //質問者(isHost = 1)なら、終了時刻をCloud Firestoreに保存
   useEffect(()=>{
-    if(isHost == 0){
+    if(isHost == 1){
       setDoc(ref , {
         questionId: questionId,
         meetingTime: meetingTime,

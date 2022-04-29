@@ -14,7 +14,7 @@ export default function EndMessage(){
     <Box sx={{position: "fixed", top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '70vw', height: '60vh', backgroundColor: '#FFF'}} >
       <Stack justifyContent="space-evenly" alignItems="center" direction="column" sx={{ height: "100%"}}>
       ミーティングが終了しました。評価アンケートにご協力ください。
-      {isHost == 0
+      {isHost == 1
       ?<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/questioner`} >回答する</Button>
       :<Button size='large' variant='contained' color="success" component={LinkRouter} to={`/questionnaire/${questionId}/respondent`} >回答する</Button>
       }
