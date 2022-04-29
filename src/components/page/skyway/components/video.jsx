@@ -25,7 +25,8 @@ export default function Video(props){
           width="100%"
           height="100%"
           ref={stream}
-          autoPlay 
+          autoplay
+          playsinline
           muted={me} />
       </Box>
       }
